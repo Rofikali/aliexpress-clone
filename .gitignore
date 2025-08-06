@@ -115,7 +115,7 @@ target/
 # IPython
 profile_default/
 ipython_config.py
-
+.gitignore  
 
 .pdm.toml
 .pdm-python
