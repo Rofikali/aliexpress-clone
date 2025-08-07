@@ -6,8 +6,6 @@
 .cache
 dist
 
-* TikTokClone
-
 # Node dependencies
 node_modules
 *djangonuxtsessionauth
@@ -117,7 +115,7 @@ target/
 # IPython
 profile_default/
 ipython_config.py
-
+.gitignore  
 
 .pdm.toml
 .pdm-python
@@ -134,8 +132,8 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
-.venv
+# .env
+# .venv
 env/
 venv/
 ENV/

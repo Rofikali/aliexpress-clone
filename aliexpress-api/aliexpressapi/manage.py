@@ -1,12 +1,18 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
+
 import os
 import sys
+from configs import base as base_config
 
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'aliexpressapi.settings')
+    # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'aliexpressapi.settings')
+    if base_config.DEBUG:
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "configs.dev")
+    else:
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "configs.prod")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -18,5 +24,5 @@ def main():
     execute_from_command_line(sys.argv)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

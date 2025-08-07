@@ -2,6 +2,10 @@ uv init
 
 uv add django
 
+uv venv
+
+uv pip install -r pyproject.toml
+
 # 📁 Scalable Microservices Django Project Structure
 
 This structure is designed for extreme scale — up to **1 trillion users**, assuming distributed infrastructure, Kubernetes, PostgreSQL clusters, and high-performance caching and queuing systems.
@@ -9,8 +13,8 @@ This structure is designed for extreme scale — up to **1 trillion users**, ass
 ## 🗂️ Folder Structure
 project_root/
 │
-├── apps/                         # All reusable Django apps (each is like a service)
-│   ├── users/                    # Authentication, registration
+├── apps/                            # All reusable Django apps (each is like a service)
+│   ├── accounts/                    # Authentication, registration
 │   │   ├── admin.py
 │   │   ├── apps.py
 │   │   ├── models/
