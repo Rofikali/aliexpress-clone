@@ -7,5 +7,5 @@ from .serializers import ProductSerializer
 class productsViewSet(ViewSet):
     def list(self, request):
         queryset = Products.objects.all()
-        serializer = ProductSerializer(queryset, many=True)
+        serializer = ProductSerializer(queryset, many=True, context={'request': request})
         return Response(serializer.data)
