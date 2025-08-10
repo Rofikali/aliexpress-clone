@@ -10,8 +10,30 @@ uv pip install -r pyproject.toml
 
 This structure is designed for extreme scale — up to **1 trillion users**, assuming distributed infrastructure, Kubernetes, PostgreSQL clusters, and high-performance caching and queuing systems.
 
-## 🗂️ Folder Structure
+## 🗂️ Folder Structure aliexressclone
 project_root/
+│
+├── components/                     # Reusable business-level components
+│   ├── pagination/                  # Custom pagination classes for DRF
+│   │   ├── __init__.py
+│   │   ├── base_cursor.py          # Base & custom paginations
+│   │   ├── offset_pagination.py
+│   │   └── infinite_scroll.py      # Infinite scroll pagination logic
+│   │
+│   ├── authentication/              # JWT or other auth helpers
+│   │   ├── __init__.py
+│   │   ├── jwt_utils.py
+│   │   └── backends.py
+│   │
+│   ├── responses/                    # Standard API response formats
+│   │   ├── __init__.py
+│   │   └── api_response.py
+│   │
+│   ├── mixins/                       # DRF view/serializer mixins
+│   │   ├── __init__.py
+│   │   └── soft_delete_mixin.py
+│   │
+│   └── __init__.py
 │
 ├── apps/                            # All reusable Django apps (each is like a service)
 │   ├── accounts/                    # Authentication, registration

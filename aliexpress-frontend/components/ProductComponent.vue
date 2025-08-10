@@ -8,8 +8,8 @@
         ">
         <NuxtLink :to="`/item/${product.id}`">
             <!-- <img class="rounded-t " :src="product.url"> -->
-            <img class="rounded-t " :src="product.image.url" alt="Product Image">
-
+            <!-- <img class="rounded-t " :src="product.image" alt="Product Image"> -->
+            <NuxtImg class="rounded-T" :src="product.image" alt="User Image" loading="lazy" />
             <div id="ProductDetails">
 
                 <span class="flex items-center justify-start gap-3 px-1 pt-1">
@@ -33,7 +33,8 @@
                 </p>
 
                 <p class="px-1 pt-0.5 text-xs text-[#252525]">
-                    {{ product.title.substring(0, 60) }}
+                    {{ product.title }}
+                    <!-- {{ product.title.substring(0, 60) }} -->
                 </p>
 
                 <p class="px-1 pb-1">
@@ -49,6 +50,7 @@
 const props = defineProps(['product'])
 const { product } = toRefs(props)
 console.log('what is inside products ', product);
+console.log(product.image);
 
 const priceComputed = computed(() => {
     return product.value.price / 100

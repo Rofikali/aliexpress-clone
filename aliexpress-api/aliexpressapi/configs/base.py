@@ -30,20 +30,19 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # external apps 
-    'rest_framework',
+    # external apps
+    "rest_framework",
     "corsheaders",
     # internet apps
     "apps.posts",
     "apps.accounts",
-
     "apps.products",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-     # corse header
+    # corse header
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -127,3 +126,22 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+from datetime import timedelta
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    )
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),  # short-lived
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # long-lived
+    "ROTATE_REFRESH_TOKENS": True,  # issue new refresh on refresh
+    "BLACKLIST_AFTER_ROTATION": True,
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": os.environ.get("SECRET_KEY"),
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}

@@ -60,7 +60,7 @@ from .models import Products
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    image_url = serializers.SerializerMethodField()
+    image = serializers.SerializerMethodField()
 
     class Meta:
         model = Products
@@ -69,7 +69,6 @@ class ProductSerializer(serializers.ModelSerializer):
             "description",
             "price",
             "image",
-            "image_url",
             "created_at",
             "updated_at",
         ]
@@ -79,7 +78,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "description": {"required": True, "allow_blank": True},
         }
 
-    def get_image_url(self, obj):
+    def get_image(self, obj):
         """
         Returns the absolute image URL if available, otherwise None.
         """
@@ -88,12 +87,13 @@ class ProductSerializer(serializers.ModelSerializer):
 
         try:
             request = self.context.get("request")
-            image_url = obj.image.url
+            image = obj.image.url
+            # image_url = obj.image.url
 
             if request:
-                return request.build_absolute_uri(image_url)
-            return f"{settings.MEDIA_URL}{image_url.lstrip('/')}"
-        except Exception as e:
+                return request.build_absolute_uri(image)
+            return f"{settings.MEDIA_URL}{image.lstrip('/')}"
+        except Exception:
             # Optional: log the error if you have logging set up
             # logger.warning(f"Image URL error for product {obj.pk}: {e}")
             return None
