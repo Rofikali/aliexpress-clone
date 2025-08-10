@@ -6,7 +6,7 @@ from .models import Products
 
 @admin.register(Products)
 class ProductsAdmin(admin.ModelAdmin):
-    list_display = ("id", "title", "price", "created_at", "updated_at")
+    list_display = ("id", "title", "price",'image', "created_at", "updated_at")
     search_fields = ("title", "description")
     list_filter = ("created_at",)
     ordering = ("-created_at",)
