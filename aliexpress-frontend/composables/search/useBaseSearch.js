@@ -3,7 +3,7 @@ import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 import { usePagination } from '~/composables/pagination/usePagination'
 import { useObserverCore } from '~/composables/observer/useObserverCore'
 import { useDebouncedSearch } from '~/composables/debounce/useDebouncedSearch'
-import { createLRUCache } from '~/utils/cache/lruCache'
+import { LRUCache } from '~/utils/cache/lruCache' // ✅ correct import
 
 export function useBaseSearch(options = {}) {
     const {
@@ -24,7 +24,7 @@ export function useBaseSearch(options = {}) {
     // Core reactive state
     const query = ref('')
     const target = ref(null)
-    const cache = createLRUCache(cacheSize)
+    const cache = new LRUCache(cacheSize) // ✅ instantiate class
 
     // Pagination
     const pagination = usePagination(endpoint, {
@@ -48,19 +48,44 @@ export function useBaseSearch(options = {}) {
     const count = pagination.count
 
     // Immediate search (resets pagination)
+    // async function performSearchImmediate(q = '') {
+    //     query.value = q ?? ''
+    //     const cacheKey = `${endpoint}::${query.value}`
+
+    //     if (cache.get(cacheKey)) { // ✅ check cache
+    //         const cached = cache.get(cacheKey)
+    //         await pagination.reset({ ...cached.params })
+    //         return cached.items
+    //     }
+
+    //     const results = await pagination.reset({ q: String(query.value).trim(), ...params })
+    //     cache.set(cacheKey, { params: { q: String(query.value).trim(), ...params }, items: results })
+    //     return results
+    // }
     async function performSearchImmediate(q = '') {
         query.value = q ?? ''
         const cacheKey = `${endpoint}::${query.value}`
-        if (cache.has(cacheKey)) {
+
+        if (cache.get(cacheKey)) {
             const cached = cache.get(cacheKey)
-            await pagination.reset({ ...cached.params })
-            return cached.items
+            try {
+                await pagination.reset({ ...cached.params })
+            } catch (err) {
+                console.warn('[useBaseSearch] cached reset failed', err)
+            }
+            return [...cached.items] // ✅ new array reference for Vue
         }
 
-        const results = await pagination.reset({ q: String(query.value).trim(), ...params })
-        cache.set(cacheKey, { params: { q: String(query.value).trim(), ...params }, items: results })
-        return results
+        try {
+            const results = await pagination.reset({ q: String(query.value).trim(), ...params })
+            cache.set(cacheKey, { params: { q: String(query.value).trim(), ...params }, items: results })
+            return results
+        } catch (err) {
+            console.error('[useBaseSearch] reset failed', err)
+            throw err
+        }
     }
+
 
     // Debounced fetch function
     const fetchFnForDebounce = async (q) => {
