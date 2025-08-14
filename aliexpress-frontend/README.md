@@ -4,10 +4,22 @@
 ### Searching STORE with Reuseable Codebase
 <!-- // https://collectionapi.metmuseum.org/public/collection/v1/departments -->
 nuxt3-frontend/
+├── utils/
+│   ├── cache/
+│   │   ├── LRUCache.js   <-- The actual cache implementation
 │
 ├── composables/                               # Global composables (Nuxt auto-imports)
 │   ├── debounce/
 │   │   └── useDebouncedSearch.js              # Reusable debounce for search inputs
+        pagination
+            usePagination.js
+            useObserver.js
+            useInfinitScroll.js
+            
+│   ├── search/                           # All search-related logic
+│   │   ├── useSearch.js                  # Simple search (non-infinite)
+│   │   ├── useInfiniteSearch.js          # Infinite search with cursor pagination
+│   │   └── useSearchFilters.js           # Optional: manage filters/facets
 │   ├── useThrottle.js                         # Reusable throttle composable
 │   ├── usePaginatedFetch.js                   # Universal pagination logic (infinite scroll / page)
 │   ├── useAuth.js                             # JWT auth helper composable (get/set/remove token)

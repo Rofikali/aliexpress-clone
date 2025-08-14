@@ -3,16 +3,16 @@
 
 import os
 import sys
-from configs import base as base_config
+from configs.settings import base as base_config
 
 
 def main():
     """Run administrative tasks."""
     # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'aliexpressapi.settings')
     if base_config.DEBUG:
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "configs.dev")
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "configs.settings.dev")
     else:
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "configs.prod")
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "configs.settings.prod")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

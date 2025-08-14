@@ -96,13 +96,13 @@
                                 </NuxtLink>
                             </div>
                             <!-- Modifyied by Don  -->
-                            <!-- <input v-model="userSearch.query" placeholder="Search users..." />
+                            <input v-model="userSearch.query" placeholder="Search users..." />
                             <div v-if="userSearch.isSearching">Searching users...</div>
                             <ul v-else>
                                     <li v-for="user in userSearch.result" :key="user.id">
                                     {{ user.name }}
                                     </li>
-                            </ul> -->
+                            </ul>
                         </div>
                     </div>
                 </div>

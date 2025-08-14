@@ -9,6 +9,7 @@ dependencies = [
     "django-cors-headers>=4.7.0",
     "djangorestframework>=3.16.0",
     "djangorestframework-simplejwt>=5.5.1",
+    "drf-spectacular>=0.28.0",
     "faker>=37.5.3",
     "pillow>=11.3.0",
     "python-dotenv>=1.1.1",

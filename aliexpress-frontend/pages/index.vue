@@ -1,31 +1,48 @@
 <template>
-    <MainLayout>
-        <div id="IndexPage" class="mt-4 max-w-[1200px] mx-auto px-2">
-            <div class="grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
-                <div v-if="products" v-for="product in products" :key="product">
-                    <ProductComponent :product="product" />
-                </div>
+    <div id="IndexPage" class="mt-4 max-w-[1200px] mx-auto px-2">
+        <div class="grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
+            <div v-if="products" v-for="product in products" :key="product.id">
+                <lazy-product-list :product="product" />
             </div>
+            <!-- Sentinel to trigger loading more -->
+            <div ref="sentinelRef" class="h-1"></div>
+            <div v-if="isLoading" class="loading">Loading more...</div>
+            <div v-if="error" class="error">{{ error.message }}</div>
         </div>
-    </MainLayout>
+    </div>
 </template>
 
 <script setup>
-import MainLayout from '~/layouts/MainLayout.vue';
+definePageMeta(
+    {
+        layout: 'default'
+    }
+)
+// import lazyProductList from '~/components/lazy-product-list.vue'
+import { useInfiniteScroll } from '~/composables/pagination/useInfiniteScroll'
 import { useUserStore } from '~/stores/user';
-
-import axios from '../plugins/axios';
-
-const $axios = axios().provide.axios;
-
 const userStore = useUserStore();
 
-let products = ref(null)
-onBeforeMount(async () => {
-    // products.value = await useFetch('/api/prisma/get-all-products')
-    // products.value = await useFetch('http://127.0.0.1:8000/api/products/products/')
-    // products.value = await useFetch('/api/products/')
-    products.value = await $axios.get('api/products/')
-    // setTimeout(() => userStore.isLoading = false, 1000)
+const {
+    products,
+    isLoading,
+    error,
+    sentinelRef,
+    bindSentinel
+} = useInfiniteScroll('/api/products/', {
+    pageSize: 10,
+    dedupeKey: 'id',
+    retries: 2,
+    debug: false
+})
+
+// console.log('inside products ', products);
+
+// Bind the sentinel ref when component mounts
+import { onMounted } from 'vue'
+// import { LazyProductList } from '#components';
+onMounted(() => {
+    bindSentinel(sentinelRef)
+    setTimeout(() => userStore.isLoading = false, 1000)
 })
 </script>

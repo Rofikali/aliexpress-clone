@@ -6,6 +6,14 @@ uv venv
 
 uv pip install -r pyproject.toml
 
+## migrations
+python manage.py makemigrations accounts products
+python manage.py migrate
+python manage.py createsuperuser
+
+
+## Gerenate products with images 
+python manage.py generate_fake_products 50
 # 📁 Scalable Microservices Django Project Structure
 
 This structure is designed for extreme scale — up to **1 trillion users**, assuming distributed infrastructure, Kubernetes, PostgreSQL clusters, and high-performance caching and queuing systems.
@@ -34,6 +42,14 @@ project_root/
 │   │   └── soft_delete_mixin.py
 │   │
 │   └── __init__.py
+
+    ├── caching/
+    │      ├── __init__.py
+    │      ├── base_cache.py         # Abstract base class / common helpers for cache
+    │      ├── product_cache.py      # Product list & detail caching
+    │      ├── search_cache.py       # Search query caching
+    │      ├── review_cache.py       # Reviews caching
+    │      └── utils.py
 │
 ├── apps/                            # All reusable Django apps (each is like a service)
 │   ├── accounts/                    # Authentication, registration
@@ -58,11 +74,16 @@ project_root/
 │   └── email_service/
 │
 ├── configs/                      # Separate settings for each environment
-│   ├── __init__.py
-│   ├── base.py                   # Common settings
-│   ├── dev.py                    # Development config
-│   ├── prod.py                   # Production config
-│   └── test.py                   # Testing config
+        setting/
+    │   ├── __init__.py
+    │   ├── base.py                   # Common settings
+    │   ├── dev.py                    # Development config
+    │   ├── prod.py                   # Production config
+    │   └── test.py                   # Testing config
+     __init__.py
+     urls.py
+     wsgi.py
+     asgi.py
 │
 ├── core/                         # Core Django app with custom middleware, exceptions, etc.
 │   ├── middleware/

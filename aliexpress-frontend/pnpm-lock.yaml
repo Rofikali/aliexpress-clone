@@ -20,6 +20,9 @@ importers:
       axios:
         specifier: ^1.11.0
         version: 1.11.0
+      intersection-observer:
+        specifier: ^0.12.2
+        version: 0.12.2
       pinia:
         specifier: ^2.0.34
         version: 2.3.1(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
@@ -2601,6 +2604,9 @@ packages:
   ini@4.1.1:
     resolution: {integrity: sha512-QQnnxNyfvmHFIsj7gkPcYymR8Jdw/o7mp5ZFihxn6h8Ci6fh3Dx4E1gPjpQEpIuPo9XVNY/ZUwh4BPMjGyL01g==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+
+  intersection-observer@0.12.2:
+    resolution: {integrity: sha512-7m1vEcPCxXYI8HqnL8CKI6siDyD+eIWSwgB3DZA+ZTogxk9I4CDnj4wilt9x/+/QbHI4YG5YZNmC6458/e9Ktg==}
 
   ioredis@5.7.0:
     resolution: {integrity: sha512-NUcA93i1lukyXU+riqEyPtSEkyFq8tX90uL659J+qpCZ3rEdViB/APC58oAhIh3+bJln2hzdlZbBZsGNrlsR8g==}
@@ -7243,6 +7249,8 @@ snapshots:
     optional: true
 
   ini@4.1.1: {}
+
+  intersection-observer@0.12.2: {}
 
   ioredis@5.7.0:
     dependencies:
