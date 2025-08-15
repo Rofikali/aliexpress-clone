@@ -18,7 +18,7 @@ class InfiniteScrollPagination(BaseCursorPagination):
     """
 
     # Keep page size small for faster response & better scroll experience
-    page_size = 10
+    page_size = 12
     max_page_size = 15
 
     # Ensure ordering is stable (created_at DESC)

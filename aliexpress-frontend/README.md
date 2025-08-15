@@ -1,57 +1,89 @@
 # AliExpress Clone / (aliexpress-clone)
+Headers.vue
+ └ useProductSearch.js
+    └ useBaseSearch.js
+       ├ usePagination.js
+       ├ useObserverCore.js
+       ├ useDebouncedSearch.js
+       └ useSearchCache.js
+
+
+composables/
+  pagination/
+    usePagination.js
+    useInfiniteScroll.js
+  observer/
+    useObserverCore.js
+  debounce/
+    useDebouncedSearch.js
+  cache/
+    LRUCache.js
+    useSearchCache.js
+  search/
+    useBaseSearch.js
+    useProductSearch.js
+utils/
+  fuzzySearch.js
+
 
 ### Learn how to build this!
 ### Searching STORE with Reuseable Codebase
 <!-- // https://collectionapi.metmuseum.org/public/collection/v1/departments -->
 nuxt3-frontend/
-├── utils/
+│
+├── utils/                                      # General utility functions
 │   ├── cache/
-│   │   ├── LRUCache.js   <-- The actual cache implementation
+│   │   └── LRUCache.js                         # Core cache implementation
+│   └── fuzzySearch.js                          # Simple fuzzy filter helper
 │
-├── composables/                               # Global composables (Nuxt auto-imports)
-│   ├── debounce/
-│   │   └── useDebouncedSearch.js              # Reusable debounce for search inputs
-        pagination
-            usePagination.js
-            useObserver.js
-            useInfinitScroll.js
-            
-│   ├── search/                           # All search-related logic
-│   │   ├── useSearch.js                  # Simple search (non-infinite)
-│   │   ├── useInfiniteSearch.js          # Infinite search with cursor pagination
-│   │   └── useSearchFilters.js           # Optional: manage filters/facets
-
-        ~/composables/cache/LRUCache.js       // Updated with TTL + persistence
-~/composables/cache/useSearchCache.js // Cache wrapper for search-specific logic
-~/utils/fuzzySearch.js                // Simple fuzzy filter helper
-~/composables/search/useBaseSearch.js // Updated to use new cache + parallel guard
-
-│   ├── useThrottle.js                         # Reusable throttle composable
-│   ├── usePaginatedFetch.js                   # Universal pagination logic (infinite scroll / page)
-│   ├── useAuth.js                             # JWT auth helper composable (get/set/remove token)
-│   ├── useApi.js                              # DRF API fetch wrapper (base URL, headers)
-│   └── useNotifications.js                    # Toast/alert composable
-│
-├── stores/                                    # Pinia stores (scoped & modular)
-│   ├── searchStore/
-│   │   ├── useProductSearchStore.js           # Product search store
-│   │   ├── useUserSearchStore.js              # User search store
-│   │   └── useCategorySearchStore.js          # Category search store
+├── composables/                                # Global reusable logic (auto-imported by Nuxt)
+│   ├── cache/
+│   │   ├── LRUCache.js                         # Updated cache with TTL + persistence
+│   │   └── useSearchCache.js                   # Cache wrapper for search-specific logic
 │   │
-│   ├── productStore.js                        # Product CRUD & listing
-│   ├── categoryStore.js                       # Categories & filters
-│   ├── cartStore.js                           # Shopping cart
-│   ├── orderStore.js                          # Orders history & tracking
-│   └── authStore.js                           # JWT login/logout & user info
+│   ├── debounce/
+│   │   └── useDebouncedSearch.js               # Debounce helper for search inputs
+│   │
+│   ├── observer/
+│   │   └── useObserverCore.js                  # IntersectionObserver logic
+│   │
+│   ├── pagination/
+│   │   ├── usePagination.js                    # Pagination state & logic
+│   │   ├── useObserver.js                      # Infinite scroll observer
+│   │   └── useInfiniteScroll.js                # Infinite scrolling helper
+│   │
+│   ├── search/
+│   │   ├── useBaseSearch.js                    # Base search using cache & concurrency guard
+│   │   ├── useSearch.js                        # Simple search
+│   │   ├── useInfiniteSearch.js                # Cursor-based infinite search
+│   │   └── useSearchFilters.js                 # Manage filters/facets
+│   │
+│   ├── useThrottle.js                          # Throttle helper
+│   ├── usePaginatedFetch.js                    # Universal fetch for paginated data
+│   ├── useAuth.js                              # JWT authentication handler
+│   ├── useApi.js                               # API fetch wrapper for DRF
+│   └── useNotifications.js                     # Toast/alert system
 │
-├── components/                                # UI building blocks
-│   ├── ui/                                    # Reusable Tailwind UI elements
+├── stores/                                     # Pinia state stores
+│   ├── searchStore/
+│   │   ├── useProductSearchStore.js            # Product search
+│   │   ├── useUserSearchStore.js               # User search
+│   │   └── useCategorySearchStore.js           # Category search
+│   │
+│   ├── productStore.js                         # Product CRUD & listing
+│   ├── categoryStore.js                        # Categories & filters
+│   ├── cartStore.js                            # Shopping cart
+│   ├── orderStore.js                           # Orders & tracking
+│   └── authStore.js                            # Auth & user info
+│
+├── components/                                 # UI components
+│   ├── ui/                                     # Reusable Tailwind UI elements
 │   │   ├── Button.vue
 │   │   ├── Input.vue
 │   │   ├── Select.vue
 │   │   └── Pagination.vue
 │   │
-│   ├── layout/                                # Page layout parts
+│   ├── layout/                                 # Layout parts
 │   │   ├── Header.vue
 │   │   ├── Footer.vue
 │   │   ├── Sidebar.vue
@@ -66,38 +98,38 @@ nuxt3-frontend/
 │       ├── CategoryList.vue
 │       └── CategoryFilter.vue
 │
-├── pages/                                     # Nuxt pages (routes auto-generated)
-│   ├── index.vue                              # Home
-│   ├── login.vue                              # Login page
-│   ├── register.vue                           # Registration
+├── pages/                                      # Auto-generated Nuxt routes
+│   ├── index.vue                               # Home
+│   ├── login.vue                               # Login
+│   ├── register.vue                            # Register
 │   ├── products/
-│   │   ├── index.vue                          # Product listing
-│   │   └── [id].vue                           # Product detail
+│   │   ├── index.vue                           # Product listing
+│   │   └── [id].vue                            # Product detail
 │   ├── categories/
 │   │   ├── index.vue
 │   │   └── [slug].vue
 │   ├── cart.vue
 │   └── orders.vue
 │
-├── layouts/                                   # Global layouts
-│   ├── default.vue                            # Default site layout
-│   └── auth.vue                               # Auth pages layout
+├── layouts/                                    # App layouts
+│   ├── default.vue                             # Main layout
+│   └── auth.vue                                # Auth pages layout
 │
-├── assets/                                    # Tailwind config, images, fonts
+├── assets/                                     # Styles, fonts, images
 │   ├── css/
-│   │   └── main.css                           # Tailwind import & custom styles
+│   │   └── main.css                            # Tailwind & custom styles
 │   └── images/
 │
-├── middleware/                                # Nuxt route guards
-│   ├── auth.global.js                         # Protect pages (check JWT)
-│   └── guest.global.js                        # Prevent logged-in users from auth pages
+├── middleware/                                 # Route guards
+│   ├── auth.global.js                          # Require login
+│   └── guest.global.js                         # Block logged-in users from auth pages
 │
-├── plugins/                                   # Client/server plugins
-│   ├── axios.js                               # Axios instance with DRF base URL
-│   ├── toast.js                               # Toast notifications plugin
-│   └── dayjs.js                               # Date formatting plugin
+├── plugins/                                    # Nuxt plugins
+│   ├── axios.js                                # Axios instance (DRF)
+│   ├── toast.js                                # Toast notifications
+│   └── dayjs.js                                # Date formatting
 │
-├── public/                                    # Static files (favicon, robots.txt, etc.)
+├── public/                                     # Static files (favicon, robots.txt)
 │
 ├── nuxt.config.ts
 ├── package.json

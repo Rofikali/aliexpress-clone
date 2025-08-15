@@ -30,7 +30,7 @@ const {
     sentinelRef,
     bindSentinel
 } = useInfiniteScroll('/api/products/', {
-    pageSize: 10,
+    pageSize: 12,
     dedupeKey: 'id',
     retries: 2,
     debug: false

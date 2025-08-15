@@ -6,7 +6,7 @@
 .data
 .nuxt
 .nitro
-.cache
+# .cache
 dist
 
 # Node dependencies
