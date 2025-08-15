@@ -1,6 +1,7 @@
 // ~/composables/cache/useSearchCache.js
 // import { LRUCache } from './LRUCache'
-import { LRUCache } from '~/utils/cache/lruCache'
+// import { LRUCache } from '~/utils/cache/lruCache'
+import { LRUCache } from "./lruCache"
 
 export function useSearchCache({ size = 50, ttlMs = 5 * 60 * 1000, persistKey = 'search_cache' } = {}) {
     const cache = new LRUCache(size, ttlMs, persistKey)
@@ -10,4 +11,4 @@ export function useSearchCache({ size = 50, ttlMs = 5 * 60 * 1000, persistKey = 
     }
 
     return { cache, buildKey }
-}
+}  

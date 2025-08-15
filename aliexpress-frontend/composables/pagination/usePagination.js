@@ -1,28 +1,20 @@
-// // ~/composables/pagination/usePagination.js
-
-
+// ~/composables/pagination/usePagination.js
 import { ref, computed } from 'vue'
-import axios from '~/plugins/axios'
-
-// tiny helper for deep access: "a.b.c" -> data[a][b][c]
-function getByPath(obj, path, fallback = undefined) {
-    if (!obj || !path) return fallback
-    const parts = Array.isArray(path) ? path : String(path).split('.')
-    let cur = obj
-    for (const p of parts) {
-        if (cur && Object.prototype.hasOwnProperty.call(cur, p)) cur = cur[p]
-        else return fallback
-    }
-    return cur
-}
+import axios from '~/plugins/axios' // matches your existing import pattern
 
 /**
  * Production-ready cursor pagination composable
  *
- * Options (new):
- *  - itemsPath: dot-path to array of items (default tries: results, data, products, items)
- *  - nextCursorPath: dot-path to next cursor (default: next_cursor)
- *  - hasNextPath: dot-path to boolean (optional; fallback derives from next_cursor)
+ * Exposes:
+ *  - products, loading, error, hasNext, nextCursor, count
+ *  - fetchFirst(params), loadMore(), reset(params), forceReload()
+ *
+ * Options:
+ *  - pageSize (default 10)
+ *  - dedupeKey (default 'id') -- used to de-duplicate appended products
+ *  - retries (default 0), retryBackoffMs (default 300)
+ *  - autoFetch (default true)
+ *  - debug (bool)
  */
 export function usePagination(url, options = {}) {
     const $axios = axios().provide.axios
@@ -35,15 +27,9 @@ export function usePagination(url, options = {}) {
 
     const pageSize = options.pageSize || 10
     const dedupeKey = options.dedupeKey || 'id'
-    // const dedupeKey = options.dedupeKey || 'id'
     const retries = (options.retries || 0)
     const retryBackoffMs = options.retryBackoffMs || 300
     const debug = !!options.debug
-
-    // NEW: response shape preferences
-    const itemsPath = options.itemsPath || ['results', 'data', 'products', 'items']
-    const nextCursorPath = options.nextCursorPath || 'next_cursor'
-    const hasNextPath = options.hasNextPath || null
 
     let currentAbort = null
     let inFlight = false
@@ -58,9 +44,17 @@ export function usePagination(url, options = {}) {
         return Array.from(map.values())
     }
 
+    // ✅ Centralized item extractor for multiple API shapes
+    function extractItems(data) {
+        // if (Array.isArray(data?.results)) return data.results // DRF default
+        if (Array.isArray(data?.products)) return data.products // Custom
+        // if (Array.isArray(data?.items)) return data.items // Generic
+        return []
+    }
+
     async function _request(params = {}, attempt = 0) {
         if (currentAbort) {
-            try { currentAbort.abort() } catch (e) { }
+            try { currentAbort.abort() } catch (e) { /* ignore */ }
             currentAbort = null
         }
         currentAbort = new AbortController()
@@ -87,42 +81,18 @@ export function usePagination(url, options = {}) {
         }
     }
 
-    function _extractItems(data) {
-        if (Array.isArray(itemsPath)) {
-            for (const path of itemsPath) {
-                const arr = getByPath(data, path)
-                if (Array.isArray(arr)) return arr
-            }
-            return Array.isArray(data) ? data : []
-        }
-        const val = getByPath(data, itemsPath)
-        return Array.isArray(val) ? val : (Array.isArray(data) ? data : [])
-    }
-
-    function _extractNextCursor(data) {
-        return getByPath(data, nextCursorPath, null)
-    }
-
-    function _extractHasNext(data, newItems) {
-        if (hasNextPath) {
-            const v = getByPath(data, hasNextPath, null)
-            if (typeof v === 'boolean') return v
-        }
-        const nc = _extractNextCursor(data)
-        if (nc !== null && nc !== undefined) return true
-        return Array.isArray(newItems) ? newItems.length > 0 : false
-    }
-
     async function fetchFirst(params = {}) {
         loading.value = true
         error.value = null
         inFlight = true
         try {
             const data = await _request({ ...params })
-            const items = _extractItems(data)
-            products.value = Array.isArray(items) ? items : []
-            nextCursor.value = _extractNextCursor(data)
-            hasNext.value = _extractHasNext(data, items)
+            const items = extractItems(data)
+            products.value = items
+            nextCursor.value = data.next_cursor ?? null
+            hasNext.value = typeof data.has_next === 'boolean'
+                ? data.has_next
+                : (nextCursor.value !== null || !!data.next)
             return products.value
         } catch (err) {
             error.value = err
@@ -143,10 +113,12 @@ export function usePagination(url, options = {}) {
             const requestParams = { ...params }
             if (nextCursor.value) requestParams.cursor = nextCursor.value
             const data = await _request(requestParams)
-            const newItems = _extractItems(data)
-            products.value = _dedupeAppend(products.value, Array.isArray(newItems) ? newItems : [])
-            nextCursor.value = _extractNextCursor(data)
-            hasNext.value = _extractHasNext(data, newItems)
+            const newItems = extractItems(data)
+            products.value = _dedupeAppend(products.value, newItems)
+            nextCursor.value = data.next_cursor ?? null
+            hasNext.value = typeof data.has_next === 'boolean'
+                ? data.has_next
+                : (nextCursor.value !== null || !!data.next)
             return newItems
         } catch (err) {
             error.value = err
@@ -160,6 +132,7 @@ export function usePagination(url, options = {}) {
 
     async function reset(params = {}) {
         try { currentAbort?.abort() } catch (e) { }
+        currentAbort = null
         products.value = []
         nextCursor.value = null
         hasNext.value = true
@@ -186,11 +159,17 @@ export function usePagination(url, options = {}) {
         loadMore,
         reset,
         forceReload,
-        _debug: () => ({ inFlight, aborted: currentAbort?.signal?.aborted ?? false })
+        _debug: () => ({
+            inFlight,
+            aborted: currentAbort?.signal?.aborted ?? false
+        })
     }
 }
 
+
 // *** BLOW CODE WORKING 100% FINE
+
+// ~/composables/pagination/usePagination.js
 // import { ref, computed } from 'vue'
 // import axios from '~/plugins/axios' // matches your existing import pattern
 

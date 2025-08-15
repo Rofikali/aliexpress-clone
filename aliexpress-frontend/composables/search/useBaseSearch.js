@@ -208,12 +208,14 @@
 // // Above code working 100% fine 
 
 // ~/composables/search/useBaseSearch.js
+
+// ~/composables/search/useBaseSearch.js
 import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 import { usePagination } from '~/composables/pagination/usePagination'
 import { useObserverCore } from '~/composables/observer/useObserverCore'
 import { useDebouncedSearch } from '~/composables/debounce/useDebouncedSearch'
 import { useSearchCache } from '~/composables/search/useSearchCache'
-import { fuzzySearch } from '~/utils/cache/fuzzySearch'
+import { fuzzySearch } from '~/utils/fuzzySearch'
 
 export function useBaseSearch(options = {}) {
     const {
@@ -365,6 +367,8 @@ export function useBaseSearch(options = {}) {
             inFlight: Array.from(inFlight),
             pagination: pagination._debug?.(),
             observer: observer._debug?.()
-        })
+        }),
+        enableFuzzy, // ✅ expose this
+        fuzzyFields     // ✅ expose fuzzyFields too
     }
-}
+} 
