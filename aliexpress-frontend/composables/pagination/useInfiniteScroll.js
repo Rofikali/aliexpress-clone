@@ -105,6 +105,7 @@ export function useInfiniteScroll(url, opts = {}) {
 }
 
 // *** ABOVE CODE WORKING 100 % FINE
+
 // import { ref, nextTick, onMounted, onBeforeUnmount, watch, isRef } from 'vue'
 // import { useObserverCore } from './useObserverCore'
 // import { usePagination } from './usePagination'

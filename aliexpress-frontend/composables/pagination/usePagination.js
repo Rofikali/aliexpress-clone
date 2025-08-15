@@ -190,7 +190,7 @@ export function usePagination(url, options = {}) {
     }
 }
 
-// *** BLOW CODE WORKING 100% FINE 
+// *** BLOW CODE WORKING 100% FINE
 // import { ref, computed } from 'vue'
 // import axios from '~/plugins/axios' // matches your existing import pattern
 

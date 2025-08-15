@@ -20,6 +20,12 @@ nuxt3-frontend/
 │   │   ├── useSearch.js                  # Simple search (non-infinite)
 │   │   ├── useInfiniteSearch.js          # Infinite search with cursor pagination
 │   │   └── useSearchFilters.js           # Optional: manage filters/facets
+
+        ~/composables/cache/LRUCache.js       // Updated with TTL + persistence
+~/composables/cache/useSearchCache.js // Cache wrapper for search-specific logic
+~/utils/fuzzySearch.js                // Simple fuzzy filter helper
+~/composables/search/useBaseSearch.js // Updated to use new cache + parallel guard
+
 │   ├── useThrottle.js                         # Reusable throttle composable
 │   ├── usePaginatedFetch.js                   # Universal pagination logic (infinite scroll / page)
 │   ├── useAuth.js                             # JWT auth helper composable (get/set/remove token)
