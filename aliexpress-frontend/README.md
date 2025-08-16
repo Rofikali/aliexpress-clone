@@ -32,8 +32,6 @@ utils/
 nuxt3-frontend/
 │
 ├── utils/                                      # General utility functions
-│   ├── cache/
-│   │   └── LRUCache.js                         # Core cache implementation
 │   └── fuzzySearch.js                          # Simple fuzzy filter helper
 │
 ├── composables/                                # Global reusable logic (auto-imported by Nuxt)

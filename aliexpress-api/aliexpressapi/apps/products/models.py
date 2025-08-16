@@ -29,3 +29,9 @@ class Products(models.Model):
 
     def __str__(self):
         return self.title
+
+class ProductImages(models.Model):
+    product_id = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='product_images')
+    img_name = models.ImageField()
+    creted_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

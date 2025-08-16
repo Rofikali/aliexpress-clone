@@ -1,12 +1,12 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Products
+from .models import Products, ProductImages
 
 
 @admin.register(Products)
 class ProductsAdmin(admin.ModelAdmin):
-    list_display = ("id", "title", "price",'image', "created_at", "updated_at")
+    list_display = ("id", "title", "price", "image", "created_at", "updated_at")
     search_fields = ("title", "description")
     list_filter = ("created_at",)
     ordering = ("-created_at",)
@@ -48,3 +48,8 @@ class ProductsAdmin(admin.ModelAdmin):
     #     if obj:
     #         return fields + ("created_by", "updated_by")
     #     return fields
+
+
+@admin.register(ProductImages)
+class ProductImagesAdmin(admin.ModelAdmin):
+    list_display = ("id", "img_name")

@@ -25,7 +25,7 @@
 
 #     def get_image(self, obj):
 
-#         """ 
+#         """
 #         Returns the full URL of the image if it exists, otherwise returns None.
 #         """
 #         request = self.context.get("request")
@@ -56,20 +56,36 @@
 
 from rest_framework import serializers
 from django.conf import settings
-from .models import Products
+from .models import Products, ProductImages
+
+
+class ProductImagesSerialzers(serializers.ModelSerializer):
+    class Meta:
+        model = ProductImages
+        fields = [
+            "id",
+            "product_id",
+            "img_name",
+            # "created_at",
+            # "updated_at",
+        ]
+        # read_only_fields = ["created_at", "updated_at"]
+        
 
 
 class ProductSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
+    images = ProductImagesSerialzers(many=True, source='product_images')
 
     class Meta:
         model = Products
         fields = [
-            'id',
+            "id",
             "title",
             "description",
             "price",
             "image",
+            "images",
             "created_at",
             "updated_at",
         ]

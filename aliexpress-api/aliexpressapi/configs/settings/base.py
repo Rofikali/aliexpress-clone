@@ -49,6 +49,8 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    # ... after auth middleware made my me with helped
+    # "components.throttling.middleware.RateLimitHeadersMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -163,10 +165,36 @@ SIMPLE_JWT = {
 
 # drf 'drf_spectacular',
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Your Project API',
-    'DESCRIPTION': 'Your project description',
-    'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
+    "TITLE": "Your Project API",
+    "DESCRIPTION": "Your project description",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
     # OTHER SETTINGS
 }
 
+
+# ---- DRF ---- Throttling
+# REST_FRAMEWORK = {
+#     "DEFAULT_THROTTLE_CLASSES": [
+#         "components.throttling.base_throttle.ScopedBurstThrottle",
+#         "components.throttling.base_throttle.ScopedSustainedThrottle",
+#     ],
+#     "DEFAULT_THROTTLE_RATES": {
+#         "burst": "60/min",  # short-term
+#         "sustained": "1000/day",  # long-term
+#         "products-list": "30/min",
+#         "search": "15/min",
+#     },
+# }
+
+
+# Central place to tune rates per scope
+# THROTTLING_RATES = {
+#     "burst": "60/second",  # spike control
+#     "sustained": "3000/min",  # steady protection
+#     "user": "600/min",  # if using ScopedUserThrottle on specific views
+#     "anon": "120/min",  # if using ScopedAnonThrottle on specific views
+#     "search": "30/second",  # custom scope example for search endpoints
+#     "auth_login": "10/min",  # protect login
+#     "product_detail": "120/second",
+# }

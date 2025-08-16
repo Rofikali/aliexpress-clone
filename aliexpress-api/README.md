@@ -21,38 +21,48 @@ This structure is designed for extreme scale — up to **1 trillion users**, ass
 ## 🗂️ Folder Structure aliexressclone
 project_root/
 │
-├── components/                     # Reusable business-level components
-│   ├── pagination/                  # Custom pagination classes for DRF
+├── components/                         # Reusable business-level components
+│   ├── pagination/                      # DRF custom paginations
 │   │   ├── __init__.py
-│   │   ├── base_cursor.py          # Base & custom paginations
+│   │   ├── base_cursor.py
 │   │   ├── offset_pagination.py
-│   │   └── infinite_scroll.py      # Infinite scroll pagination logic
+│   │   └── infinite_scroll.py
 │   │
-│   ├── authentication/              # JWT or other auth helpers
+│   ├── authentication/                  # JWT & auth backends
 │   │   ├── __init__.py
 │   │   ├── jwt_utils.py
 │   │   └── backends.py
 │   │
-│   ├── responses/                    # Standard API response formats
+│   ├── responses/                        # Standardized API responses
 │   │   ├── __init__.py
 │   │   └── api_response.py
 │   │
-│   ├── mixins/                       # DRF view/serializer mixins
+│   ├── mixins/                           # DRF view/serializer mixins
 │   │   ├── __init__.py
 │   │   └── soft_delete_mixin.py
 │   │
-│   └── __init__.py
+│   ├── caching/                          # Cache-related logic
+│   │   ├── __init__.py
+│   │   ├── base_cache.py
+│   │   ├── product_cache.py
+│   │   ├── search_cache.py
+│   │   ├── review_cache.py
+│   │   └── utils.py
+│   │
 
-    ├── caching/
-    │      ├── __init__.py
-    │      ├── base_cache.py         # Abstract base class / common helpers for cache
-    │      ├── product_cache.py      # Product list & detail caching
-    │      ├── search_cache.py       # Search query caching
-    │      ├── review_cache.py       # Reviews caching
-    │      └── utils.py
+    throttling/
+         __init__.py
+        utils.py
+        backend.py
+        base_throttle.py
+        exceptions.py
+        middleware.py
+
+│   │
+│   └── __init__.py
 │
-├── apps/                            # All reusable Django apps (each is like a service)
-│   ├── accounts/                    # Authentication, registration
+├── apps/                                 # Modular Django apps
+│   ├── accounts/                         # Auth & user management
 │   │   ├── admin.py
 │   │   ├── apps.py
 │   │   ├── models/
@@ -67,59 +77,46 @@ project_root/
 │   ├── notifications/
 │   └── __init__.py
 │
-├── services/                     # Background tasks, Celery, 3rd-party APIs
+├── services/                             # External integrations & background jobs
 │   ├── celery_worker/
 │   ├── elasticsearch/
 │   ├── redis/
 │   └── email_service/
 │
-├── configs/                      # Separate settings for each environment
-        setting/
-    │   ├── __init__.py
-    │   ├── base.py                   # Common settings
-    │   ├── dev.py                    # Development config
-    │   ├── prod.py                   # Production config
-    │   └── test.py                   # Testing config
-     __init__.py
-     urls.py
-     wsgi.py
-     asgi.py
+├── configs/                              # Environment-specific settings
+│   ├── setting/                          # (⚠ Could be merged into configs/)
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── dev.py
+│   │   ├── prod.py
+│   │   └── test.py
+│   │
+│   ├── __init__.py
+│   ├── urls.py
+│   ├── wsgi.py
+│   └── asgi.py
 │
-├── core/                         # Core Django app with custom middleware, exceptions, etc.
-│   ├── middleware/
-│   ├── exceptions/
-│   ├── permissions/
-│   ├── utils/
-│   ├── validators/
-│   ├── logging.py
-│   └── apps.py
+├── static/                               # Static assets
+├── media/                                # Uploaded media files
 │
-├── api_gateway/                  # Optional: API Gateway if you're using DRF as entry point
-│   ├── routers/
-│   ├── schemas/
-│   └── throttling/
-│
-├── static/                       # Static files
-│
-├── media/                        # Uploaded files
-│
-├── requirements/                # Pip dependency files
+├── requirements/                         # Pip dependency lists
 │   ├── base.txt
 │   ├── dev.txt
 │   ├── prod.txt
 │   └── test.txt
 │
-├── tests/                        # Top-level automated tests
+├── tests/                                # Top-level tests
 │   ├── unit/
 │   ├── integration/
 │   └── performance/
 │
-├── .env                          # Environment variables
+├── .env
 ├── .dockerignore
-├── Dockerfile                    # For containerizing
-├── docker-compose.yml            # For local development
+├── Dockerfile
+├── docker-compose.yml
 ├── manage.py
 └── README.md
+
 
 
 ## 🧠 Folder Breakdown by Use Case

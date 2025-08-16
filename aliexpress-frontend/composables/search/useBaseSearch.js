@@ -214,7 +214,7 @@ import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 import { usePagination } from '~/composables/pagination/usePagination'
 import { useObserverCore } from '~/composables/observer/useObserverCore'
 import { useDebouncedSearch } from '~/composables/debounce/useDebouncedSearch'
-import { useSearchCache } from '~/composables/search/useSearchCache'
+import { useSearchCache } from '~/composables/cache/useSearchCache'
 import { fuzzySearch } from '~/utils/fuzzySearch'
 
 export function useBaseSearch(options = {}) {
