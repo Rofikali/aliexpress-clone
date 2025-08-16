@@ -14,6 +14,8 @@ python manage.py createsuperuser
 
 ## Gerenate products with images 
 python manage.py generate_fake_products 50
+python manage.py generate_product_images 5
+
 # 📁 Scalable Microservices Django Project Structure
 
 This structure is designed for extreme scale — up to **1 trillion users**, assuming distributed infrastructure, Kubernetes, PostgreSQL clusters, and high-performance caching and queuing systems.
@@ -70,6 +72,7 @@ project_root/
 │   │   ├── views/
 │   │   ├── urls.py
 │   │   └── tests/
+        products
 │   │
 │   ├── posts/
 │   ├── orders/

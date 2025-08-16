@@ -1,30 +1,4 @@
 # AliExpress Clone / (aliexpress-clone)
-Headers.vue
- └ useProductSearch.js
-    └ useBaseSearch.js
-       ├ usePagination.js
-       ├ useObserverCore.js
-       ├ useDebouncedSearch.js
-       └ useSearchCache.js
-
-
-composables/
-  pagination/
-    usePagination.js
-    useInfiniteScroll.js
-  observer/
-    useObserverCore.js
-  debounce/
-    useDebouncedSearch.js
-  cache/
-    LRUCache.js
-    useSearchCache.js
-  search/
-    useBaseSearch.js
-    useProductSearch.js
-utils/
-  fuzzySearch.js
-
 
 ### Learn how to build this!
 ### Searching STORE with Reuseable Codebase
@@ -95,6 +69,8 @@ nuxt3-frontend/
 │   └── category/
 │       ├── CategoryList.vue
 │       └── CategoryFilter.vue
+    throttle
+        useBaseThrottle.js
 │
 ├── pages/                                      # Auto-generated Nuxt routes
 │   ├── index.vue                               # Home
