@@ -7,7 +7,10 @@ load_dotenv()
 
 # DEBUG = os.environ.get("DEBUG", "false").lower() == "true"
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
+# ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
+ALLOWED_HOSTS = [
+    "*",
+]
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # print('basedir --------->>>>>>>>>>>>>>>>>>>>>>>', BASE_DIR.parent)
@@ -37,15 +40,15 @@ CORS_ALLOWED_ORIGINS = [
 
 # Allow headers (optional, but often needed)
 CORS_ALLOW_HEADERS = [
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
 ]
 
 # Set CSRF cookie SameSite policy to "Lax" for moderate cross-site protection
