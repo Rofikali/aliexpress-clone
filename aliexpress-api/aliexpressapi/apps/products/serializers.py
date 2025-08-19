@@ -56,7 +56,7 @@
 
 from rest_framework import serializers
 from django.conf import settings
-from .models import Products, ProductImages
+from .models import Product, ProductImages
 
 
 class ProductImagesSerialzers(serializers.ModelSerializer):
@@ -70,15 +70,14 @@ class ProductImagesSerialzers(serializers.ModelSerializer):
             # "updated_at",
         ]
         # read_only_fields = ["created_at", "updated_at"]
-        
 
 
 class ProductSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
-    images = ProductImagesSerialzers(many=True, source='product_images')
+    images = ProductImagesSerialzers(many=True, source="product_images")
 
     class Meta:
-        model = Products
+        model = Product
         fields = [
             "id",
             "title",

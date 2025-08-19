@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ViewSet
-from .models import Products
+from .models import Product
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import ProductSerializer
@@ -67,7 +67,7 @@ class ProductsViewSet(ViewSet):
                 return Response(cache_data, status=status.HTTP_200_OK)
 
             # Cache miss: query DB and paginate
-            queryset = Products.objects.all().order_by("-created_at")
+            queryset = Product.objects.all().order_by("-created_at")
             paginator = InfiniteScrollPagination()
             paginator_queryset = paginator.paginate_queryset(queryset, request)
 
@@ -99,7 +99,7 @@ class ProductViewSet(ViewSet):
     )
     def retrieve(self, request, pk=None):
         try:
-            product = get_object_or_404(Products, id=pk)
+            product = get_object_or_404(Product, id=pk)
             product_serializer = ProductSerializer(
                 product, context={"request": request}
             )

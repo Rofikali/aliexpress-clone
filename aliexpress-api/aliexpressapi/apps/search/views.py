@@ -84,7 +84,7 @@
 from apps.products.serializers import ProductSerializer
 
 # Models
-from apps.products.models import Products
+from apps.products.models import Product
 
 # Django ORM tools
 from django.db.models import Q
@@ -165,7 +165,7 @@ class SearchProductsViewSet(ViewSet):
 
             # 4️⃣ If cache miss → Query database
             # Q objects allow OR conditions: title or description match
-            queryset = Products.objects.filter(
+            queryset = Product.objects.filter(
                 Q(title__icontains=query) | Q(description__icontains=query)
             ).order_by("-created_at")  # Newest products first
 
