@@ -82,7 +82,7 @@ class BrandSerializer(serializers.ModelSerializer):
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImage
-        fields = ["id", "product", "img_name"]
+        fields = ["id", "product", "image"]
 
 
 class ProductAttributeSerializer(serializers.ModelSerializer):
@@ -134,6 +134,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "image": {"required": True, "allow_null": True},
             "description": {"required": True, "allow_blank": True},
         }
+        depth = 3
 
     # def get_image(self, obj):
     #     request = self.context.get("request")

@@ -37,6 +37,8 @@ import uuid
 #     creted_at = models.DateTimeField(auto_now_add=True)
 #     updated_at = models.DateTimeField(auto_now=True)
 
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
@@ -49,6 +51,7 @@ class Category(models.Model):
         related_name="children",
         db_index=True,
     )
+    description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -63,6 +66,7 @@ class Brand(models.Model):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, unique=True, db_index=True)
     logo = models.URLField(max_length=500, blank=True)
+    description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -84,11 +88,13 @@ class Product(models.Model):
         max_digits=12, decimal_places=2, null=True, blank=True
     )
     currency = models.CharField(max_length=3, default="USD")
+    image = models.ImageField(upload_to="products/images/", null=True, blank=True)
     stock = models.IntegerField()
     is_active = models.BooleanField(default=True)
     rating = models.FloatField(default=0.0)
     review_count = models.IntegerField(default=0)
-    seller = models.ForeignKey("accounts.User", on_delete=models.CASCADE, db_index=True)
+    # seller = models.ForeignKey("accounts.User", on_delete=models.CASCADE, db_index=True)
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, db_index=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, db_index=True)
     brand = models.ForeignKey(
         Brand, null=True, blank=True, on_delete=models.SET_NULL, db_index=True
@@ -153,6 +159,7 @@ class ProductAttribute(models.Model):
     )
     attribute_name = models.CharField(max_length=100)
     attribute_value = models.CharField(max_length=255)
+    name = models.CharField(max_length=100, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     key = models.CharField(max_length=100, db_index=True)
