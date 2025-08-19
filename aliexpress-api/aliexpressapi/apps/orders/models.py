@@ -1,6 +1,10 @@
 from django.db import models
 from django.conf import settings
 
+# Ensure the app is registered in INSTALLED_APPS in settings.py
+
+User = settings.AUTH_USER_MODEL
+
 
 # Create your models here.
 class Order(models.Model):
@@ -11,17 +15,21 @@ class Order(models.Model):
         ("delivered", "Delivered"),
         ("returned", "Returned"),
     ]
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="pending")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 
+from apps.products.models import Product, Inventory
+
+
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="items")
-    product = models.ForeignKey("products.Product", on_delete=models.CASCADE)
-    seller = models.ForeignKey("users.Seller", on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    seller = models.ForeignKey(User, on_delete=models.CASCADE)
+    # seller = models.ForeignKey("users.Seller", on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     SKU = models.CharField(max_length=100)
@@ -37,10 +45,13 @@ class Shipment(models.Model):
         ("returned", "Returned"),
     ]
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    warehouse = models.ForeignKey("inventory.Warehouse", on_delete=models.CASCADE)
+    warehouse = models.ForeignKey(Inventory, on_delete=models.CASCADE)
+    # warehouse = models.ForeignKey("inventory.Warehouse", on_delete=models.CASCADE)
     carrier = models.CharField(max_length=100)
     tracking_number = models.CharField(max_length=100)
     status = models.CharField(max_length=12, choices=STATUS_CHOICES, default="pending")
+    shipped_at = models.DateTimeField(null=True, blank=True)
+    estimated_delivery = models.DateTimeField(null=True, blank=True)
     estimated_delivery = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

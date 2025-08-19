@@ -1,4 +1,42 @@
 from django.db import models
+import uuid
+
+# Create your models here.
+# -- CreateTable
+# CREATE TABLE "Products" (
+#     "id" SERIAL NOT NULL,
+#     "title" TEXT NOT NULL,
+#     "description" TEXT NOT NULL,
+#     "url" TEXT NOT NULL,
+#     "price" INTEGER NOT NULL,
+#     "created_at" TIMESTAMPTZ(6) DEFAULT CURRENT_TIMESTAMP,
+
+#     CONSTRAINT "Products_pkey" PRIMARY KEY ("id")
+# );
+
+# class Products(models.Model):
+#     title = models.TextField(max_length=255)
+#     description = models.TextField(max_length=1000)
+#     # url = models.TextField()
+#     image = models.ImageField(upload_to='products/Images/')
+#     price = models.IntegerField()
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+
+#     class Meta:
+#         db_table = 'Products'
+#         verbose_name = 'Product'
+#         verbose_name_plural = 'Products'
+
+#     def __str__(self):
+#         return self.title
+
+# class ProductImages(models.Model):
+#     product_id = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='product_images')
+#     img_name = models.ImageField()
+#     creted_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
@@ -36,7 +74,7 @@ class Brand(models.Model):
 
 
 class Product(models.Model):
-    id = models.BigAutoField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=255, db_index=True)
     slug = models.SlugField(max_length=255, unique=True, db_index=True)
     description = models.TextField()
@@ -65,11 +103,11 @@ class Product(models.Model):
         return self.title
 
 
-class ProductImages(models.Model):
+class ProductImage(models.Model):
     product = models.ForeignKey(
-        Product, on_delete=models.CASCADE, related_name="product_images", db_index=True
+        Product, on_delete=models.CASCADE, related_name="images", db_index=True
     )
-    image_url = models.URLField(max_length=500)
+    image = models.ImageField(max_length=500, upload_to="products/images/")
     alt_text = models.CharField(max_length=255, blank=True)
     position = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -88,6 +126,7 @@ class ProductVariant(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name="variants", db_index=True
     )
+    price = models.DecimalField(max_digits=12, decimal_places=2)
     variant_type = models.CharField(max_length=20, choices=VARIANT_TYPE_CHOICES)
     value = models.CharField(max_length=100)
     price_override = models.DecimalField(
@@ -106,6 +145,16 @@ class ProductAttribute(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name="attributes", db_index=True
     )
+    variant = models.ForeignKey(
+        ProductVariant,
+        on_delete=models.CASCADE,
+        related_name="attributes",
+        db_index=True,
+    )
+    attribute_name = models.CharField(max_length=100)
+    attribute_value = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     key = models.CharField(max_length=100, db_index=True)
     value = models.CharField(max_length=255)
 
@@ -120,9 +169,9 @@ class Inventory(models.Model):
         ("return", "Return"),
         ("adjustment", "Adjustment"),
     ]
-    product = models.ForeignKey(
-        Product, on_delete=models.CASCADE, related_name="inventory", db_index=True
-    )
+    stock = models.IntegerField()
+    sku = models.CharField(max_length=100, unique=True, db_index=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, db_index=True)
     change = models.IntegerField()
     reason = models.CharField(max_length=20, choices=REASON_CHOICES)
     reference_id = models.UUIDField()
