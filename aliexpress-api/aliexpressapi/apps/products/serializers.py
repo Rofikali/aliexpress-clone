@@ -106,6 +106,7 @@ class InventorySerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    # id = serializers.UUIDField(format="hex", read_only=True)  # ✅ Add this
     images = ProductImageSerializer(many=True, source="product_images", read_only=True)
     variants = ProductVariantSerializer(
         many=True, source="productvariant_set", read_only=True
@@ -136,14 +137,6 @@ class ProductSerializer(serializers.ModelSerializer):
         }
         depth = 3
 
-    # def get_image(self, obj):
-    #     request = self.context.get("request")
-    #     if obj.image:
-    #         image_url = obj.image.url
-    #         if request:
-    #             return request.build_absolute_uri(image_url)
-    #         return f"{settings.MEDIA_URL}{image_url.lstrip('/')}"
-    #     return None
     def get_image(self, obj):
         """
         Returns the absolute image URL if available, otherwise None.

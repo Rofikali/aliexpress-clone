@@ -18,6 +18,43 @@
 </template>
 
 <script setup>
+import { ref, watchEffect, toRefs } from 'vue'
+import { useUserStore } from '~/stores/user'
+
+const props = defineProps({
+    product: {
+        type: Object,
+        required: false,
+        default: () => null
+    }
+})
+
+// console.log('product value title', product.value.title);
+
+const { product } = toRefs(props)
+const userStore = useUserStore()
+
+const currentImage = ref(null)
+const images = ref([])
+
+watchEffect(() => {
+    if (product.value) {
+        // set default image
+        currentImage.value = product.value.image
+
+        // combine main image + gallery images from API
+        images.value = [
+            product.value.image,
+            ...(product.value.images?.map(img => img.image) || [])
+        ]
+
+        userStore.isLoading = false
+    }
+})
+</script>
+
+
+<!-- <script setup>
 import { ref, watchEffect, computed } from 'vue'
 import { useUserStore } from '~/stores/user'
 
@@ -30,7 +67,7 @@ const props = defineProps({
 })
 
 const { product } = toRefs(props)
-
+console.log('product Card Page', product);
 const userStore = useUserStore()
 const currentImage = ref(null)
 const images = ref([])
@@ -52,4 +89,4 @@ watchEffect(() => {
 
 </script>
 
-<style scoped></style>
+<style scoped></style> -->

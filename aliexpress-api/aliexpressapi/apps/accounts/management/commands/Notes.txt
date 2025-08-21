@@ -9,3 +9,4 @@ Step 2: Run the command to generate 100 products
 Step 3: Import into your Product model
     Now use the import_products command we wrote earlier:
     python manage.py import_products ./apps/accounts/management/fake_products.json
+    python manage.py import_products ./apps/accounts/management/fake_products.json --format json

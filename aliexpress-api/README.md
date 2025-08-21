@@ -7,7 +7,7 @@ uv venv
 uv pip install -r pyproject.toml
 
 ## migrations
-python manage.py makemigrations accounts products search
+python manage.py makemigrations accounts products orders carts  
 python manage.py migrate
 python manage.py createsuperuser
 
