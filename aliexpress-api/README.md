@@ -39,7 +39,9 @@ project_root/
 │   │
 │   ├── responses/                        # Standardized API responses
 │   │   ├── __init__.py
-│   │   └── api_response.py
+│   │   └── base_response.py
+            success.py
+            error.py
 │   │
 │   ├── mixins/                           # DRF view/serializer mixins
 │   │   ├── __init__.py

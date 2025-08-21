@@ -56,3 +56,6 @@ CORS_ALLOW_HEADERS = [
 # SESSION_COOKIE_SAMESITE = "Lax"
 # CSRF_COOKIE_SECURE = False
 # SESSION_COOKIE_SECURE = False
+
+# Resion Set into this server
+REGION = "Nepal-01"  # Example: India / Singapore data center

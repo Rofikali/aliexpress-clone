@@ -38,7 +38,9 @@ import uuid
 #     updated_at = models.DateTimeField(auto_now=True)
 
 from django.contrib.auth import get_user_model
+
 User = get_user_model()
+
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
