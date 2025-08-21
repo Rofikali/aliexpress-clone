@@ -1,8 +1,11 @@
+# # apps/accounts/management/commands/import_products.py
 # import json
 # import csv
 # from decimal import Decimal
+# from pathlib import Path
+# from django.core.files.base import ContentFile
 # from django.core.management.base import BaseCommand
-# from apps.products.models import Product, Category, Brand
+# from apps.products.models import Product, Category, Brand, ProductImage  # 👈 added ProductImage
 # from apps.accounts.models import User
 
 
@@ -42,7 +45,7 @@
 
 #     def create_product(self, data):
 #         """
-#         Create or update a product from dict data
+#         Create or update a product with 1 main image + 5 stock gallery images
 #         """
 #         try:
 #             seller = User.objects.get(id=data["seller_id"])
@@ -54,7 +57,7 @@
 #                 except Brand.DoesNotExist:
 #                     brand = None
 
-#             Product.objects.update_or_create(
+#             product, _ = Product.objects.update_or_create(
 #                 sku=data["sku"],
 #                 defaults={
 #                     "title": data["title"],
@@ -81,20 +84,38 @@
 #                 },
 #             )
 
+#             # ✅ Use same stock image for all products
+#             image_path = Path(__file__).resolve().parent.parent.parent.parent.parent / "default.jpg"
+#             # print('image path ', image_path)
+#             if not image_path.exists():
+#                 self.stdout.write(self.style.WARNING(f"⚠️ Default image not found: {image_path}"))
+#                 return
+
+#             # -- 1 main image (Product.image) --
+#             with open(image_path, "rb") as img_file:
+#                 product.image.save(f"{product.slug}.jpg", ContentFile(img_file.read()), save=True)
+
+#             # -- 5 stock gallery images (ProductImage) --
+#             ProductImage.objects.filter(product=product).delete()  # clear old
+#             with open(image_path, "rb") as img_file:
+#                 image_bytes = img_file.read()
+#                 for i in range(5):
+#                     ProductImage.objects.create(
+#                         product=product,
+#                         image=ContentFile(image_bytes, name=f"{product.slug}-{i+1}.jpg"),
+#                     )
+
 #         except Exception as e:
 #             self.stdout.write(
-#                 self.style.ERROR(
-#                     f"❌ Failed to import product {data.get('title')}: {e}"
-#                 )
+#                 self.style.ERROR(f"❌ Failed to import product {data.get('title')}: {e}")
 #             )
-
 import json
 import csv
 from decimal import Decimal
 from pathlib import Path
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
-from apps.products.models import Product, Category, Brand, ProductImage  # 👈 added ProductImage
+from apps.products.models import Product, Category, Brand, ProductImage
 from apps.accounts.models import User
 
 
@@ -138,13 +159,26 @@ class Command(BaseCommand):
         """
         try:
             seller = User.objects.get(id=data["seller_id"])
-            category = Category.objects.get(id=data["category_id"])
+
+            # ✅ Ensure default category
+            category = None
+            try:
+                if data.get("category_id"):
+                    category = Category.objects.get(id=data["category_id"])
+            except Category.DoesNotExist:
+                category = None
+            if not category:
+                category, _ = Category.objects.get_or_create(name="Default Category")
+
+            # ✅ Ensure default brand
             brand = None
-            if data.get("brand_id"):
-                try:
+            try:
+                if data.get("brand_id"):
                     brand = Brand.objects.get(id=data["brand_id"])
-                except Brand.DoesNotExist:
-                    brand = None
+            except Brand.DoesNotExist:
+                brand = None
+            if not brand:
+                brand, _ = Brand.objects.get_or_create(name="Default Brand")
 
             product, _ = Product.objects.update_or_create(
                 sku=data["sku"],
@@ -174,27 +208,37 @@ class Command(BaseCommand):
             )
 
             # ✅ Use same stock image for all products
-            image_path = Path(__file__).resolve().parent.parent.parent.parent.parent / "default.jpg"
-            # print('image path ', image_path)
+            image_path = (
+                Path(__file__).resolve().parent.parent.parent.parent.parent
+                / "default.jpg"
+            )
             if not image_path.exists():
-                self.stdout.write(self.style.WARNING(f"⚠️ Default image not found: {image_path}"))
+                self.stdout.write(
+                    self.style.WARNING(f"⚠️ Default image not found: {image_path}")
+                )
                 return
 
             # -- 1 main image (Product.image) --
             with open(image_path, "rb") as img_file:
-                product.image.save(f"{product.slug}.jpg", ContentFile(img_file.read()), save=True)
+                product.image.save(
+                    f"{product.slug}.jpg", ContentFile(img_file.read()), save=True
+                )
 
             # -- 5 stock gallery images (ProductImage) --
-            ProductImage.objects.filter(product=product).delete()  # clear old
+            ProductImage.objects.filter(product=product).delete()
             with open(image_path, "rb") as img_file:
                 image_bytes = img_file.read()
                 for i in range(5):
                     ProductImage.objects.create(
                         product=product,
-                        image=ContentFile(image_bytes, name=f"{product.slug}-{i+1}.jpg"),
+                        image=ContentFile(
+                            image_bytes, name=f"{product.slug}-{i + 1}.jpg"
+                        ),
                     )
 
         except Exception as e:
             self.stdout.write(
-                self.style.ERROR(f"❌ Failed to import product {data.get('title')}: {e}")
+                self.style.ERROR(
+                    f"❌ Failed to import product {data.get('title')}: {e}"
+                )
             )

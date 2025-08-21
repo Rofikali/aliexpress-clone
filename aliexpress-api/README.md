@@ -11,6 +11,8 @@ python manage.py makemigrations accounts products orders carts
 python manage.py migrate
 python manage.py createsuperuser
 
+### automate above code
+python setup.py
 
 ## Gerenate products with images 
 python manage.py generate_fake_products 50
