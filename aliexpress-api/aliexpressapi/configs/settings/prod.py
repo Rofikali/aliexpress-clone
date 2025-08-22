@@ -18,6 +18,8 @@ DATABASES = {
     }
 }
 
+REGION = "America-01"   # Example: India / Singapore data center
+
 
 # DATABASES = {
 #     "default": {

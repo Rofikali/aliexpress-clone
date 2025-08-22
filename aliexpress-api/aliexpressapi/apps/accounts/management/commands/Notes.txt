@@ -1,12 +1,16 @@
 ********** Gemerate Products and import_products **************
-Step 1: Create a management command to generate products JSON
-    Inside products/management/commands/, create:
-    generate_products_json.py
-
-Step 2: Run the command to generate 100 products
+Step 1: Run the command to generate 100 products
     python manage.py generate_products_json ./apps/accounts/management/fake_products.json --count 100
 
-Step 3: Import into your Product model
+Step 2: Import into your Product model
     Now use the import_products command we wrote earlier:
     python manage.py import_products ./apps/accounts/management/fake_products.json
+    python manage.py import_products ./apps/accounts/management/fake_products.json --format json
+
+
+
+Step 1: Generate fake products JSON
+    python manage.py generate_products_json ./apps/accounts/management/fake_products.json --count 50
+
+Step 2: Import products into DB
     python manage.py import_products ./apps/accounts/management/fake_products.json --format json

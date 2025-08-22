@@ -1,24 +1,37 @@
+# # apps.search.views.py
+
 # # Serializers
 # from apps.products.serializers import ProductSerializer
+
 # # Models
-# from apps.products.models import Products
+# from apps.products.models import Product
 
-# # from django.contrib.auth import get_user_model
+# # Django ORM tools
 # from django.db.models import Q
-# from drf_spectacular.utils import extend_schema
-# from components.paginations.infinite_scroll import InfiniteScrollPagination
-# from components.caching.search_cache import SearchCache
-# from rest_framework import status
-# from rest_framework.response import Response
-# from rest_framework.viewsets import ViewSet
-# from drf_spectacular.utils import OpenApiParameter, OpenApiTypes
 
-# search_cache = SearchCache()
+# # API Documentation helpers (drf-spectacular)
+# from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
+
+# # Custom components
+# from components.paginations.infinite_scroll import InfiniteScrollPagination
+# from components.responses.success import SuccessResponse
+# from components.responses.error import ErrorResponse
+# from components.caching.cache_factory import get_cache
+
+# # DRF core imports
+# from rest_framework import status
+# from rest_framework.viewsets import ViewSet
+
+
+# # ✅ Get cache via factory (instead of hardcoding SearchCache)
+# search_cache = get_cache("search")
 
 
 # class SearchProductsViewSet(ViewSet):
 #     """
-#     Search products with pagination and caching.
+#     ViewSet to search products by title or description.
+#     - Supports infinite scroll pagination.
+#     - Utilizes caching to reduce database load on repeated searches.
 #     """
 
 #     @extend_schema(
@@ -41,44 +54,81 @@
 #         responses={200: ProductSerializer(many=True)},
 #         tags=["Products Search"],
 #         summary="Search All Products",
-#         description="Search products by name or description with infinite scroll and cached results.",
+#         description=(
+#             "Search products by name or description with infinite scroll "
+#             "pagination and cached results for performance."
+#         ),
 #     )
 #     def list(self, request):
+#         """
+#         Handles GET requests to search products.
+#         - Retrieves results from cache if available.
+#         - Falls back to querying the database.
+#         - Returns paginated results.
+#         """
 #         try:
+#             # 1️⃣ Extract and normalize the search query
 #             query = request.GET.get("q", "").strip().lower()
 #             if not query:
-#                 return Response(
-#                     {"detail": "No query provided."}, status=status.HTTP_400_BAD_REQUEST
+#                 return ErrorResponse(
+#                     message="No query provided.",
+#                     status_code=status.HTTP_400_BAD_REQUEST,
 #                 )
 
+#             # 2️⃣ Get pagination cursor (used for infinite scroll)
 #             cursor = request.GET.get("cursor", "")
 
-#             # Try to get cached response
+#             # 3️⃣ Check cache first
 #             cached_data = search_cache.get_results(query, cursor)
 #             if cached_data:
-#                 return Response(cached_data, status=status.HTTP_200_OK)
+#                 return SuccessResponse(
+#                     data=cached_data,
+#                     message="Cached results",
+#                     status_code=status.HTTP_200_OK,
+#                 )
 
-#             # Not cached - query DB
-#             queryset = Products.objects.filter(
+#             # 4️⃣ DB query on cache miss
+#             queryset = Product.objects.filter(
 #                 Q(title__icontains=query) | Q(description__icontains=query)
 #             ).order_by("-created_at")
 
+#             # 5️⃣ Paginate
 #             paginator = InfiniteScrollPagination()
 #             page_qs = paginator.paginate_queryset(queryset, request)
 
+#             # 6️⃣ Serialize
 #             serializer = ProductSerializer(
 #                 page_qs, many=True, context={"request": request}
 #             )
 
+#             # 7️⃣ Generate paginated response
 #             response = paginator.get_paginated_response(serializer.data)
 
-#             # Cache the response data for this query+cursor
+#             # 8️⃣ Store in cache
 #             search_cache.cache_results(query, response.data, cursor)
 
-#             return response
+#             return SuccessResponse(
+#                 # data=response.data,
+#                 # message="Products retrieved successfully",
+#                 # status_code=status.HTTP_200_OK,
+
+#                 data=response.data,
+#                 message="Products searched successfully",
+#                 request=request,
+#                 extra={"cursor": cursor},
+#                 code=status.HTTP_200_OK,
+#             )
 
 #         except Exception as e:
-#             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+#             return ErrorResponse.send(
+#                 message="Failed to search any products",
+#                 errors={"detail": str(e)},
+#                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+#                 request=request,
+#             )
+
+
+# apps.search.views.py
 
 # Serializers
 from apps.products.serializers import ProductSerializer
@@ -94,15 +144,17 @@ from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 
 # Custom components
 from components.paginations.infinite_scroll import InfiniteScrollPagination
-from components.caching.search_cache import SearchCache
+from components.responses.success import SuccessResponse
+from components.responses.error import ErrorResponse
+from components.caching.cache_factory import get_cache
 
 # DRF core imports
 from rest_framework import status
-from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 
-# Instantiate search cache (could be backed by Redis, DB, or in-memory)
-search_cache = SearchCache()
+
+# ✅ Get cache via factory (instead of hardcoding SearchCache)
+search_cache = get_cache("search")
 
 
 class SearchProductsViewSet(ViewSet):
@@ -114,7 +166,6 @@ class SearchProductsViewSet(ViewSet):
 
     @extend_schema(
         parameters=[
-            # Required query parameter for the search term
             OpenApiParameter(
                 name="q",
                 type=OpenApiTypes.STR,
@@ -122,7 +173,6 @@ class SearchProductsViewSet(ViewSet):
                 description="Search term for product name or description",
                 required=True,
             ),
-            # Optional cursor parameter for infinite scroll pagination
             OpenApiParameter(
                 name="cursor",
                 type=OpenApiTypes.STR,
@@ -150,44 +200,58 @@ class SearchProductsViewSet(ViewSet):
             # 1️⃣ Extract and normalize the search query
             query = request.GET.get("q", "").strip().lower()
             if not query:
-                # Return early if no search term provided
-                return Response(
-                    {"detail": "No query provided."}, status=status.HTTP_400_BAD_REQUEST
+                return ErrorResponse.send(
+                    message="No query provided.",
+                    code=status.HTTP_400_BAD_REQUEST,
+                    request=request,
                 )
 
             # 2️⃣ Get pagination cursor (used for infinite scroll)
             cursor = request.GET.get("cursor", "")
 
-            # 3️⃣ Check cache first (avoid hitting DB unnecessarily)
+            # 3️⃣ Check cache first
             cached_data = search_cache.get_results(query, cursor)
             if cached_data:
-                return Response(cached_data, status=status.HTTP_200_OK)
+                return SuccessResponse.send(
+                    data=cached_data,
+                    message="Cached results",
+                    code=status.HTTP_200_OK,
+                    request=request,
+                    extra={"cache_status": "HIT", "cursor": cursor},
+                )
 
-            # 4️⃣ If cache miss → Query database
-            # Q objects allow OR conditions: title or description match
+            # 4️⃣ DB query on cache miss
             queryset = Product.objects.filter(
                 Q(title__icontains=query) | Q(description__icontains=query)
-            ).order_by("-created_at")  # Newest products first
+            ).order_by("-created_at")
 
-            # 5️⃣ Apply infinite scroll pagination
+            # 5️⃣ Paginate
             paginator = InfiniteScrollPagination()
             page_qs = paginator.paginate_queryset(queryset, request)
 
-            # 6️⃣ Serialize paginated queryset
+            # 6️⃣ Serialize
             serializer = ProductSerializer(
-                page_qs,
-                many=True,
-                context={"request": request},  # Context for absolute URLs
+                page_qs, many=True, context={"request": request}
             )
 
-            # 7️⃣ Generate paginated API response
+            # 7️⃣ Generate paginated response
             response = paginator.get_paginated_response(serializer.data)
 
-            # 8️⃣ Store paginated result in cache (query + cursor specific)
+            # 8️⃣ Store in cache
             search_cache.cache_results(query, response.data, cursor)
 
-            return response
+            return SuccessResponse.send(
+                data=response.data,
+                message="Products searched successfully",
+                request=request,
+                extra={"cache_status": "MISS", "cursor": cursor},
+                status=status.HTTP_200_OK,
+            )
 
         except Exception as e:
-            # Catch unexpected errors to avoid breaking API contract
-            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return ErrorResponse.send(
+                message="Failed to search any products",
+                errors={"detail": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                request=request,
+            )

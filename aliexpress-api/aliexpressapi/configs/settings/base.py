@@ -55,6 +55,8 @@ MIDDLEWARE = [
     # "components.throttling.middleware.RateLimitHeadersMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # made my me custom middleware
+    "components.middleware.request_timer.RequestTimerMiddleware",
 ]
 
 # ROOT_URLCONF = "aliexpressapi.urls"

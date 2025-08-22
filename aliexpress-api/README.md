@@ -1,6 +1,7 @@
 uv init
 
 uv add django
+adee new
 
 uv venv
 
@@ -11,6 +12,8 @@ python manage.py makemigrations accounts products orders carts
 python manage.py migrate
 python manage.py createsuperuser
 
+### automate above code
+python setup.py
 
 ## Gerenate products with images 
 python manage.py generate_fake_products 50
@@ -37,7 +40,9 @@ project_root/
 │   │
 │   ├── responses/                        # Standardized API responses
 │   │   ├── __init__.py
-│   │   └── api_response.py
+│   │   └── base_response.py
+            success.py
+            error.py
 │   │
 │   ├── mixins/                           # DRF view/serializer mixins
 │   │   ├── __init__.py
