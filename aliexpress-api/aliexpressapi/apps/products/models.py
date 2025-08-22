@@ -183,6 +183,8 @@ class Inventory(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, db_index=True)
     change = models.IntegerField()
     reason = models.CharField(max_length=20, choices=REASON_CHOICES)
+    quantity = models.IntegerField()
+    location = models.CharField(max_length=255, blank=True)
     reference_id = models.UUIDField()
     created_at = models.DateTimeField(auto_now_add=True)
 

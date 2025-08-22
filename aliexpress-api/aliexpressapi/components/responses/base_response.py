@@ -64,7 +64,8 @@ class BaseResponse:
         message,
         data=None,
         errors=None,
-        code=200,
+        # code=200,
+        status=200,
         extra=None,
         request=None,
     ):
@@ -98,4 +99,4 @@ class BaseResponse:
         if extra:
             payload.update(extra)
 
-        return Response(payload, status=code)
+        return Response(payload, status=status)
