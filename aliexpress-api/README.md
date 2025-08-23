@@ -51,12 +51,9 @@ project_root/
 │   ├── caching/                          # Cache-related logic
 │   │   ├── __init__.py
 │   │   ├── base_cache.py
-│   │   ├── product_cache.py
-│   │   ├── search_cache.py
-│   │   ├── review_cache.py
+│   │   ├── cache_factory.py
 │   │   └── utils.py
 │   │
-
     throttling/
          __init__.py
         utils.py
@@ -64,7 +61,6 @@ project_root/
         base_throttle.py
         exceptions.py
         middleware.py
-
 │   │
 │   └── __init__.py
 │
