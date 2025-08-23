@@ -48,8 +48,11 @@ class BaseCursorPagination(CursorPagination):
         return Response(
             {
                 "products": data,
-                "next_cursor": self.get_next_link_cursor(),
-                "has_next": self.get_next_link() is not None,
+                "meta": {
+                    "next_cursor": self.get_next_link_cursor(),
+                    "has_next": self.get_next_link() is not None,
+                    "count": len(data),  # count is optional
+                },
             }
         )
 
