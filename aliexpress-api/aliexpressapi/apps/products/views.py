@@ -111,7 +111,11 @@ class ProductsViewSet(ViewSet):
         try:
             product = get_object_or_404(Product, id=pk)
             serializer = ProductSerializer(product, context={"request": request})
-            return SuccessResponse.send(data=serializer.data, request=request)
+            return SuccessResponse.send(
+                body=serializer.data, 
+                message="Single Product fetched successfully",
+                request=request, status=status.HTTP_200_OK
+            )
         except Exception as e:
             return ErrorResponse.send(
                 message="Product not found", errors=str(e), request=request
