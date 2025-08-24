@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 
 # Ensure the app is registered in INSTALLED_APPS in settings.py
+from apps.products.models import Product, Inventory
 
 User = settings.AUTH_USER_MODEL
 
@@ -20,9 +21,6 @@ class Order(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="pending")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-
-from apps.products.models import Product, Inventory
 
 
 class OrderItem(models.Model):

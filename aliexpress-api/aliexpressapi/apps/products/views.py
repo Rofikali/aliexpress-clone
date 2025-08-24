@@ -114,7 +114,8 @@ class ProductsViewSet(ViewSet):
             return SuccessResponse.send(
                 body=serializer.data, 
                 message="Single Product fetched successfully",
-                request=request, status=status.HTTP_200_OK
+                request=request, 
+                status=status.HTTP_200_OK
             )
         except Exception as e:
             return ErrorResponse.send(

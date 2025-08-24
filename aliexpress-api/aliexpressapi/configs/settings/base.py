@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "drf_spectacular",
+    "rest_framework_simplejwt.token_blacklist",
     # internet apps
     "apps.search",
     "apps.accounts",
@@ -151,10 +152,6 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
-REST_FRAMEWORK = {
-    # YOUR SETTINGS
-    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-}
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),  # short-lived
@@ -169,7 +166,7 @@ SIMPLE_JWT = {
 
 # drf 'drf_spectacular',
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Your Project API",
+    "TITLE": "My Aliexpress E-commerce API",
     "DESCRIPTION": "Your project description",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,

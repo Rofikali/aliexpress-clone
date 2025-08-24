@@ -1,819 +1,105 @@
-Got it ✅ — you want a full .md documentation file for all the viewsets in products/api/viewsets.py, not just ProductsViewSet.
+apiexpress clone API Documentation To Handle 1 billion/trilion users
 
-I’ll describe each ViewSet with:
+🎨 Accounts / Identity API – Enhanced ViewSets Overview
+🛠️ API Highlights
+| **ViewSet**                 | **List Endpoint**             | **Retrieve Endpoint**            | **Special Features**                                                  | **Caching**                      | **Filtering/Sorting**     | **Bulk Support** | **Notes**                                                                |
+| --------------------------- | ----------------------------- | -------------------------------- | --------------------------------------------------------------------- | -------------------------------- | ------------------------- | ---------------- | ------------------------------------------------------------------------ |
+| `UserViewSet`               | `GET /api/users/`             | `GET /api/users/{id}/`           | Role-based (buyer/seller/admin), KYC status tracking, last login info | ⚠️ Partial (profile cache)       | ✅ Yes (role, KYC, active) | 🚧 Planned       | Admin-only for list; normal users can only view/update their own profile |
+| `AuthViewSet`               | `POST /api/auth/login/`       | ❌                                | JWT login, refresh tokens, device binding                             | ✅ Yes (short-lived JWT in Redis) | ❌                         | ❌                | SSR-ready (HttpOnly cookie refresh) for Nuxt3                            |
+| `LogoutViewSet`             | `POST /api/auth/logout/`      | ❌                                | Token/session invalidation, multi-device support                      | ✅ Yes (Redis token blacklist)    | ❌                         | ❌                | Revokes all tokens for given device                                      |
+| `PasswordResetViewSet`      | `POST /api/password/request/` | `POST /api/password/reset/`      | Issues one-time reset tokens, tracks expiry & usage                   | ❌ No                             | ❌                         | ❌                | Reset flow triggers async email/SMS event                                |
+| `DeviceViewSet`             | `GET /api/devices/`           | `GET /api/devices/{id}/`         | Multi-device login mgmt, push token storage                           | ✅ Yes (last-active cache)        | ✅ Yes (device type, user) | ✅ Yes            | Lets users revoke lost/stolen devices                                    |
+| `KYCViewSet`                | `POST /api/kyc/submit/`       | `GET /api/kyc/status/{user_id}/` | Document upload, approval workflow, async processing                  | ❌ No                             | ✅ Yes (status, date)      | ❌                | On approval → user role auto-upgraded to `seller`                        |
+| `SessionViewSet` (optional) | `GET /api/sessions/`          | `GET /api/sessions/{id}/`        | Active session listing for user; force logout support                 | ✅ Yes (Redis-backed)             | ✅ Yes (ip, device, user)  | ❌                | Useful for security dashboards                                     
+      |
+🎨 Permissions & Roles API – Enhanced ViewSets Overview
+🛠️ API Highlights
+| **ViewSet**                      | **List Endpoint**                | **Retrieve Endpoint**                 | **Special Features**                                                                                    | **Caching**                       | **Filtering/Sorting**               | **Bulk Support** | **Notes**                                                    |
+| -------------------------------- | -------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------- | --------------------------------- | ----------------------------------- | ---------------- | ------------------------------------------------------------ |
+| `RoleViewSet`                    | `GET /api/roles/`                | `GET /api/roles/{id}/`                | Manages roles (`admin`, `seller`, `buyer`); role assignment to users                                    | ❌ No                              | ✅ Yes (role name)                   | ✅ Yes            | Admin-only; assigns roles to users                           |
+| `PermissionViewSet`              | `GET /api/permissions/`          | `GET /api/permissions/{id}/`          | Manages system-wide permissions (CRUD per resource)                                                     | ❌ No                              | ✅ Yes (resource, action)            | ✅ Yes            | Super-admin only                                             |
+| `UserRoleViewSet`                | `GET /api/user-roles/`           | `GET /api/user-roles/{id}/`           | Mapping of users ↔ roles; supports multiple roles per user                                              | ✅ Yes (per-user cache)            | ✅ Yes (user, role)                  | ✅ Yes            | Useful for audit dashboards                                  |
+| `OrderPermissionViewSet`         | `GET /api/order-permissions/`    | `GET /api/order-permissions/{id}/`    | Object-level permissions for Orders (buyer = own orders, seller = orders with their items, admin = all) | ✅ Yes (query result caching)      | ✅ Yes (order\_id, user\_id, role)   | ❌ No             | Enforced dynamically at request level                        |
+| `ReturnPermissionViewSet`        | `GET /api/return-permissions/`   | `GET /api/return-permissions/{id}/`   | Controls who can view/approve refunds (buyer can request, seller can respond, admin can override)       | ⚠️ Partial (status checks cached) | ✅ Yes (return\_id, status, role)    | ❌ No             | Integrated into return/refund workflow                       |
+| `ShipmentPermissionViewSet`      | `GET /api/shipment-permissions/` | `GET /api/shipment-permissions/{id}/` | Controls shipment visibility (buyer sees own shipments, seller sees shipments they fulfill)             | ✅ Yes (tracking cache)            | ✅ Yes (shipment\_id, carrier, role) | ❌ No             | Helps ensure sellers don’t see buyer info from other sellers |
+| `AdminOverridePermissionViewSet` | `GET /api/admin-overrides/`      | `GET /api/admin-overrides/{id}/`      | Lets admins temporarily override role checks for critical flows                                         | ❌ No                              | ✅ Yes (resource, user\_id)          | ❌ No             | Logs every override via Kafka → AuditLog                     |
 
-Purpose
 
-Endpoints (list/retrieve)
-
-Response format
-
-Caching (where applicable)
-
-Simple flow diagram (only where it makes sense, like Products).
-
-Here’s the full file:
 
 # Products API – ViewSets Documentation
 
 This document describes all the API **ViewSets** available in `products/api/viewsets.py`.  
-Each section covers **purpose, endpoints, behavior, and responses**.
+
+
+## 🎨 Products Table API – Enhanced ViewSets Overview
+
+| **ViewSet**                | **List Endpoint**                | **Retrieve Endpoint**              | **Special Features**         | **Caching**         | **Filtering/Sorting** | **Bulk Support** | **Notes**                       |
+|----------------------------|----------------------------------|------------------------------------|------------------------------|---------------------|-----------------------|------------------|----------------------------------|
+| `ProductsViewSet`          | `GET /api/products/`             | `GET /api/products/{id}/`          | Cache + Cursor Pagination    | ✅ Yes (list/single) | ✅ Yes                | 🚧 Planned       | Most traffic, optimize prefetch  |
+| `CategoryViewSet`          | `GET /api/categories/`           | `GET /api/categories/{id}/`        | Hierarchical categories      | ❌ No                | ✅ Yes                | ✅ Yes           | Good for faceted search          |
+| `BrandViewSet`             | `GET /api/brands/`               | `GET /api/brands/{id}/`            | Simple retrieval             | ❌ No                | ✅ Yes                | ✅ Yes           | Frequently cached                |
+| `ProductImageViewSet`      | `GET /api/product-images/`       | `GET /api/product-images/{id}/`    | CDN recommended              | ❌ No                | ⚠️ Limited            | ✅ Yes           | Consider CDN for images          |
+| `ProductVariantViewSet`    | `GET /api/variants/`             | `GET /api/variants/{id}/`          | Variant options              | ❌ No                | ✅ Yes                | ✅ Yes           | Heavy prefetching                |
+| `ProductAttributeViewSet`  | `GET /api/attributes/`           | `GET /api/attributes/{id}/`        | Lightweight attributes       | ❌ No                | ✅ Yes                | ✅ Yes           | Lightweight                      |
+| `InventoryViewSet`         | `GET /api/inventory/`            | `GET /api/inventory/{id}/`         | Stock tracking, real-time    | ❌ No                | ✅ Yes                | ✅ Yes           | Should be real-time              |
 
 ---
 
-## 📦 Products
-
-### `ProductsViewSet`
-**Purpose:**  
-Retrieve a **paginated list of products** with cursor-based pagination.  
-Uses **caching** for better performance.
-
-**Endpoints:**
-- `GET /api/products/` → List all products (paginated, cached).
-- `GET /api/products/{id}/` → Retrieve a single product by ID.
-
-#### `list`
-- Parameters:  
-  - `cursor` (optional, string) – Cursor for pagination. Use `"first"` or empty for the first page.
-- Behavior:
-  1. Checks cache for the given cursor.  
-  2. If cache hit → returns cached results.  
-  3. If cache miss → queries DB, paginates, serializes, stores in cache.  
-- Responses:  
-  - `200 OK` – Paginated product list.  
-  - `500 Internal Server Error` – Unexpected errors.
-
-#### `retrieve`
-- Parameters:  
-  - `id` (path param) – Product ID.  
-- Behavior:  
-  1. Fetches product by ID.  
-  2. Serializes and returns it.  
-- Responses:  
-  - `200 OK` – JSON object with product.  
-  - `404 Not Found` – Product doesn’t exist.  
-  - `400 Bad Request` – Error occurred.
-
-**Flow (list):**
-```mermaid
-sequenceDiagram
-    participant Client
-    participant ViewSet as ProductsViewSet.list
-    participant Cache as ProductCache
-    participant DB as Database
-
-    Client->>ViewSet: GET /api/products/?cursor=abc
-    ViewSet->>Cache: get_results("abc")
-    alt Cache hit
-        Cache-->>ViewSet: Cached results
-        ViewSet-->>Client: 200 OK
-    else Cache miss
-        ViewSet->>DB: Query Products
-        DB-->>ViewSet: Product queryset
-        ViewSet->>ViewSet: Paginate + Serialize
-        ViewSet->>Cache: cache_results("abc", data)
-        ViewSet-->>Client: 200 OK
-    end
-
-🏷️ Categories
-CategoryViewSet
-
-## 🏷️ Categories
-
-### `CategoryViewSet`
-**Purpose:**  
-Retrieve product categories, either as a list or a single category.
-
-**Endpoints:**
-- `GET /api/categories/` → List all categories.
-- `GET /api/categories/{id}/` → Retrieve a category by ID.
-
-#### `list`
-- Behavior:  
-    1. Fetches all categories from the database, ordered by `created_at` descending.
-    2. Serializes and returns the category list.
-- Responses:  
-    - `200 OK` – JSON array of categories.
-
-#### `retrieve`
-- Parameters:  
-    - `id` (path param) – Category ID.
-- Behavior:  
-    1. Fetches category by ID.
-    2. Serializes and returns the category.
-- Responses:  
-    - `200 OK` – JSON object with category.
-    ---
-
-    ## 🏢 Brands
-
-    ### `BrandViewSet`
-    **Purpose:**  
-    Retrieve brands, either as a list or a single brand.
-
-    **Endpoints:**
-    - `GET /api/brands/` → List all brands.
-    - `GET /api/brands/{id}/` → Retrieve a brand by ID.
-
-    #### `list`
-    - Behavior:  
-        1. Fetches all brands from the database, ordered by `created_at` descending.
-        2. Serializes and returns the brand list.
-    - Responses:  
-        - `200 OK` – JSON array of brands.
-
-    #### `retrieve`
-    - Parameters:  
-        - `id` (path param) – Brand ID.
-    - Behavior:  
-        1. Fetches brand by ID.
-        2. Serializes and returns the brand.
-    - Responses:  
-        - `200 OK` – JSON object with brand.
-        - `404 Not Found` – Brand not found.
-
-    ---
-
-    ## 🖼️ Product Images
-
-    ### `ProductImageViewSet`
-    **Purpose:**  
-    Retrieve product images, either as a list or a single image.
-
-    **Endpoints:**
-    - `GET /api/product-images/` → List all images.
-    - `GET /api/product-images/{id}/` → Retrieve a single image by ID.
-
-    #### `list`
-    - Behavior:  
-        1. Fetches all product images from the database.
-        2. Serializes and returns the image list.
-    - Responses:  
-        - `200 OK` – JSON array of images.
-
-    #### `retrieve`
-    - Parameters:  
-        - `id` (path param) – Image ID.
-    - Behavior:  
-        1. Fetches image by ID.
-        2. Serializes and returns the image.
-    - Responses:  
-        - `200 OK` – JSON object with image.
-        - `404 Not Found` – Image not found.
-
-    ---
-
-    ## 🔀 Product Variants
-
-    ### `ProductVariantViewSet`
-    **Purpose:**  
-    Retrieve product variants, either as a list or a single variant.
-
-    **Endpoints:**
-    - `GET /api/variants/` → List all variants.
-    - `GET /api/variants/{id}/` → Retrieve a single variant by ID.
-
-    #### `list`
-    - Behavior:  
-        1. Fetches all product variants from the database.
-        2. Serializes and returns the variant list.
-    - Responses:  
-        - `200 OK` – JSON array of variants.
-
-    #### `retrieve`
-    - Parameters:  
-        - `id` (path param) – Variant ID.
-    - Behavior:  
-        1. Fetches variant by ID.
-        2. Serializes and returns the variant.
-    - Responses:  
-        - `200 OK` – JSON object with variant.
-        - `404 Not Found` – Variant not found.
-
-    ---
-
-    ## 🎛️ Product Attributes
-
-    ### `ProductAttributeViewSet`
-    **Purpose:**  
-    Retrieve product attributes, either as a list or a single attribute.
-
-    **Endpoints:**
-    - `GET /api/attributes/` → List all attributes.
-    - `GET /api/attributes/{id}/` → Retrieve a single attribute by ID.
-
-    #### `list`
-    - Behavior:  
-        1. Fetches all product attributes from the database.
-        2. Serializes and returns the attribute list.
-    - Responses:  
-        - `200 OK` – JSON array of attributes.
-
-    #### `retrieve`
-    - Parameters:  
-        - `id` (path param) – Attribute ID.
-    - Behavior:  
-        1. Fetches attribute by ID.
-        2. Serializes and returns the attribute.
-    - Responses:  
-        - `200 OK` – JSON object with attribute.
-        - `404 Not Found` – Attribute not found.
-
-    ---
-
-    ## 📦 Inventory
-
-    ### `InventoryViewSet`
-    **Purpose:**  
-    Retrieve inventory/stock records, either as a list or a single record.
-
-    **Endpoints:**
-    - `GET /api/inventory/` → List all inventory records.
-    - `GET /api/inventory/{id}/` → Retrieve a stock entry by ID.
-
-    #### `list`
-    - Behavior:  
-        1. Fetches all inventory records from the database.
-        2. Serializes and returns the inventory list.
-    - Responses:  
-        - `200 OK` – JSON array of inventory records.
-
-    #### `retrieve`
-    - Parameters:  
-        - `id` (path param) – Inventory record ID.
-    - Behavior:  
-        1. Fetches inventory record by ID.
-        2. Serializes and returns the record.
-    - Responses:  
-        - `200 OK` – JSON object with inventory data.
-        - `404 Not Found` – Inventory record not found.
-
-    ---
-
----
-
-## 🏷️ Categories
-
-### `CategoryViewSet`
-
-**Purpose:**  
-Retrieve product categories (list and single).
-
-**Endpoints:**
-- `GET /api/categories/` — List all categories.
-- `GET /api/categories/{id}/` — Retrieve a category by ID.
-
-**Behavior:**
-- **list:**  
-    Fetch all categories, ordered by `created_at` (descending), serialize and return.
-- **retrieve:**  
-    Fetch category by ID, serialize and return.
-
-**Responses:**
-- `200 OK` — JSON array/object with category/categories.
-- `404 Not Found` — Category not found.
-
----
-
-## 🏢 Brands
-
-### `BrandViewSet`
-
-**Purpose:**  
-Retrieve brands (list and single).
-
-**Endpoints:**
-- `GET /api/brands/` — List all brands.
-- `GET /api/brands/{id}/` — Retrieve a brand by ID.
-
-**Behavior:**
-- **list:**  
-    Fetch all brands, ordered by `created_at` (descending), serialize and return.
-- **retrieve:**  
-    Fetch brand by ID, serialize and return.
-
-**Responses:**
-- `200 OK` — JSON array/object with brand/brands.
-- `404 Not Found` — Brand not found.
-
----
-
-## 🖼️ Product Images
-
-### `ProductImageViewSet`
-
-**Purpose:**  
-Retrieve product images (list and single).
-
-**Endpoints:**
-- `GET /api/product-images/` — List all images.
-- `GET /api/product-images/{id}/` — Retrieve a single image by ID.
-
-**Behavior:**
-- **list:**  
-    Fetch all product images, serialize and return.
-- **retrieve:**  
-    Fetch image by ID, serialize and return.
-
-**Responses:**
-- `200 OK` — JSON array/object with image(s).
-- `404 Not Found` — Image not found.
-
----
-
-## 🔀 Product Variants
-
-### `ProductVariantViewSet`
-
-**Purpose:**  
-Retrieve product variants (list and single).
-
-**Endpoints:**
-- `GET /api/variants/` — List all variants.
-- `GET /api/variants/{id}/` — Retrieve a single variant by ID.
-
-**Behavior:**
-- **list:**  
-    Fetch all variants, serialize and return.
-- **retrieve:**  
-    Fetch variant by ID, serialize and return.
-
-**Responses:**
-- `200 OK` — JSON array/object with variant(s).
-- `404 Not Found` — Variant not found.
-
----
-
-## 🎛️ Product Attributes
-
-### `ProductAttributeViewSet`
-
-**Purpose:**  
-Retrieve product attributes (list and single).
-
-**Endpoints:**
-- `GET /api/attributes/` — List all attributes.
-- `GET /api/attributes/{id}/` — Retrieve a single attribute by ID.
-
-**Behavior:**
-- **list:**  
-    Fetch all attributes, serialize and return.
-- **retrieve:**  
-    Fetch attribute by ID, serialize and return.
-
-**Responses:**
-- `200 OK` — JSON array/object with attribute(s).
-- `404 Not Found` — Attribute not found.
-
----
-
-## 📦 Inventory
-
-### `InventoryViewSet`
-
-**Purpose:**  
-Retrieve inventory/stock records (list and single).
-
-**Endpoints:**
-- `GET /api/inventory/` — List all inventory records.
-- `GET /api/inventory/{id}/` — Retrieve a stock entry by ID.
-
-**Behavior:**
-- **list:**  
-    Fetch all inventory records, serialize and return.
-- **retrieve:**  
-    Fetch inventory record by ID, serialize and return.
-
-**Responses:**
-- `200 OK` — JSON array/object with inventory data.
-- `404 Not Found` — Inventory record not found.
-
-## 🏷️ Categories
-
-### `CategoryViewSet`
-
-**Purpose:**  
-Retrieve product categories, either as a list or a single category.
-
-**Endpoints:**
-- `GET /api/categories/` — List all categories.
-- `GET /api/categories/{id}/` — Retrieve a category by ID.
-
-**Behavior:**
-- **list:**  
-    Fetch all categories, ordered by `created_at` (descending), serialize and return.
-- **retrieve:**  
-    Fetch category by ID, serialize and return.
-
-**Responses:**
-- `200 OK` — JSON array/object with category/categories.
-- `404 Not Found` — Category not found.
-
----
-
-### Endpoints
-
-| ViewSet                   | List Endpoint                      | Retrieve Endpoint                      |
-|---------------------------|------------------------------------|----------------------------------------|
-| **ProductsViewSet**       | `GET /api/products/`               | `GET /api/products/{id}/`              |
-| **CategoryViewSet**       | `GET /api/categories/`             | `GET /api/categories/{id}/`            |
-| **BrandViewSet**          | `GET /api/brands/`                 | `GET /api/brands/{id}/`                |
-| **ProductImageViewSet**   | `GET /api/product-images/`         | `GET /api/product-images/{id}/`        |
-| **ProductVariantViewSet** | `GET /api/variants/`               | `GET /api/variants/{id}/`              |
-| **ProductAttributeViewSet** | `GET /api/attributes/`           | `GET /api/attributes/{id}/`            |
-| **InventoryViewSet**      | `GET /api/inventory/`              | `GET /api/inventory/{id}/`             |
-
----
-
-## 📚 API ViewSets – Quick Reference
-
-Below is a concise summary of all viewsets in `products/api/viewsets.py`, their endpoints, and behaviors.
-
-### ProductsViewSet
-- **Purpose:** List/retrieve products (paginated, cached).
-- **Endpoints:**
-    - `GET /api/products/` — Paginated product list (uses cache).
-    - `GET /api/products/{id}/` — Retrieve single product.
-- **Special:** Only this viewset uses caching and cursor-based pagination.
-
-### CategoryViewSet
-- **Purpose:** List/retrieve product categories.
-- **Endpoints:**
-    - `GET /api/categories/` — List all categories.
-    - `GET /api/categories/{id}/` — Retrieve category by ID.
-
-### BrandViewSet
-- **Purpose:** List/retrieve brands.
-- **Endpoints:**
-    - `GET /api/brands/` — List all brands.
-    - `GET /api/brands/{id}/` — Retrieve brand by ID.
-
-### ProductImageViewSet
-- **Purpose:** List/retrieve product images.
-- **Endpoints:**
-    - `GET /api/product-images/` — List all images.
-    - `GET /api/product-images/{id}/` — Retrieve image by ID.
-
-### ProductVariantViewSet
-- **Purpose:** List/retrieve product variants.
-- **Endpoints:**
-    - `GET /api/variants/` — List all variants.
-    - `GET /api/variants/{id}/` — Retrieve variant by ID.
-
-### ProductAttributeViewSet
-- **Purpose:** List/retrieve product attributes.
-- **Endpoints:**
-    - `GET /api/attributes/` — List all attributes.
-    - `GET /api/attributes/{id}/` — Retrieve attribute by ID.
-
-### InventoryViewSet
-- **Purpose:** List/retrieve inventory records.
-- **Endpoints:**
-    - `GET /api/inventory/` — List all inventory records.
-    - `GET /api/inventory/{id}/` — Retrieve inventory record by ID.
-
----
-
-### ⚡️ Behavior & Responses
-
-- **List endpoints:** Return all records (except Products, which is paginated and cached).
-- **Retrieve endpoints:** Return single record by ID.
-- **Responses:**  
-    - `200 OK` — Success (JSON data).  
-    - `404 Not Found` — Record not found.
-
----
-
-### 📝 Summary Table
-
-| ViewSet                   | List Endpoint                      | Retrieve Endpoint                      | Special Features         |
-|---------------------------|------------------------------------|----------------------------------------|-------------------------|
-| **ProductsViewSet**       | `GET /api/products/`               | `GET /api/products/{id}/`              | Cache + Pagination      |
-| **CategoryViewSet**       | `GET /api/categories/`             | `GET /api/categories/{id}/`            |                         |
-| **BrandViewSet**          | `GET /api/brands/`                 | `GET /api/brands/{id}/`                |                         |
-| **ProductImageViewSet**   | `GET /api/product-images/`         | `GET /api/product-images/{id}/`        |                         |
-| **ProductVariantViewSet** | `GET /api/variants/`               | `GET /api/variants/{id}/`              |                         |
-| **ProductAttributeViewSet** | `GET /api/attributes/`           | `GET /api/attributes/{id}/`            |                         |
-| **InventoryViewSet**      | `GET /api/inventory/`              | `GET /api/inventory/{id}/`             |                         |
-
----
-
-## 🎨 Pretty Quick Reference
-
-Below is a visually enhanced summary of all viewsets in `products/api/viewsets.py`.
-
----
-
-### 🚀 ProductsViewSet
-
-| Endpoint                      | Description                        | Special Features         |
-|-------------------------------|------------------------------------|-------------------------|
-| `GET /api/products/`          | Paginated product list (cached)    | Cache + Pagination      |
-| `GET /api/products/{id}/`     | Retrieve single product            |                         |
-
----
-
-### 🏷️ CategoryViewSet
-
-| Endpoint                      | Description                        |
-|-------------------------------|------------------------------------|
-| `GET /api/categories/`        | List all categories                |
-| `GET /api/categories/{id}/`   | Retrieve category by ID            |
-
----
-
-### 🏢 BrandViewSet
-
-| Endpoint                      | Description                        |
-|-------------------------------|------------------------------------|
-| `GET /api/brands/`            | List all brands                    |
-| `GET /api/brands/{id}/`       | Retrieve brand by ID               |
-
----
-
-### 🖼️ ProductImageViewSet
-
-| Endpoint                          | Description                        |
-|------------------------------------|------------------------------------|
-| `GET /api/product-images/`         | List all images                    |
-| `GET /api/product-images/{id}/`    | Retrieve image by ID               |
-
----
-
-### 🔀 ProductVariantViewSet
-
-| Endpoint                      | Description                        |
-|-------------------------------|------------------------------------|
-| `GET /api/variants/`          | List all variants                  |
-| `GET /api/variants/{id}/`     | Retrieve variant by ID             |
-
----
-
-### 🎛️ ProductAttributeViewSet
-
-| Endpoint                      | Description                        |
-|-------------------------------|------------------------------------|
-| `GET /api/attributes/`        | List all attributes                |
-| `GET /api/attributes/{id}/`   | Retrieve attribute by ID           |
-
----
-
-### 📦 InventoryViewSet
-
-| Endpoint                      | Description                        |
-|-------------------------------|------------------------------------|
-| `GET /api/inventory/`         | List all inventory records         |
-| `GET /api/inventory/{id}/`    | Retrieve inventory record by ID    |
-
----
-
-## ⚡️ Behavior & Responses
-
-- **List endpoints:** Return all records (except Products, which is paginated and cached).
-- **Retrieve endpoints:** Return single record by ID.
-- **Responses:**  
-    - `200 OK` — Success (JSON data)  
-    - `404 Not Found` — Record not found
-
-## 🌟 API ViewSets – Styled Reference
-
-### 📦 ProductsViewSet
-- **Purpose:** List/retrieve products (paginated, cached).
-- **Endpoints:**
-    - `GET /api/products/` — Paginated product list <br> <span style="color: #4caf50;">(uses cache)</span>
-    - `GET /api/products/{id}/` — Retrieve single product
-- **Special:** <span style="color: #2196f3;">Cache + Cursor-based Pagination</span>
-
----
-
-### 🏷️ CategoryViewSet
-- **Purpose:** List/retrieve product categories.
-- **Endpoints:**
-    - `GET /api/categories/` — List all categories
-    - `GET /api/categories/{id}/` — Retrieve category by ID
-
----
-
-### 🏢 BrandViewSet
-- **Purpose:** List/retrieve brands.
-- **Endpoints:**
-    - `GET /api/brands/` — List all brands
-    - `GET /api/brands/{id}/` — Retrieve brand by ID
-
----
-
-### 🖼️ ProductImageViewSet
-- **Purpose:** List/retrieve product images.
-- **Endpoints:**
-    - `GET /api/product-images/` — List all images
-    - `GET /api/product-images/{id}/` — Retrieve image by ID
-
----
-
-### 🔀 ProductVariantViewSet
-- **Purpose:** List/retrieve product variants.
-- **Endpoints:**
-    - `GET /api/variants/` — List all variants
-    - `GET /api/variants/{id}/` — Retrieve variant by ID
-
----
-
-### 🎛️ ProductAttributeViewSet
-- **Purpose:** List/retrieve product attributes.
-- **Endpoints:**
-    - `GET /api/attributes/` — List all attributes
-    - `GET /api/attributes/{id}/` — Retrieve attribute by ID
-
----
-
-### 📦 InventoryViewSet
-- **Purpose:** List/retrieve inventory/stock records.
-- **Endpoints:**
-    - `GET /api/inventory/` — List all inventory records
-    - `GET /api/inventory/{id}/` — Retrieve inventory record by ID
-
----
-
-### ⚡️ Behavior & Responses
-
-| Endpoint Type   | Behavior                                                                 | Responses                                   |
-|-----------------|--------------------------------------------------------------------------|---------------------------------------------|
-| **List**        | Returns all records (Products: paginated & cached)                       | `200 OK` – JSON array                       |
-| **Retrieve**    | Returns single record by ID                                              | `200 OK` – JSON object<br>`404 Not Found`   |
-
----
-
-> **ℹ️ Note:**  
-> - Only `ProductsViewSet.list` uses cache and pagination.  
-> - All other endpoints query the database directly.
-
-
-## ✅ Summary
-
-- **ProductsViewSet:** Product list (cached + paginated) & single product.
-- **CategoryViewSet:** List/retrieve categories.
-- **BrandViewSet:** List/retrieve brands.
-- **ProductImageViewSet:** List/retrieve images.
-- **ProductVariantViewSet:** List/retrieve variants.
-- **ProductAttributeViewSet:** List/retrieve attributes.
-- **InventoryViewSet:** List/retrieve inventory/stock.
-
-> **Note:**  
-> - Only `ProductsViewSet.list` uses cache + pagination.  
-> - All other endpoints query the database directly.
-
----
-GET /api/categories/ → List all categories.
-
-GET /api/categories/{id}/ → Retrieve a category by ID.
-
-Behavior:
-
-list → Fetch all categories, order by created_at DESC, serialize and return.
-
-retrieve → Fetch category by ID, serialize and return.
-
-Responses:
-
-200 OK – JSON with category/categories.
-
-404 Not Found – Category not found.
-
-🏢 Brands
-BrandViewSet
-
-Purpose:
-Retrieve brands (list and single).
-
-Endpoints:
-
-GET /api/brands/ → List all brands.
-
-GET /api/brands/{id}/ → Retrieve a brand by ID.
-
-Behavior:
-
-list → Fetch all brands, order by created_at DESC, serialize.
-
-retrieve → Fetch brand by ID, serialize.
-
-Responses:
-
-200 OK – JSON with brand/brands.
-
-404 Not Found – Brand not found.
-
-🖼️ Product Images
-ProductImageViewSet
-
-Purpose:
-Retrieve product images (list and single).
-
-Endpoints:
-
-GET /api/product-images/ → List all images.
-
-GET /api/product-images/{id}/ → Retrieve a single image.
-
-Behavior:
-
-list → Return all product images.
-
-retrieve → Return single product image by ID.
-
-Responses:
-
-200 OK – JSON with image(s).
-
-404 Not Found – Image not found.
-
-🔀 Product Variants
-ProductVariantViewSet
-
-Purpose:
-Retrieve product variants (list and single).
-
-Endpoints:
-
-GET /api/variants/ → List all variants.
-
-GET /api/variants/{id}/ → Retrieve a single variant.
-
-Behavior:
-
-list → Return all variants.
-
-retrieve → Return variant by ID.
-
-Responses:
-
-200 OK – JSON with variant(s).
-
-404 Not Found – Variant not found.
-
-🎛️ Product Attributes
-ProductAttributeViewSet
-
-Purpose:
-Retrieve product attributes (list and single).
-
-Endpoints:
-
-GET /api/attributes/ → List all attributes.
-
-GET /api/attributes/{id}/ → Retrieve a single attribute.
-
-Behavior:
-
-list → Return all attributes.
-
-retrieve → Return attribute by ID.
-
-Responses:
-
-200 OK – JSON with attribute(s).
-
-404 Not Found – Attribute not found.
-
-📦 Inventory
-InventoryViewSet
-
-Purpose:
-Retrieve inventory/stock (list and single).
-
-Endpoints:
-
-GET /api/inventory/ → List all inventory records.
-
-GET /api/inventory/{id}/ → Retrieve stock entry by ID.
-
-Behavior:
-
-list → Return all inventory records.
-
-retrieve → Return inventory record by ID.
-
-Responses:
-
-200 OK – JSON with inventory data.
-
-404 Not Found – Inventory record not found.
-
-✅ Summary
-
-ProductsViewSet → Product list (cached + paginated) & single product.
-
-CategoryViewSet → List/retrieve categories.
-
-BrandViewSet → List/retrieve brands.
-
-ProductImageViewSet → List/retrieve images.
-
-ProductVariantViewSet → List/retrieve variants.
-
-ProductAttributeViewSet → List/retrieve attributes.
-
-InventoryViewSet → List/retrieve inventory/stock.
-
-👉 Only ProductsViewSet.list uses cache + pagination.
-👉 All other endpoints query the database directly.
+## 🎨 Cart & Wishlist Table API – Enhanced ViewSets Overview
+### 🛠️ API Highlights
+
+| **ViewSet**           | **List Endpoint**          | **Retrieve Endpoint**           | **Special Features**            | **Caching**        | **Filtering/Sorting** | **Bulk Support** | **Notes**                                     |
+| --------------------- | -------------------------- | ------------------------------- | ------------------------------- | ------------------ | --------------------- | ---------------- | --------------------------------------------- |
+| `CartViewSet`         | `GET /api/cart/`           | `GET /api/cart/{id}/`           | Auto-create, per-user isolation | ✅ Yes (per-user)   | ⚠️ Limited            | 🚧 Planned       | One active cart per user; merge on login      |
+| `CartItemViewSet`     | `GET /api/cart-items/`     | `GET /api/cart-items/{id}/`     | Add/Update/Delete products      | ✅ Yes (items list) | ✅ Yes                 | ✅ Yes            | Idempotent add-to-cart, optimistic locking    |
+| `WishlistViewSet`     | `GET /api/wishlists/`      | `GET /api/wishlists/{id}/`      | Simple, user-specific           | ❌ No               | ✅ Yes                 | 🚧 Planned       | Typically 1 wishlist per user                 |
+| `WishlistItemViewSet` | `GET /api/wishlist-items/` | `GET /api/wishlist-items/{id}/` | Add/Remove wishlist items       | ❌ No               | ✅ Yes                 | ✅ Yes            | Consider async events → recommendation engine |
+
+
+## 🎨 SearchViewSet Table API – Enhanced ViewSets Overview
+### 🛠️ API Highlights
+
+| **ViewSet**                 | **List Endpoint**                     | **Retrieve Endpoint**                    | **Special Features**                 | **Caching**         | **Filtering/Sorting** | **Bulk Support** | **Notes**                                    |
+| --------------------------- | ------------------------------------- | ---------------------------------------- | ------------------------------------ | ------------------- | --------------------- | ---------------- | -------------------------------------------- |
+| `SearchViewSet`             | `GET /api/search/`                    | –                                        | Full-text, Faceted, Sorting          | ✅ Yes (query cache) | ✅ Yes                 | 🚧 Planned       | Backed by ElasticSearch                      |
+| `RecommendationViewSet`     | `GET /api/recommendations/user/{id}/` | `GET /api/recommendations/product/{id}/` | Personalized, Trending, Also Bought  | ✅ Yes (per-user)    | ⚠️ Limited            | ❌ No             | Realtime from cache or ML service            |
+| `RecommendationRuleViewSet` | `GET /api/rules/`                     | `GET /api/rules/{id}/`                   | Manage rule-based recommendations    | ❌ No                | ✅ Yes                 | ✅ Yes            | Admin-only                                   |
+| `RecommendationLogViewSet`  | `GET /api/logs/`                      | `GET /api/logs/{id}/`                    | User-product recommendation tracking | ❌ No                | ✅ Yes                 | ✅ Yes            | Heavy writes → use Kafka → async persistence |
+
+
+## 🎨 Order Table API – Enhanced ViewSets Overview
+### 🛠️ API Highlights
+
+| **ViewSet**        | **List Endpoint**       | **Retrieve Endpoint**        | **Special Features**                                     | **Caching**                  | **Filtering/Sorting**        | **Bulk Support** | **Notes**                                                                 |
+| ------------------ | ----------------------- | ---------------------------- | -------------------------------------------------------- | ---------------------------- | ---------------------------- | ---------------- | ------------------------------------------------------------------------- |
+| `OrderViewSet`     | `GET /api/orders/`      | `GET /api/orders/{id}/`      | Lifecycle mgmt (pending → delivered), multi-seller split | ✅ Yes (recent orders cache)  | ✅ Yes (status, date, user)   | 🚧 Planned       | Event-driven (`order.created`, `order.paid`) integrated with Kafka/Rabbit |
+| `OrderItemViewSet` | `GET /api/order-items/` | `GET /api/order-items/{id}/` | Per-seller item breakdown, SKU & pricing details         | ⚠️ Partial (per-order cache) | ✅ Yes (seller, product, SKU) | ✅ Yes            | Supports seller dashboards for granular item visibility                   |
+| `ShipmentViewSet`  | `GET /api/shipments/`   | `GET /api/shipments/{id}/`   | Tracks carrier, tracking no., delivery status            | ✅ Yes (tracking info 15 min) | ✅ Yes (carrier, status)      | ❌ No             | Integrated w/ external carriers (FedEx, DHL, etc.)                        |
+| `ReturnViewSet`    | `GET /api/returns/`     | `GET /api/returns/{id}/`     | Handles returns/refunds, return reasons                  | ❌ No                         | ✅ Yes (status, date)         | ✅ Yes            | Event `order.returned` → triggers refund workflows                        |
+
+
+
+
+
+
+📖 Full Backend API Overview (Accounts + Orders + Permissions)
+🛠️ API Mega-Table
+| **Module**      | **ViewSet / Service**       | **List Endpoint**                | **Retrieve Endpoint**                 | **Special Features**                                                      | **Caching**                    | **Filtering/Sorting**         | **Bulk Support** | **Notes**                                       |
+| --------------- | --------------------------- | -------------------------------- | ------------------------------------- | ------------------------------------------------------------------------- | ------------------------------ | ----------------------------- | ---------------- | ----------------------------------------------- |
+| **Accounts**    | `UserViewSet`               | `GET /api/users/`                | `GET /api/users/{id}/`                | Core user management (admin only)                                         | ❌ No                           | ✅ Yes (email, role, active)   | 🚧 Planned       | Passwords handled via auth service              |
+|                 | `AuthViewSet`               | `POST /api/login/`               | ❌                                     | JWT/OAuth2 login, refresh token                                           | ⚡ Token-level cache in Redis   | ❌ No                          | ❌ No             | Social logins optional                          |
+|                 | `RegisterViewSet`           | `POST /api/register/`            | ❌                                     | User signup (buyer/seller)                                                | ❌ No                           | ❌ No                          | ❌ No             | Triggers welcome email event                    |
+|                 | `ProfileViewSet`            | `GET /api/profile/`              | `PATCH /api/profile/{id}/`            | Profile read/update; buyer/seller KYC status                              | ✅ Yes (per-user profile cache) | ❌ No                          | ❌ No             | Object-level perms enforced                     |
+|                 | `KYCViewSet`                | `POST /api/kyc/submit/`          | `GET /api/kyc/status/{user_id}/`      | Seller verification docs upload + approval flow                           | ⚠️ Partial (status cached)     | ✅ Yes (status, date)          | ❌ No             | Event-driven updates via Kafka                  |
+|                 | `PasswordResetViewSet`      | `POST /api/password/reset/`      | `GET /api/password/reset/{token}/`    | Password reset with expiring token                                        | ❌ No                           | ❌ No                          | ❌ No             | Token one-time use                              |
+| **Orders**      | `OrderViewSet`              | `GET /api/orders/`               | `GET /api/orders/{id}/`               | Lifecycle (pending → delivered), multi-seller split                       | ✅ Yes (recent orders cache)    | ✅ Yes (status, date, user)    | 🚧 Planned       | Emits events `order.created`, `order.paid`      |
+|                 | `OrderItemViewSet`          | `GET /api/order-items/`          | `GET /api/order-items/{id}/`          | Seller-level breakdown of SKUs, pricing                                   | ⚠️ Partial (per-order cache)   | ✅ Yes (seller, SKU, product)  | ✅ Yes            | Supports seller dashboards                      |
+|                 | `ShipmentViewSet`           | `GET /api/shipments/`            | `GET /api/shipments/{id}/`            | Tracks carrier, tracking no., delivery status                             | ✅ Yes (tracking cache, 15 min) | ✅ Yes (carrier, status)       | ❌ No             | Linked with external carriers (DHL/FedEx APIs)  |
+|                 | `ReturnViewSet`             | `GET /api/returns/`              | `GET /api/returns/{id}/`              | Handles return/refund lifecycle                                           | ❌ No                           | ✅ Yes (status, date, reason)  | ✅ Yes            | Event `order.returned` triggers refund pipeline |
+| **Permissions** | `RoleViewSet`               | `GET /api/roles/`                | `GET /api/roles/{id}/`                | Role CRUD (`admin`, `seller`, `buyer`)                                    | ❌ No                           | ✅ Yes (role)                  | ✅ Yes            | Admin-only                                      |
+|                 | `PermissionViewSet`         | `GET /api/permissions/`          | `GET /api/permissions/{id}/`          | CRUD on resource/action permissions                                       | ❌ No                           | ✅ Yes (resource, action)      | ✅ Yes            | Super-admin only                                |
+|                 | `UserRoleViewSet`           | `GET /api/user-roles/`           | `GET /api/user-roles/{id}/`           | Maps users ↔ roles (multiple possible)                                    | ✅ Yes (per-user cache)         | ✅ Yes (user, role)            | ✅ Yes            | Core for audit dashboards                       |
+|                 | `OrderPermissionViewSet`    | `GET /api/order-permissions/`    | `GET /api/order-permissions/{id}/`    | Object-level perms: buyer=own orders, seller=their orders, admin=all      | ✅ Yes (query cache)            | ✅ Yes (order\_id, user, role) | ❌ No             | Enforced in DRF `has_object_permission`         |
+|                 | `ReturnPermissionViewSet`   | `GET /api/return-permissions/`   | `GET /api/return-permissions/{id}/`   | Buyer requests, seller approves, admin override                           | ⚠️ Partial (status cached)     | ✅ Yes (status, role)          | ❌ No             | Hooks into refund workflow                      |
+|                 | `ShipmentPermissionViewSet` | `GET /api/shipment-permissions/` | `GET /api/shipment-permissions/{id}/` | Buyer sees own shipments, seller sees fulfilled shipments, admin sees all | ✅ Yes (tracking cache)         | ✅ Yes (shipment\_id, carrier) | ❌ No             | Privacy boundary for cross-seller visibility    |
+|                 | `AdminOverrideViewSet`      | `GET /api/admin-overrides/`      | `GET /api/admin-overrides/{id}/`      | Emergency admin override on permissions                                   | ❌ No                           | ✅ Yes (resource, user\_id)    | ❌ No             | Logged to Kafka → AuditLog                      |

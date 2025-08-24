@@ -202,7 +202,7 @@ class SearchProductsViewSet(ViewSet):
             if not query:
                 return ErrorResponse.send(
                     message="No query provided.",
-                    code=status.HTTP_400_BAD_REQUEST,
+                    status=status.HTTP_400_BAD_REQUEST,
                     request=request,
                 )
 
@@ -213,9 +213,9 @@ class SearchProductsViewSet(ViewSet):
             cached_data = search_cache.get_results(query, cursor)
             if cached_data:
                 return SuccessResponse.send(
-                    data=cached_data,
-                    message="Cached results",
-                    code=status.HTTP_200_OK,
+                    body=cached_data,
+                    message="Cached Products searched successfully",
+                    status=status.HTTP_200_OK,
                     request=request,
                     extra={"cache_status": "HIT", "cursor": cursor},
                 )
@@ -241,7 +241,7 @@ class SearchProductsViewSet(ViewSet):
             search_cache.cache_results(query, response.data, cursor)
 
             return SuccessResponse.send(
-                data=response.data,
+                body=response.data,
                 message="Products searched successfully",
                 request=request,
                 extra={"cache_status": "MISS", "cursor": cursor},

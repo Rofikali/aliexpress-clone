@@ -15,7 +15,7 @@ def run_cmd(cmd):
 
 def main():
     # Step 1: makemigrations for specific apps
-    run_cmd("python manage.py makemigrations accounts products orders carts")
+    run_cmd("python manage.py makemigrations accounts products orders carts search")
 
     # Step 2: migrate
     run_cmd("python manage.py migrate")
@@ -30,7 +30,7 @@ def main():
     from apps.accounts.models import User  # adjust if your custom user model is elsewhere
 
     if not User.objects.filter(is_superuser=True).exists():
-        print("⚡ Creating default superuser (admin1 / admin@gmail.com / admin1)")
+        print("⚡ Creating default superuser (admin / admin@gmail.com / admin)")
         User.objects.create_superuser(
             username="admin1",
             email="admin@gmail.com",
