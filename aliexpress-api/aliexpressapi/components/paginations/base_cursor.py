@@ -32,26 +32,38 @@ class BaseCursorPagination(CursorPagination):
     # Query parameter used by the frontend to pass the cursor token
     cursor_query_param = "cursor"
 
-    def get_paginated_response(self, data):
-        """
-        Override DRF's default response to return:
-        {
-            "products": [...],   # serialized results
-            "next_cursor": "...", # opaque token for next page or null
-            "has_next": true/false
-        }
+    # def get_paginated_response(self, data):
+    
+        # """
+        # Override DRF's default response to return:
+        # {
+        #     "products": [...],   # serialized results
+        #     "next_cursor": "...", # opaque token for next page or null
+        #     "has_next": true/false
+        # }
 
-        Why not return full URLs?
-        - Clients (mobile/web) only need the token, not the full API URL.
-        - Keeps payload smaller and frontend-agnostic.
-        """
+        # Why not return full URLs?
+        # - Clients (mobile/web) only need the token, not the full API URL.
+        # - Keeps payload smaller and frontend-agnostic.
+        # """
+        # return Response(
+        #     {
+        #         "products": data,
+        #         "pagination": {
+        #             "next_cursor": self.get_next_link_cursor(),
+        #             "has_next": self.get_next_link() is not None,
+        #             "count": len(data),  # count is optional
+        #         },
+        #     }
+        # )
+    def get_paginated_response(self, data, root_key="results"):
         return Response(
             {
-                "products": data,
-                "meta": {
+                root_key: data,
+                "pagination": {
                     "next_cursor": self.get_next_link_cursor(),
                     "has_next": self.get_next_link() is not None,
-                    "count": len(data),  # count is optional
+                    # "count": len(data),
                 },
             }
         )

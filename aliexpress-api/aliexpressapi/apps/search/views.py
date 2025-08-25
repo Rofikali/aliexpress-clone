@@ -144,8 +144,9 @@ from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 
 # Custom components
 from components.paginations.infinite_scroll import InfiniteScrollPagination
-from components.responses.success import SuccessResponse
-from components.responses.error import ErrorResponse
+# from components.responses.success import SuccessResponse
+# from components.responses.error import ErrorResponse
+from components.responses.response_factory import ResponseFactory
 from components.caching.cache_factory import get_cache
 
 # DRF core imports
@@ -200,9 +201,9 @@ class SearchProductsViewSet(ViewSet):
             # 1️⃣ Extract and normalize the search query
             query = request.GET.get("q", "").strip().lower()
             if not query:
-                return ErrorResponse.send(
+                return ResponseFactory.error(
                     message="No query provided.",
-                    status=status.HTTP_400_BAD_REQUEST,
+                    status_code=status.HTTP_400_BAD_REQUEST,
                     request=request,
                 )
 
@@ -212,10 +213,10 @@ class SearchProductsViewSet(ViewSet):
             # 3️⃣ Check cache first
             cached_data = search_cache.get_results(query, cursor)
             if cached_data:
-                return SuccessResponse.send(
+                return ResponseFactory.success(
                     body=cached_data,
                     message="Cached Products searched successfully",
-                    status=status.HTTP_200_OK,
+                    status_code=status.HTTP_200_OK,
                     request=request,
                     extra={"cache_status": "HIT", "cursor": cursor},
                 )

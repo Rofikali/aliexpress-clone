@@ -52,7 +52,7 @@ project_root/
 │   │   ├── __init__.py
 │   │   ├── base_cache.py
 │   │   ├── cache_factory.py
-│   │   └── utils.py
+│   │   └── invalidation.py   ✅ NEW (cache invalidation signals)
 │   │
     throttling/
          __init__.py

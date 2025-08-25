@@ -12,8 +12,9 @@ from .serializers import (
     ReturnSerializer,
 )
 
-from components.responses.success import SuccessResponse
-from components.responses.error import ErrorResponse
+# from components.responses.success import SuccessResponse
+# from components.responses.error import ErrorRespo
+from components.responses.response_factory import ResponseFactory
 from components.caching.cache_factory import get_cache
 from components.paginations.infinite_scroll import InfiniteScrollPagination
 
@@ -33,24 +34,26 @@ class OrderViewSet(ViewSet):
             cache_key = f"orders:user:{request.user.id}:list"
             cached = self.cache.get(cache_key)
             if cached:
-                return SuccessResponse.send(
+                return ResponseFactory.success(
                     body=cached,
                     message="Orders fetched from cache",
                     request=request,
+                    status_code=status.HTTP_200_OK,
                 )
 
             qs = Order.objects.filter(user=request.user).order_by("-created_at")
             serializer = OrderSerializer(qs, many=True, context={"request": request})
 
             self.cache.set(cache_key, serializer.data, timeout=600)
-            return SuccessResponse.send(
+            return ResponseFactory.success(
                 body=serializer.data,
                 message="Orders fetched successfully",
                 request=request,
+                status_code=status.HTTP_200_OK
             )
         except Exception as e:
-            return ErrorResponse.send(
-                "Failed to fetch orders", {"detail": str(e)}, request
+            return ResponseFactory.error(
+                "Failed to fetch orders", {"detail": str(e)}, request, status_code=status.HTTP_400_BAD_REQUEST
             )
 
     @extend_schema(
@@ -63,16 +66,16 @@ class OrderViewSet(ViewSet):
             cache_key = f"orders:{pk}:user:{request.user.id}"
             cached = self.cache.get(cache_key)
             if cached:
-                return SuccessResponse.send(
-                    body=cached, message="Fetched from cache", request=request
+                return ResponseFactory.success(
+                    body=cached, message="Fetched from cache", request=request, status_code=status.HTTP_200_OK
                 )
 
             order = get_object_or_404(Order, id=pk, user=request.user)
             serializer = OrderSerializer(order, context={"request": request})
 
             self.cache.set(cache_key, serializer.data, timeout=600)
-            return SuccessResponse.send(
-                serializer.data, "Order fetched successfully", request=request
+            return ResponseFactory.success(
+                serializer.data, "Order fetched successfully", request=request, status_code=status.HTTP_200_OK
             )
         except Exception as e:
             return ErrorResponse.send("Order not found", {"detail": str(e)}, request)

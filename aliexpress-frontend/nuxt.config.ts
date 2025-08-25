@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     runtimeConfig: {
         public: {
-            apiBase: 'http://localhost:8000/', // Change to your Django API
+            apiBase: 'http://localhost:8000/api/v1', // Change to your Django API
         },
     },
     pages: true,

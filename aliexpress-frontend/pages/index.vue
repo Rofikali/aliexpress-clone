@@ -29,7 +29,7 @@ const {
     error,
     sentinelRef,
     bindSentinel
-} = useInfiniteScroll('/api/v1/products/', {
+} = useInfiniteScroll('/products/', {
     pageSize: 12,
     dedupeKey: 'id',
     retries: 2,

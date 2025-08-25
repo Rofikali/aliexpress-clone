@@ -14,8 +14,9 @@ from .serializers import (
 )
 
 from components.paginations.infinite_scroll import InfiniteScrollPagination
-from components.responses.success import SuccessResponse
-from components.responses.error import ErrorResponse
+# from components.responses.success import ResponseFactory
+# from components.responses.error import ErrorResponse
+from components.responses.response_factory import ResponseFactory
 from components.caching.cache_factory import get_cache
 
 
@@ -38,11 +39,12 @@ class CartViewSet(ViewSet):
 
             cached_data = self.cache.get(cache_key)
             if cached_data:
-                return SuccessResponse.send(
+                return ResponseFactory.success(
                     body=cached_data,
                     message="Carts fetched successfully",
                     request=request,
                     extra={"from_cache": True},
+                    status_code=status.HTTP_200_OK,
                 )
 
             queryset = Cart.objects.filter(user=user).order_by("-created_at")
@@ -52,17 +54,18 @@ class CartViewSet(ViewSet):
 
             self.cache.set(cache_key, serializer.data, timeout=300)  # 5 min TTL
 
-            return SuccessResponse.send(
+            return ResponseFactory.success(
                 body=serializer.data,
                 message="Carts fetched successfully",
                 request=request,
+                status_code=status.HTTP_200_OK
             )
         except Exception as e:
-            return ErrorResponse.send(
+            return ResponseFactory.error(
                 message="Failed to fetch carts",
                 errors={"detail": str(e)},
                 request=request,
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
     @extend_schema(
@@ -77,7 +80,7 @@ class CartViewSet(ViewSet):
             cache_key = f"cart:{pk}:user:{request.user.id}"
             cached_data = self.cache.get(cache_key)
             if cached_data:
-                return SuccessResponse.send(
+                return ResponseFactory.send(
                     body=cached_data,
                     message="Cart fetched successfully",
                     request=request,
@@ -88,13 +91,13 @@ class CartViewSet(ViewSet):
             serializer = CartSerializer(cart, context={"request": request})
 
             self.cache.set(cache_key, serializer.data, timeout=300)
-            return SuccessResponse.send(
+            return ResponseFactory.success(
                 body=serializer.data,
                 message="Cart fetched successfully",
                 request=request,
             )
         except Exception as e:
-            return ErrorResponse.send(
+            return ResponseFactory.error(
                 message="Cart not found", errors=str(e), request=request
             )
 
@@ -130,7 +133,7 @@ class CartItemViewSet(ViewSet):
             )
             response_data = paginator.get_paginated_response(serializer.data).data
 
-            return SuccessResponse.send(
+            return ResponseFactory.send(
                 body=response_data,
                 message="Cart items fetched successfully",
                 request=request,
@@ -159,7 +162,7 @@ class WishlistViewSet(ViewSet):
             cached_data = self.cache.get(cache_key)
 
             if cached_data:
-                return SuccessResponse.send(
+                return ResponseFactory.send(
                     body=cached_data,
                     message="Wishlists fetched successfully",
                     request=request,
@@ -173,7 +176,7 @@ class WishlistViewSet(ViewSet):
 
             self.cache.set(cache_key, serializer.data, timeout=600)  # 10 min TTL
 
-            return SuccessResponse.send(
+            return ResponseFactory.send(
                 body=serializer.data,
                 message="Wishlists fetched successfully",
                 request=request,
@@ -217,7 +220,7 @@ class WishlistItemViewSet(ViewSet):
             )
             response_data = paginator.get_paginated_response(serializer.data).data
 
-            return SuccessResponse.send(
+            return ResponseFactory.send(
                 body=response_data,
                 message="Wishlist items fetched successfully",
                 request=request,

@@ -1,0 +1,348 @@
+{
+    "status": "success",
+    "success": true,
+    "code": 200,
+    "message": "Products fetched successfully",
+    "request": {
+        "id": "793c4e63-aa5c-4bde-b12a-b5d362519923",
+        "timestamp": "2025-08-25T07:23:38.762486+00:00",
+        "latency_ms": 29.58,
+        "region": "Nepal-01",
+        "cache": "MISS"
+    },
+    "meta": {
+        "cursor": "first"
+    },
+    "data": {
+        "products": [
+            {
+                "id": "ac7e90de-c34a-41af-a882-c478e46eb762",
+                "title": "Total pick we",
+                "description": "Economy identify lawyer successful. Hold her father drive recent ball.\nMeet senior chair since. Son require both key plant tree.",
+                "price": "207.93",
+                "image": "http://localhost:8000/media/products/images/join-common-apply.jpg",
+                "images": [
+                    {
+                        "id": 596,
+                        "product": "ac7e90de-c34a-41af-a882-c478e46eb762",
+                        "image": "http://localhost:8000/media/products/images/join-common-apply-1.jpg"
+                    },
+                    {
+                        "id": 597,
+                        "product": "ac7e90de-c34a-41af-a882-c478e46eb762",
+                        "image": "http://localhost:8000/media/products/images/join-common-apply-2.jpg"
+                    },
+                    {
+                        "id": 598,
+                        "product": "ac7e90de-c34a-41af-a882-c478e46eb762",
+                        "image": "http://localhost:8000/media/products/images/join-common-apply-3.jpg"
+                    },
+                    {
+                        "id": 599,
+                        "product": "ac7e90de-c34a-41af-a882-c478e46eb762",
+                        "image": "http://localhost:8000/media/products/images/join-common-apply-4.jpg"
+                    },
+                    {
+                        "id": 600,
+                        "product": "ac7e90de-c34a-41af-a882-c478e46eb762",
+                        "image": "http://localhost:8000/media/products/images/join-common-apply-5.jpg"
+                    }
+                ],
+                "category": {
+                    "id": 1,
+                    "name": "Default Category",
+                    "description": ""
+                },
+                "brand": {
+                    "id": 1,
+                    "name": "Default Brand",
+                    "description": ""
+                },
+                "created_at": "2025-08-25T05:11:43.891239Z",
+                "updated_at": "2025-08-25T05:11:43.894580Z"
+            },
+            {
+                "id": "a96fdcb6-0c09-41a5-ab4f-aa91ce5fe685",
+                "title": "Hundred past customer course",
+                "description": "Movement set risk although during prove. Produce participant with. Want head game create result month interest last.",
+                "price": "463.19",
+                "image": "http://localhost:8000/media/products/images/reduce-friend.jpg",
+                "images": [
+                    {
+                        "id": 591,
+                        "product": "a96fdcb6-0c09-41a5-ab4f-aa91ce5fe685",
+                        "image": "http://localhost:8000/media/products/images/reduce-friend-1.jpg"
+                    },
+                    {
+                        "id": 592,
+                        "product": "a96fdcb6-0c09-41a5-ab4f-aa91ce5fe685",
+                        "image": "http://localhost:8000/media/products/images/reduce-friend-2.jpg"
+                    },
+                    {
+                        "id": 593,
+                        "product": "a96fdcb6-0c09-41a5-ab4f-aa91ce5fe685",
+                        "image": "http://localhost:8000/media/products/images/reduce-friend-3.jpg"
+                    },
+                    {
+                        "id": 594,
+                        "product": "a96fdcb6-0c09-41a5-ab4f-aa91ce5fe685",
+                        "image": "http://localhost:8000/media/products/images/reduce-friend-4.jpg"
+                    },
+                    {
+                        "id": 595,
+                        "product": "a96fdcb6-0c09-41a5-ab4f-aa91ce5fe685",
+                        "image": "http://localhost:8000/media/products/images/reduce-friend-5.jpg"
+                    }
+                ],
+                "category": {
+                    "id": 1,
+                    "name": "Default Category",
+                    "description": ""
+                },
+                "brand": {
+                    "id": 1,
+                    "name": "Default Brand",
+                    "description": ""
+                },
+                "created_at": "2025-08-25T05:11:43.869424Z",
+                "updated_at": "2025-08-25T05:11:43.872521Z"
+            },
+            {
+                "id": "29bfd616-9353-4e73-82e6-4b745083eee2",
+                "title": "Significant family under",
+                "description": "Can company determine scene on feel real. Happen onto join degree draw eight Republican. Its at bank line.\nDuring tend box partner focus method approach yeah. Meet parent bank shoulder let sometimes.",
+                "price": "334.64",
+                "image": "http://localhost:8000/media/products/images/direction-also.jpg",
+                "images": [
+                    {
+                        "id": 586,
+                        "product": "29bfd616-9353-4e73-82e6-4b745083eee2",
+                        "image": "http://localhost:8000/media/products/images/direction-also-1.jpg"
+                    },
+                    {
+                        "id": 587,
+                        "product": "29bfd616-9353-4e73-82e6-4b745083eee2",
+                        "image": "http://localhost:8000/media/products/images/direction-also-2.jpg"
+                    },
+                    {
+                        "id": 588,
+                        "product": "29bfd616-9353-4e73-82e6-4b745083eee2",
+                        "image": "http://localhost:8000/media/products/images/direction-also-3.jpg"
+                    },
+                    {
+                        "id": 589,
+                        "product": "29bfd616-9353-4e73-82e6-4b745083eee2",
+                        "image": "http://localhost:8000/media/products/images/direction-also-4.jpg"
+                    },
+                    {
+                        "id": 590,
+                        "product": "29bfd616-9353-4e73-82e6-4b745083eee2",
+                        "image": "http://localhost:8000/media/products/images/direction-also-5.jpg"
+                    }
+                ],
+                "category": {
+                    "id": 1,
+                    "name": "Default Category",
+                    "description": ""
+                },
+                "brand": {
+                    "id": 1,
+                    "name": "Default Brand",
+                    "description": ""
+                },
+                "created_at": "2025-08-25T05:11:43.848795Z",
+                "updated_at": "2025-08-25T05:11:43.851841Z"
+            },
+            {
+                "id": "74339fbc-deb1-496c-97c6-2011f3dd6d41",
+                "title": "Education last begin",
+                "description": "Fund respond per tax marriage show like. Audience modern have either. Indicate level walk agree argue.\nHead stock dinner treat song. Start but bit.",
+                "price": "206.77",
+                "image": "http://localhost:8000/media/products/images/usually-option-data.jpg",
+                "images": [
+                    {
+                        "id": 581,
+                        "product": "74339fbc-deb1-496c-97c6-2011f3dd6d41",
+                        "image": "http://localhost:8000/media/products/images/usually-option-data-1.jpg"
+                    },
+                    {
+                        "id": 582,
+                        "product": "74339fbc-deb1-496c-97c6-2011f3dd6d41",
+                        "image": "http://localhost:8000/media/products/images/usually-option-data-2.jpg"
+                    },
+                    {
+                        "id": 583,
+                        "product": "74339fbc-deb1-496c-97c6-2011f3dd6d41",
+                        "image": "http://localhost:8000/media/products/images/usually-option-data-3.jpg"
+                    },
+                    {
+                        "id": 584,
+                        "product": "74339fbc-deb1-496c-97c6-2011f3dd6d41",
+                        "image": "http://localhost:8000/media/products/images/usually-option-data-4.jpg"
+                    },
+                    {
+                        "id": 585,
+                        "product": "74339fbc-deb1-496c-97c6-2011f3dd6d41",
+                        "image": "http://localhost:8000/media/products/images/usually-option-data-5.jpg"
+                    }
+                ],
+                "category": {
+                    "id": 1,
+                    "name": "Default Category",
+                    "description": ""
+                },
+                "brand": {
+                    "id": 1,
+                    "name": "Default Brand",
+                    "description": ""
+                },
+                "created_at": "2025-08-25T05:11:43.826734Z",
+                "updated_at": "2025-08-25T05:11:43.830471Z"
+            },
+            {
+                "id": "3c5e70bf-a6f4-4528-be10-13104611bced",
+                "title": "Congress draw",
+                "description": "Should study respond throughout risk west. Left program culture interesting perform notice.",
+                "price": "456.33",
+                "image": "http://localhost:8000/media/products/images/claim-week-within.jpg",
+                "images": [
+                    {
+                        "id": 576,
+                        "product": "3c5e70bf-a6f4-4528-be10-13104611bced",
+                        "image": "http://localhost:8000/media/products/images/claim-week-within-1.jpg"
+                    },
+                    {
+                        "id": 577,
+                        "product": "3c5e70bf-a6f4-4528-be10-13104611bced",
+                        "image": "http://localhost:8000/media/products/images/claim-week-within-2.jpg"
+                    },
+                    {
+                        "id": 578,
+                        "product": "3c5e70bf-a6f4-4528-be10-13104611bced",
+                        "image": "http://localhost:8000/media/products/images/claim-week-within-3.jpg"
+                    },
+                    {
+                        "id": 579,
+                        "product": "3c5e70bf-a6f4-4528-be10-13104611bced",
+                        "image": "http://localhost:8000/media/products/images/claim-week-within-4.jpg"
+                    },
+                    {
+                        "id": 580,
+                        "product": "3c5e70bf-a6f4-4528-be10-13104611bced",
+                        "image": "http://localhost:8000/media/products/images/claim-week-within-5.jpg"
+                    }
+                ],
+                "category": {
+                    "id": 1,
+                    "name": "Default Category",
+                    "description": ""
+                },
+                "brand": {
+                    "id": 1,
+                    "name": "Default Brand",
+                    "description": ""
+                },
+                "created_at": "2025-08-25T05:11:43.798162Z",
+                "updated_at": "2025-08-25T05:11:43.802064Z"
+            },
+            {
+                "id": "7aa22f6d-e0d6-4e20-8f97-a87b7a427668",
+                "title": "Laugh",
+                "description": "Property pressure himself you likely guy field authority. Lose themselves set arrive including get. Group should nor under.",
+                "price": "127.97",
+                "image": "http://localhost:8000/media/products/images/game-thought-suffer.jpg",
+                "images": [
+                    {
+                        "id": 571,
+                        "product": "7aa22f6d-e0d6-4e20-8f97-a87b7a427668",
+                        "image": "http://localhost:8000/media/products/images/game-thought-suffer-1.jpg"
+                    },
+                    {
+                        "id": 572,
+                        "product": "7aa22f6d-e0d6-4e20-8f97-a87b7a427668",
+                        "image": "http://localhost:8000/media/products/images/game-thought-suffer-2.jpg"
+                    },
+                    {
+                        "id": 573,
+                        "product": "7aa22f6d-e0d6-4e20-8f97-a87b7a427668",
+                        "image": "http://localhost:8000/media/products/images/game-thought-suffer-3.jpg"
+                    },
+                    {
+                        "id": 574,
+                        "product": "7aa22f6d-e0d6-4e20-8f97-a87b7a427668",
+                        "image": "http://localhost:8000/media/products/images/game-thought-suffer-4.jpg"
+                    },
+                    {
+                        "id": 575,
+                        "product": "7aa22f6d-e0d6-4e20-8f97-a87b7a427668",
+                        "image": "http://localhost:8000/media/products/images/game-thought-suffer-5.jpg"
+                    }
+                ],
+                "category": {
+                    "id": 1,
+                    "name": "Default Category",
+                    "description": ""
+                },
+                "brand": {
+                    "id": 1,
+                    "name": "Default Brand",
+                    "description": ""
+                },
+                "created_at": "2025-08-25T05:11:43.768390Z",
+                "updated_at": "2025-08-25T05:11:43.773313Z"
+            },
+            {
+                "id": "56329345-7b0e-48e5-83b7-1205270f7664",
+                "title": "Hope attention south",
+                "description": "Yeah natural pull join notice serious learn. Wish participant may process toward sea catch. Card quickly between prove arm. Manage strong number throughout enough kid.",
+                "price": "130.14",
+                "image": "http://localhost:8000/media/products/images/do-subject-serious.jpg",
+                "images": [
+                    {
+                        "id": 566,
+                        "product": "56329345-7b0e-48e5-83b7-1205270f7664",
+                        "image": "http://localhost:8000/media/products/images/do-subject-serious-1.jpg"
+                    },
+                    {
+                        "id": 567,
+                        "product": "56329345-7b0e-48e5-83b7-1205270f7664",
+                        "image": "http://localhost:8000/media/products/images/do-subject-serious-2.jpg"
+                    },
+                    {
+                        "id": 568,
+                        "product": "56329345-7b0e-48e5-83b7-1205270f7664",
+                        "image": "http://localhost:8000/media/products/images/do-subject-serious-3.jpg"
+                    },
+                    {
+                        "id": 569,
+                        "product": "56329345-7b0e-48e5-83b7-1205270f7664",
+                        "image": "http://localhost:8000/media/products/images/do-subject-serious-4.jpg"
+                    },
+                    {
+                        "id": 570,
+                        "product": "56329345-7b0e-48e5-83b7-1205270f7664",
+                        "image": "http://localhost:8000/media/products/images/do-subject-serious-5.jpg"
+                    }
+                ],
+                "category": {
+                    "id": 1,
+                    "name": "Default Category",
+                    "description": ""
+                },
+                "brand": {
+                    "id": 1,
+                    "name": "Default Brand",
+                    "description": ""
+                },
+                "created_at": "2025-08-25T05:11:43.740581Z",
+                "updated_at": "2025-08-25T05:11:43.744871Z"
+            }
+        ],
+        "pagination": {
+            "next_cursor": null,
+            "has_next": false,
+            "count": 7
+        }
+    },
+    "errors": null
+}
