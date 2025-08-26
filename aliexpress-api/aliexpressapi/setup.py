@@ -32,9 +32,9 @@ def main():
     if not User.objects.filter(is_superuser=True).exists():
         print("⚡ Creating default superuser (admin / admin@gmail.com / admin)")
         User.objects.create_superuser(
-            username="admin1",
+            username="admin",
             email="admin@gmail.com",
-            password="admin1"
+            password="admin"
         )
     else:
         print("✅ Superuser already exists. Skipping creation.")
