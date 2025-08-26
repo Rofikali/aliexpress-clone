@@ -2,6 +2,7 @@ apiexpress clone API Documentation To Handle 1 billion/trilion users
 
 🎨 Accounts / Identity API – Enhanced ViewSets Overview
 🛠️ API Highlights
+
 | **ViewSet**                 | **List Endpoint**             | **Retrieve Endpoint**            | **Special Features**                                                  | **Caching**                      | **Filtering/Sorting**     | **Bulk Support** | **Notes**                                                                |
 | --------------------------- | ----------------------------- | -------------------------------- | --------------------------------------------------------------------- | -------------------------------- | ------------------------- | ---------------- | ------------------------------------------------------------------------ |
 | `UserViewSet`               | `GET /api/users/`             | `GET /api/users/{id}/`           | Role-based (buyer/seller/admin), KYC status tracking, last login info | ⚠️ Partial (profile cache)       | ✅ Yes (role, KYC, active) | 🚧 Planned       | Admin-only for list; normal users can only view/update their own profile |
@@ -10,10 +11,12 @@ apiexpress clone API Documentation To Handle 1 billion/trilion users
 | `PasswordResetViewSet`      | `POST /api/password/request/` | `POST /api/password/reset/`      | Issues one-time reset tokens, tracks expiry & usage                   | ❌ No                             | ❌                         | ❌                | Reset flow triggers async email/SMS event                                |
 | `DeviceViewSet`             | `GET /api/devices/`           | `GET /api/devices/{id}/`         | Multi-device login mgmt, push token storage                           | ✅ Yes (last-active cache)        | ✅ Yes (device type, user) | ✅ Yes            | Lets users revoke lost/stolen devices                                    |
 | `KYCViewSet`                | `POST /api/kyc/submit/`       | `GET /api/kyc/status/{user_id}/` | Document upload, approval workflow, async processing                  | ❌ No                             | ✅ Yes (status, date)      | ❌                | On approval → user role auto-upgraded to `seller`                        |
-| `SessionViewSet` (optional) | `GET /api/sessions/`          | `GET /api/sessions/{id}/`        | Active session listing for user; force logout support                 | ✅ Yes (Redis-backed)             | ✅ Yes (ip, device, user)  | ❌                | Useful for security dashboards                                     
+| `SessionViewSet` (optional) | `GET /api/sessions/`          | `GET /api/sessions/{id}/`        | Active session listing for user; force logout support                 | ✅ Yes (Redis-backed)             | ✅ Yes (ip, device, user)  | ❌                | Useful for security dashboards
+
       |
 🎨 Permissions & Roles API – Enhanced ViewSets Overview
 🛠️ API Highlights
+
 | **ViewSet**                      | **List Endpoint**                | **Retrieve Endpoint**                 | **Special Features**                                                                                    | **Caching**                       | **Filtering/Sorting**               | **Bulk Support** | **Notes**                                                    |
 | -------------------------------- | -------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------- | --------------------------------- | ----------------------------------- | ---------------- | ------------------------------------------------------------ |
 | `RoleViewSet`                    | `GET /api/roles/`                | `GET /api/roles/{id}/`                | Manages roles (`admin`, `seller`, `buyer`); role assignment to users                                    | ❌ No                              | ✅ Yes (role name)                   | ✅ Yes            | Admin-only; assigns roles to users                           |
@@ -24,12 +27,9 @@ apiexpress clone API Documentation To Handle 1 billion/trilion users
 | `ShipmentPermissionViewSet`      | `GET /api/shipment-permissions/` | `GET /api/shipment-permissions/{id}/` | Controls shipment visibility (buyer sees own shipments, seller sees shipments they fulfill)             | ✅ Yes (tracking cache)            | ✅ Yes (shipment\_id, carrier, role) | ❌ No             | Helps ensure sellers don’t see buyer info from other sellers |
 | `AdminOverridePermissionViewSet` | `GET /api/admin-overrides/`      | `GET /api/admin-overrides/{id}/`      | Lets admins temporarily override role checks for critical flows                                         | ❌ No                              | ✅ Yes (resource, user\_id)          | ❌ No             | Logs every override via Kafka → AuditLog                     |
 
-
-
 # Products API – ViewSets Documentation
 
 This document describes all the API **ViewSets** available in `products/api/viewsets.py`.  
-
 
 ## 🎨 Products Table API – Enhanced ViewSets Overview
 
@@ -46,6 +46,7 @@ This document describes all the API **ViewSets** available in `products/api/view
 ---
 
 ## 🎨 Cart & Wishlist Table API – Enhanced ViewSets Overview
+
 ### 🛠️ API Highlights
 
 | **ViewSet**           | **List Endpoint**          | **Retrieve Endpoint**           | **Special Features**            | **Caching**        | **Filtering/Sorting** | **Bulk Support** | **Notes**                                     |
@@ -55,8 +56,8 @@ This document describes all the API **ViewSets** available in `products/api/view
 | `WishlistViewSet`     | `GET /api/wishlists/`      | `GET /api/wishlists/{id}/`      | Simple, user-specific           | ❌ No               | ✅ Yes                 | 🚧 Planned       | Typically 1 wishlist per user                 |
 | `WishlistItemViewSet` | `GET /api/wishlist-items/` | `GET /api/wishlist-items/{id}/` | Add/Remove wishlist items       | ❌ No               | ✅ Yes                 | ✅ Yes            | Consider async events → recommendation engine |
 
-
 ## 🎨 SearchViewSet Table API – Enhanced ViewSets Overview
+
 ### 🛠️ API Highlights
 
 | **ViewSet**                 | **List Endpoint**                     | **Retrieve Endpoint**                    | **Special Features**                 | **Caching**         | **Filtering/Sorting** | **Bulk Support** | **Notes**                                    |
@@ -66,8 +67,8 @@ This document describes all the API **ViewSets** available in `products/api/view
 | `RecommendationRuleViewSet` | `GET /api/rules/`                     | `GET /api/rules/{id}/`                   | Manage rule-based recommendations    | ❌ No                | ✅ Yes                 | ✅ Yes            | Admin-only                                   |
 | `RecommendationLogViewSet`  | `GET /api/logs/`                      | `GET /api/logs/{id}/`                    | User-product recommendation tracking | ❌ No                | ✅ Yes                 | ✅ Yes            | Heavy writes → use Kafka → async persistence |
 
-
 ## 🎨 Order Table API – Enhanced ViewSets Overview
+
 ### 🛠️ API Highlights
 
 | **ViewSet**        | **List Endpoint**       | **Retrieve Endpoint**        | **Special Features**                                     | **Caching**                  | **Filtering/Sorting**        | **Bulk Support** | **Notes**                                                                 |
@@ -77,13 +78,9 @@ This document describes all the API **ViewSets** available in `products/api/view
 | `ShipmentViewSet`  | `GET /api/shipments/`   | `GET /api/shipments/{id}/`   | Tracks carrier, tracking no., delivery status            | ✅ Yes (tracking info 15 min) | ✅ Yes (carrier, status)      | ❌ No             | Integrated w/ external carriers (FedEx, DHL, etc.)                        |
 | `ReturnViewSet`    | `GET /api/returns/`     | `GET /api/returns/{id}/`     | Handles returns/refunds, return reasons                  | ❌ No                         | ✅ Yes (status, date)         | ✅ Yes            | Event `order.returned` → triggers refund workflows                        |
 
-
-
-
-
-
 📖 Full Backend API Overview (Accounts + Orders + Permissions)
 🛠️ API Mega-Table
+
 | **Module**      | **ViewSet / Service**       | **List Endpoint**                | **Retrieve Endpoint**                 | **Special Features**                                                      | **Caching**                    | **Filtering/Sorting**         | **Bulk Support** | **Notes**                                       |
 | --------------- | --------------------------- | -------------------------------- | ------------------------------------- | ------------------------------------------------------------------------- | ------------------------------ | ----------------------------- | ---------------- | ----------------------------------------------- |
 | **Accounts**    | `UserViewSet`               | `GET /api/users/`                | `GET /api/users/{id}/`                | Core user management (admin only)                                         | ❌ No                           | ✅ Yes (email, role, active)   | 🚧 Planned       | Passwords handled via auth service              |

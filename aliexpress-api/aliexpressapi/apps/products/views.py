@@ -34,7 +34,6 @@ from components.caching.cache_factory import (
 )  # ✅ generic cache factory
 
 
-
 # -------------------- PRODUCTS --------------------
 class ProductsViewSet(ViewSet):
     cache = get_cache("products")
@@ -79,7 +78,7 @@ class ProductsViewSet(ViewSet):
 
             serializer = ProductSerializer(
                 paginator_queryset, many=True, context={"request": request}
-            )   
+            )
             response_data = paginator.get_paginated_response(
                 serializer.data
             ).data  ### old one is curect
@@ -124,7 +123,7 @@ class ProductsViewSet(ViewSet):
             product = get_object_or_404(Product, id=pk)
             serializer = ProductSerializer(product, context={"request": request})
             return ResponseFactory.success(
-                body=serializer.data,
+                data=serializer.data,
                 message="Single Product fetched successfully",
                 status_code=status.HTTP_200_OK,
                 request=request,

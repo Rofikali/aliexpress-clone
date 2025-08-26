@@ -8,14 +8,17 @@ uv venv
 uv pip install -r pyproject.toml
 
 ## migrations
+
 python manage.py makemigrations accounts products orders carts  
 python manage.py migrate
 python manage.py createsuperuser
 
 ### automate above code
+
 python setup.py
 
-## Gerenate products with images 
+## Gerenate products with images
+
 python manage.py generate_fake_products 50
 python manage.py generate_product_images 5
 
@@ -24,48 +27,59 @@ python manage.py generate_product_images 5
 This structure is designed for extreme scale — up to **1 trillion users**, assuming distributed infrastructure, Kubernetes, PostgreSQL clusters, and high-performance caching and queuing systems.
 
 ## 🗂️ Folder Structure aliexressclone
+
 project_root/
 │
-├── components/                         # Reusable business-level components
-│   ├── pagination/                      # DRF custom paginations
+├── components/                         # Shared reusable components (business logic)
+│   ├── pagination/                     # DRF custom pagination classes
 │   │   ├── __init__.py
 │   │   ├── base_cursor.py
 │   │   ├── offset_pagination.py
 │   │   └── infinite_scroll.py
 │   │
-│   ├── authentication/                  # JWT & auth backends
+│   ├── authentication/                 # JWT utils & custom auth backends
 │   │   ├── __init__.py
 │   │   ├── jwt_utils.py
 │   │   └── backends.py
 │   │
-│   ├── responses/                        # Standardized API responses
-│   │   ├── __init__.py
-│   │   └── base_response.py
-            success.py
-            error.py
+│   ├── permissions/                    # Centralized DRF permissions
+│   │   └── permissions.py
 │   │
-│   ├── mixins/                           # DRF view/serializer mixins
+│   ├── responses/                      # Standardized API response wrappers
+│   │   ├── __init__.py
+│   │   ├── base_response.py
+│   │   ├── success.py
+│   │   └── error.py
+│   │
+│   ├── mixins/                         # DRF view/serializer mixins
 │   │   ├── __init__.py
 │   │   └── soft_delete_mixin.py
 │   │
-│   ├── caching/                          # Cache-related logic
+│   ├── caching/                        # Caching logic
 │   │   ├── __init__.py
 │   │   ├── base_cache.py
 │   │   ├── cache_factory.py
-│   │   └── invalidation.py   ✅ NEW (cache invalidation signals)
+│   │   └── invalidation.py             # ✅ New: cache invalidation signals
 │   │
-    throttling/
-         __init__.py
-        utils.py
-        backend.py
-        base_throttle.py
-        exceptions.py
-        middleware.py
+│   ├── middleware/                     # Custom middlewares
+│   │   └── request_timer.py
+│   │
+│   ├── throttling/                     # Custom API throttling logic
+│   │   ├── __init__.py
+│   │   ├── utils.py
+│   │   ├── backend.py
+│   │   ├── base_throttle.py
+│   │   ├── exceptions.py
+│   │   └── middleware.py
+│   │
+│   ├── utils/                          # General-purpose helper utilities
+│   │   ├── encoders.py
+│   │   └── money.py
 │   │
 │   └── __init__.py
 │
-├── apps/                                 # Modular Django apps
-│   ├── accounts/                         # Auth & user management
+├── apps/                               # Modular Django apps (domain-driven design)
+│   ├── accounts/                       # Auth & user management
 │   │   ├── admin.py
 │   │   ├── apps.py
 │   │   ├── models/
@@ -73,22 +87,22 @@ project_root/
 │   │   ├── views/
 │   │   ├── urls.py
 │   │   └── tests/
-        products
 │   │
-│   ├── posts/
-│   ├── orders/
-│   ├── payments/
-│   ├── notifications/
+│   ├── products/                       # Product catalog & inventory
+│   ├── posts/                          # Reviews / social posts
+│   ├── orders/                         # Orders & checkout flow
+│   ├── payments/                       # Payment gateways integration
+│   ├── notifications/                  # Push/email/real-time notifications
 │   └── __init__.py
 │
-├── services/                             # External integrations & background jobs
-│   ├── celery_worker/
-│   ├── elasticsearch/
-│   ├── redis/
-│   └── email_service/
+├── services/                           # External integrations & background jobs
+│   ├── celery_worker/                  # Async task queues (Celery workers)
+│   ├── elasticsearch/                  # Search engine configs & clients
+│   ├── redis/                          # Redis caching & pub/sub
+│   └── email_service/                  # Email sending service
 │
-├── configs/                              # Environment-specific settings
-│   ├── setting/                          # (⚠ Could be merged into configs/)
+├── configs/                            # Project-level configs (settings & entrypoints)
+│   ├── setting/                        # Environment-specific Django settings
 │   │   ├── __init__.py
 │   │   ├── base.py
 │   │   ├── dev.py
@@ -96,31 +110,30 @@ project_root/
 │   │   └── test.py
 │   │
 │   ├── __init__.py
-│   ├── urls.py
-│   ├── wsgi.py
-│   └── asgi.py
+│   ├── urls.py                         # Root URL router
+│   ├── wsgi.py                         # WSGI entrypoint
+│   └── asgi.py                         # ASGI entrypoint (for websockets, etc.)
 │
-├── static/                               # Static assets
-├── media/                                # Uploaded media files
+├── static/                             # Static assets (CSS, JS, images)
+├── media/                              # Uploaded user-generated files
 │
-├── requirements/                         # Pip dependency lists
+├── requirements/                       # Dependency management
 │   ├── base.txt
 │   ├── dev.txt
 │   ├── prod.txt
 │   └── test.txt
 │
-├── tests/                                # Top-level tests
-│   ├── unit/
-│   ├── integration/
-│   └── performance/
+├── tests/                              # Top-level tests (outside apps)
+│   ├── unit/                           # Unit tests
+│   ├── integration/                    # Integration tests
+│   └── performance/                    # Load & stress tests
 │
-├── .env
+├── .env                                # Environment variables
 ├── .dockerignore
 ├── Dockerfile
 ├── docker-compose.yml
 ├── manage.py
 └── README.md
-
 
 
 ## 🧠 Folder Breakdown by Use Case
