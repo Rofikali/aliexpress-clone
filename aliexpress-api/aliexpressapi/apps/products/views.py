@@ -94,12 +94,12 @@ class ProductsViewSet(ViewSet):
                 message="Products fetched successfully",
                 status_code=status.HTTP_200_OK,
                 request=request,
-                extra={
-                    "cursor": cursor,
-                    **paginator.get_paginated_response(serializer.data).data[
-                        "pagination"
-                    ],
-                },
+                # extra={
+                #     "cursor": cursor,
+                #     **paginator.get_paginated_response(serializer.data).data[
+                #         "pagination"
+                #     ],
+                # },
                 # ❌ no cache arg → will auto become MISS
             )
 

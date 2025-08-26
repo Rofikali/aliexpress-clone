@@ -1,5 +1,3 @@
-
-
 # components/responses/response_factory.py
 from rest_framework.response import Response
 from uuid import uuid4
@@ -8,7 +6,6 @@ import time
 
 
 class ResponseFactory:
-    
     @staticmethod
     def _base_response(
         status_str,
@@ -18,7 +15,7 @@ class ResponseFactory:
         request,
         data=None,
         errors=None,
-        extra=None,
+        # extra=None,
         cache=None,
     ):
         start_time = getattr(request, "_start_time", time.time())
@@ -35,8 +32,8 @@ class ResponseFactory:
                 "region": "Nepal-01",
                 "cache": cache if cache else "MISS",  # ✅ auto defaults to MISS
             },
-            "meta": extra or {},
-            "data": data,
+            # "meta": extra or {},
+            **data,
             "errors": errors,
         }
         return Response(response, status=code)
@@ -48,7 +45,7 @@ class ResponseFactory:
         message="Success",
         status_code=200,
         request=None,
-        extra=None,
+        # extra=None,
         cache=None,
     ):
         return cls._base_response(
@@ -58,7 +55,7 @@ class ResponseFactory:
             message,
             request,
             data=data,
-            extra=extra,
+            # extra=extra,
             cache=cache,
         )
 
@@ -69,7 +66,7 @@ class ResponseFactory:
         errors=None,
         status_code=400,
         request=None,
-        extra=None,
+        # extra=None,
         cache=None,
     ):
         return cls._base_response(
@@ -79,6 +76,6 @@ class ResponseFactory:
             message,
             request,
             errors=errors,
-            extra=extra,
+            # extra=extra,
             cache=cache,
         )
