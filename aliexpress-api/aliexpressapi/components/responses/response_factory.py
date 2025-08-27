@@ -33,7 +33,7 @@ class ResponseFactory:
                 "cache": cache if cache else "MISS",  # ✅ auto defaults to MISS
             },
             # "meta": extra or {},
-            **data,
+            **(data or {}),  # ✅ always expand a dict
             "errors": errors,
         }
         return Response(response, status=code)

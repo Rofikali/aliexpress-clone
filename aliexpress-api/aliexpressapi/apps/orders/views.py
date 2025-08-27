@@ -16,7 +16,7 @@ from .serializers import (
 # from components.responses.error import ErrorRespo
 from components.responses.response_factory import ResponseFactory
 from components.caching.cache_factory import get_cache
-from components.paginations.infinite_scroll import InfiniteScrollPagination
+from components.paginations.base_pagination import BaseCursorPagination
 
 
 # -------------------- ORDERS --------------------
@@ -103,7 +103,7 @@ class OrderItemViewSet(ViewSet):
             order = get_object_or_404(Order, id=order_id, user=request.user)
             qs = OrderItem.objects.filter(order=order).order_by("-created_at")
 
-            paginator = InfiniteScrollPagination()
+            paginator = BaseCursorPagination()
             page = paginator.paginate_queryset(qs, request)
             serializer = OrderItemSerializer(
                 page, many=True, context={"request": request}

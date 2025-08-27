@@ -13,7 +13,7 @@ from .serializers import (
     WishlistItemSerializer,
 )
 
-from components.paginations.infinite_scroll import InfiniteScrollPagination
+from components.paginations.base_pagination import BaseCursorPagination
 # from components.responses.success import ResponseFactory
 # from components.responses.error import ErrorResponse
 from components.responses.response_factory import ResponseFactory
@@ -126,7 +126,7 @@ class CartItemViewSet(ViewSet):
             cart = get_object_or_404(Cart, user=request.user, status="active")
             queryset = CartItem.objects.filter(cart=cart).order_by("-added_at")
 
-            paginator = InfiniteScrollPagination()
+            paginator = BaseCursorPagination()
             page = paginator.paginate_queryset(queryset, request)
             serializer = CartItemSerializer(
                 page, many=True, context={"request": request}
