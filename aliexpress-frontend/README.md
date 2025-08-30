@@ -4,7 +4,7 @@
 ### Searching STORE with Reuseable Codebase
 <!-- // https://collectionapi.metmuseum.org/public/collection/v1/departments -->
 
-## aliexpressclone
+## aliexpressclone nuxt3 frontend with drf api
 nuxt3-frontend/
 │
 ├── utils/                                      # General utility functions

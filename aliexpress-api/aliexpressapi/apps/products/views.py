@@ -26,7 +26,7 @@ from .serializers import (
     InventorySerializer,
 )
 
-from components.paginations.base_cursor import BaseCursorPagination
+from components.paginations.base_pagination import BaseCursorPagination
 from components.responses.response_factory import ResponseFactory
 from components.caching.cache_factory import (
     # cache_factory,

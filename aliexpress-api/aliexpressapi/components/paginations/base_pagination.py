@@ -1,4 +1,4 @@
-# components/pagination/base_cursor.py
+# components/pagination/base_pagination.py
 from rest_framework.pagination import CursorPagination
 from rest_framework.response import Response
 from urllib.parse import urlparse, parse_qs

@@ -1,9 +1,6 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.tokens import default_token_generator
 from django.core.cache import cache
-from django.core.mail import send_mail
 from rest_framework import status
-from rest_framework.viewsets import ViewSet
 from drf_spectacular.utils import extend_schema
 from .serializers import (
     LoginSerializer,
@@ -14,10 +11,8 @@ User = get_user_model()
 # from .models import Post, User, Comment, Like, Post
 
 # from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
 
 # drf spectacular schema
-
 
 
 # from common.paginations.custompagination import CustomCursorPagination
@@ -638,384 +633,683 @@ from .serializers import (
     PasswordResetRequestSerializer,
     PasswordResetConfirmSerializer,
     DeviceSerializer,
-    KYCSubmitSerializer,
 )
-from components.responses.success import SuccessResponse
-from components.responses.error import ErrorResponse
+from components.responses.response_factory import ResponseFactory
 from components.caching.cache_factory import get_cache
 
 User = get_user_model()
 cache = get_cache("accounts")
 
 
-# -------------------- AUTH / REGISTER / TOKEN --------------------
-class AuthViewSet(ViewSet):
+from drf_spectacular.utils import OpenApiParameter
+
+from django.contrib.auth import get_user_model
+from rest_framework import viewsets
+from drf_spectacular.utils import (
+    OpenApiResponse,
+)
+
+from .serializers import (
+    RegisterSerializer,
+    ProfileSerializer,
+    LoginSerializer,
+    TokenPairSerializer,
+    RefreshSerializer,
+    PasswordResetRequestSerializer,
+    PasswordResetConfirmSerializer,
+    DeviceSerializer,
+    KYCSubmitSerializer,
+)
+from components.caching.cache_factory import get_cache
+
+User = get_user_model()
+cache = get_cache("accounts")
+
+
+# ------------------------------
+# Register
+# ------------------------------
+class RegisterViewSet(viewsets.ViewSet):
     permission_classes = [permissions.AllowAny]
 
     @extend_schema(
         request=RegisterSerializer,
-        responses={201: ProfileSerializer},
-        tags=["Auth"],
-        summary="Register user",
-        description="Create a new user. If registering as seller, KYC will be required.",
+        responses={
+            201: ProfileSerializer,
+            400: OpenApiResponse(description="Validation Error"),
+        },
     )
-    def register(self, request):
-        try:
-            serializer = RegisterSerializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            user = serializer.save()
-            # optional: send welcome email asynchronously
-            # send_mail(...)
-            data = ProfileSerializer(user, context={"request": request}).data
-            return SuccessResponse.send(
-                body=data,
-                message="User registered",
-                request=request,
-                status=status.HTTP_201_CREATED,
-            )
-        except Exception as e:
-            return ErrorResponse.send(
-                message="Registration failed",
-                errors={"detail": str(e)},
-                request=request,
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+    def create(self, request):
+        """Register a new user"""
+        serializer = RegisterSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        data = ProfileSerializer(user, context={"request": request}).data
+        return ResponseFactory.success.send(
+            body=data,
+            message="User registered",
+            request=request,
+            status=status.HTTP_201_CREATED,
+        )
+
+
+# ------------------------------
+# Login
+# ------------------------------
+class LoginViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.AllowAny]
 
     @extend_schema(
         request=LoginSerializer,
-        responses={200: TokenPairSerializer},
-        tags=["Auth"],
-        summary="Login with email + password",
-        description="Returns JWT access & refresh tokens. Client should store refresh securely.",
+        responses={
+            200: TokenPairSerializer,
+            401: OpenApiResponse(description="Invalid credentials"),
+        },
     )
-    def login(self, request):
-        try:
-            serializer = LoginSerializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            user = serializer.validated_data["user"]
+    def create(self, request):
+        """Authenticate and return JWT tokens"""
+        serializer = LoginSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data["user"]
 
-            refresh = RefreshToken.for_user(user)
-            access_token = str(refresh.access_token)
-            refresh_token = str(refresh)
+        refresh = RefreshToken.for_user(user)
+        access_token = str(refresh.access_token)
+        refresh_token = str(refresh)
 
-            # optional: update last_login
-            user.last_login = timezone.now()
-            user.save(update_fields=["last_login"])
+        user.last_login = timezone.now()
+        user.save(update_fields=["last_login"])
 
-            # record device if provided
-            device_id = request.data.get("device_id")
-            if device_id:
-                # minimal: register device last_active; your Device model logic goes here
-                cache_key = f"user:{user.id}:device:{device_id}"
-                cache.set(
-                    cache_key,
-                    {"last_active": timezone.now().isoformat()},
-                    timeout=60 * 60 * 24 * 30,
-                )
-
-            resp = {
+        return ResponseFactory.success.send(
+            body={
                 "access": access_token,
                 "refresh": refresh_token,
                 "access_expires_at": (
                     timezone.now() + refresh.access_token.lifetime
                 ).isoformat(),
-            }
-            return SuccessResponse.send(
-                body=resp,
-                message="Logged in",
-                request=request,
-                status=status.HTTP_200_OK,
-            )
-        except Exception as e:
-            return ErrorResponse.send(
-                message="Login failed",
-                errors={"detail": str(e)},
-                request=request,
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
+            },
+            message="Logged in",
+            request=request,
+            status=status.HTTP_200_OK,
+        )
+
+
+# ------------------------------
+# Refresh Token
+# ------------------------------
+class RefreshViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.AllowAny]
 
     @extend_schema(
         request=RefreshSerializer,
-        responses={200: TokenPairSerializer},
-        tags=["Auth"],
-        summary="Refresh access token",
-        description="Exchange refresh token for new access (and optionally new refresh if rotate enabled).",
+        responses={200: OpenApiResponse(description="New access token")},
     )
-    def refresh(self, request):
-        try:
-            serializer = RefreshSerializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            refresh = serializer.validated_data["refresh_obj"]
-            # if SIMPLE_JWT config rotates tokens, creating new refresh will be handled by library
-            new_access = str(refresh.access_token)
-            return SuccessResponse.send(
-                body={"access": new_access}, message="Token refreshed", request=request
-            )
-        except Exception as e:
-            return ErrorResponse.send(
-                message="Refresh failed",
-                errors={"detail": str(e)},
-                request=request,
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
+    def create(self, request):
+        """Refresh JWT access token"""
+        serializer = RefreshSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        refresh = serializer.validated_data["refresh_obj"]
+        new_access = str(refresh.access_token)
+        return ResponseFactory.success.send(
+            body={"access": new_access},
+            message="Token refreshed",
+            request=request,
+            status=status.HTTP_200_OK,
+        )
+
+
+# ------------------------------
+# Logout
+# ------------------------------
+class LogoutViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
 
     @extend_schema(
-        request=None,
-        responses={200: None},
-        tags=["Auth"],
-        summary="Logout (blacklist refresh token)",
-        description="Blacklist current refresh token to prevent further usage.",
+        request={"type": "object", "properties": {"refresh": {"type": "string"}}},
+        responses={200: OpenApiResponse(description="Successfully logged out")},
     )
-    def logout(self, request):
-        try:
-            refresh_token = request.data.get("refresh")
-            if not refresh_token:
-                return ErrorResponse.send(
-                    message="No refresh token provided",
-                    errors={},
-                    request=request,
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
-            try:
-                token = RefreshToken(refresh_token)
-                token.blacklist()
-            except AttributeError:
-                # token_blacklist not enabled
-                pass
-            except Exception as e:
-                return ErrorResponse.send(
-                    message="Invalid token",
-                    errors={"detail": str(e)},
-                    request=request,
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
-            return SuccessResponse.send(body={}, message="Logged out", request=request)
-        except Exception as e:
-            return ErrorResponse.send(
-                message="Logout failed", errors={"detail": str(e)}, request=request
+    def create(self, request):
+        """Blacklist refresh token & logout"""
+        refresh_token = request.data.get("refresh")
+        if not refresh_token:
+            return ResponseFactory.error.send(
+                message="No refresh token provided",
+                errors={},
+                request=request,
+                status=status.HTTP_400_BAD_REQUEST,
             )
+        try:
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+        except Exception as e:
+            return ResponseFactory.error.send(
+                message="Invalid token",
+                errors={"detail": str(e)},
+                request=request,
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        return ResponseFactory.success.send(
+            body={}, message="Logged out", request=request, status=status.HTTP_200_OK
+        )
 
 
-# -------------------- PROFILE --------------------
-class ProfileViewSet(ViewSet):
+# ------------------------------
+# Profile
+# ------------------------------
+class ProfileViewSet(viewsets.ViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     @extend_schema(
         responses={200: ProfileSerializer},
-        tags=["Profile"],
-        summary="Get current user's profile",
     )
-    def retrieve(self, request, pk=None):
-        try:
-            user = request.user
-            cache_key = f"profile:user:{user.id}"
-            cached = cache.get(cache_key)
-            if cached:
-                return SuccessResponse.send(
-                    body=cached, message="Profile fetched (cache)", request=request
-                )
-
-            serializer = ProfileSerializer(user, context={"request": request})
-            cache.set(cache_key, serializer.data, timeout=60 * 5)
-            return SuccessResponse.send(
-                body=serializer.data, message="Profile fetched", request=request
-            )
-        except Exception as e:
-            return ErrorResponse.send(
-                message="Failed to fetch profile",
-                errors={"detail": str(e)},
-                request=request,
-            )
-
-    @extend_schema(
-        request=ProfileSerializer,
-        responses={200: ProfileSerializer},
-        tags=["Profile"],
-        summary="Update current user's profile",
-    )
-    def partial_update(self, request, pk=None):
-        try:
-            user = request.user
-            serializer = ProfileSerializer(
-                user, data=request.data, partial=True, context={"request": request}
-            )
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
-            cache_key = f"profile:user:{user.id}"
-            cache.delete(cache_key)
-            return SuccessResponse.send(
-                body=serializer.data, message="Profile updated", request=request
-            )
-        except Exception as e:
-            return ErrorResponse.send(
-                message="Update failed", errors={"detail": str(e)}, request=request
-            )
+    def list(self, request):
+        """Get current user profile"""
+        data = ProfileSerializer(request.user, context={"request": request}).data
+        return ResponseFactory.success.send(
+            body=data,
+            message="Profile retrieved",
+            request=request,
+            status=status.HTTP_200_OK,
+        )
 
 
-# -------------------- PASSWORD RESET --------------------
-class PasswordResetViewSet(ViewSet):
+# ------------------------------
+# Password Reset
+# ------------------------------
+class PasswordResetRequestViewSet(viewsets.ViewSet):
     permission_classes = [permissions.AllowAny]
 
     @extend_schema(
         request=PasswordResetRequestSerializer,
-        responses={200: None},
-        tags=["Password"],
-        summary="Request password reset token",
+        responses={200: OpenApiResponse(description="Reset email sent")},
     )
-    def request_reset(self, request):
-        try:
-            serializer = PasswordResetRequestSerializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            email = serializer.validated_data["email"]
-            try:
-                user = User.objects.get(email__iexact=email)
-            except User.DoesNotExist:
-                # avoid leaking existence
-                return SuccessResponse.send(
-                    body={},
-                    message="If the email exists, a reset link will be sent",
-                    request=request,
-                )
-            token = default_token_generator.make_token(user)
-            # Note: send token via async email (Celery)
-            reset_url = (
-                f"https://your-frontend/reset-password?token={token}&uid={user.pk}"
-            )
-            send_mail(
-                "Password reset",
-                f"Use the link to reset: {reset_url}",
-                "noreply@example.com",
-                [email],
-            )
-            return SuccessResponse.send(
-                body={},
-                message="If the email exists, a reset link will be sent",
-                request=request,
-            )
-        except Exception as e:
-            return ErrorResponse.send(
-                message="Failed to request password reset",
-                errors={"detail": str(e)},
-                request=request,
-            )
+    def create(self, request):
+        """Request a password reset link"""
+        serializer = PasswordResetRequestSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        # TODO: send email logic
+        return ResponseFactory.success.send(
+            body={},
+            message="Password reset link sent",
+            request=request,
+            status=status.HTTP_200_OK,
+        )
+
+
+class PasswordResetConfirmViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.AllowAny]
 
     @extend_schema(
         request=PasswordResetConfirmSerializer,
-        responses={200: None},
-        tags=["Password"],
-        summary="Confirm password reset",
-    )
-    def confirm_reset(self, request):
-        try:
-            serializer = PasswordResetConfirmSerializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            token = serializer.validated_data["token"]
-            new_password = serializer.validated_data["new_password"]
-            uid = request.data.get("uid")
-            user = get_object_or_404(User, pk=uid)
-            if not default_token_generator.check_token(user, token):
-                return ErrorResponse.send(
-                    message="Invalid or expired token",
-                    errors={},
-                    request=request,
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
-            user.set_password(new_password)
-            user.save()
-            return SuccessResponse.send(
-                body={}, message="Password reset successful", request=request
-            )
-        except Exception as e:
-            return ErrorResponse.send(
-                message="Password reset failed",
-                errors={"detail": str(e)},
-                request=request,
-            )
-
-
-# -------------------- DEVICE --------------------
-class DeviceViewSet(ViewSet):
-    permission_classes = [permissions.IsAuthenticated]
-
-    @extend_schema(
-        request=DeviceSerializer,
-        responses={200: DeviceSerializer(many=True)},
-        tags=["Devices"],
-        summary="Register or list devices",
-    )
-    def list(self, request):
-        try:
-            # assume you implement Device model; here we use cache as placeholder
-            user = request.user
-            # If you have a Device model, query from DB. For now, we return cached device info if exists.
-            # TODO: replace with actual queryset of Device model
-            key = f"user:{user.id}:devices"
-            devices = cache.get(key, [])
-            return SuccessResponse.send(
-                body=devices, message="Devices fetched", request=request
-            )
-        except Exception as e:
-            return ErrorResponse.send(
-                message="Failed to fetch devices",
-                errors={"detail": str(e)},
-                request=request,
-            )
-
-    @extend_schema(
-        request=DeviceSerializer,
-        responses={201: DeviceSerializer},
-        tags=["Devices"],
-        summary="Register a device",
+        responses={200: OpenApiResponse(description="Password has been reset")},
     )
     def create(self, request):
-        try:
-            serializer = DeviceSerializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            device = serializer.validated_data
-            device["id"] = int(
-                timezone.now().timestamp()
-            )  # placeholder id; replace with real DB id
-            device["last_active"] = timezone.now().isoformat()
-            key = f"user:{request.user.id}:devices"
-            devices = cache.get(key, [])
-            devices.append(device)
-            cache.set(key, devices, timeout=60 * 60 * 24 * 30)
-            return SuccessResponse.send(
-                body=device,
-                message="Device registered",
-                request=request,
-                status=status.HTTP_201_CREATED,
-            )
-        except Exception as e:
-            return ErrorResponse.send(
-                message="Failed to register device",
-                errors={"detail": str(e)},
-                request=request,
-            )
+        """Confirm password reset"""
+        serializer = PasswordResetConfirmSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        # TODO: reset logic
+        return ResponseFactory.success.send(
+            body={},
+            message="Password has been reset",
+            request=request,
+            status=status.HTTP_200_OK,
+        )
 
 
-# -------------------- KYC --------------------
-class KYCViewSet(ViewSet):
+# ------------------------------
+# Devices
+# ------------------------------
+class DeviceViewSet(viewsets.ViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     @extend_schema(
-        request=KYCSubmitSerializer,
-        responses={200: None},
-        tags=["KYC"],
-        summary="Submit KYC docs",
+        responses={200: DeviceSerializer(many=True)},
+        parameters=[OpenApiParameter("active_only", bool, required=False)],
     )
-    def submit(self, request):
-        try:
-            serializer = KYCSubmitSerializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            # Save to KYC model / storage and emit event to KYC service
-            # e.g., kafka_produce("kyc.submitted", payload)
-            return SuccessResponse.send(
-                body={}, message="KYC submitted", request=request
-            )
-        except Exception as e:
-            return ErrorResponse.send(
-                message="Failed to submit KYC",
-                errors={"detail": str(e)},
-                request=request,
-            )
+    def list(self, request):
+        """List devices used by this user"""
+        active_only = request.query_params.get("active_only")
+        devices = []  # TODO: query user devices
+        return ResponseFactory.success.send(
+            body=devices,
+            message="Devices retrieved",
+            request=request,
+            status=status.HTTP_200_OK,
+        )
+
+    @extend_schema(request=DeviceSerializer, responses={201: DeviceSerializer})
+    def create(self, request):
+        """Register a new device"""
+        serializer = DeviceSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        # TODO: save device
+        return ResponseFactory.success.send(
+            body=serializer.data,
+            message="Device registered",
+            request=request,
+            status=status.HTTP_201_CREATED,
+        )
+
+
+# ------------------------------
+# KYC
+# ------------------------------
+class KYCViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+
+    @extend_schema(request=KYCSubmitSerializer, responses={201: KYCSubmitSerializer})
+    def create(self, request):
+        """Submit KYC details"""
+        serializer = KYCSubmitSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        # TODO: save KYC
+        return ResponseFactory.success.send(
+            body=serializer.data,
+            message="KYC submitted",
+            request=request,
+            status=status.HTTP_201_CREATED,
+        )
+
+    @extend_schema(responses={200: KYCSubmitSerializer})
+    def list(self, request):
+        """Get user’s KYC details"""
+        # TODO: fetch user KYC
+        return ResponseFactory.success.send(
+            body={}, message="KYC details", request=request, status=status.HTTP_200_OK
+        )
+
+
+# -------------------- AUTH / REGISTER / TOKEN --------------------
+# class AuthViewSet(ViewSet):
+#     permission_classes = [permissions.AllowAny]
+
+#     @extend_schema(
+#         request=RegisterSerializer,
+#         responses={201: ProfileSerializer},
+#         tags=["Accounts & Auth"],
+#         summary="Register user",
+#         description="Create a new user. If registering as seller, KYC will be required.",
+#     )
+
+#     def register(self, request):
+#         try:
+#             serializer = RegisterSerializer(data=request.data)
+#             serializer.is_valid(raise_exception=True)
+#             user = serializer.save()
+#             # optional: send welcome email asynchronously
+#             # send_mail(...)
+#             data = ProfileSerializer(user, context={"request": request}).data
+#             return ResponseFactory.success.send(
+#                 body=data,
+#                 message="User registered",
+#                 request=request,
+#                 status=status.HTTP_201_CREATED,
+#             )
+#         except Exception as e:
+#             return ResponseFactory.error.send(
+#                 message="Registration failed",
+#                 errors={"detail": str(e)},
+#                 request=request,
+#                 status=status.HTTP_400_BAD_REQUEST,
+#             )
+
+#     @extend_schema(
+#         request=LoginSerializer,
+#         responses={200: TokenPairSerializer},
+#         tags=["Auth"],
+#         summary="Login with email + password",
+#         description="Returns JWT access & refresh tokens. Client should store refresh securely.",
+#     )
+#     def login(self, request):
+#         try:
+#             serializer = LoginSerializer(data=request.data)
+#             serializer.is_valid(raise_exception=True)
+#             user = serializer.validated_data["user"]
+
+#             refresh = RefreshToken.for_user(user)
+#             access_token = str(refresh.access_token)
+#             refresh_token = str(refresh)
+
+#             # optional: update last_login
+#             user.last_login = timezone.now()
+#             user.save(update_fields=["last_login"])
+
+#             # record device if provided
+#             device_id = request.data.get("device_id")
+#             if device_id:
+#                 # minimal: register device last_active; your Device model logic goes here
+#                 cache_key = f"user:{user.id}:device:{device_id}"
+#                 cache.set(
+#                     cache_key,
+#                     {"last_active": timezone.now().isoformat()},
+#                     timeout=60 * 60 * 24 * 30,
+#                 )
+
+#             resp = {
+#                 "access": access_token,
+#                 "refresh": refresh_token,
+#                 "access_expires_at": (
+#                     timezone.now() + refresh.access_token.lifetime
+#                 ).isoformat(),
+#             }
+#             return ResponseFactory.success.send(
+#                 body=resp,
+#                 message="Logged in",
+#                 request=request,
+#                 status=status.HTTP_200_OK,
+#             )
+#         except Exception as e:
+#             return ResponseFactory.error.send(
+#                 message="Login failed",
+#                 errors={"detail": str(e)},
+#                 request=request,
+#                 status=status.HTTP_401_UNAUTHORIZED,
+#             )
+
+#     @extend_schema(
+#         request=RefreshSerializer,
+#         responses={200: TokenPairSerializer},
+#         tags=["Auth"],
+#         summary="Refresh access token",
+#         description="Exchange refresh token for new access (and optionally new refresh if rotate enabled).",
+#     )
+#     def refresh(self, request):
+#         try:
+#             serializer = RefreshSerializer(data=request.data)
+#             serializer.is_valid(raise_exception=True)
+#             refresh = serializer.validated_data["refresh_obj"]
+#             # if SIMPLE_JWT config rotates tokens, creating new refresh will be handled by library
+#             new_access = str(refresh.access_token)
+#             return ResponseFactory.success.send(
+#                 body={"access": new_access}, message="Token refreshed", request=request
+#             )
+#         except Exception as e:
+#             return ResponseFactory.error.send(
+#                 message="Refresh failed",
+#                 errors={"detail": str(e)},
+#                 request=request,
+#                 status=status.HTTP_401_UNAUTHORIZED,
+#             )
+
+#     @extend_schema(
+#         request=None,
+#         responses={200: None},
+#         tags=["Auth"],
+#         summary="Logout (blacklist refresh token)",
+#         description="Blacklist current refresh token to prevent further usage.",
+#     )
+#     def logout(self, request):
+#         try:
+#             refresh_token = request.data.get("refresh")
+#             if not refresh_token:
+#                 return ResponseFactory.error.send(
+#                     message="No refresh token provided",
+#                     errors={},
+#                     request=request,
+#                     status=status.HTTP_400_BAD_REQUEST,
+#                 )
+#             try:
+#                 token = RefreshToken(refresh_token)
+#                 token.blacklist()
+#             except AttributeError:
+#                 # token_blacklist not enabled
+#                 pass
+#             except Exception as e:
+#                 return ResponseFactory.error.send(
+#                     message="Invalid token",
+#                     errors={"detail": str(e)},
+#                     request=request,
+#                     status=status.HTTP_400_BAD_REQUEST,
+#                 )
+#             return ResponseFactory.success.send(body={}, message="Logged out", request=request)
+#         except Exception as e:
+#             return ResponseFactory.error.send(
+#                 message="Logout failed", errors={"detail": str(e)}, request=request
+#             )
+
+
+# # -------------------- PROFILE --------------------
+# class ProfileViewSet(ViewSet):
+#     permission_classes = [permissions.IsAuthenticated]
+
+#     # @extend_schema(
+#     #     responses={200: ProfileSerializer},
+#     #     tags=["Profile"],
+#     #     summary="Get current user's profile",
+#     # )
+
+#     @extend_schema(
+#         parameters=[
+#             OpenApiParameter(
+#                 name="cursor",
+#                 type=OpenApiTypes.STR,
+#                 location=OpenApiParameter.QUERY,
+#                 description="Cursor for pagination (optional). Leave empty or 'first' to fetch first page.",
+#                 required=False,
+#             ),
+#         ],
+#         request=ProfileSerializer,
+#         responses={200: ProfileSerializer(many=True)},
+#         tags=["Profile"],
+#         summary="All Products retrieve",
+#         description="Retrieve all products with cursor pagination and caching.",
+#     )
+
+#     def retrieve(self, request, pk=None):
+#         try:
+#             user = request.user
+#             cache_key = f"profile:user:{user.id}"
+#             cached = cache.get(cache_key)
+#             if cached:
+#                 return ResponseFactory.success(
+#                     body=cached, message="Profile fetched (cache)",
+#                     request=request,
+#                     status=status.HTTP_200_OK
+
+#                 )
+
+#             serializer = ProfileSerializer(user, context={"request": request})
+#             cache.set(cache_key, serializer.data, timeout=60 * 5)
+#             return ResponseFactory.success(
+#                 body=serializer.data, message="Profile fetched", request=request,
+#                 status=status.HTTP_200_OK
+#             )
+#         except Exception as e:
+#             return ResponseFactory.success(
+#                 message="Failed to fetch profile",
+#                 errors={"detail": str(e)},
+#                 request=request,
+#                 status=status.HTTP_400_BAD_REQUEST
+#             )
+
+#     @extend_schema(
+#         request=ProfileSerializer,
+#         responses={200: ProfileSerializer},
+#         tags=["Profile"],
+#         summary="Update current user's profile",
+#     )
+#     def partial_update(self, request, pk=None):
+#         try:
+#             user = request.user
+#             serializer = ProfileSerializer(
+#                 user, data=request.data, partial=True, context={"request": request}
+#             )
+#             serializer.is_valid(raise_exception=True)
+#             serializer.save()
+#             cache_key = f"profile:user:{user.id}"
+#             cache.delete(cache_key)
+#             return ResponseFactory.success.send(
+#                 body=serializer.data, message="Profile updated", request=request
+#             )
+#         except Exception as e:
+#             return ResponseFactory.error.send(
+#                 message="Update failed", errors={"detail": str(e)}, request=request
+#             )
+
+
+# # -------------------- PASSWORD RESET --------------------
+# class PasswordResetViewSet(ViewSet):
+#     permission_classes = [permissions.AllowAny]
+
+#     @extend_schema(
+#         request=PasswordResetRequestSerializer,
+#         responses={200: None},
+#         tags=["Password"],
+#         summary="Request password reset token",
+#     )
+#     def request_reset(self, request):
+#         try:
+#             serializer = PasswordResetRequestSerializer(data=request.data)
+#             serializer.is_valid(raise_exception=True)
+#             email = serializer.validated_data["email"]
+#             try:
+#                 user = User.objects.get(email__iexact=email)
+#             except User.DoesNotExist:
+#                 # avoid leaking existence
+#                 return ResponseFactory.success.send(
+#                     body={},
+#                     message="If the email exists, a reset link will be sent",
+#                     request=request,
+#                 )
+#             token = default_token_generator.make_token(user)
+#             # Note: send token via async email (Celery)
+#             reset_url = (
+#                 f"https://your-frontend/reset-password?token={token}&uid={user.pk}"
+#             )
+#             send_mail(
+#                 "Password reset",
+#                 f"Use the link to reset: {reset_url}",
+#                 "noreply@example.com",
+#                 [email],
+#             )
+#             return ResponseFactory.success.send(
+#                 body={},
+#                 message="If the email exists, a reset link will be sent",
+#                 request=request,
+#             )
+#         except Exception as e:
+#             return ResponseFactory.error.send(
+#                 message="Failed to request password reset",
+#                 errors={"detail": str(e)},
+#                 request=request,
+#             )
+
+#     @extend_schema(
+#         request=PasswordResetConfirmSerializer,
+#         responses={200: None},
+#         tags=["Password"],
+#         summary="Confirm password reset",
+#     )
+#     def confirm_reset(self, request):
+#         try:
+#             serializer = PasswordResetConfirmSerializer(data=request.data)
+#             serializer.is_valid(raise_exception=True)
+#             token = serializer.validated_data["token"]
+#             new_password = serializer.validated_data["new_password"]
+#             uid = request.data.get("uid")
+#             user = get_object_or_404(User, pk=uid)
+#             if not default_token_generator.check_token(user, token):
+#                 return ResponseFactory.error.send(
+#                     message="Invalid or expired token",
+#                     errors={},
+#                     request=request,
+#                     status=status.HTTP_400_BAD_REQUEST,
+#                 )
+#             user.set_password(new_password)
+#             user.save()
+#             return ResponseFactory.success.send(
+#                 body={}, message="Password reset successful", request=request
+#             )
+#         except Exception as e:
+#             return ResponseFactory.error.send(
+#                 message="Password reset failed",
+#                 errors={"detail": str(e)},
+#                 request=request,
+#             )
+
+
+# # -------------------- DEVICE --------------------
+# class DeviceViewSet(ViewSet):
+#     permission_classes = [permissions.IsAuthenticated]
+
+#     @extend_schema(
+#         request=DeviceSerializer,
+#         responses={200: DeviceSerializer(many=True)},
+#         tags=["Devices"],
+#         summary="Register or list devices",
+#     )
+#     def list(self, request):
+#         try:
+#             # assume you implement Device model; here we use cache as placeholder
+#             user = request.user
+#             # If you have a Device model, query from DB. For now, we return cached device info if exists.
+#             # TODO: replace with actual queryset of Device model
+#             key = f"user:{user.id}:devices"
+#             devices = cache.get(key, [])
+#             return ResponseFactory.success.send(
+#                 body=devices, message="Devices fetched", request=request
+#             )
+#         except Exception as e:
+#             return ResponseFactory.error.send(
+#                 message="Failed to fetch devices",
+#                 errors={"detail": str(e)},
+#                 request=request,
+#             )
+
+#     @extend_schema(
+#         request=DeviceSerializer,
+#         responses={201: DeviceSerializer},
+#         tags=["Devices"],
+#         summary="Register a device",
+#     )
+#     def create(self, request):
+#         try:
+#             serializer = DeviceSerializer(data=request.data)
+#             serializer.is_valid(raise_exception=True)
+#             device = serializer.validated_data
+#             device["id"] = int(
+#                 timezone.now().timestamp()
+#             )  # placeholder id; replace with real DB id
+#             device["last_active"] = timezone.now().isoformat()
+#             key = f"user:{request.user.id}:devices"
+#             devices = cache.get(key, [])
+#             devices.append(device)
+#             cache.set(key, devices, timeout=60 * 60 * 24 * 30)
+#             return ResponseFactory.success.send(
+#                 body=device,
+#                 message="Device registered",
+#                 request=request,
+#                 status=status.HTTP_201_CREATED,
+#             )
+#         except Exception as e:
+#             return ResponseFactory.error.send(
+#                 message="Failed to register device",
+#                 errors={"detail": str(e)},
+#                 request=request,
+#             )
+
+
+# # -------------------- KYC --------------------
+# class KYCViewSet(ViewSet):
+#     permission_classes = [permissions.IsAuthenticated]
+
+#     @extend_schema(
+#         request=KYCSubmitSerializer,
+#         responses={200: None},
+#         tags=["KYC"],
+#         summary="Submit KYC docs",
+#     )
+#     def submit(self, request):
+#         try:
+#             serializer = KYCSubmitSerializer(data=request.data)
+#             serializer.is_valid(raise_exception=True)
+#             # Save to KYC model / storage and emit event to KYC service
+#             # e.g., kafka_produce("kyc.submitted", payload)
+#             return ResponseFactory.success.send(
+#                 body={}, message="KYC submitted", request=request
+#             )
+#         except Exception as e:
+#             return ResponseFactory.error.send(
+#                 message="Failed to submit KYC",
+#                 errors={"detail": str(e)},
+#                 request=request,
+#             )

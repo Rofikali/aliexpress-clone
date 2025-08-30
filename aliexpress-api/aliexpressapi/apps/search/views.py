@@ -143,7 +143,9 @@ from django.db.models import Q
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 
 # Custom components
-from components.paginations.infinite_scroll import InfiniteScrollPagination
+# from components.paginations.infinite_scroll import InfiniteScrollPagination
+from components.paginations.base_pagination import BaseCursorPagination
+
 # from components.responses.success import SuccessResponse
 # from components.responses.error import ErrorResponse
 from components.responses.response_factory import ResponseFactory
@@ -227,7 +229,7 @@ class SearchProductsViewSet(ViewSet):
             ).order_by("-created_at")
 
             # 5️⃣ Paginate
-            paginator = InfiniteScrollPagination()
+            paginator = BaseCursorPagination()
             page_qs = paginator.paginate_queryset(queryset, request)
 
             # 6️⃣ Serialize
