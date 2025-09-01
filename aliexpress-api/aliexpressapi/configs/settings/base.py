@@ -1,6 +1,5 @@
 import os
 from dotenv import load_dotenv
-import drf_spectacular
 
 load_dotenv()
 
@@ -35,7 +34,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "drf_spectacular",
-    "rest_framework_simplejwt.token_blacklist",
+    "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",  # optional but highly recommended
     # internet apps
     "apps.search",
     "apps.accounts",
@@ -143,26 +143,42 @@ AUTH_USER_MODEL = (
     "accounts.User"  # "accounts.User"  # 'accounts' should be the name of your app
 )
 
-from datetime import timedelta
+
+# JWT config
+# JWT_ALGORITHM = "HS256"  # start HS256; for large scale use RS256 (asymmetric)
+# JWT_SECRET = os.environ.get(
+#     "SECRET_JWT"
+# )  # in prod use a dedicated key not Django SECRET_KEY
+# JWT_ACCESS_MINUTES = 15  # short lived
+# JWT_REFRESH_DAYS = 14  # refresh lifetime
+# JWT_ROTATE_ON_REFRESH = True  # whether to rotate refresh tokens
+# JWT_ACCESS_COOKIE = "access_token"  # set to None to use header-only mode
+# JWT_REFRESH_COOKIE = "refresh_token"
+# JWT_COOKIE_DOMAIN = None
+# JWT_COOKIE_SECURE = True
+# JWT_COOKIE_SAMESITE = "Strict"
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        # "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "components.authentication.backends.CustomJWTAuthentication",
     ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
 }
 
+from datetime import timedelta
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),  # short-lived
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # long-lived
-    "ROTATE_REFRESH_TOKENS": True,  # issue new refresh on refresh
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=14),
+    "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
     "ALGORITHM": "HS256",
-    "SIGNING_KEY": os.environ.get("SECRET_KEY"),
-    "AUTH_HEADER_TYPES": ("Bearer",),
+    "SIGNING_KEY": getattr(globals(), "JWT_SIGNING_KEY", None) or os.environ.get("SECRET_JWT"),
 }
-
 
 # drf 'drf_spectacular',
 SPECTACULAR_SETTINGS = {

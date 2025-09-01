@@ -222,3 +222,47 @@ def create_password_reset_token(user, ttl_seconds: int = 60 * 60):
         user=user, token=token_str, expires_at=expires
     )
     return token_str, instance
+
+
+import uuid
+from django.db import models
+from django.conf import settings
+
+
+class RefreshToken(models.Model):
+    """
+    Persistent refresh token record to support rotation and blacklist.
+    """
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="refresh_tokens",
+    )
+    jti = models.UUIDField(default=uuid.uuid4, unique=True, db_index=True)
+    ip_address = models.GenericIPAddressField(
+        null=True, blank=True
+    )  # optional: device fingerprinting
+    user_agent = models.CharField(max_length=512, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    revoked_at = models.DateTimeField(null=True, blank=True)
+    expires_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["user", "jti"]),
+            models.Index(fields=["revoked_at"]),
+        ]
+
+    @property
+    def is_active(self) -> bool:
+        return self.revoked_at is None and (
+            self.expires_at is None or self.expires_at > timezone.now()
+        )
+
+    def revoke(self):
+        from django.utils.timezone import now
+
+        if self.revoked_at is None:
+            self.revoked_at = now()
+            self.save(update_fields=["revoked_at"])

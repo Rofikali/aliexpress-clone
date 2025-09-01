@@ -25,6 +25,7 @@ from .serializers import (
     ProductAttributeSerializer,
     InventorySerializer,
 )
+from rest_framework.permissions import AllowAny
 
 from components.paginations.base_pagination import BaseCursorPagination
 from components.responses.response_factory import ResponseFactory
@@ -36,6 +37,7 @@ from components.caching.cache_factory import (
 
 # -------------------- PRODUCTS --------------------
 class ProductsViewSet(ViewSet):
+    permission_classes = [AllowAny]
     cache = get_cache("products")
 
     @extend_schema(
@@ -67,7 +69,8 @@ class ProductsViewSet(ViewSet):
                     message="Products fetched successfully",
                     status_code=status.HTTP_200_OK,
                     request=request,
-                    extra={"cursor": cursor},
+                    meta={"cursor": cursor},
+                    # extra={"cursor": cursor},
                     cache="HIT",  # ✅ only pass when cached
                 )
 
@@ -94,13 +97,6 @@ class ProductsViewSet(ViewSet):
                 message="Products fetched successfully",
                 status_code=status.HTTP_200_OK,
                 request=request,
-                # extra={
-                #     "cursor": cursor,
-                #     **paginator.get_paginated_response(serializer.data).data[
-                #         "pagination"
-                #     ],
-                # },
-                # ❌ no cache arg → will auto become MISS
             )
 
         except Exception as e:
@@ -135,94 +131,6 @@ class ProductsViewSet(ViewSet):
                 status_code=status.HTTP_404_NOT_FOUND,
                 request=request,
             )
-
-
-# apps.products/viewsets.py
-# # -------------------- PRODUCTS --------------------
-# class ProductsViewSet(ViewSet):
-#     cache = get_cache("products")
-
-#     @extend_schema(
-#         parameters=[
-#             OpenApiParameter(
-#                 name="cursor",
-#                 type=OpenApiTypes.STR,
-#                 location=OpenApiParameter.QUERY,
-#                 description="Cursor for pagination (optional). Leave empty or 'first' to fetch first page.",
-#                 required=False,
-#             ),
-#         ],
-#         request=ProductSerializer,
-#         responses={200: ProductSerializer(many=True)},
-#         tags=["Products"],
-#         summary="All Products retrieve",
-#         description="Retrieve all products with cursor pagination and caching.",
-#     )
-#     def list(self, request):
-#         try:
-#             cursor = request.query_params.get("cursor") or "first"
-
-#             # Try cache
-#             cache_data = self.cache.get_results(cursor)
-#             if cache_data:
-#                 return SuccessResponse.send(
-#                     body=cache_data,
-#                     message="Products fetched successfully",
-#                     request=request,
-#                     extra={"cursor": cursor, "from_cache": True},
-#                     status=status.HTTP_200_OK,
-#                 )
-
-#             # DB + pagination
-#             queryset = Product.objects.all().order_by("-created_at")
-#             paginator = InfiniteScrollPagination()
-#             paginator_queryset = paginator.paginate_queryset(queryset, request)
-
-#             serializer = ProductSerializer(
-#                 paginator_queryset, many=True, context={"request": request}
-#             )
-#             response_data = paginator.get_paginated_response(serializer.data).data
-
-#             # Cache result
-#             self.cache.cache_results(cursor, response_data)
-
-#             return SuccessResponse.send(
-#                 body=response_data,
-#                 message="Products fetched successfully",
-#                 request=request,
-#                 extra={"cursor": cursor},
-#                 status=status.HTTP_200_OK,
-#             )
-
-#         except Exception as e:
-#             return ErrorResponse.send(
-#                 message="Failed to fetch products",
-#                 errors={"detail": str(e)},
-#                 request=request,
-#                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-#             )
-
-#     @extend_schema(
-#         request=ProductSerializer,
-#         responses={200: ProductSerializer},
-#         tags=["Products"],
-#         summary="Single Product retrieve",
-#         description="Retrieve a single Product by ID.",
-#     )
-#     def retrieve(self, request, pk=None):
-#         try:
-#             product = get_object_or_404(Product, id=pk)
-#             serializer = ProductSerializer(product, context={"request": request})
-#             return SuccessResponse.send(
-#                 body=serializer.data,
-#                 message="Single Product fetched successfully",
-#                 request=request,
-#                 status=status.HTTP_200_OK
-#             )
-#         except Exception as e:
-#             return ErrorResponse.send(
-#                 message="Product not found", errors=str(e), request=request
-#             )
 
 
 # -------------------- CATEGORY --------------------

@@ -27,29 +27,29 @@ python manage.py generate_product_images 5
 This structure is designed for extreme scale — up to **1 trillion users**, assuming distributed infrastructure, Kubernetes, PostgreSQL clusters, and high-performance caching and queuing systems.
 
 ## 🗂️ Folder Structure aliexressclone
-
 project_root/
 │
-├── components/                         # Shared reusable components (business logic)
-│   ├── pagination/                     # DRF custom pagination classes
+├── core/                               # Shared, reusable, framework-level logic
+│   ├── authentication/                 # JWT utils & custom DRF auth backends
+│   │   ├── __init__.py
+│   │   ├── jwt_utils.py
+│   │   └── backends.py
+│   │
+│   ├── router/                         # Custom routers (auto-generate plural/kebab-case)
+│   │   └── routers.py
+│   │
+│   ├── pagination/                     # DRF pagination utilities
 │   │   ├── __init__.py
 │   │   ├── base_cursor.py
 │   │   ├── offset_pagination.py
 │   │   └── infinite_scroll.py
 │   │
-│   ├── authentication/                 # JWT utils & custom auth backends
-│   │   ├── __init__.py
-│   │   ├── jwt_utils.py
-│   │   └── backends.py
-│   │
 │   ├── permissions/                    # Centralized DRF permissions
 │   │   └── permissions.py
 │   │
-│   ├── responses/                      # Standardized API response wrappers
+│   ├── responses/                      # Standardized API responses
 │   │   ├── __init__.py
-│   │   ├── base_response.py
-│   │   ├── success.py
-│   │   └── error.py
+│   │   └── response_factory.py         # success() / error() factory
 │   │
 │   ├── mixins/                         # DRF view/serializer mixins
 │   │   ├── __init__.py
@@ -59,50 +59,60 @@ project_root/
 │   │   ├── __init__.py
 │   │   ├── base_cache.py
 │   │   ├── cache_factory.py
-│   │   └── invalidation.py             # ✅ New: cache invalidation signals
+│   │   └── invalidation.py
 │   │
 │   ├── middleware/                     # Custom middlewares
 │   │   └── request_timer.py
 │   │
-│   ├── throttling/                     # Custom API throttling logic
+│   ├── throttling/                     # API throttling utilities
 │   │   ├── __init__.py
-│   │   ├── utils.py
-│   │   ├── backend.py
 │   │   ├── base_throttle.py
-│   │   ├── exceptions.py
-│   │   └── middleware.py
+│   │   ├── backend.py
+│   │   ├── middleware.py
+│   │   ├── utils.py
+│   │   └── exceptions.py
 │   │
-│   ├── utils/                          # General-purpose helper utilities
+│   ├── utils/                          # General-purpose helpers
 │   │   ├── encoders.py
 │   │   └── money.py
 │   │
 │   └── __init__.py
 │
-├── apps/                               # Modular Django apps (domain-driven design)
-│   ├── accounts/                       # Auth & user management
+├── apps/                               # Domain-driven Django apps
+│   ├── accounts/                       # Users & authentication
 │   │   ├── admin.py
 │   │   ├── apps.py
 │   │   ├── models/
 │   │   ├── serializers/
+│   │   │   ├── __init__.py
+│   │   │   ├── auth_serializer.py       # register, login, refresh, logout
+│   │   │   ├── profile_serializer.py    # profile, KYC
+│   │   │   ├── password_serializer.py   # reset request, confirm
+│   │   │   └── device_serializer.py     # device management
 │   │   ├── views/
+│   │   │   ├── __init__.py
+│   │   │   ├── auth_views.py           # register, login, refresh, logout
+│   │   │   ├── profile_views.py        # profile, KYC
+│   │   │   ├── password_views.py       # reset request, confirm
+│   │   │   └── device_views.py         # device management
 │   │   ├── urls.py
 │   │   └── tests/
 │   │
-│   ├── products/                       # Product catalog & inventory
-│   ├── posts/                          # Reviews / social posts
-│   ├── orders/                         # Orders & checkout flow
-│   ├── payments/                       # Payment gateways integration
-│   ├── notifications/                  # Push/email/real-time notifications
+│   ├── products/                       # Product catalog, inventory, variants, images
+│   ├── posts/                          # Reviews & social posts
+│   ├── orders/                         # Orders & checkout workflow
+│   ├── payments/                       # Payment gateway integrations
+│   ├── notifications/                  # Push, email, real-time notifications
 │   └── __init__.py
 │
-├── services/                           # External integrations & background jobs
-│   ├── celery_worker/                  # Async task queues (Celery workers)
-│   ├── elasticsearch/                  # Search engine configs & clients
-│   ├── redis/                          # Redis caching & pub/sub
-│   └── email_service/                  # Email sending service
+├── services/                           # External service integrations
+│   ├── celery_worker/                  # Celery async workers
+│   ├── elasticsearch/                  # Elasticsearch clients/config
+│   ├── redis/                          # Redis cache / pub-sub
+│   └── email_service/                  # Email sending logic
 │
-├── configs/                            # Project-level configs (settings & entrypoints)
-│   ├── setting/                        # Environment-specific Django settings
+├── configs/                            # Project configuration & entrypoints
+│   ├── settings/                       # Environment-based Django settings
 │   │   ├── __init__.py
 │   │   ├── base.py
 │   │   ├── dev.py
@@ -112,38 +122,25 @@ project_root/
 │   ├── __init__.py
 │   ├── urls.py                         # Root URL router
 │   ├── wsgi.py                         # WSGI entrypoint
-│   └── asgi.py                         # ASGI entrypoint (for websockets, etc.)
+│   └── asgi.py                         # ASGI entrypoint (WebSocket, async)
 │
-├── static/                             # Static assets (CSS, JS, images)
-├── media/                              # Uploaded user-generated files
+├── static/                             # Static assets (served via CDN in prod)
+├── media/                              # User-uploaded files (S3 in prod)
 │
-├── requirements/                       # Dependency management
+├── requirements/                       # Dependencies per environment
 │   ├── base.txt
 │   ├── dev.txt
 │   ├── prod.txt
 │   └── test.txt
 │
-├── tests/                              # Top-level tests (outside apps)
-│   ├── unit/                           # Unit tests
-│   ├── integration/                    # Integration tests
-│   └── performance/                    # Load & stress tests
+├── tests/                              # Global tests across apps
+│   ├── unit/
+│   ├── integration/
+│   └── performance/
 │
-├── .env                                # Environment variables
+├── .env                                # Local environment variables
 ├── .dockerignore
 ├── Dockerfile
 ├── docker-compose.yml
 ├── manage.py
 └── README.md
-
-
-## 🧠 Folder Breakdown by Use Case
-
-- **User Auth** → `apps/users/`
-- **Payment System** → `apps/payments/` + `services/payment_gateway/`
-- **Async Tasks** → `services/celery_worker/`
-- **Logging & Exceptions** → `core/exceptions/`, `core/logging.py`
-- **API Rate Limiting** → `api_gateway/throttling/`
-
-## 🚀 Ready to Scale
-
-This structure separates responsibilities, follows the single-responsibility principle, and prepares your Django backend for a containerized, microservice-oriented world.
