@@ -4,7 +4,7 @@
 ### Searching STORE with Reuseable Codebase
 <!-- // https://collectionapi.metmuseum.org/public/collection/v1/departments -->
 
-## aliexpressclone nuxt3 frontend with drf api
+## aliexpressclone nuxt3 frontend with drf api composition api style
 nuxt3-frontend/
 │
 ├── assets/                                      # Static assets like CSS, fonts, images
@@ -38,6 +38,8 @@ nuxt3-frontend/
 │       └── CategorySidebar.vue
 │
 ├── composables/                                # Auto-imported reusable logic
+    products/
+        useInfiniteProducts.js
 │   ├── cache/
 │   │   ├── LRUCache.js
 │   │   └── useSearchCache.js
@@ -91,6 +93,9 @@ nuxt3-frontend/
 │   ├── axios.js                                # Axios wrapper for DRF
 │   ├── toast.js                                # Toast/notification plugin
 │   └── dayjs.js                                # Date formatting helper
+        api.client.js
+        auth-init.client.js
+        fetch-retry.js
 │
 ├── services/                                   # External integrations
 │   └── api/                                    # DRF API modules
@@ -102,50 +107,14 @@ nuxt3-frontend/
 │       └── wishlist.js
 │
 ├── stores/                                     # Pinia stores
-│   ├── modules/                                # Domain modules
-│   │   ├── auth/                               # Authentication & user
-│   │   │   ├── index.js
-│   │   │   ├── state.js
-│   │   │   ├── getters.js
-│   │   │   ├── actions.js
-│   │   │   └── mutations.js
-│   │   │
-│   │   ├── cart/                               # Shopping cart
-│   │   │   ├── index.js
-│   │   │   ├── state.js
-│   │   │   ├── getters.js
-│   │   │   ├── actions.js
-│   │   │   └── mutations.js
-│   │   │
-│   │   ├── orders/
-│   │   │   ├── index.js
-│   │   │   ├── state.js
-│   │   │   ├── getters.js
-│   │   │   ├── actions.js
-│   │   │   └── mutations.js
-│   │   │
-│   │   ├── products/
-│   │   │   ├── index.js
-│   │   │   ├── state.js
-│   │   │   ├── getters.js
-│   │   │   ├── actions.js
-│   │   │   └── mutations.js
-│   │   │
-│   │   ├── categories/
-│   │   │   ├── index.js
-│   │   │   ├── state.js
-│   │   │   ├── getters.js
-│   │   │   ├── actions.js
-│   │   │   └── mutations.js
-│   │   │
-│   │   ├── wishlist/
-│   │   │   ├── index.js
-│   │   │   ├── state.js
-│   │   │   ├── getters.js
-│   │   │   ├── actions.js
-│   │   │   └── mutations.js
-│   │   │
-│   │   └── notifications/
+│   ├── modules/                                # Domain modules composition api style
+                authStore.js
+                cartStore.js
+                orderStore.js
+                productStore.js
+                wishlistStore.js
+
+│   └── notifications/
 │   │       ├── index.js
 │   │       ├── state.js
 │   │       ├── getters.js
@@ -177,6 +146,103 @@ nuxt3-frontend/
 │   └── moneyFormatter.js
 │
 ├── public/                                     # Static files served as-is
+│
+├── nuxt.config.ts
+├── tailwind.config.js
+└── package.json
+
+
+
+
+## aliexpressclone nuxt3 frontend with drf api composition api style *** New Way ***
+nuxt3-frontend/
+│
+├── modules/                                     # Feature-first organization
+│   ├── auth/
+│   │   ├── login.vue
+│   │   └── register.vue
+│   │   └── profile.vue
+│   │
+│   ├── products/
+│   │   ├── index.vue
+│   │   └── [id].vue
+│   │
+│   ├── products/
+│   │   ├── index.vue
+│   │   └── [slug].vue
+│   ├── cart/
+│   │   └── cart.vue
+│   ├── orders/
+│   │   └── orders.vue
+│   ├── wishlist/
+│   │   └── wishlist.vue
+│   │
+│   └── search/                                 # Dedicated search module
+│       ├── store/
+│       │   ├── productSearch.js
+│       │   ├── userSearch.js
+│       │   └── categorySearch.js
+│       ├── composables/
+│       │   ├── useBaseSearch.js
+│       │   ├── useInfiniteSearch.js
+│       │   └── useSearchFilters.js
+│       └── components/
+│           └── SearchDropdown.vue
+│
+├── components/                                 # Global (non-domain) components
+│   ├── ui/                                     # Reusable UI library
+│   │   ├── Button.vue
+│   │   ├── Input.vue
+│   │   ├── Select.vue
+│   │   └── Pagination.vue
+│   └── common/                                 # Layout primitives
+│       ├── Header.vue
+│       ├── Footer.vue
+│       ├── Sidebar.vue
+│       └── Navbar.vue
+│
+├── composables/                                # Global/core composables
+│   ├── core/
+│   │   ├── useApi.js
+│   │   ├── useObserver.js
+│   │   ├── useInfiniteScroll.js
+│   │   ├── useDebouncedSearch.js
+│   │   └── useBaseThrottle.js
+│   └── cache/
+│       ├── LRUCache.js
+│       └── useSearchCache.js
+│
+├── layouts/
+│   ├── default.vue
+│   └── auth.vue
+│
+├── middleware/
+│   ├── auth.global.js
+│   └── guest.global.js
+│
+├── plugins/
+│   ├── core/
+│   │   ├── axios.js
+│   │   └── fetch-retry.js
+│   ├── integrations/
+│   │   ├── toast.js
+│   │   └── dayjs.js
+│   └── auth/
+│       ├── api.client.js
+│       └── auth-init.client.js
+│
+├── utils/
+│   ├── format/
+│   │   └── moneyFormatter.js
+│   └── search/
+│       └── fuzzySearch.js
+│
+├── public/
+│
+├── tests/
+│   ├── unit/
+│   ├── integration/
+│   └── e2e/
 │
 ├── nuxt.config.ts
 ├── tailwind.config.js
