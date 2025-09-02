@@ -90,6 +90,7 @@ nuxt3-frontend/
 └── package.json
 
 
+
 🔑 Flow now looks like:
 UI → Composable → Store → Service → API
 🔑 Flow now looks like:
@@ -103,3 +104,21 @@ Store (productStore): Holds products, pagination state, errors.
 Service (productService): Talks to API, no state.
 
 Composable useApi: Handles auth, refresh token, base URL.
+
+This is already a tiered, enterprise-style architecture —
+UI ➝ Composables ➝ Store ➝ Service ➝ API ➝ Backend
+
+
+🧩 Layer-by-Layer Explanation
+1. UI Layer 
+    (Pages & Components)
+
+2. Composables
+    Composables handle “how to interact with data”, not “where data comes from.”
+
+3. Pinia Store (State Layer)
+    Think of the store as the brain of the frontend. Composables and UI ask the store for data instead of calling APIs directly.
+
+4. Service Layer (Transport Wrappers)
+    Services = translators. They normalize raw API responses and provide a consistent contract to the store.
+

@@ -13,7 +13,7 @@
 // })
 
 
-// ~/plugins/axios.js
+// ~/plugins/core/axios.js
 import axios from 'axios'
 
 export default defineNuxtPlugin((nuxtApp) => {

@@ -86,17 +86,17 @@ await useAsyncData("products", () => productStore.fetchProducts({ page: 1 }));
     </div>
 </template> -->
 
-<template>
+<!-- <template>
     <div id="IndexPage" class="mt-4 max-w-[1200px] mx-auto px-2">
         <div class="grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
             <div v-if="products" v-for="product in products" :key="product.id">
                 <lazy-product-list :product="product" />
             </div>
 
-            <!-- Sentinel -->
+
             <div ref="sentinelRef" class="h-1"></div>
 
-            <!-- Loading / Error states -->
+
             <div v-if="loading" class="loading">Loading more...</div>
             <div v-if="error" class="error">{{ error }}</div>
         </div>
@@ -111,27 +111,70 @@ definePageMeta({
 import { onMounted } from "vue";
 import { useUserStore } from "~/stores/user";
 import { useProductStore } from "~/stores/modules/productStore";
-import { useInfiniteProductScroll } from "~/composables/products/useInfiniteProducts";
+import { useInfiniteScrollProducts } from "~/composables/products/useInfiniteScrollProducts";
 
 
 
 const userStore = useUserStore();
 const store = useProductStore();
 
-// infinite scroll composable (observer only)
-const { products, loading, error, sentinelRef, bindSentinel } =
-    useInfiniteProductScroll({ pageSize: 12, debug: false });
+
+const { products, isLoading: loading, error, sentinelRef } =
+    useInfiniteScrollProducts({ pageSize: 12, debug: false });
+
 
 console.log('products in index page ', products);
 
 onMounted(async () => {
-    // initial fetch
+
     if (!products.length) {
         await store.fetchProducts({ page_size: 12 });
     }
     bindSentinel(sentinelRef);
 
-    // simulate userStore loading fadeout
+
     setTimeout(() => (userStore.isLoading = false), 300);
 });
+</script> -->
+
+
+<script setup>
+import { onMounted } from "vue"
+import { useInfiniteScrollProducts } from "~/composables/products/useInfiniteScrollProducts"
+
+const {
+    products,
+    isLoading,
+    hasNext,
+    error,
+    sentinelRef,
+    fetchProducts,
+    resetProducts,
+} = useInfiniteScrollProducts({ prefetch: true })
+
+onMounted(() => {
+    // First load
+    fetchProducts()
+})
 </script>
+
+<template>
+    <div>
+        <div v-for="product in products" :key="product.id" class="p-2 border-b">
+            {{ product.name }}
+        </div>
+
+        <!-- Sentinel div for infinite scroll -->
+        <div ref="sentinelRef" v-if="hasNext && !isLoading" class="text-center py-4">
+            Loading more...
+        </div>
+
+        <div v-if="isLoading && !products.length" class="text-center py-4">
+            Loading products...
+        </div>
+
+        <div v-if="error" class="text-red-500">
+            {{ error }}
+        </div>
+    </div>
+</template>
