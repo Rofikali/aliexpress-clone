@@ -111,14 +111,16 @@ definePageMeta({
 import { onMounted } from "vue";
 import { useUserStore } from "~/stores/user";
 import { useProductStore } from "~/stores/modules/productStore";
-import { useInfiniteProducts } from "~/composables/products/useInfiniteProducts";
+import { useInfiniteProductScroll } from "~/composables/products/useInfiniteProducts";
+
+
 
 const userStore = useUserStore();
 const store = useProductStore();
 
 // infinite scroll composable (observer only)
 const { products, loading, error, sentinelRef, bindSentinel } =
-    useInfiniteProducts({ pageSize: 12, debug: false });
+    useInfiniteProductScroll({ pageSize: 12, debug: false });
 
 console.log('products in index page ', products);
 

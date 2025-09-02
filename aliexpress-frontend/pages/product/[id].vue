@@ -7,7 +7,7 @@
 <script setup>
 definePageMeta({ layout: 'default' })
 
-import axios from '~/plugins/axios'
+import axios from '~/plugins/core/axios'
 const $axios = axios().provide.axios
 
 const route = useRoute()

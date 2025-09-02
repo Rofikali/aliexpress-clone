@@ -91,7 +91,7 @@ export function useApi(url, options = {}) {
         : `/api/v1${url.startsWith("/") ? url : `/${url}`}`;
 
     const defaultOptions = {
-        baseURL: process.env.NUXT_PUBLIC_API_BASE || "http://localhost:8000",
+        baseURL: process.env.NUXT_PUBLIC_API_BASE || "http://localhost:8000/api/v1",
         credentials: "include", // include cookies
         headers: {
             "Content-Type": "application/json",

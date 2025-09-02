@@ -73,7 +73,7 @@
 // stores/modules/authStore.js
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
-import { useApi } from "~/composables/useApi";
+import { useApi } from "~/composables/core/useApi";
 
 export const useAuthStore = defineStore("auth", () => {
     // ----- state -----

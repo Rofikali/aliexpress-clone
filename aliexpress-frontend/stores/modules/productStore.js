@@ -177,32 +177,112 @@
 
 
 
-import { defineStore } from 'pinia'
+// import { defineStore } from 'pinia'
 
-export const useProductStore = defineStore('product', () => {
+// export const useProductStore = defineStore('product', () => {
+//     const products = ref([])
+//     const loading = ref(false)
+//     const error = ref(null)
+
+//     async function fetchProducts(params = {}) {
+//         loading.value = true
+//         error.value = null
+
+//         const query = new URLSearchParams(params).toString()
+//         const url = `/products/${query ? `?${query}` : ''}`
+
+//         const { $api } = useNuxtApp()
+
+//         try {
+//             const { data, error: apiError } = await $api(url)
+//             if (apiError) throw apiError
+//             products.value = data?.results || []
+//         } catch (err) {
+//             error.value = err?.data?.detail || 'Failed to load products'
+//         } finally {
+//             loading.value = false
+//         }
+//     }
+
+//     return { products, loading, error, fetchProducts }
+// })
+
+// ~/stores/modules/productStore.js
+import { defineStore } from "pinia"
+import { ref } from "vue"
+import { useApi } from "~/composables/useApi"
+
+export const useProductStore = defineStore("productStore", () => {
     const products = ref([])
     const loading = ref(false)
     const error = ref(null)
 
-    async function fetchProducts(params = {}) {
+    // Pagination state
+    const page = ref(1)
+    const hasNext = ref(true)
+    const pageSize = 12 // or configure via backend
+
+    /**
+     * Reset products (e.g., when filter/search changes)
+     */
+    function resetProducts() {
+        products.value = []
+        page.value = 1
+        hasNext.value = true
+    }
+
+    /**
+     * Load products for a specific page
+     */
+    async function fetchProducts({ page: pageParam = 1 } = {}) {
         loading.value = true
         error.value = null
-
-        const query = new URLSearchParams(params).toString()
-        const url = `/products/${query ? `?${query}` : ''}`
-
-        const { $api } = useNuxtApp()
-
         try {
-            const { data, error: apiError } = await $api(url)
-            if (apiError) throw apiError
-            products.value = data?.results || []
+            const { data, status, error: fetchError } = await useApi(`/products/?page=${pageParam}&page_size=${pageSize}`, {
+                method: "GET",
+            })
+
+            if (status !== 200 || fetchError) {
+                throw fetchError || new Error("Failed to fetch products")
+            }
+
+            // Support both list or cursor pagination style
+            const results = data?.results || data?.products || []
+            const next = data?.next || null
+
+            if (pageParam === 1) {
+                products.value = results
+            } else {
+                products.value.push(...results)
+            }
+
+            hasNext.value = Boolean(next) && results.length > 0
+            page.value = pageParam
+
         } catch (err) {
-            error.value = err?.data?.detail || 'Failed to load products'
+            console.error("fetchProducts failed:", err)
+            error.value = err
         } finally {
             loading.value = false
         }
     }
 
-    return { products, loading, error, fetchProducts }
+    /**
+     * Load next page (for infinite scroll)
+     */
+    async function loadMore() {
+        if (!hasNext.value || loading.value) return
+        await fetchProducts({ page: page.value + 1 })
+    }
+
+    return {
+        products,
+        loading,
+        error,
+        page,
+        hasNext,
+        resetProducts,
+        fetchProducts,
+        loadMore,
+    }
 })

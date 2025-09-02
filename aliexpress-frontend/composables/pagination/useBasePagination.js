@@ -1,6 +1,6 @@
-// ~/composables/pagination/usePagination.js
+// ~/composables/pagination/useBasePagination.js
 import { ref, computed } from 'vue'
-import axios from '~/plugins/axios' // matches your existing import pattern
+import axios from '~/plugins/core/axios' // matches your existing import pattern
 
 /**
  * Production-ready cursor pagination composable
