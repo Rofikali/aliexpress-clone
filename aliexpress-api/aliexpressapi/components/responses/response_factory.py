@@ -106,7 +106,7 @@ import time
 class ResponseFactory:
     @staticmethod
     def _base_response(
-        status_str: str,
+        status: str,
         success: bool,
         code: int,
         message: str,
@@ -122,7 +122,7 @@ class ResponseFactory:
         start_time = getattr(request, "_start_time", time.time())
 
         response = {
-            "status": status_str,  # "success" | "error"
+            "status": status,  # "success" | "error"
             "success": success,
             "code": code,
             "message": message,
@@ -148,7 +148,7 @@ class ResponseFactory:
         cls,
         data: dict = None,
         message: str = "Success",
-        status_code: int = 200,
+        status: int = 200,
         request=None,
         meta: dict | None = None,
         cache: str | None = None,
@@ -159,7 +159,7 @@ class ResponseFactory:
         return cls._base_response(
             "success",
             True,
-            status_code,
+            status,
             message,
             request,
             data=data,
@@ -172,7 +172,7 @@ class ResponseFactory:
         cls,
         message: str = "Error",
         errors: dict | list | None = None,
-        status_code: int = 400,
+        status: int = 400,
         request=None,
         meta: dict | None = None,
         cache: str | None = None,
@@ -183,7 +183,7 @@ class ResponseFactory:
         return cls._base_response(
             "error",
             False,
-            status_code,
+            status,
             message,
             request,
             errors=errors,

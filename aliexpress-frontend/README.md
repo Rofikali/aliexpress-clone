@@ -459,3 +459,8 @@ Favor read-optimized design: product listing must be cheap to serve. Use caching
 Automate observability from day 1 — you can’t fix what you can’t measure.
 
 Keep the frontend fast: SSR critical content, lazy load everything else, use CDN for static/images.
+
+
+
+
+

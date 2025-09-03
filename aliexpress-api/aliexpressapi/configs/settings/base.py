@@ -144,20 +144,6 @@ AUTH_USER_MODEL = (
 )
 
 
-# JWT config
-# JWT_ALGORITHM = "HS256"  # start HS256; for large scale use RS256 (asymmetric)
-# JWT_SECRET = os.environ.get(
-#     "SECRET_JWT"
-# )  # in prod use a dedicated key not Django SECRET_KEY
-# JWT_ACCESS_MINUTES = 15  # short lived
-# JWT_REFRESH_DAYS = 14  # refresh lifetime
-# JWT_ROTATE_ON_REFRESH = True  # whether to rotate refresh tokens
-# JWT_ACCESS_COOKIE = "access_token"  # set to None to use header-only mode
-# JWT_REFRESH_COOKIE = "refresh_token"
-# JWT_COOKIE_DOMAIN = None
-# JWT_COOKIE_SECURE = True
-# JWT_COOKIE_SAMESITE = "Strict"
-
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         # "rest_framework_simplejwt.authentication.JWTAuthentication",
@@ -171,14 +157,36 @@ REST_FRAMEWORK = {
 
 from datetime import timedelta
 
+# SIMPLE_JWT = {
+#     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
+#     "REFRESH_TOKEN_LIFETIME": timedelta(days=14),
+#     "ROTATE_REFRESH_TOKENS": True,
+#     "BLACKLIST_AFTER_ROTATION": True,
+#     "ALGORITHM": "HS256",
+#     "SIGNING_KEY": getattr(globals(), "JWT_SIGNING_KEY", None)
+#     or os.environ.get("SECRET_JWT"),
+# }
+
+# settings.py
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=14),
+    "ALGORITHM": "HS256",  # Prefer RS256/ES256 + JWKS if you can manage keys
+    "SIGNING_KEY": os.environ.get("JWT_SIGNING_KEY"),  # do NOT hardcode
+    "VERIFYING_KEY": os.environ.get("JWT_VERIFYING_KEY", default=""),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=15),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
-    "ALGORITHM": "HS256",
-    "SIGNING_KEY": getattr(globals(), "JWT_SIGNING_KEY", None) or os.environ.get("SECRET_JWT"),
+    "UPDATE_LAST_LOGIN": True,
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    "LEEWAY": 10,  # small clock drift
 }
+
+# Cookies (if you choose cookie-backed refresh)
+JWT_REFRESH_COOKIE = "refresh_token"
+JWT_ACCESS_COOKIE = ""  # keep access in header
+JWT_COOKIE_SAMESITE = "Strict"  # or "Lax" for cross-subdomain UX
+JWT_COOKIE_SECURE = True  # True in production (HTTPS required)
+JWT_COOKIE_HTTPONLY = True
 
 # drf 'drf_spectacular',
 SPECTACULAR_SETTINGS = {
@@ -188,30 +196,3 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": False,
     # OTHER SETTINGS
 }
-
-
-# ---- DRF ---- Throttling
-# REST_FRAMEWORK = {
-#     "DEFAULT_THROTTLE_CLASSES": [
-#         "components.throttling.base_throttle.ScopedBurstThrottle",
-#         "components.throttling.base_throttle.ScopedSustainedThrottle",
-#     ],
-#     "DEFAULT_THROTTLE_RATES": {
-#         "burst": "60/min",  # short-term
-#         "sustained": "1000/day",  # long-term
-#         "products-list": "30/min",
-#         "search": "15/min",
-#     },
-# }
-
-
-# Central place to tune rates per scope
-# THROTTLING_RATES = {
-#     "burst": "60/second",  # spike control
-#     "sustained": "3000/min",  # steady protection
-#     "user": "600/min",  # if using ScopedUserThrottle on specific views
-#     "anon": "120/min",  # if using ScopedAnonThrottle on specific views
-#     "search": "30/second",  # custom scope example for search endpoints
-#     "auth_login": "10/min",  # protect login
-#     "product_detail": "120/second",
-# }
