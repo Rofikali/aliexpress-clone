@@ -1,6 +1,6 @@
 // ~/composables/pagination/createInfiniteScrollResource.js
 import { ref } from "vue"
-import { useInfiniteScroll } from "~/composables/pagination/useInfiniteScroll"
+import { useInfiniteScroll } from "./useInfiniteScroll"
 
 export function createInfiniteScrollResource(fetcher, opts = {}) {
     const items = ref([])

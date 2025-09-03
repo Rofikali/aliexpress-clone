@@ -138,7 +138,7 @@ onMounted(async () => {
 </script> -->
 
 
-<script setup>
+<!-- <script setup>
 import { onMounted } from "vue"
 import { useInfiniteScrollProducts } from "~/composables/products/useInfiniteScrollProducts"
 
@@ -164,7 +164,47 @@ onMounted(() => {
             {{ product.name }}
         </div>
 
-        <!-- Sentinel div for infinite scroll -->
+        <div ref="sentinelRef" v-if="hasNext && !isLoading" class="text-center py-4">
+            Loading more...
+        </div>
+
+        <div v-if="isLoading && !products.length" class="text-center py-4">
+            Loading products...
+        </div>
+
+        <div v-if="error" class="text-red-500">
+            {{ error }}
+        </div>
+    </div>
+</template> -->
+
+<script setup>
+import { onMounted } from "vue"
+import { useInfiniteScrollProducts } from "~/composables/products/useInfiniteProducts"
+
+const {
+    items: products,
+    isLoading,
+    hasNext,
+    error,
+    sentinelRef,
+    loadMore,
+    reset,
+} = useInfiniteScrollProducts({ prefetch: true })
+
+onMounted(() => {
+    // first load
+    loadMore()
+})
+</script>
+
+<template>
+    <div>
+        <div v-for="product in products" :key="product.id" class="p-2 border-b">
+            {{ product.name }}
+        </div>
+
+        <!-- Sentinel for infinite scroll -->
         <div ref="sentinelRef" v-if="hasNext && !isLoading" class="text-center py-4">
             Loading more...
         </div>
