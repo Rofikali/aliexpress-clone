@@ -158,6 +158,7 @@
 #     return token_obj
 
 
+# components/authentication/jwt_utils.py
 """
 Wrapper utilities around djangorestframework-simplejwt.
 
@@ -211,53 +212,49 @@ def _attach_standard_claims(
 
 
 # utils/jwt_utils.py (or wherever you keep token helpers)
-
-
 def create_token_pair_for_user(user):
     """
     Create a refresh + access token pair for the given user,
     with proper expiry handling and Django 5.x safe timezone usage.
     """
     refresh = RefreshToken.for_user(user)
+    _attach_standard_claims(refresh, user, session_jti=None)
 
     access_token = str(refresh.access_token)
     refresh_token = str(refresh)
 
-    # Access token expiry time (use timezone.utc, not django.utils.timezone.utc)
-    access_expires_at = datetime.utcnow().replace(tzinfo=timezone.utc) + timedelta(
-        seconds=refresh.access_token.lifetime.total_seconds()
-    )
+    # Access token expiry from token payload (avoid manual timedelta math)
+    exp_ts = int(refresh.access_token["exp"])
+    access_expires_at = datetime.fromtimestamp(exp_ts, tz=timezone.utc)
 
     return {
         "access": access_token,
         "refresh": refresh_token,
         "access_expires_at": access_expires_at.isoformat(),
-        "sub": str(user.id),  # ✅ Standard JWT 'sub' claim (subject = user.id)
+        "sub": str(user.id),
     }
 
 
-# def create_token_pair_for_user(
-#     user, session_jti: Optional[str] = None
-# ) -> Dict[str, Any]:
+# def create_token_pair_for_user(user):
 #     """
-#     Create refresh + access tokens for user.
-#     Optionally sets 'jti' claim to session_jti so DB session rows can be bound to tokens.
-#     Returns {"access": <str>, "refresh": <str>, "access_expires_at": <datetime>}
+#     Create a refresh + access token pair for the given user,
+#     with proper expiry handling and Django 5.x safe timezone usage.
 #     """
 #     refresh = RefreshToken.for_user(user)
-#     _attach_standard_claims(refresh, user, session_jti)
 
-#     # derive access from refresh (inherits claims)
-#     access = refresh.access_token
+#     access_token = str(refresh.access_token)
+#     refresh_token = str(refresh)
 
-#     # access expiry (epoch -> aware datetime)
-#     exp_ts = int(access["exp"])
-#     access_expires_at = timezone.datetime.fromtimestamp(exp_ts, tz=timezone.utc)
+#     # Access token expiry time (use timezone.utc, not django.utils.timezone.utc)
+#     access_expires_at = datetime.utcnow().replace(tzinfo=timezone.utc) + timedelta(
+#         seconds=refresh.access_token.lifetime.total_seconds()
+#     )
 
 #     return {
-#         "access": str(access),
-#         "refresh": str(refresh),
-#         "access_expires_at": access_expires_at,
+#         "access": access_token,
+#         "refresh": refresh_token,
+#         "access_expires_at": access_expires_at.isoformat(),
+#         "sub": str(user.id),  # ✅ Standard JWT 'sub' claim (subject = user.id)
 #     }
 
 
