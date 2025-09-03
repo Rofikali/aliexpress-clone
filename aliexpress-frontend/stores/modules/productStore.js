@@ -210,7 +210,7 @@
 // ~/stores/modules/productStore.js
 import { defineStore } from "pinia"
 import { ref } from "vue"
-import { useApi } from "~/composables/useApi"
+import { useApi } from "~/composables/core/useApi"
 
 export const useProductStore = defineStore("productStore", () => {
     const products = ref([])

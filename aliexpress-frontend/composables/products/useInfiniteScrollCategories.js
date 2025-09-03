@@ -1,6 +1,6 @@
 // ~/composables/pagination/useInfiniteScrollCategories.js
 import { useCategoryStore } from "~/stores/modules/categoryStore"
-import { useInfiniteScroll } from "./useInfiniteScroll"
+import { useInfiniteScroll } from "../pagination/useInfiniteScroll"
 
 export function useInfiniteScrollCategories(opts = {}) {
     const categoryStore = useCategoryStore()
