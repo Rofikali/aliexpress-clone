@@ -224,11 +224,6 @@ def create_password_reset_token(user, ttl_seconds: int = 60 * 60):
     return token_str, instance
 
 
-import uuid
-from django.db import models
-from django.conf import settings
-
-
 class RefreshToken(models.Model):
     """
     Persistent refresh token record to support rotation and blacklist.
