@@ -235,29 +235,6 @@ def create_token_pair_for_user(user):
     }
 
 
-# def create_token_pair_for_user(user):
-#     """
-#     Create a refresh + access token pair for the given user,
-#     with proper expiry handling and Django 5.x safe timezone usage.
-#     """
-#     refresh = RefreshToken.for_user(user)
-
-#     access_token = str(refresh.access_token)
-#     refresh_token = str(refresh)
-
-#     # Access token expiry time (use timezone.utc, not django.utils.timezone.utc)
-#     access_expires_at = datetime.utcnow().replace(tzinfo=timezone.utc) + timedelta(
-#         seconds=refresh.access_token.lifetime.total_seconds()
-#     )
-
-#     return {
-#         "access": access_token,
-#         "refresh": refresh_token,
-#         "access_expires_at": access_expires_at.isoformat(),
-#         "sub": str(user.id),  # ✅ Standard JWT 'sub' claim (subject = user.id)
-#     }
-
-
 def decode_access(token: str) -> Dict[str, Any]:
     """Decode an access token and return the claims dict. Raises TokenError on invalid/expired tokens."""
     try:

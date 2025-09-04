@@ -26,120 +26,136 @@ python manage.py generate_product_images 5
 
 This structure is designed for extreme scale — up to **1 trillion users**, assuming distributed infrastructure, Kubernetes, PostgreSQL clusters, and high-performance caching and queuing systems.
 
-## 🗂️ Folder Structure aliexressclone
+## 🗂️ Folder Structure aliexressclone drf api
+
 project_root/
 │
 ├── core/                               # Shared, reusable, framework-level logic
-│   ├── authentication/                 # JWT utils & custom DRF auth backends
-│   │   ├── __init__.py
-│   │   ├── jwt_utils.py
-│   │   └── backends.py
+│   ├── authentication/
+│   │   ├── **init**.py
+│   │   ├── jwt_utils.py                # JWT issue/verify/rotate w/ device-aware refresh
+│   │   ├── backends.py                 # Custom DRF auth backends
+│   │   └── device_manager.py           # Device session + refresh jti Redis helpers
 │   │
-│   ├── router/                         # Custom routers (auto-generate plural/kebab-case)
+│   ├── router/
 │   │   └── routers.py
 │   │
-│   ├── pagination/                     # DRF pagination utilities
-│   │   ├── __init__.py
+│   ├── pagination/
+│   │   ├── **init**.py
 │   │   ├── base_cursor.py
 │   │   ├── offset_pagination.py
 │   │   └── infinite_scroll.py
 │   │
-│   ├── permissions/                    # Centralized DRF permissions
+│   ├── permissions/
 │   │   └── permissions.py
 │   │
-│   ├── responses/                      # Standardized API responses
-│   │   ├── __init__.py
-│   │   └── response_factory.py         # success() / error() factory
+│   ├── responses/
+│   │   ├── **init**.py
+│   │   └── response_factory.py
 │   │
-│   ├── mixins/                         # DRF view/serializer mixins
-│   │   ├── __init__.py
+│   ├── mixins/
+│   │   ├── **init**.py
 │   │   └── soft_delete_mixin.py
 │   │
-│   ├── caching/                        # Caching logic
-│   │   ├── __init__.py
+│   ├── caching/
+│   │   ├── **init**.py
 │   │   ├── base_cache.py
 │   │   ├── cache_factory.py
 │   │   └── invalidation.py
 │   │
-│   ├── middleware/                     # Custom middlewares
-│   │   └── request_timer.py
+│   ├── middleware/
+│   │   ├── request_timer.py
+│   │   └── request_id.py               # Inject X-Request-ID for tracing
 │   │
-│   ├── throttling/                     # API throttling utilities
-│   │   ├── __init__.py
+│   ├── throttling/
+│   │   ├── **init**.py
 │   │   ├── base_throttle.py
 │   │   ├── backend.py
 │   │   ├── middleware.py
 │   │   ├── utils.py
 │   │   └── exceptions.py
 │   │
-│   ├── utils/                          # General-purpose helpers
+│   ├── utils/
 │   │   ├── encoders.py
-│   │   └── money.py
+│   │   ├── money.py
+│   │   └── tokens.py                   # generate_one_time_token, hmac verify, etc.
 │   │
-│   └── __init__.py
+│   └── **init**.py
 │
-├── apps/                               # Domain-driven Django apps
-│   ├── accounts/                       # Users & authentication
+├── apps/                               # Domain-driven apps
+│   ├── accounts/
 │   │   ├── admin.py
 │   │   ├── apps.py
 │   │   ├── models/
+│   │   │   ├── **init**.py
+│   │   │   ├── user.py                 # Custom User
+│   │   │   ├── email_verification.py   # EmailVerification model
+│   │   │   ├── device.py               # Device model
+│   │   │   └── kyc.py                  # KYCApplication + KYCDocument
 │   │   ├── serializers/
-│   │   │   ├── __init__.py
-│   │   │   ├── auth_serializer.py       # register, login, refresh, logout
-│   │   │   ├── profile_serializer.py    # profile, KYC
-│   │   │   ├── password_serializer.py   # reset request, confirm
-│   │   │   └── device_serializer.py     # device management
+│   │   │   ├── **init**.py
+│   │   │   ├── auth_serializer.py
+│   │   │   ├── profile_serializer.py
+│   │   │   ├── password_serializer.py
+│   │   │   ├── device_serializer.py
+│   │   │   ├── email_verification_serializer.py
+│   │   │   └── kyc_serializer.py
 │   │   ├── views/
-│   │   │   ├── __init__.py
-│   │   │   ├── auth_views.py           # register, login, refresh, logout
-│   │   │   ├── profile_views.py        # profile, KYC
-│   │   │   ├── password_views.py       # reset request, confirm
-│   │   │   └── device_views.py         # device management
+│   │   │   ├── **init**.py             
+│   │   │   ├── auth_views.py                       # login, register, logout, refresh
+│   │   │   ├── profile_views.py                    # profile + KYC
+│   │   │   ├── password_views.py                   # password reset + confirm
+│   │   │   ├── device_views.py                     # user devices 
+│   │   │   ├── email_verification_views.py         #    (to add: email OTP / link verification)
+│   │   │   └── kyc_views.py                        # (to add: detailed KYC flows, approval/reject by admin)
+│   │   ├── webhooks/
+│   │   │   └── kyc_webhook.py          # KYC provider webhook handler
 │   │   ├── urls.py
 │   │   └── tests/
+│   │       ├── test_auth.py
+│   │       ├── test_email_verification.py
+│   │       ├── test_kyc.py
+│   │       └── test_device.py
 │   │
-│   ├── products/                       # Product catalog, inventory, variants, images
-│   ├── posts/                          # Reviews & social posts
-│   ├── orders/                         # Orders & checkout workflow
-│   ├── payments/                       # Payment gateway integrations
-│   ├── notifications/                  # Push, email, real-time notifications
-│   └── __init__.py
+│   ├── products/
+│   ├── posts/
+│   ├── orders/
+│   ├── payments/
+│   ├── notifications/
+│   └── **init**.py
 │
-├── services/                           # External service integrations
-│   ├── celery_worker/                  # Celery async workers
-│   ├── elasticsearch/                  # Elasticsearch clients/config
-│   ├── redis/                          # Redis cache / pub-sub
-│   └── email_service/                  # Email sending logic
+├── services/
+│   ├── celery_worker/
+│   │   ├── **init**.py
+│   │   └── tasks/
+│   │       ├── **init**.py
+│   │       └── notifications.py        # send_verification_email, KYC notifications
+│   ├── elasticsearch/
+│   ├── redis/
+│   └── email_service/
 │
-├── configs/                            # Project configuration & entrypoints
-│   ├── settings/                       # Environment-based Django settings
-│   │   ├── __init__.py
+├── configs/
+│   ├── settings/
+│   │   ├── **init**.py
 │   │   ├── base.py
 │   │   ├── dev.py
 │   │   ├── prod.py
 │   │   └── test.py
-│   │
-│   ├── __init__.py
-│   ├── urls.py                         # Root URL router
-│   ├── wsgi.py                         # WSGI entrypoint
-│   └── asgi.py                         # ASGI entrypoint (WebSocket, async)
+│   ├── **init**.py
+│   ├── urls.py
+│   ├── wsgi.py
+│   └── asgi.py
 │
-├── static/                             # Static assets (served via CDN in prod)
-├── media/                              # User-uploaded files (S3 in prod)
+├── static/
+├── media/
 │
-├── requirements/                       # Dependencies per environment
-│   ├── base.txt
-│   ├── dev.txt
-│   ├── prod.txt
-│   └── test.txt
-│
-├── tests/                              # Global tests across apps
+├── requirements/
+├── tests/
 │   ├── unit/
 │   ├── integration/
 │   └── performance/
 │
-├── .env                                # Local environment variables
-├── .dockerignore
+├── .env
 ├── Dockerfile
 ├── docker-compose.yml
 ├── manage.py
