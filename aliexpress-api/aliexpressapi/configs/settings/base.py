@@ -146,7 +146,6 @@ AUTH_USER_MODEL = (
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        # "rest_framework_simplejwt.authentication.JWTAuthentication",
         "components.authentication.backends.CustomJWTAuthentication",
     ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
@@ -157,15 +156,6 @@ REST_FRAMEWORK = {
 
 from datetime import timedelta
 
-# SIMPLE_JWT = {
-#     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
-#     "REFRESH_TOKEN_LIFETIME": timedelta(days=14),
-#     "ROTATE_REFRESH_TOKENS": True,
-#     "BLACKLIST_AFTER_ROTATION": True,
-#     "ALGORITHM": "HS256",
-#     "SIGNING_KEY": getattr(globals(), "JWT_SIGNING_KEY", None)
-#     or os.environ.get("SECRET_JWT"),
-# }
 
 # settings.py
 SIMPLE_JWT = {

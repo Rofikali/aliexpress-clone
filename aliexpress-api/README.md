@@ -125,7 +125,7 @@ project_root/
 │   └── **init**.py
 │
 ├── services/
-│   ├── celery_worker/
+│   ├── celery_worker/                      # still not working on it for later use
 │   │   ├── **init**.py
 │   │   └── tasks/
 │   │       ├── **init**.py
