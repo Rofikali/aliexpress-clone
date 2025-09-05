@@ -55,3 +55,17 @@ User logs out → call Logout with refresh token → blacklisted
   New Access Token 🔑                   │
          │                              │
          └──────────→ Continue Using API│
+
+
+
+Key flows covered:
+
+Register → create user, issue tokens, send email OTP
+
+Email Verify → request OTP, confirm OTP, mark is_email_verified
+
+Login → block if email not verified, issue access + refresh tokens
+
+Profile → secure profile endpoints
+
+KYC → submit documents, admin review, enforce approval via middleware

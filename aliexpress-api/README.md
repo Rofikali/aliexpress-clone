@@ -62,6 +62,7 @@ project_root/
 │   │   ├── base_cache.py
 │   │   ├── cache_factory.py
 │   │   └── invalidation.py
+            kyc_middleware              # can't order, widrow, send money without kyc approved
 │   │
 │   ├── middleware/
 │   │   ├── request_timer.py
@@ -106,14 +107,15 @@ project_root/
 │   │   │   ├── profile_views.py                    # profile + KYC
 │   │   │   ├── password_views.py                   # password reset + confirm
 │   │   │   ├── device_views.py                     # user devices 
-│   │   │   ├── email_verification_views.py         #    (to add: email OTP / link verification)
-│   │   │   └── kyc_views.py                        # (to add: detailed KYC flows, approval/reject by admin)
+│   │   │   ├── email_verification_views.py         # (to add: email OTP / link verification)
+            ├── kyc_views.py                        # User submit, check status
+     │      └── kyc_admin_views.py                  # Admin approve/reject
 │   │   ├── webhooks/
-│   │   │   └── kyc_webhook.py          # KYC provider webhook handler
+│   │   │   └── kyc_webhook.py          # KYC provider webhook handler # If using 3rd party KYC provider
 │   │   ├── urls.py
 │   │   └── tests/
 │   │       ├── test_auth.py
-│   │       ├── test_email_verification.py
+│   │       ├── test_email_verification.py 
 │   │       ├── test_kyc.py
 │   │       └── test_device.py
 │   │

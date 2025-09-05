@@ -58,6 +58,8 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     # made my me custom middleware
     "components.middleware.request_timer.RequestTimerMiddleware",
+    # 👇 Add our middleware at the end (after auth)
+    "components.middleware.kyc_middleware.EnforceKYCApprovalMiddleware",
 ]
 
 # ROOT_URLCONF = "aliexpressapi.urls"
@@ -81,16 +83,14 @@ TEMPLATES = [
 WSGI_APPLICATION = "configs.wsgi.application"
 # WSGI_APPLICATION = "aliexpressapi.wsgi.application"
 
+# settings.py
+REST_FRAMEWORK = {
+    "EXCEPTION_HANDLER": "components.exceptions.handlers.custom_exception_handler",
+}
 
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
+# settings.py # make it true in production
+ENFORCE_KYC = os.environ.get("ENFORCE_KYC", default=False)
+ENFORCE_KYC = os.environ.get("ENFORCE_KYC")
 
 
 # Password validation

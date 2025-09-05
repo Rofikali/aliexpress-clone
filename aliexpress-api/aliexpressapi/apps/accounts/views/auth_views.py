@@ -261,30 +261,30 @@ from apps.accounts.models.email_verification import EmailVerification
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 
 from components.responses.response_factory import ResponseFactory
+from components.authentication.jwt_utils import create_token_pair_for_user
 
 from django.core.mail import send_mail
 
 User = get_user_model()
 
+# def _create_token_pair_for_user(user):
+# """
+# Return a simple token pair dict using SimpleJWT RefreshToken.for_user
+# """
+# refresh = RefreshToken.for_user(user)
+# access = refresh.access_token
 
-def _create_token_pair_for_user(user):
-    """
-    Return a simple token pair dict using SimpleJWT RefreshToken.for_user
-    """
-    refresh = RefreshToken.for_user(user)
-    access = refresh.access_token
+# # access["exp"] is unix timestamp int
+# access_expires_at = timezone.datetime.fromtimestamp(
+#     int(access["exp"]), tz=timezone.utc
+# ).isoformat()
 
-    # access["exp"] is unix timestamp int
-    access_expires_at = timezone.datetime.fromtimestamp(
-        int(access["exp"]), tz=timezone.utc
-    ).isoformat()
-
-    return {
-        "access": str(access),
-        "refresh": str(refresh),
-        "access_expires_at": access_expires_at,
-        "sub": str(user.pk),
-    }
+# return {
+#     "access": str(access),
+#     "refresh": str(refresh),
+#     "access_expires_at": access_expires_at,
+#     "sub": str(user.pk),
+# }
 
 
 # ------------------------------
@@ -314,7 +314,7 @@ class RegisterViewSet(viewsets.ViewSet):
             )
 
         # Generate tokens via SimpleJWT
-        tokens = _create_token_pair_for_user(user)
+        tokens = create_token_pair_for_user(user)
 
         # Create OTP entry using manager (invalidates previous pending ones)
         verification = EmailVerification.objects.create_pending(user)
@@ -379,7 +379,7 @@ class LoginViewSet(viewsets.ViewSet):
                 status=status.HTTP_403_FORBIDDEN,
             )
 
-        tokens = _create_token_pair_for_user(user)
+        tokens = create_token_pair_for_user(user)
         user.last_login = timezone.now()
         user.save(update_fields=["last_login"])
 
@@ -432,6 +432,9 @@ class LogoutViewSet(viewsets.ViewSet):
         )
 
 
+from datetime import timezone as dt_timezone
+
+
 # ------------------------------
 # Refresh
 # ------------------------------
@@ -467,7 +470,7 @@ class RefreshViewSet(viewsets.ViewSet):
         access = refresh_obj.access_token
 
         access_expires_at = timezone.datetime.fromtimestamp(
-            int(access["exp"]), tz=timezone.utc
+            int(access["exp"]), tz=dt_timezone.utc
         ).isoformat()
 
         tokens = {
