@@ -59,3 +59,4 @@ CORS_ALLOW_HEADERS = [
 
 # Resion Set into this server
 REGION = "Nepal-01"  # Example: India / Singapore data center
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

@@ -5,6 +5,9 @@ from rest_framework import serializers
 User = get_user_model()
 
 
+from apps.accounts.models.user import User
+
+
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -16,15 +19,15 @@ class ProfileSerializer(serializers.ModelSerializer):
             "role",
             "kyc_status",
             "is_active",
+            "is_email_verified",  # ✅ new
             "last_login",
             "created_at",
             "updated_at",
         ]
         read_only_fields = [
             "id",
-            "role",
-            "kyc_status",
             "is_active",
+            "is_email_verified",
             "last_login",
             "created_at",
             "updated_at",

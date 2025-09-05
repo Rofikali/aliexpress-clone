@@ -1,3 +1,4 @@
+# apps/accounts/views/profile_views.py
 from rest_framework import viewsets
 # from apps.accounts.serializers import (
 #     ProfileSerializer,

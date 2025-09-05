@@ -1,87 +1,8 @@
 from django.contrib import admin
-from .models import User, UserDevice, PasswordResetToken
+from apps.accounts.models.user import User
+from apps.accounts.models.device import UserDevice as device
+from apps.accounts.models.password_reset import PasswordResetToken
 
-# from django.contrib import admin
-# from .models import User
-# # from apps.like.models import Like
-# from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-# from django.utils.translation import gettext_lazy as _
-
-
-# @admin.register(User)
-# class UserAdmin(BaseUserAdmin):
-#     """
-#     Custom User admin for handling the extended User model.
-#     """
-
-#     # Fields to display in the list view
-#     list_display = (
-#         "id",
-#         "email",
-#         "name",
-#         "username",
-#         "bio",
-#         "image",
-#         "is_staff",
-#         "is_active"
-#     )
-#     list_filter = ("is_staff", "is_active")
-
-#     # Fields to edit in the admin panel
-#     fieldsets = (
-#         (None, {"fields": ("email", "password")}),
-#         (_("Personal Info"), {"fields": ("name",'username', "bio", "image")}),
-#         (
-#             _("Permissions"),
-#             {"fields": ("is_staff", "is_active", "groups", "user_permissions")},
-#         ),
-#         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
-#     )
-
-#     # Fields required when creating a new user
-#     add_fieldsets = (
-#         (
-#             None,
-#             {
-#                 "classes": ("wide",),
-#                 "fields": ("email", "password1", "password2", "name", "bio", "image"),
-#             },
-#         ),
-#     )
-
-#     # User identification fields
-#     search_fields = ("email", "name")
-#     ordering = ("email",)
-
-# @admin.register(User)
-# class UserAdmin(admin.ModelAdmin):
-#     list_display = (
-#         "id",
-#         "email",
-#         "username",
-#         "role",
-#         "kyc_status",
-#         "is_staff",
-#         "is_active",
-#         "last_login",
-#         "created_at",
-#     )
-#     list_filter = ("role", "kyc_status", "is_staff", "is_active")
-#     fieldsets = (
-#         (None, {"fields": ("email", "password")}),
-#         ("Personal Info", {"fields": ("username", "phone_number")}),
-#         ("Role & KYC", {"fields": ("role", "kyc_status")}),
-#         ("Permissions", {"fields": ("is_staff", "is_active", "groups", "user_permissions")}),
-#         ("Important dates", {"fields": ("last_login", "created_at", "updated_at")}),
-#     )
-#     add_fieldsets = (
-#         (None, {
-#             "classes": ("wide",),
-#             "fields": ("email", "username", "password1", "password2", "role", "kyc_status"),
-#         }),
-#     )
-#     search_fields = ("email", "username")
-#     ordering = ("email",)
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
@@ -101,15 +22,28 @@ class UserAdmin(admin.ModelAdmin):
         (None, {"fields": ("email", "password")}),
         ("Personal Info", {"fields": ("username", "phone_number")}),
         ("Role & KYC", {"fields": ("role", "kyc_status")}),
-        ("Permissions", {"fields": ("is_staff", "is_active", "groups", "user_permissions")}),
+        (
+            "Permissions",
+            {"fields": ("is_staff", "is_active", "groups", "user_permissions")},
+        ),
         # remove created_at and updated_at from editable fieldsets
         ("Important dates", {"fields": ("last_login",)}),
     )
     add_fieldsets = (
-        (None, {
-            "classes": ("wide",),
-            "fields": ("email", "username", "password1", "password2", "role", "kyc_status"),
-        }),
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "email",
+                    "username",
+                    "password1",
+                    "password2",
+                    "role",
+                    "kyc_status",
+                ),
+            },
+        ),
     )
     search_fields = ("email", "username")
     ordering = ("email",)
@@ -118,7 +52,7 @@ class UserAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at", "updated_at", "last_login")
 
 
-@admin.register(UserDevice)
+@admin.register(device)
 class UserDeviceAdmin(admin.ModelAdmin):
     list_display = (
         "id",
@@ -132,6 +66,7 @@ class UserDeviceAdmin(admin.ModelAdmin):
     list_filter = ("device_type", "created_at", "last_active")
     search_fields = ("user__email", "device_token", "ip_address")
     ordering = ("-last_active",)
+
 
 @admin.register(PasswordResetToken)
 class PasswordResetTokenAdmin(admin.ModelAdmin):

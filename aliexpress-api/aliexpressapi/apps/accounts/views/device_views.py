@@ -1,3 +1,4 @@
+# apps/accounts/views/device_views.py
 from rest_framework import viewsets
 from drf_spectacular.utils import (
     OpenApiParameter,
