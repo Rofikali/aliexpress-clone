@@ -8,22 +8,22 @@
 nuxt3-frontend/
 │
 ├── app.vue
-├── nuxt.config.js                  # use JS since your codebase is JS-only
+├── nuxt.config.js                  # Nuxt configuration (JS only)
 │
-├── pages/
+├── pages/                          # Route-driven views
 │   ├── index.vue
 │   ├── auth/
 │   │   ├── login.vue
 │   │   ├── register.vue
 │   │   └── profile.vue
 │   ├── products/
-│   │   ├── index.vue               # list
-│   │   └── [id]-[slug].vue         # detail (choose ONE dynamic file)
+│   │   ├── index.vue               # product list
+│   │   └── [id]-[slug].vue         # product detail
 │   ├── cart.vue
 │   ├── orders.vue
 │   └── wishlist.vue
 │
-├── components/
+├── components/                     # Dumb UI components
 │   ├── common/
 │   │   ├── Header.vue
 │   │   ├── Footer.vue
@@ -36,7 +36,7 @@ nuxt3-frontend/
 │       ├── Pagination.vue
 │       └── SearchDropdown.vue
 │
-├── stores/                         # Pinia (single source of truth)
+├── stores/                         # Pinia: centralized state
 │   ├── authStore.js
 │   ├── productStore.js
 │   └── search/
@@ -44,44 +44,54 @@ nuxt3-frontend/
 │       ├── user.js
 │       └── category.js
 │
-├── composables/
+├── composables/                    # Smart hooks (Composition API)
 │   ├── core/
-│   │   ├── useApi.js               # auth + retry + circuit breaker (you have this)
+│   │   ├── useApi.js               # wrapper around $fetch + retry
 │   │   ├── useDebounce.js
 │   │   └── useThrottle.js
 │   ├── observer/
 │   │   └── useObserverCore.js
 │   ├── pagination/
-│   │   ├── useInfiniteProductScroll.js  # integrates with productStore
+│   │   ├── useInfiniteProductScroll.js
 │   │   └── useFillViewport.js
 │   └── search/
 │       ├── useBaseSearch.js
 │       ├── useInfiniteSearch.js
 │       └── useSearchFilters.js
 │
-├── plugins/
-│   ├── api.client.js               # provides $api -> wraps useApi
-│   ├── fetch-retry.client.js       # global $fetch retry/backoff (optional if $api everywhere)
+├── services/                       # API service layer (business logic)
+│   └── api/
+│       ├── auth.js                 # login, register, verify email
+│       ├── cart.js
+│       ├── products.js
+│       ├── category.js
+│       ├── orders.js
+│       ├── wishlist.js
+│       └── index.js                # export all services from here
+│
+├── plugins/                        # Nuxt app-level plugins
+│   ├── api.client.js               # inject $api from useApi
+│   ├── fetch-retry.client.js       # global fetch retry/backoff
 │   ├── dayjs.client.js
-│   └── toast.client.js
+│   └── toast.client.js             # toast notifications
 │
-├── middleware/
-│   ├── auth.global.js              # protect auth-only routes
-│   └── guest.global.js             # redirect logged-in users away from login/register
+├── middleware/                     # Route guards
+│   ├── auth.global.js              # block unauth users
+│   └── guest.global.js             # block logged-in users from login/register
 │
-├── utils/
+├── utils/                          # Pure utility functions
 │   ├── format/
 │   │   └── money.js
 │   └── search/
 │       └── fuzzy.js
 │
-├── assets/
+├── assets/                         # Tailwind & static assets
 │   └── css/
-│       └── main.css                # tailwind entry if you prefer
+│       └── main.css
 │
-├── public/
+├── public/                         # static public files
 │
-├── tests/
+├── tests/                          # Vitest / Playwright
 │   ├── unit/
 │   ├── integration/
 │   └── e2e/
@@ -90,11 +100,21 @@ nuxt3-frontend/
 └── package.json
 
 
+UI (pages/components)
+   ▼
+Composables (logic, hooks)
+   ▼
+Services (API calls → DRF)
+   ▼
+Stores (Pinia state management)
+   ▼
+Plugins/Middleware (auth, toast, utils)
+   ▼
+Backend (Django DRF)
+
+
 
 🔑 Flow now looks like:
-UI → Composable → Store → Service → API
-🔑 Flow now looks like:
-
 UI → Composable → Store → Service → API
 
 
