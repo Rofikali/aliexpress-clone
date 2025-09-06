@@ -45,7 +45,7 @@ onMounted(() => {
 
 <script setup>
 import { onMounted } from "vue"
-import { useInfiniteScrollProducts } from "~/composables/products/useInfiniteProducts"
+import { useInfiniteScrollProducts } from "~/composables/products/useInfiniteScrollProducts"
 
 const {
     items: products,

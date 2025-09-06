@@ -59,25 +59,29 @@
 //     }
 // }
 
-
 // ~/composables/products/useInfiniteScrollProducts.js
 import { createInfiniteScrollResource } from "~/composables/pagination/createInfiniteScrollResource"
-import { getProducts } from "~/services/api/products"
+import { useApi } from "~/composables/core/useApi"
 
 /**
  * Infinite scroll composable for products
- * Wraps the generic infinite scroll factory with product-specific fetcher.
+ * Fully cursor-based, compatible with your DRF backend
  */
 export function useInfiniteScrollProducts(opts = {}) {
-    async function fetchProducts(offset = 0, pageSize = 12) {
-        const page = offset / pageSize + 1
-        const { data, error } = await getProducts({ page, page_size: pageSize })
+    let cursor = "first" // initial cursor
 
-        if (error) throw new Error(error.message || "Failed to fetch products")
+    async function fetchProducts(_, pageSize = 12) {
+        const { data, status } = await useApi(`/products/?cursor=${cursor}&page_size=${pageSize}`, {
+            method: "GET",
+        })
+
+        if (status !== 200 || !data) throw new Error(data?.message || "Failed to fetch products")
+
+        cursor = data?.next_cursor || null
 
         return {
-            results: data?.results || [],
-            next: data?.next || null,
+            results: data?.products || [],
+            next: cursor,
         }
     }
 
