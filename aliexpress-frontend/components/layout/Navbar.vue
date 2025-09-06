@@ -43,7 +43,8 @@
                         <li @click="navigateTo('/orders')" class="text-[13px] py-2 px-4 w-full hover:bg-gray-200">
                             My Orders
                         </li>
-                        <li v-if="user" @click="client.auth.signOut()"
+                        <!-- <li v-if="user" @click="client.auth.signOut()" -->
+                        <li v-if="user" @click="authStore.logoutUser()"
                             class="text-[13px] py-2 px-4 w-full hover:bg-gray-200">
                             Sign out
                         </li>
@@ -57,6 +58,8 @@
 <script setup>
 import { ref } from 'vue'
 const isAccountMenu = ref(false)
+import { useAuthStore } from "~/stores/modules/authStore";
+const authStore = useAuthStore();
 // const client = useSupabaseClient()
 const user = ref('Admin')
 </script>

@@ -241,6 +241,8 @@ export const useProductStore = defineStore("productStore", () => {
             const { data, status, error: fetchError } = await useApi(`/products/?page=${pageParam}&page_size=${pageSize}`, {
                 method: "GET",
             })
+            
+            console.log('data products ', data);
 
             if (status !== 200 || fetchError) {
                 throw fetchError || new Error("Failed to fetch products")

@@ -113,7 +113,7 @@ export const useAuthStore = defineStore("auth", () => {
             // ask backend to set refresh token in HttpOnly cookie
             if (tokens.value?.refresh) {
                 try {
-                    await useApi("/auth/set-refresh-cookie/", {
+                    await useApi("/refresh/", {
                         method: "POST",
                         body: { refresh: tokens.value.refresh },
                     });
@@ -177,7 +177,8 @@ export const useAuthStore = defineStore("auth", () => {
     async function checkAuth() {
         loading.value = true;
         try {
-            const { data } = await useApi("/auth/me/", { method: "GET" });
+            const { data } = await useApi("/profile/", { method: "GET" });
+            // const { data } = await useApi("/auth/me/", { method: "GET" });
             user.value = data?.user || data?.profile || null;
             isHydrated.value = true;
             return user.value;
@@ -193,7 +194,7 @@ export const useAuthStore = defineStore("auth", () => {
     async function logoutUser() {
         loading.value = true;
         try {
-            await useApi("/auth/logout/", { method: "POST" });
+            await useApi("logout/", { method: "POST" });
         } catch (e) {
             console.warn("logout error", e);
         } finally {
