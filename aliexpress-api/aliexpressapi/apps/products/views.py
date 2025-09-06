@@ -67,7 +67,7 @@ class ProductsViewSet(ViewSet):
                 return ResponseFactory.success(
                     data=cache_data,
                     message="Products fetched successfully",
-                    status_code=status.HTTP_200_OK,
+                    status=status.HTTP_200_OK,
                     request=request,
                     meta={"cursor": cursor},
                     # extra={"cursor": cursor},
@@ -95,7 +95,7 @@ class ProductsViewSet(ViewSet):
             return ResponseFactory.success(
                 data=response_data,
                 message="Products fetched successfully",
-                status_code=status.HTTP_200_OK,
+                status=status.HTTP_200_OK,
                 request=request,
             )
 
@@ -103,7 +103,7 @@ class ProductsViewSet(ViewSet):
             return ResponseFactory.error(
                 message="Failed to fetch products",
                 errors={"detail": str(e)},
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 request=request,
             )
 
@@ -121,14 +121,14 @@ class ProductsViewSet(ViewSet):
             return ResponseFactory.success(
                 data=serializer.data,
                 message="Single Product fetched successfully",
-                status_code=status.HTTP_200_OK,
+                status=status.HTTP_200_OK,
                 request=request,
             )
         except Exception as e:
             return ResponseFactory.error(
                 message="Product not found",
                 errors={"detail": str(e)},
-                status_code=status.HTTP_404_NOT_FOUND,
+                status=status.HTTP_404_NOT_FOUND,
                 request=request,
             )
 
