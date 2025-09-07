@@ -191,66 +191,344 @@
 
 
 
+// // ~/stores/modules/productStore.js
+// import { defineStore } from "pinia"
+// import { ref } from "vue"
+// import { usePagination } from "~/composables/pagination/useBasePagination"
+// import { useInfiniteScroll } from "~/composables/pagination/useInfiniteScroll"
+
+// export const useProductStore = defineStore("productStore", () => {
+//     // 1. Pagination composable for products
+//     const {
+//         products,
+//         loading,
+//         error,
+//         hasNext,
+//         nextCursor,
+//         count,
+//         fetchFirst,
+//         loadMore,
+//         reset,
+//         forceReload,
+//     } = usePagination("/products/", {
+//         pageSize: 12,
+//         dedupeKey: "id",
+//         retries: 2,
+//         retryBackoffMs: 300,
+//         autoFetch: true,
+//         debug: true,
+//     })
+
+//     console.log('inside productStore ', products);
+
+//     // 2. Infinite scroll observer
+//     const { sentinelRef, bindSentinel, unbindSentinel } = useInfiniteScroll({
+//         loadMore,
+//         hasNext,
+//         isLoading: loading,
+//         threshold: 0.25, // load earlier
+//         prefetch: true,
+//         debug: true,
+//     })
+
+//     // 3. Store API
+//     return {
+//         // state
+//         products,
+//         loading,
+//         error,
+//         hasNext,
+//         nextCursor,
+//         count,
+
+//         // actions
+//         fetchFirst,
+//         loadMore,
+//         reset,
+//         forceReload,
+
+//         // infinite scroll refs
+//         sentinelRef,
+//         bindSentinel,
+//         unbindSentinel,
+//     }
+// })
+
+
+
+// // ~/stores/modules/productStore.js
+// import { defineStore } from "pinia"
+// import { ref } from "vue"
+// import { getProducts } from "~/services/api/products"
+
+// export const useProductStore = defineStore("productStore", () => {
+//     const products = ref([])
+//     const products_data = ref([])
+//     const loading = ref(false)
+//     const error = ref(null)
+//     const nextCursor = ref(null)
+//     const hasNext = ref(true)
+
+//     const reset = () => {
+//         products.value = []
+//         nextCursor.value = null
+//         hasNext.value = true
+//         error.value = null
+//     }
+
+//     const fetchFirst = async (params = {}) => {
+//         loading.value = true
+//         error.value = null
+//         try {
+//             const { data, status } = await getProducts(params)
+//             products.value = data.products || []
+//             products_data.value = data.data.products || []
+//             nextCursor.value = data.next_cursor ?? null
+//             hasNext.value = !!data.has_next || nextCursor.value !== null
+//         } catch (err) {
+//             error.value = err
+//         } finally {
+//             loading.value = false
+//         }
+//     }
+//     console.log('inside productStore with data.products ', products.value);
+//     console.log('inside productStore with data.data.products ', products_data.value);
+
+//     const loadMore = async (params = {}) => {
+//         if (!hasNext.value || loading.value) return
+//         loading.value = true
+//         error.value = null
+//         try {
+//             const requestParams = { ...params }
+//             if (nextCursor.value) requestParams.cursor = nextCursor.value
+//             const { data } = await getProducts(requestParams)
+//             const newItems = data.products || []
+//             // append with dedupe by 'id'
+//             const map = new Map(products.value.map(p => [p.id, p]))
+//             for (const item of newItems) map.set(item.id, item)
+//             products.value = Array.from(map.values())
+//             nextCursor.value = data.next_cursor ?? null
+//             hasNext.value = !!data.has_next || nextCursor.value !== null
+//         } catch (err) {
+//             error.value = err
+//         } finally {
+//             loading.value = false
+//         }
+//     }
+
+//     return {
+//         products,
+//         loading,
+//         error,
+//         nextCursor,
+//         hasNext,
+//         fetchFirst,
+//         loadMore,
+//         reset,
+//     }
+// })
+
+
+
+// // ~/stores/modules/productStore.js
+// import { defineStore } from "pinia"
+// import { ref } from "vue"
+// import { getProducts } from "~/services/api/products"
+// import { normalizeResponse } from "~/services/helpers/response"
+
+// export const useProductStore = defineStore("productStore", () => {
+//     const products = ref([])
+//     const loading = ref(false)
+//     const error = ref(null)
+//     const nextCursor = ref(null)
+//     const hasNext = ref(true)
+
+//     const reset = () => {
+//         products.value = []
+//         nextCursor.value = null
+//         hasNext.value = true
+//         error.value = null
+//     }
+
+//     const fetchFirst = async (params = {}) => {
+//         reset()
+//         loading.value = true
+//         try {
+//             const response = await getProducts(params)
+//             console.warn("API Respone Info:", response)
+//             const { data, errors, info } = normalizeResponse(response)
+
+//             if (errors) throw errors
+//             if (info) console.warn("API Info:", info)
+
+//             console.log(`✅ API call successful. Loaded ${data.products.length} products.`)
+
+//             products.value = data.products
+//             nextCursor.value = data.pagination?.next_cursor ?? null
+//             hasNext.value = data.pagination?.has_next ?? false
+//         } catch (err) {
+//             console.error("❌ Product fetch error:", err)
+//             error.value = err
+//         } finally {
+//             loading.value = false
+//         }
+//     }
+
+//     const loadMore = async (params = {}) => {
+//         if (!hasNext.value || loading.value) return
+//         loading.value = true
+//         try {
+//             const requestParams = { ...params }
+//             if (nextCursor.value) requestParams.cursor = nextCursor.value
+
+//             const response = await getProducts(requestParams)
+//             const { data, errors, info } = normalizeResponse(response)
+
+//             if (errors) throw errors
+//             if (info) console.warn("API Info:", info)
+
+//             const newItems = data.products
+
+//             // Append with dedupe by 'id'
+//             const map = new Map(products.value.map(p => [p.id, p]))
+//             for (const item of newItems) map.set(item.id, item)
+//             products.value = Array.from(map.values())
+
+//             nextCursor.value = data.pagination?.next_cursor ?? null
+//             hasNext.value = data.pagination?.has_next ?? false
+
+//             console.log(`✅ Loaded more products. Total now: ${products.value.length}`)
+//         } catch (err) {
+//             console.error("❌ Load more error:", err)
+//             error.value = err
+//         } finally {
+//             loading.value = false
+//         }
+//     }
+
+//     return {
+//         products,
+//         loading,
+//         error,
+//         nextCursor,
+//         hasNext,
+//         fetchFirst,
+//         loadMore,
+//         reset,
+//     }
+// })
+
 // ~/stores/modules/productStore.js
-import { defineStore } from "pinia"
-import { ref } from "vue"
-import { usePagination } from "~/composables/pagination/useBasePagination"
-import { useInfiniteScroll } from "~/composables/pagination/useInfiniteScroll"
+import { defineStore } from "pinia";
+import { ref } from "vue";
+import { getProducts } from "~/services/api/products";
+import { normalizeResponse } from "~/services/helpers/response";
 
 export const useProductStore = defineStore("productStore", () => {
-    // 1. Pagination composable for products
-    const {
-        products,
-        loading,
-        error,
-        hasNext,
-        nextCursor,
-        count,
-        fetchFirst,
-        loadMore,
-        reset,
-        forceReload,
-    } = usePagination("/products/", {
-        pageSize: 12,
-        dedupeKey: "id",
-        retries: 2,
-        retryBackoffMs: 300,
-        autoFetch: true,
-        debug: true,
-    })
+    const products = ref([]);
+    const loading = ref(false);
+    const error = ref(null);
+    const nextCursor = ref(null);
+    const hasNext = ref(true);
 
-    console.log('inside productStore ', products);
+    // 🔄 Reset state
+    const reset = () => {
+        products.value = [];
+        nextCursor.value = null;
+        hasNext.value = true;
+        error.value = null;
+        console.log("🔄 Product store reset");
+    };
 
-    // 2. Infinite scroll observer
-    const { sentinelRef, bindSentinel, unbindSentinel } = useInfiniteScroll({
-        loadMore,
-        hasNext,
-        isLoading: loading,
-        threshold: 0.25, // load earlier
-        prefetch: true,
-        debug: true,
-    })
+    // 📥 First fetch
+    const fetchFirst = async (params = {}) => {
+        reset();
+        loading.value = true;
 
-    // 3. Store API
+        try {
+            const response = await getProducts(params);
+            console.warn("🍍 API Response Info:", response);
+
+            const { data, errors, meta } = normalizeResponse(response);
+
+            if (errors) throw errors;
+
+            // ✅ Normalize to array always
+            const normalizedProducts = Array.isArray(data)
+                ? data
+                : data
+                    ? [data]
+                    : [];
+
+            console.log(
+                `✅ API call successful. Loaded ${normalizedProducts} products.`
+            );
+
+            products.value = normalizedProducts;
+            nextCursor.value = meta?.next_cursor ?? null;
+            hasNext.value = meta?.has_next ?? false;
+        } catch (err) {
+            console.error("❌ Product fetch error:", err);
+            error.value = err;
+        } finally {
+            loading.value = false;
+        }
+    };
+
+    // ➕ Load more (cursor-based pagination)
+    const loadMore = async (params = {}) => {
+        if (!hasNext.value) {
+            console.log("⚠️ No more products to load");
+            return;
+        }
+        if (loading.value) {
+            console.log("⏳ Already loading products, skipping loadMore call");
+            return;
+        }
+
+        loading.value = true;
+
+        try {
+            const requestParams = { ...params };
+            if (nextCursor.value) requestParams.cursor = nextCursor.value;
+
+            const response = await getProducts(requestParams);
+            console.warn("🍍 LoadMore API Response Info:", response);
+
+            const { data, errors, meta } = normalizeResponse(response);
+
+            if (errors) throw errors;
+
+            const newProducts = Array.isArray(data) ? data : data ? [data] : [];
+            console.log(`🔹 Loaded ${newProducts.length} new products`);
+
+            // ✅ Deduplicate by `id`
+            const map = new Map(products.value.map(p => [p.id, p]));
+            for (const item of newProducts) map.set(item.id, item);
+            products.value = Array.from(map.values());
+
+            nextCursor.value = meta?.next_cursor ?? null;
+            hasNext.value = meta?.has_next ?? false;
+
+            console.log(
+                `✅ Total products after loadMore: ${products.value.length}`
+            );
+        } catch (err) {
+            console.error("❌ Load more error:", err);
+            error.value = err;
+        } finally {
+            loading.value = false;
+        }
+    };
+
     return {
-        // state
         products,
         loading,
         error,
-        hasNext,
         nextCursor,
-        count,
-
-        // actions
+        hasNext,
         fetchFirst,
         loadMore,
         reset,
-        forceReload,
-
-        // infinite scroll refs
-        sentinelRef,
-        bindSentinel,
-        unbindSentinel,
-    }
-})
-
+    };
+});

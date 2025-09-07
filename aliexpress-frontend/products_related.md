@@ -80,7 +80,69 @@ Database
 ─────────────────────────────
 
 
+### working on it ( Best ever )
+✅ Why this works better
 
+useApi = generic HTTP (never changes).
+
+productService = knows about API shape (data.products, data.pagination).
+
+store = manages state, error/loading, delegates to service.
+
+usePagination = UI logic only (page state, next/prev).
+
+Components = dumb consumers of store + composables.
+
+
+┌─────────────────────────┐
+│       Component         │
+│-------------------------│
+│ - binds to productStore │
+│ - binds scroll event    │
+│ - calls store.loadMore()│
+└─────────▲───────────────┘
+          │
+          │
+          │ uses reactive state
+          │ products, loading, error
+          │
+┌─────────┴───────────────┐
+│      productStore        │
+│--------------------------│
+│ - keeps products[]       │
+│ - keeps nextCursor       │
+│ - keeps hasNext          │
+│ - fetchFirst()           │
+│ - loadMore()             │
+└─────────▲───────────────┘
+          │ delegates
+          │ to service
+          │
+┌─────────┴───────────────┐
+│    productService        │
+│--------------------------│
+│ - knows API response     │
+│   shape (data.products,  │
+│   data.pagination)       │
+│ - wraps useApi call      │
+│ - normalizes data        │
+└─────────▲───────────────┘
+          │
+          │ makes HTTP request
+          │
+┌─────────┴───────────────┐
+│       useApi             │
+│--------------------------│
+│ - generic fetch wrapper  │
+│ - handles retries        │
+│ - circuit breaker        │
+│ - token refresh          │
+│ - returns { data, error }│
+└─────────────────────────┘
+
+
+
+### not this.
 ┌───────────────────┐
 │   useApi          │   <-- low-level HTTP (axios/fetch wrapper)
 └────────┬──────────┘

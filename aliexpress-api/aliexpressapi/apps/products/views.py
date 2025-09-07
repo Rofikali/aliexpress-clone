@@ -35,7 +35,11 @@ from components.caching.cache_factory import (
 )  # ✅ generic cache factory
 
 
-# -------------------- PRODUCTS --------------------
+# apps.products/viewsets.py
+
+# apps.products/viewsets.py
+
+
 class ProductsViewSet(ViewSet):
     permission_classes = [AllowAny]
     cache = get_cache("products")
@@ -46,54 +50,54 @@ class ProductsViewSet(ViewSet):
                 name="cursor",
                 type=OpenApiTypes.STR,
                 location=OpenApiParameter.QUERY,
-                description="Cursor for pagination (optional). Leave empty or 'first' to fetch first page.",
+                description="Cursor for pagination (optional). Use 'first' for initial page.",
+                required=False,
+            ),
+            OpenApiParameter(
+                name="page_size",
+                type=OpenApiTypes.INT,
+                location=OpenApiParameter.QUERY,
+                description="Number of items per page (default=12, max=50).",
                 required=False,
             ),
         ],
-        request=ProductSerializer,
         responses={200: ProductSerializer(many=True)},
         tags=["Products"],
-        summary="All Products retrieve",
+        summary="List Products",
         description="Retrieve all products with cursor pagination and caching.",
     )
     def list(self, request):
         try:
             cursor = request.query_params.get("cursor") or "first"
 
-            # ✅ Try cache
+            # ✅ Try cache first
             cache_data = self.cache.get_results(cursor)
-
             if cache_data:
-                return ResponseFactory.success(
-                    data=cache_data,
-                    message="Products fetched successfully",
+                return ResponseFactory.success_collection(
+                    items=cache_data.get("products", []),
+                    pagination=cache_data.get("pagination", {}),
+                    message="Products fetched successfully (cache)",
                     status=status.HTTP_200_OK,
                     request=request,
-                    meta={"cursor": cursor},
-                    # extra={"cursor": cursor},
-                    cache="HIT",  # ✅ only pass when cached
+                    cache="HIT",
                 )
 
             # ✅ DB + pagination
             queryset = Product.objects.all().order_by("-created_at")
             paginator = BaseCursorPagination()
-            paginator_queryset = paginator.paginate_queryset(queryset, request)
-
+            page = paginator.paginate_queryset(queryset, request)
             serializer = ProductSerializer(
-                paginator_queryset, many=True, context={"request": request}
+                page, many=True, context={"request": request}
             )
-            response_data = paginator.get_paginated_response(
-                serializer.data
-            ).data  ### old one is curect
-            # response_data = paginator.get_paginated_response(serializer.data).data[
-            #     "products"
-            # ]
 
+            response_data = paginator.get_paginated_response_data(serializer.data)
+
+            # cache it
             self.cache.cache_results(cursor, response_data)
 
-            # later for DB fetch
-            return ResponseFactory.success(
-                data=response_data,
+            return ResponseFactory.success_collection(
+                items=response_data["items"],
+                pagination=response_data["pagination"],
                 message="Products fetched successfully",
                 status=status.HTTP_200_OK,
                 request=request,
@@ -102,24 +106,23 @@ class ProductsViewSet(ViewSet):
         except Exception as e:
             return ResponseFactory.error(
                 message="Failed to fetch products",
-                errors={"detail": str(e)},
+                errors=[{"code": "SERVER_ERROR", "message": str(e)}],
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 request=request,
             )
 
     @extend_schema(
-        request=ProductSerializer,
         responses={200: ProductSerializer},
         tags=["Products"],
-        summary="Single Product retrieve",
+        summary="Retrieve Product",
         description="Retrieve a single Product by ID.",
     )
     def retrieve(self, request, pk=None):
         try:
             product = get_object_or_404(Product, id=pk)
             serializer = ProductSerializer(product, context={"request": request})
-            return ResponseFactory.success(
-                data=serializer.data,
+            return ResponseFactory.success_resource(
+                item=serializer.data,
                 message="Single Product fetched successfully",
                 status=status.HTTP_200_OK,
                 request=request,
@@ -127,10 +130,108 @@ class ProductsViewSet(ViewSet):
         except Exception as e:
             return ResponseFactory.error(
                 message="Product not found",
-                errors={"detail": str(e)},
+                errors=[{"code": "NOT_FOUND", "message": str(e)}],
                 status=status.HTTP_404_NOT_FOUND,
                 request=request,
             )
+
+
+# -------------------- PRODUCTS --------------------
+# class ProductsViewSet(ViewSet):
+#     permission_classes = [AllowAny]
+#     cache = get_cache("products")
+
+#     @extend_schema(
+#         parameters=[
+#             OpenApiParameter(
+#                 name="cursor",
+#                 type=OpenApiTypes.STR,
+#                 location=OpenApiParameter.QUERY,
+#                 description="Cursor for pagination (optional). Leave empty or 'first' to fetch first page.",
+#                 required=False,
+#             ),
+#         ],
+#         request=ProductSerializer,
+#         responses={200: ProductSerializer(many=True)},
+#         tags=["Products"],
+#         summary="All Products retrieve",
+#         description="Retrieve all products with cursor pagination and caching.",
+#     )
+#     def list(self, request):
+#         try:
+#             cursor = request.query_params.get("cursor") or "first"
+
+#             # ✅ Try cache
+#             cache_data = self.cache.get_results(cursor)
+
+#             if cache_data:
+#                 return ResponseFactory.success(
+#                     data=cache_data,
+#                     message="Products fetched successfully",
+#                     status=status.HTTP_200_OK,
+#                     request=request,
+#                     meta={"cursor": cursor},
+#                     # extra={"cursor": cursor},
+#                     cache="HIT",  # ✅ only pass when cached
+#                 )
+
+#             # ✅ DB + pagination
+#             queryset = Product.objects.all().order_by("-created_at")
+#             paginator = BaseCursorPagination()
+#             paginator_queryset = paginator.paginate_queryset(queryset, request)
+
+#             serializer = ProductSerializer(
+#                 paginator_queryset, many=True, context={"request": request}
+#             )
+#             response_data = paginator.get_paginated_response(
+#                 serializer.data
+#             ).data  ### old one is curect
+#             # response_data = paginator.get_paginated_response(serializer.data).data[
+#             #     "products"
+#             # ]
+
+#             self.cache.cache_results(cursor, response_data)
+
+#             # later for DB fetch
+#             return ResponseFactory.success(
+#                 data=response_data,
+#                 message="Products fetched successfully",
+#                 status=status.HTTP_200_OK,
+#                 request=request,
+#             )
+
+#         except Exception as e:
+#             return ResponseFactory.error(
+#                 message="Failed to fetch products",
+#                 errors={"detail": str(e)},
+#                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+#                 request=request,
+#             )
+
+#     @extend_schema(
+#         request=ProductSerializer,
+#         responses={200: ProductSerializer},
+#         tags=["Products"],
+#         summary="Single Product retrieve",
+#         description="Retrieve a single Product by ID.",
+#     )
+#     def retrieve(self, request, pk=None):
+#         try:
+#             product = get_object_or_404(Product, id=pk)
+#             serializer = ProductSerializer(product, context={"request": request})
+#             return ResponseFactory.success(
+#                 data=serializer.data,
+#                 message="Single Product fetched successfully",
+#                 status=status.HTTP_200_OK,
+#                 request=request,
+#             )
+#         except Exception as e:
+#             return ResponseFactory.error(
+#                 message="Product not found",
+#                 errors={"detail": str(e)},
+#                 status=status.HTTP_404_NOT_FOUND,
+#                 request=request,
+#             )
 
 
 # -------------------- CATEGORY --------------------
