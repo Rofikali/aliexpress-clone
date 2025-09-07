@@ -47,7 +47,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
                 if (refreshToken) {
                     try {
-                        const { data } = await instance.post('/auth/refresh/', {
+                        const { data } = await instance.post('/refresh/', {
                             refresh: refreshToken
                         })
                         useCookie('access_token').value = data.access

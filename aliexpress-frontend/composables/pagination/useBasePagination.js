@@ -1,9 +1,177 @@
+// // ~/composables/pagination/useBasePagination.js
+// import { ref, computed } from 'vue'
+// import axios from '~/plugins/core/axios' // matches your existing import pattern
+
+// /**
+//  * Production-ready cursor pagination composable
+//  *
+//  * Exposes:
+//  *  - products, loading, error, hasNext, nextCursor, count
+//  *  - fetchFirst(params), loadMore(), reset(params), forceReload()
+//  *
+//  * Options:
+//  *  - pageSize (default 10)
+//  *  - dedupeKey (default 'id') -- used to de-duplicate appended products
+//  *  - retries (default 0), retryBackoffMs (default 300)
+//  *  - autoFetch (default true)
+//  *  - debug (bool)
+//  */
+// export function usePagination(url, options = {}) {
+//     const $axios = axios().provide.axios
+
+//     const products = ref([])
+//     const nextCursor = ref(null)
+//     const hasNext = ref(true)
+//     const loading = ref(false)
+//     const error = ref(null)
+
+//     const pageSize = options.pageSize || 10
+//     const dedupeKey = options.dedupeKey || 'id'
+//     const retries = (options.retries || 0)
+//     const retryBackoffMs = options.retryBackoffMs || 300
+//     const debug = !!options.debug
+
+//     let currentAbort = null
+//     let inFlight = false
+
+//     const count = computed(() => products.value.length)
+
+//     function _dedupeAppend(existing, incoming) {
+//         if (!dedupeKey) return existing.concat(incoming)
+//         const map = new Map()
+//         for (const r of existing) map.set(r[dedupeKey], r)
+//         for (const r of incoming) map.set(r[dedupeKey], r)
+//         return Array.from(map.values())
+//     }
+
+//     // ✅ Centralized item extractor for multiple API shapes
+//     function extractItems(data) {
+//         // if (Array.isArray(data?.results)) return data.results // DRF default
+//         if (Array.isArray(data?.products)) return data.products // Custom
+//         // if (Array.isArray(data?.items)) return data.items // Generic
+//         return []
+//     }
+
+//     async function _request(params = {}, attempt = 0) {
+//         if (currentAbort) {
+//             try { currentAbort.abort() } catch (e) { /* ignore */ }
+//             currentAbort = null
+//         }
+//         currentAbort = new AbortController()
+//         const signal = currentAbort.signal
+
+//         try {
+//             const resp = await $axios.get(url, {
+//                 params: { ...params, page_size: pageSize },
+//                 signal
+//             })
+//             return resp.data
+//         } catch (err) {
+//             if (signal && signal.aborted) {
+//                 if (debug) console.warn('pagination request aborted')
+//                 throw err
+//             }
+//             if (attempt < retries) {
+//                 const backoff = retryBackoffMs * Math.pow(2, attempt)
+//                 if (debug) console.warn(`retry attempt ${attempt + 1} in ${backoff}ms`, err)
+//                 await new Promise(r => setTimeout(r, backoff))
+//                 return _request(params, attempt + 1)
+//             }
+//             throw err
+//         }
+//     }
+
+//     async function fetchFirst(params = {}) {
+//         loading.value = true
+//         error.value = null
+//         inFlight = true
+//         try {
+//             const data = await _request({ ...params })
+//             const items = extractItems(data)
+//             products.value = items
+//             nextCursor.value = data.next_cursor ?? null
+//             hasNext.value = typeof data.has_next === 'boolean'
+//                 ? data.has_next
+//                 : (nextCursor.value !== null || !!data.next)
+//             return products.value
+//         } catch (err) {
+//             error.value = err
+//             if (debug) console.error('[usePagination] fetchFirst error', err)
+//             throw err
+//         } finally {
+//             loading.value = false
+//             inFlight = false
+//         }
+//     }
+
+//     async function loadMore(params = {}) {
+//         if (!hasNext.value || loading.value || inFlight) return
+//         loading.value = true
+//         error.value = null
+//         inFlight = true
+//         try {
+//             const requestParams = { ...params }
+//             if (nextCursor.value) requestParams.cursor = nextCursor.value
+//             const data = await _request(requestParams)
+//             const newItems = extractItems(data)
+//             products.value = _dedupeAppend(products.value, newItems)
+//             nextCursor.value = data.next_cursor ?? null
+//             hasNext.value = typeof data.has_next === 'boolean'
+//                 ? data.has_next
+//                 : (nextCursor.value !== null || !!data.next)
+//             return newItems
+//         } catch (err) {
+//             error.value = err
+//             if (debug) console.error('[usePagination] loadMore error', err)
+//             throw err
+//         } finally {
+//             loading.value = false
+//             inFlight = false
+//         }
+//     }
+
+//     async function reset(params = {}) {
+//         try { currentAbort?.abort() } catch (e) { }
+//         currentAbort = null
+//         products.value = []
+//         nextCursor.value = null
+//         hasNext.value = true
+//         error.value = null
+//         return fetchFirst(params)
+//     }
+
+//     async function forceReload(params = {}) {
+//         return reset(params)
+//     }
+
+//     if (options.autoFetch !== false) {
+//         fetchFirst().catch(e => { if (debug) console.warn('autofetch failed', e) })
+//     }
+
+//     return {
+//         products,
+//         nextCursor,
+//         hasNext,
+//         loading,
+//         error,
+//         count,
+//         fetchFirst,
+//         loadMore,
+//         reset,
+//         forceReload,
+//         _debug: () => ({
+//             inFlight,
+//             aborted: currentAbort?.signal?.aborted ?? false
+//         })
+//     }
+// }
+
 // ~/composables/pagination/useBasePagination.js
-import { ref, computed } from 'vue'
-import axios from '~/plugins/core/axios' // matches your existing import pattern
+import { ref, computed } from "vue"
+import { useApi } from "~/composables/core/useApi"
 
 /**
- * Production-ready cursor pagination composable
+ * Cursor pagination composable
  *
  * Exposes:
  *  - products, loading, error, hasNext, nextCursor, count
@@ -11,14 +179,12 @@ import axios from '~/plugins/core/axios' // matches your existing import pattern
  *
  * Options:
  *  - pageSize (default 10)
- *  - dedupeKey (default 'id') -- used to de-duplicate appended products
+ *  - dedupeKey (default 'id')
  *  - retries (default 0), retryBackoffMs (default 300)
  *  - autoFetch (default true)
  *  - debug (bool)
  */
 export function usePagination(url, options = {}) {
-    const $axios = axios().provide.axios
-
     const products = ref([])
     const nextCursor = ref(null)
     const hasNext = ref(true)
@@ -26,8 +192,8 @@ export function usePagination(url, options = {}) {
     const error = ref(null)
 
     const pageSize = options.pageSize || 10
-    const dedupeKey = options.dedupeKey || 'id'
-    const retries = (options.retries || 0)
+    const dedupeKey = options.dedupeKey || "id"
+    const retries = options.retries || 0
     const retryBackoffMs = options.retryBackoffMs || 300
     const debug = !!options.debug
 
@@ -44,31 +210,32 @@ export function usePagination(url, options = {}) {
         return Array.from(map.values())
     }
 
-    // ✅ Centralized item extractor for multiple API shapes
     function extractItems(data) {
-        // if (Array.isArray(data?.results)) return data.results // DRF default
-        if (Array.isArray(data?.products)) return data.products // Custom
-        // if (Array.isArray(data?.items)) return data.items // Generic
+        if (Array.isArray(data?.results)) return data.results // DRF default
+        if (Array.isArray(data?.products)) return data.data.products // Custom
+        if (Array.isArray(data?.items)) return data.items // Generic
         return []
     }
+    // console.log('inside usePagination ' data);
 
     async function _request(params = {}, attempt = 0) {
         if (currentAbort) {
-            try { currentAbort.abort() } catch (e) { /* ignore */ }
+            try { currentAbort.abort() } catch (e) { }
             currentAbort = null
         }
         currentAbort = new AbortController()
-        const signal = currentAbort.signal
 
         try {
-            const resp = await $axios.get(url, {
+            const { data } = await useApi(url, {
+                method: "GET",
                 params: { ...params, page_size: pageSize },
-                signal
+                signal: currentAbort.signal,
+                retries,
             })
-            return resp.data
+            return data
         } catch (err) {
-            if (signal && signal.aborted) {
-                if (debug) console.warn('pagination request aborted')
+            if (currentAbort.signal.aborted) {
+                if (debug) console.warn("pagination request aborted")
                 throw err
             }
             if (attempt < retries) {
@@ -90,13 +257,13 @@ export function usePagination(url, options = {}) {
             const items = extractItems(data)
             products.value = items
             nextCursor.value = data.next_cursor ?? null
-            hasNext.value = typeof data.has_next === 'boolean'
+            hasNext.value = typeof data.has_next === "boolean"
                 ? data.has_next
                 : (nextCursor.value !== null || !!data.next)
             return products.value
         } catch (err) {
             error.value = err
-            if (debug) console.error('[usePagination] fetchFirst error', err)
+            if (debug) console.error("[usePagination] fetchFirst error", err)
             throw err
         } finally {
             loading.value = false
@@ -116,13 +283,13 @@ export function usePagination(url, options = {}) {
             const newItems = extractItems(data)
             products.value = _dedupeAppend(products.value, newItems)
             nextCursor.value = data.next_cursor ?? null
-            hasNext.value = typeof data.has_next === 'boolean'
+            hasNext.value = typeof data.has_next === "boolean"
                 ? data.has_next
                 : (nextCursor.value !== null || !!data.next)
             return newItems
         } catch (err) {
             error.value = err
-            if (debug) console.error('[usePagination] loadMore error', err)
+            if (debug) console.error("[usePagination] loadMore error", err)
             throw err
         } finally {
             loading.value = false
@@ -145,8 +312,10 @@ export function usePagination(url, options = {}) {
     }
 
     if (options.autoFetch !== false) {
-        fetchFirst().catch(e => { if (debug) console.warn('autofetch failed', e) })
+        fetchFirst().catch(e => { if (debug) console.warn("autofetch failed", e) })
     }
+    console.log('inside useBasePagination products.value', products.value);
+    console.log('inside useBasePagination products', products);
 
     return {
         products,
@@ -161,10 +330,12 @@ export function usePagination(url, options = {}) {
         forceReload,
         _debug: () => ({
             inFlight,
-            aborted: currentAbort?.signal?.aborted ?? false
-        })
+            aborted: currentAbort?.signal?.aborted ?? false,
+        }),
     }
 }
+
+
 
 
 // *** BLOW CODE WORKING 100% FINE

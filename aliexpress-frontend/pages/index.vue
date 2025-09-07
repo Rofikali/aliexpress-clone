@@ -43,7 +43,7 @@ onMounted(() => {
 
 
 
-<script setup>
+<!-- <script setup>
 import { onMounted } from "vue"
 import { useInfiniteScrollProducts } from "~/composables/products/useInfiniteScrollProducts"
 
@@ -58,7 +58,6 @@ const {
 } = useInfiniteScrollProducts({ prefetch: true })
 
 onMounted(() => {
-    // first load
     loadMore()
 })
 </script>
@@ -69,7 +68,6 @@ onMounted(() => {
             {{ product.name }}
         </div>
 
-        <!-- Sentinel for infinite scroll -->
         <div ref="sentinelRef" v-if="hasNext && !isLoading" class="text-center py-4">
             Loading more...
         </div>
@@ -80,6 +78,46 @@ onMounted(() => {
 
         <div v-if="error" class="text-red-500">
             {{ error }}
+        </div>
+    </div>
+</template> -->
+
+
+<script setup>
+import { onMounted } from "vue"
+import { useProductStore } from "~/stores/modules/productStore"
+
+// Grab store instance
+const productStore = useProductStore()
+
+onMounted(() => {
+    // optional: only if autoFetch=false in your usePagination
+    productStore.fetchFirst()
+})
+</script>
+
+<template>
+    <div>
+        <!-- Products list -->
+        <div v-if="productStore.products" v-for="product in productStore.products" :key="product.id" class="p-2 border-b">
+            {{ product.name }}
+        </div>
+        <h1>Loading</h1>
+
+        <!-- Infinite scroll sentinel -->
+        <div ref="productStore.sentinelRef" v-if="productStore.hasNext && !productStore.loading"
+            class="text-center py-4">
+            Loading more...
+        </div>
+
+        <!-- Loading state -->
+        <div v-if="productStore.loading && !productStore.products.length" class="text-center py-4">
+            Loading products...
+        </div>
+
+        <!-- Error state -->
+        <div v-if="productStore.error" class="text-red-500">
+            {{ productStore.error }}
         </div>
     </div>
 </template>
