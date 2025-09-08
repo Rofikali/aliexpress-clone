@@ -121,7 +121,7 @@ Components = dumb consumers of store + composables.
 ┌─────────┴───────────────┐
 │    productService        │
 │--------------------------│
-│ - knows API response     │
+│ - knows API response     │    not using helper/response_fetctory
 │   shape (data.products,  │
 │   data.pagination)       │
 │ - wraps useApi call      │
@@ -140,33 +140,13 @@ Components = dumb consumers of store + composables.
 │ - returns { data, error }│
 └─────────────────────────┘
 
+Add rate limiting: don’t fire loadMore multiple times at once.
 
 
-### not this.
-┌───────────────────┐
-│   useApi          │   <-- low-level HTTP (axios/fetch wrapper)
-└────────┬──────────┘
-         │
-         ▼
-┌───────────────────┐
-│   usePagination   │   <-- generic cursor pagination (knows /products/?cursor=)
-└────────┬──────────┘
-         │
-         ▼
-┌───────────────────┐
-│  productStore     │   <-- combines usePagination + useInfiniteScroll
-│                   │       - holds products state
-│                   │       - manages infinite scroll
-│                   │       - exposes sentinelRef
-└────────┬──────────┘
-         │
-         ▼
-┌───────────────────┐
-│   Component       │   <-- dumb UI
-│   - Renders list  │
-│   - Uses store    │
-│   - sentinel <div>│
-└───────────────────┘
+
+
+
+
 🔹 Key Idea
 
 useApi = fetcher only

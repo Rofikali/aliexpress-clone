@@ -125,6 +125,131 @@ onMounted(() => {
 
 
 
+<!-- <template>
+    <div class="products-container">
+
+        <div v-if="productStore.products.length" class="products-grid">
+            <div v-for="product in productStore.products" :key="product.id" class="product-card">
+                <img :src="product.image" :alt="product.title" class="product-image" />
+                <h3 class="product-title">{{ product.title }}</h3>
+                <p class="product-price">${{ product.price }}</p>
+            </div>
+        </div>
+
+
+        <div v-else-if="!productStore.loading && !productStore.error" class="empty-state">
+            No products found.
+        </div>
+
+
+        <div v-if="productStore.loading" class="loading-state">
+            Loading products...
+        </div>
+
+
+        <div v-if="productStore.error" class="error-state">
+            Error: {{ productStore.error.message || "Something went wrong." }}
+        </div>
+
+ 
+        <div ref="sentinelRef" v-if="productStore.hasNext && !productStore.loading && !productStore.error"
+            class="infinite-scroll-sentinel">
+            Loading more products...
+        </div>
+    </div>
+</template>
+
+<script setup>
+import { ref, onMounted, onUnmounted, watch } from "vue"
+import { useProductStore } from "~/stores/modules/productStore"
+import { useInfiniteScroll } from "~/composables/pagination/useInfiniteScroll"
+
+const productStore = useProductStore()
+const sentinelRef = ref(null)
+
+
+const { bindSentinel, unbindSentinel } = useInfiniteScroll({
+    loadMore: productStore.loadMore,
+    hasNext: productStore.hasNext,
+    isLoading: productStore.loading,
+    threshold: 0.25,
+    prefetch: true,
+})
+
+onMounted(async () => {
+    const response = await productStore.fetchFirst()
+    setTimeout(() => productStore.loading = false, 200)
+
+    if (!productStore.error && response?.status === 200) {
+        console.log(`✅ ${productStore.products.length} products loaded successfully!`)
+    }
+
+    if (sentinelRef.value) bindSentinel(sentinelRef.value)
+})
+
+onUnmounted(() => {
+    unbindSentinel()
+})
+
+watch(
+    () => productStore.products,
+    (newVal) => {
+        if (newVal.length && productStore.hasNext && sentinelRef.value) {
+            bindSentinel(sentinelRef.value)
+        }
+    }
+)
+</script>
+
+<style scoped>
+.products-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.product-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.product-title {
+    font-size: 1rem;
+    margin: 0.5rem 0 0.25rem;
+}
+
+.product-price {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.loading-state,
+.error-state,
+.empty-state,
+.infinite-scroll-sentinel {
+    text-align: center;
+    padding: 1rem;
+    color: #777;
+}
+</style> -->
+
+
 <template>
     <div class="products-container">
         <!-- Products List -->
@@ -148,7 +273,9 @@ onMounted(() => {
 
         <!-- Error Message -->
         <div v-if="productStore.error" class="error-state">
-            Error: {{ productStore.error.message || "Something went wrong." }}
+            <div v-for="(err, idx) in productStore.error" :key="idx">
+                ❌ {{ err.message || "Something went wrong." }}
+            </div>
         </div>
 
         <!-- Infinite Scroll Sentinel -->
@@ -178,10 +305,13 @@ const { bindSentinel, unbindSentinel } = useInfiniteScroll({
 
 onMounted(async () => {
     const response = await productStore.fetchFirst()
-    setTimeout(() => productStore.isLoading = false, 200)
-    // Log success if fetch is successful
-    if (!productStore.error && response?.status === 200) {
-        console.log(`✅ ${productStore.products.length} products loaded successfully!`)
+
+    if (response.success) {
+        console.log(
+            `✅ ${productStore.products.length} products loaded | Request ID: ${response.request?.id} | Region: ${response.request?.region} | Cache: ${response.request?.cache}`
+        )
+    } else {
+        console.error("❌ Initial fetch failed:", response.errors)
     }
 
     if (sentinelRef.value) bindSentinel(sentinelRef.value)
@@ -191,7 +321,7 @@ onUnmounted(() => {
     unbindSentinel()
 })
 
-// Watch for new products to bind sentinel automatically
+// Watch for new products to re-bind sentinel automatically
 watch(
     () => productStore.products,
     (newVal) => {

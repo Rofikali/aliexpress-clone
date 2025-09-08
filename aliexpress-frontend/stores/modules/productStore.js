@@ -418,108 +418,200 @@
 //     }
 // })
 
+// // ~/stores/modules/productStore.js
+// import { defineStore } from "pinia";
+// import { ref } from "vue";
+// import { getProducts } from "~/services/api/products";
+
+// export const useProductStore = defineStore("productStore", () => {
+//     const products = ref([]);
+//     const loading = ref(false);
+//     const error = ref(null);
+//     const nextCursor = ref(null);
+//     const hasNext = ref(true);
+
+//     // 🔄 Reset state
+//     const reset = () => {
+//         products.value = [];
+//         nextCursor.value = null;
+//         hasNext.value = true;
+//         error.value = null;
+//         console.log("🔄 Product store reset");
+//     };
+
+//     // 📥 First fetch
+//     const fetchFirst = async (params = {}) => {
+//         reset();
+//         loading.value = true;
+
+//         try {
+//             const response = await getProducts(params);
+//             console.warn("🍍 API Response Info:", response);
+
+//             console.log('productStore Response Type Before NarmalizeResponse ', response);
+//             const { data, errors, meta } = response;
+//             console.log('productStore Response Type After NarmalizeResponse Data ', data);
+
+//             if (errors) throw errors;
+
+
+//             products.value = data;
+//             nextCursor.value = meta?.next_cursor ?? null;
+//             hasNext.value = meta?.has_next ?? false;
+//         } catch (err) {
+//             console.error("❌ Product fetch error:", err);
+//             error.value = err;
+//         } finally {
+//             loading.value = false;
+//         }
+//     };
+
+//     // ➕ Load more (cursor-based pagination)
+//     const loadMore = async (params = {}) => {
+//         if (!hasNext.value) {
+//             console.log("⚠️ No more products to load");
+//             return;
+//         }
+//         if (loading.value) {
+//             console.log("⏳ Already loading products, skipping loadMore call");
+//             return;
+//         }
+
+//         loading.value = true;
+
+//         try {
+//             const requestParams = { ...params };
+//             if (nextCursor.value) requestParams.cursor = nextCursor.value;
+
+//             const response = await getProducts(requestParams);
+//             console.warn("🍍 LoadMore API Response Info:", response);
+
+//             const { data, errors, meta } = response;
+
+//             if (errors) throw errors;
+
+//             const newProducts = Array.isArray(data) ? data : data ? [data] : [];
+//             console.log(`🔹 Loaded ${newProducts.length} new products`);
+
+//             // ✅ Deduplicate by `id`
+//             const map = new Map(products.value.map(p => [p.id, p]));
+//             for (const item of newProducts) map.set(item.id, item);
+//             products.value = Array.from(map.values());
+
+//             nextCursor.value = meta?.next_cursor ?? null;
+//             hasNext.value = meta?.has_next ?? false;
+
+//             console.log(
+//                 `✅ Total products after loadMore: ${products.value.length}`
+//             );
+//         } catch (err) {
+//             console.error("❌ Load more error:", err);
+//             error.value = err;
+//         } finally {
+//             loading.value = false;
+//         }
+//     };
+
+//     return {
+//         products,
+//         loading,
+//         error,
+//         nextCursor,
+//         hasNext,
+//         fetchFirst,
+//         loadMore,
+//         reset,
+//     };
+// });
+
+
+
 // ~/stores/modules/productStore.js
-import { defineStore } from "pinia";
-import { ref } from "vue";
-import { getProducts } from "~/services/api/products";
-import { normalizeResponse } from "~/services/helpers/response";
+import { defineStore } from "pinia"
+import { ref } from "vue"
+import { getProducts } from "~/services/api/products"
 
 export const useProductStore = defineStore("productStore", () => {
-    const products = ref([]);
-    const loading = ref(false);
-    const error = ref(null);
-    const nextCursor = ref(null);
-    const hasNext = ref(true);
+    const products = ref([])
+    const loading = ref(false)
+    const error = ref(null)
+    const nextCursor = ref(null)
+    const hasNext = ref(true)
 
     // 🔄 Reset state
     const reset = () => {
-        products.value = [];
-        nextCursor.value = null;
-        hasNext.value = true;
-        error.value = null;
-        console.log("🔄 Product store reset");
-    };
+        products.value = []
+        nextCursor.value = null
+        hasNext.value = true
+        error.value = null
+        console.log("🔄 Product store reset")
+    }
 
     // 📥 First fetch
     const fetchFirst = async (params = {}) => {
-        reset();
-        loading.value = true;
+        reset()
+        loading.value = true
 
-        try {
-            const response = await getProducts(params);
-            console.warn("🍍 API Response Info:", response);
+        const response = await getProducts(params)
 
-            const { data, errors, meta } = normalizeResponse(response);
-
-            if (errors) throw errors;
-
-            // ✅ Normalize to array always
-            const normalizedProducts = Array.isArray(data)
-                ? data
-                : data
-                    ? [data]
-                    : [];
-
-            console.log(
-                `✅ API call successful. Loaded ${normalizedProducts} products.`
-            );
-
-            products.value = normalizedProducts;
-            nextCursor.value = meta?.next_cursor ?? null;
-            hasNext.value = meta?.has_next ?? false;
-        } catch (err) {
-            console.error("❌ Product fetch error:", err);
-            error.value = err;
-        } finally {
-            loading.value = false;
+        if (!response.success) {
+            error.value = response.errors || [{ message: response.message }]
+            loading.value = false
+            return response
         }
-    };
+
+        products.value = response.data || []
+        nextCursor.value = response.meta?.next_cursor ?? null
+        hasNext.value = response.meta?.has_next ?? false
+        loading.value = false
+
+        console.log(`✅ Initial load: ${products.value.length} products`)
+        return response
+    }
 
     // ➕ Load more (cursor-based pagination)
     const loadMore = async (params = {}) => {
         if (!hasNext.value) {
-            console.log("⚠️ No more products to load");
-            return;
+            console.log("⚠️ No more products to load")
+            return
         }
         if (loading.value) {
-            console.log("⏳ Already loading products, skipping loadMore call");
-            return;
+            console.log("⏳ Already loading, skipping loadMore")
+            return
         }
 
-        loading.value = true;
+        loading.value = true
 
-        try {
-            const requestParams = { ...params };
-            if (nextCursor.value) requestParams.cursor = nextCursor.value;
+        const requestParams = { ...params }
+        if (nextCursor.value) requestParams.cursor = nextCursor.value
 
-            const response = await getProducts(requestParams);
-            console.warn("🍍 LoadMore API Response Info:", response);
+        const response = await getProducts(requestParams)
 
-            const { data, errors, meta } = normalizeResponse(response);
-
-            if (errors) throw errors;
-
-            const newProducts = Array.isArray(data) ? data : data ? [data] : [];
-            console.log(`🔹 Loaded ${newProducts.length} new products`);
-
-            // ✅ Deduplicate by `id`
-            const map = new Map(products.value.map(p => [p.id, p]));
-            for (const item of newProducts) map.set(item.id, item);
-            products.value = Array.from(map.values());
-
-            nextCursor.value = meta?.next_cursor ?? null;
-            hasNext.value = meta?.has_next ?? false;
-
-            console.log(
-                `✅ Total products after loadMore: ${products.value.length}`
-            );
-        } catch (err) {
-            console.error("❌ Load more error:", err);
-            error.value = err;
-        } finally {
-            loading.value = false;
+        if (!response.success) {
+            error.value = response.errors || [{ message: response.message }]
+            loading.value = false
+            return response
         }
-    };
+
+        const newProducts = Array.isArray(response.data)
+            ? response.data
+            : response.data
+                ? [response.data]
+                : []
+
+        // ✅ Deduplicate by `id`
+        const map = new Map(products.value.map(p => [p.id, p]))
+        for (const item of newProducts) map.set(item.id, item)
+        products.value = Array.from(map.values())
+
+        nextCursor.value = response.meta?.next_cursor ?? null
+        hasNext.value = response.meta?.has_next ?? false
+
+        loading.value = false
+        console.log(`✅ Total products: ${products.value.length}`)
+
+        return response
+    }
 
     return {
         products,
@@ -530,5 +622,5 @@ export const useProductStore = defineStore("productStore", () => {
         fetchFirst,
         loadMore,
         reset,
-    };
-});
+    }
+})

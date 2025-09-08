@@ -74,7 +74,7 @@ class ProductsViewSet(ViewSet):
             cache_data = self.cache.get_results(cursor)
             if cache_data:
                 return ResponseFactory.success_collection(
-                    items=cache_data.get("products", []),
+                    items=cache_data.get("items", []),
                     pagination=cache_data.get("pagination", {}),
                     message="Products fetched successfully (cache)",
                     status=status.HTTP_200_OK,

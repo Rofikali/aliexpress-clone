@@ -81,8 +81,14 @@ class RegisterViewSet(viewsets.ViewSet):
             "tokens": tokens,
             "email_verification": {"sent": sent, "expires_at": verification.expires_at},
         }
-        return ResponseFactory.success(
-            data=data,
+        # return ResponseFactory.success(
+        #     data=data,
+        #     message="User registered successfully. Verification OTP sent to email.",
+        #     status=status.HTTP_201_CREATED,
+        #     request=request,
+        # )
+        return ResponseFactory.success_collection(
+            items=data,
             message="User registered successfully. Verification OTP sent to email.",
             status=status.HTTP_201_CREATED,
             request=request,

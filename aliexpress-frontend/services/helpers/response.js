@@ -89,17 +89,15 @@ export function normalizeResponse({ data, error, status }) {
 //         "timestamp": "2025-09-07T08:33:55.390816Z",
 //         "latency_ms": 0.09,
 //         "region": "Nepal-01",
-//         "cache": "HIT"
+//         "cache": "HIT" or 'MISS'
 //     },
 //     "meta": {
-//         "cursor": "first"
+//         "next_cursor": "cD0yMDI1LTA5LTA3KzA5JTNBMTElM0EyMS4yNTI0NTclMkIwMCUzQTAw",
+//         'has_next':true / flase
 //     },
-//     'data':
-//         'products':{},
-//         'pagination':{
-//             "next_cursor": "cD0yMDI1LTA5LTA2KzE2JTNBMjIlM0EyOC4yMDcyOTclMkIwMCUzQTAw",
-//             "has_next": true,
-//             "count": 12
-//         }
-
+//     'data':[
+//         {},
+//         {},
+//         {},
+//     ]
 // }

@@ -307,6 +307,131 @@
 #         )
 
 
+# # components/responses/response_factory.py
+# from rest_framework.response import Response
+# from uuid import uuid4
+# from datetime import datetime
+# import time
+
+
+# class ResponseFactory:
+#     """
+#     Centralized API Response Factory.
+
+#     ✅ Consistent JSON schema for all responses
+#     ✅ Handles success + error
+#     ✅ Always includes request tracing info
+#     ✅ Production-grade (inspired by GitHub / Stripe APIs)
+#     """
+
+#     @staticmethod
+#     def _base_response(
+#         status: str,
+#         success: bool,
+#         code: int,
+#         message: str,
+#         request,
+#         data=None,
+#         errors=None,
+#         meta: dict | None = None,
+#         cache: str | None = None,
+#     ) -> Response:
+#         start_time = getattr(request, "_start_time", time.time())
+
+#         response = {
+#             "status": status,  # "success" | "error"
+#             "success": success,
+#             "code": code,
+#             "message": message,
+#             "request": {
+#                 "id": str(uuid4()),
+#                 "timestamp": datetime.utcnow().isoformat() + "Z",
+#                 "latency_ms": round((time.time() - start_time) * 1000, 2),
+#                 "region": "Nepal-01",  # TODO: make configurable
+#                 # "cache": cache or "MISS",
+#                 "cache": cache if cache else "MISS",  # ✅ auto defaults to MISS
+#             },
+#             "meta": meta or {},
+#             "errors": errors if errors else None,
+#             "data": data,
+#         }
+#         return Response(response, status=code)
+
+#     # -----------------------
+#     # Success Responses
+#     # -----------------------
+
+#     @classmethod
+#     def success_collection(
+#         cls,
+#         items: list,
+#         pagination: dict | None = None,
+#         message: str = "Success",
+#         status: int = 200,
+#         request=None,
+#         cache: str | None = None,
+#     ) -> Response:
+#         """
+#         Success response for collection resources.
+#         """
+#         meta = pagination or {}
+#         return cls._base_response(
+#             "success",
+#             True,
+#             status,
+#             message,
+#             request,
+#             data=items,
+#             meta=meta,
+#             cache=cache,
+#         )
+
+#     @classmethod
+#     def success_resource(
+#         cls,
+#         item: dict,
+#         message: str = "Success",
+#         status: int = 200,
+#         request=None,
+#         cache: str | None = None,
+#     ) -> Response:
+#         """
+#         Success response for single resource.
+#         """
+#         return cls._base_response(
+#             "success", True, status, message, request, data=item, meta={}, cache=cache
+#         )
+
+#     # -----------------------
+#     # Error Responses
+#     # -----------------------
+
+#     @classmethod
+#     def error(
+#         cls,
+#         message: str = "Error",
+#         errors: list | None = None,
+#         status: int = 400,
+#         request=None,
+#         cache: str | None = None,
+#     ) -> Response:
+#         """
+#         Error response factory.
+#         """
+#         normalized_errors = errors or [{"code": "UNKNOWN", "message": message}]
+#         return cls._base_response(
+#             "error",
+#             False,
+#             status,
+#             message,
+#             request,
+#             errors=normalized_errors,
+#             meta={},
+#             cache=cache,
+#             data=None,
+#         )
+
+
 # components/responses/response_factory.py
 from rest_framework.response import Response
 from uuid import uuid4
@@ -326,7 +451,6 @@ class ResponseFactory:
 
     @staticmethod
     def _base_response(
-        status: str,
         success: bool,
         code: int,
         message: str,
@@ -336,10 +460,31 @@ class ResponseFactory:
         meta: dict | None = None,
         cache: str | None = None,
     ) -> Response:
+        """
+        Core response builder.
+        - success: bool
+        - code: HTTP status code
+        - message: human-readable message
+        - request: DRF request object (for tracing)
+        - data: payload
+        - errors: list of {code, message}
+        - meta: pagination / extra info
+        - cache: HIT/MISS
+        """
         start_time = getattr(request, "_start_time", time.time())
 
+        # Normalize errors: always array of {code, message}
+        normalized_errors = []
+        if errors:
+            for err in errors:
+                if isinstance(err, dict) and "code" in err and "message" in err:
+                    normalized_errors.append(err)
+                elif isinstance(err, str):
+                    normalized_errors.append({"code": "UNKNOWN", "message": err})
+        elif not success:
+            normalized_errors.append({"code": "UNKNOWN", "message": message})
+
         response = {
-            "status": status,  # "success" | "error"
             "success": success,
             "code": code,
             "message": message,
@@ -347,12 +492,11 @@ class ResponseFactory:
                 "id": str(uuid4()),
                 "timestamp": datetime.utcnow().isoformat() + "Z",
                 "latency_ms": round((time.time() - start_time) * 1000, 2),
-                "region": "Nepal-01",  # TODO: make configurable
-                # "cache": cache or "MISS",
-                "cache": cache if cache else "MISS",  # ✅ auto defaults to MISS
+                "region": "Nepal-01",
+                "cache": cache if cache else "MISS",
             },
             "meta": meta or {},
-            "errors": errors if errors else None,
+            "errors": normalized_errors if normalized_errors else None,
             "data": data,
         }
         return Response(response, status=code)
@@ -371,12 +515,8 @@ class ResponseFactory:
         request=None,
         cache: str | None = None,
     ) -> Response:
-        """
-        Success response for collection resources.
-        """
         meta = pagination or {}
         return cls._base_response(
-            "success",
             True,
             status,
             message,
@@ -395,11 +535,14 @@ class ResponseFactory:
         request=None,
         cache: str | None = None,
     ) -> Response:
-        """
-        Success response for single resource.
-        """
         return cls._base_response(
-            "success", True, status, message, request, data=item, meta={}, cache=cache
+            True,
+            status,
+            message,
+            request,
+            data=item,
+            meta={},
+            cache=cache,
         )
 
     # -----------------------
@@ -415,17 +558,12 @@ class ResponseFactory:
         request=None,
         cache: str | None = None,
     ) -> Response:
-        """
-        Error response factory.
-        """
-        normalized_errors = errors or [{"code": "UNKNOWN", "message": message}]
         return cls._base_response(
-            "error",
             False,
             status,
             message,
             request,
-            errors=normalized_errors,
+            errors=errors,
             meta={},
             cache=cache,
             data=None,
