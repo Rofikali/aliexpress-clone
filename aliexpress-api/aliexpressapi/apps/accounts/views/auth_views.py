@@ -6,8 +6,8 @@ from django.contrib.auth import get_user_model
 from django.db import IntegrityError
 from django.conf import settings
 
-# from rest_framework_simplejwt.tokens import RefreshToken
-# from rest_framework_simplejwt.exceptions import TokenError
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.exceptions import TokenError
 
 from apps.accounts.serializers.profile_serializer import ProfileSerializer
 from apps.accounts.serializers.auth_serializer import (
@@ -81,12 +81,7 @@ class RegisterViewSet(viewsets.ViewSet):
             "tokens": tokens,
             "email_verification": {"sent": sent, "expires_at": verification.expires_at},
         }
-        # return ResponseFactory.success(
-        #     data=data,
-        #     message="User registered successfully. Verification OTP sent to email.",
-        #     status=status.HTTP_201_CREATED,
-        #     request=request,
-        # )
+
         return ResponseFactory.success_collection(
             items=data,
             message="User registered successfully. Verification OTP sent to email.",
@@ -129,8 +124,8 @@ class LoginViewSet(viewsets.ViewSet):
         user.last_login = timezone.now()
         user.save(update_fields=["last_login"])
 
-        return ResponseFactory.success(
-            data=tokens,
+        return ResponseFactory.success_collection(
+            items=tokens,
             message="Logged in successfully",
             request=request,
             status=status.HTTP_200_OK,
@@ -170,8 +165,8 @@ class LogoutViewSet(viewsets.ViewSet):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        return ResponseFactory.success(
-            data={},
+        return ResponseFactory.success_collection(
+            items={},
             message="Logged out successfully",
             request=request,
             status=status.HTTP_200_OK,
@@ -221,8 +216,8 @@ class RefreshViewSet(viewsets.ViewSet):
             "access_expires_at": access_expires_at,
         }
 
-        return ResponseFactory.success(
-            data=tokens,
+        return ResponseFactory.success_collection(
+            items=tokens,
             message="Token refreshed successfully",
             request=request,
             status=status.HTTP_200_OK,

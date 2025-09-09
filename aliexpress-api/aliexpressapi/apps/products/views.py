@@ -44,28 +44,28 @@ class ProductsViewSet(ViewSet):
     permission_classes = [AllowAny]
     cache = get_cache("products")
 
-    @extend_schema(
-        parameters=[
-            OpenApiParameter(
-                name="cursor",
-                type=OpenApiTypes.STR,
-                location=OpenApiParameter.QUERY,
-                description="Cursor for pagination (optional). Use 'first' for initial page.",
-                required=False,
-            ),
-            OpenApiParameter(
-                name="page_size",
-                type=OpenApiTypes.INT,
-                location=OpenApiParameter.QUERY,
-                description="Number of items per page (default=12, max=50).",
-                required=False,
-            ),
-        ],
-        responses={200: ProductSerializer(many=True)},
-        tags=["Products"],
-        summary="List Products",
-        description="Retrieve all products with cursor pagination and caching.",
-    )
+    # @extend_schema(
+    #     parameters=[
+    #         OpenApiParameter(
+    #             name="cursor",
+    #             type=OpenApiTypes.STR,
+    #             location=OpenApiParameter.QUERY,
+    #             description="Cursor for pagination (optional). Use 'first' for initial page.",
+    #             required=False,
+    #         ),
+    #         OpenApiParameter(
+    #             name="page_size",
+    #             type=OpenApiTypes.INT,
+    #             location=OpenApiParameter.QUERY,
+    #             description="Number of items per page (default=12, max=50).",
+    #             required=False,
+    #         ),
+    #     ],
+    #     responses={200: ProductSerializer(many=True)},
+    #     tags=["Products"],
+    #     summary="List Products",
+    #     description="Retrieve all products with cursor pagination and caching.",
+    # )
     def list(self, request):
         try:
             cursor = request.query_params.get("cursor") or "first"

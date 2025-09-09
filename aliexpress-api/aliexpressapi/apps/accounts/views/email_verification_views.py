@@ -202,8 +202,8 @@ class EmailVerificationRequestViewSet(viewsets.ViewSet):
         if settings.EMAIL_BACKEND == "django.core.mail.backends.console.EmailBackend":
             response_body["debug_code"] = verification.code
 
-        return ResponseFactory.success(
-            data=response_body,
+        return ResponseFactory.success_collection(
+            items=response_body,
             message="Verification OTP sent to email",
             request=request,
             status=status.HTTP_200_OK,
@@ -247,8 +247,8 @@ class EmailVerificationConfirmViewSet(viewsets.ViewSet):
         user.is_email_verified = True
         user.save(update_fields=["is_email_verified"])
 
-        return ResponseFactory.success(
-            data={"verified": True},
+        return ResponseFactory.success_collection(
+            items={"verified": True},
             message="Email verified successfully",
             request=request,
             status=status.HTTP_200_OK,

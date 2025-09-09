@@ -84,9 +84,14 @@ WSGI_APPLICATION = "configs.wsgi.application"
 # WSGI_APPLICATION = "aliexpressapi.wsgi.application"
 
 # settings.py
-REST_FRAMEWORK = {
-    "EXCEPTION_HANDLER": "components.exceptions.handlers.custom_exception_handler",
-}
+# REST_FRAMEWORK = {
+#     # "EXCEPTION_HANDLER": "components.exceptions.handlers.custom_exception_handler",
+#     "EXCEPTION_HANDLER": "components.exceptions.handlers.",
+# }
+
+# REST_FRAMEWORK = {
+#     "EXCEPTION_HANDLER": "components.exceptions.handlers.custom_exception_handler",
+# }
 
 # settings.py # make it true in production
 ENFORCE_KYC = os.environ.get("ENFORCE_KYC", default=False)
@@ -152,6 +157,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.AllowAny",
     ],
+    "EXCEPTION_HANDLER": "components.exceptions.handlers.custom_exception_handler",
 }
 
 from datetime import timedelta
