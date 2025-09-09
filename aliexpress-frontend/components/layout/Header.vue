@@ -30,7 +30,7 @@
                     </div>
 
                     <!-- Loading / Empty States -->
-                    <div v-if="loading && items.length === 0" class="py-4 text-center">Loading...</div>
+                    <!-- <div v-if="loading && items.length === 0" class="py-4 text-center">Loading...</div> -->
                     <div v-else-if="!loading && items.length === 0" class="py-4 text-center">No results</div>
 
                     <!-- Items -->

@@ -1,5 +1,5 @@
 // // ~/services/api/product.js
-// import { useApi } from "~/composables/core/useApi"
+// import { api } from "~/composables/core/api"
 // import { normalizeResponse } from "~/services/helpers/response"
 
 // /**
@@ -24,7 +24,7 @@
 //  * @returns {Promise<{data: Array, error: Object|null, status: number}>}
 //  */
 // export async function getProducts(params = {}) {
-//     return normalizeResponse(await useApi(BASE, { method: "GET", params }))
+//     return normalizeResponse(await api(BASE, { method: "GET", params }))
 // }
 
 // /**
@@ -34,7 +34,7 @@
 //  * @returns {Promise<{data: Object, error: Object|null, status: number}>}
 //  */
 // export async function getProductById(id) {
-//     return normalizeResponse(await useApi(`${BASE}${id}/`, { method: "GET" }))
+//     return normalizeResponse(await api(`${BASE}${id}/`, { method: "GET" }))
 // }
 
 // /**
@@ -46,7 +46,7 @@
 //  */
 // export async function searchProducts(query, params = {}) {
 //     return normalizeResponse(
-//         await useApi(`${BASE}search/`, {
+//         await api(`${BASE}search/`, {
 //             method: "GET",
 //             params: { q: query, ...params },
 //         })
@@ -61,7 +61,7 @@
 //  */
 // export async function createProduct(productData) {
 //     return normalizeResponse(
-//         await useApi(BASE, {
+//         await api(BASE, {
 //             method: "POST",
 //             body: productData,
 //         })
@@ -77,7 +77,7 @@
 //  */
 // export async function updateProduct(id, productData) {
 //     return normalizeResponse(
-//         await useApi(`${BASE}${id}/`, {
+//         await api(`${BASE}${id}/`, {
 //             method: "PUT",
 //             body: productData,
 //         })
@@ -91,12 +91,12 @@
 //  * @returns {Promise<{data: null, error: Object|null, status: number}>}
 //  */
 // export async function deleteProduct(id) {
-//     return normalizeResponse(await useApi(`${BASE}${id}/`, { method: "DELETE" }))
+//     return normalizeResponse(await api(`${BASE}${id}/`, { method: "DELETE" }))
 // }
 
 
 // ~/services/api/product.js
-import { useApi } from "~/composables/core/useApi"
+import { api } from "~/composables/core/base"
 
 const BASE = "/products/"
 
@@ -106,7 +106,7 @@ const BASE = "/products/"
  * Thin wrappers for backend product endpoints.
  *
  * ✅ Returns unified { status, success, code, message, request, meta, errors, data }
- * ✅ Keeps transport/normalization in useApi
+ * ✅ Keeps transport/normalization in api
  * ✅ Easy to extend with new endpoints
  */
 
@@ -117,7 +117,7 @@ const BASE = "/products/"
  * @returns {Promise<ApiResponse<Array>>}
  */
 export function getProducts(params = {}) {
-    return useApi(BASE, { method: "GET", params })
+    return api(BASE, { method: "GET", params })
 }
 
 /**
@@ -127,7 +127,7 @@ export function getProducts(params = {}) {
  * @returns {Promise<ApiResponse<Object>>}
  */
 export function getProductById(id) {
-    return useApi(`${BASE}${id}/`, { method: "GET" })
+    return api(`${BASE}${id}/`, { method: "GET" })
 }
 
 /**
@@ -138,7 +138,7 @@ export function getProductById(id) {
  * @returns {Promise<ApiResponse<Array>>}
  */
 export function searchProducts(query, params = {}) {
-    return useApi(`${BASE}search/`, {
+    return api(`${BASE}search/`, {
         method: "GET",
         params: { q: query, ...params },
     })
@@ -151,7 +151,7 @@ export function searchProducts(query, params = {}) {
  * @returns {Promise<ApiResponse<Object>>}
  */
 export function createProduct(productData) {
-    return useApi(BASE, {
+    return api(BASE, {
         method: "POST",
         body: productData,
     })
@@ -165,7 +165,7 @@ export function createProduct(productData) {
  * @returns {Promise<ApiResponse<Object>>}
  */
 export function updateProduct(id, productData) {
-    return useApi(`${BASE}${id}/`, {
+    return api(`${BASE}${id}/`, {
         method: "PUT",
         body: productData,
     })
@@ -178,5 +178,5 @@ export function updateProduct(id, productData) {
  * @returns {Promise<ApiResponse<null>>}
  */
 export function deleteProduct(id) {
-    return useApi(`${BASE}${id}/`, { method: "DELETE" })
+    return api(`${BASE}${id}/`, { method: "DELETE" })
 }

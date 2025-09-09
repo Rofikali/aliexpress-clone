@@ -29,10 +29,10 @@
 
                 <div id="AccountMenu" v-if="isAccountMenu"
                     class="absolute bg-white w-[220px] text-[#333333] z-40 top-[38px] -left-[100px] border-x border-b">
-                    <div v-if="!user">
+                    <div v-if="!authStore.user">
                         <div class="text-semibold text-[15px] my-4 px-3">Welcome to AliExpress!</div>
                         <div class="flex items-center gap-1 px-3 mb-3">
-                            <NuxtLink to="/auth"
+                            <NuxtLink to="/auth/login"
                                 class="bg-[#FF4646] text-center w-full text-[16px] rounded-sm text-white font-semibold p-2">
                                 Login / Register
                             </NuxtLink>
@@ -44,7 +44,7 @@
                             My Orders
                         </li>
                         <!-- <li v-if="user" @click="client.auth.signOut()" -->
-                        <li v-if="user" @click="authStore.logoutUser()"
+                        <li v-if="user" @click="authStore.logout()"
                             class="text-[13px] py-2 px-4 w-full hover:bg-gray-200">
                             Sign out
                         </li>
@@ -60,6 +60,5 @@ import { ref } from 'vue'
 const isAccountMenu = ref(false)
 import { useAuthStore } from "~/stores/modules/authStore";
 const authStore = useAuthStore();
-// const client = useSupabaseClient()
-const user = ref('Admin')
+const user = authStore.user
 </script>

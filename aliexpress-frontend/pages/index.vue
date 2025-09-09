@@ -255,9 +255,10 @@ watch(
         <!-- Products List -->
         <div v-if="productStore.products.length" class="products-grid">
             <div v-for="product in productStore.products" :key="product.id" class="product-card">
-                <img :src="product.image" :alt="product.title" class="product-image" />
-                <h3 class="product-title">{{ product.title }}</h3>
-                <p class="product-price">${{ product.price }}</p>
+                <!-- <img :src="product.image" :alt="product.title" class="product-image" /> -->
+                <!-- <h3 class="product-title">{{ product.title }}</h3> -->
+                <!-- <p class="product-price">${{ product.price }}</p> -->
+                <lazy-product-list :product="product" />
             </div>
         </div>
 
@@ -305,6 +306,7 @@ const { bindSentinel, unbindSentinel } = useInfiniteScroll({
 
 onMounted(async () => {
     const response = await productStore.fetchFirst()
+    setTimeout(() => productStore.loading = false, 300)
 
     if (response.success) {
         console.log(

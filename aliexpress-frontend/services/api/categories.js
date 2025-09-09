@@ -1,4 +1,4 @@
-import { useApi } from "~/composables/core/useApi"
+import { useApi } from "~/composables/core/base"
 import { normalizeResponse } from "~/services/helpers/response"
 
 /**

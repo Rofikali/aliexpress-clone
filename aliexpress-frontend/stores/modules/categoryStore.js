@@ -1,7 +1,7 @@
 // ~/stores/modules/categoryStore.js
 import { defineStore } from "pinia"
 import { ref } from "vue"
-import { useApi } from "~/composables/core/useApi"
+import { useApi } from "~/composables/core/base"
 
 export const useCategoryStore = defineStore("categoryStore", () => {
     const categories = ref([])

@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     runtimeConfig: {
         public: {
-            apiBase: 'http://localhost:8000/api/v1', // Change to your Django API
+            baseApi: 'http://localhost:8000/api/v1', // Change to your Django API
             // apiBase: 'http://localhost:8000', // Change to your Django API
         },
     },
@@ -16,27 +16,4 @@ export default defineNuxtConfig({
         '@nuxt/image',
         // '@nuxtjs/supabase'
     ],
-    // runtimeConfig: {
-    //     public: {
-    //       stripePk: process.env.STRIPE_PK_KEY
-    //     }
-    // },
-    // app: {
-    //     head: {
-    //       script: [
-    //         { src: 'https://js.stripe.com/v3/', defer: true }
-    //       ],
-    //     }
-    //   }
 })
-
-
-// nuxt.config.ts
-// export default defineNuxtConfig({
-//   runtimeConfig: {
-//     public: {
-//       apiBase: 'http://localhost:8000/api', // Change to your Django API
-//     },
-//   },
-//   modules: ['@pinia/nuxt'],
-// })

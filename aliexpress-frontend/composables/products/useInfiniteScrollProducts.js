@@ -61,7 +61,7 @@
 
 // ~/composables/products/useInfiniteScrollProducts.js
 import { createInfiniteScrollResource } from "~/composables/pagination/createInfiniteScrollResource"
-import { useApi } from "~/composables/core/useApi"
+import { useApi } from "~/composables/core/base"
 
 /**
  * Infinite scroll composable for products

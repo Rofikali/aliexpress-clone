@@ -61,6 +61,7 @@ nuxt3-frontend/
 │
 ├── services/                       # API service layer (business logic)
 │   └── api/
+            base.js                 # handleError(e) # authHeaders(token) 
 │       ├── auth.js                 # login, register, verify email
 │       ├── cart.js
 │       ├── products.js

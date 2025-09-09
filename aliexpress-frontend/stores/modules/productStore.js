@@ -586,7 +586,7 @@ export const useProductStore = defineStore("productStore", () => {
         if (nextCursor.value) requestParams.cursor = nextCursor.value
 
         const response = await getProducts(requestParams)
-
+        console.log('load More calling her ', response);
         if (!response.success) {
             error.value = response.errors || [{ message: response.message }]
             loading.value = false
