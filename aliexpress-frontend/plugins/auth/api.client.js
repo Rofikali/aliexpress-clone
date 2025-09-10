@@ -1,10 +1,12 @@
-// plugins/api.client.js
-import { useApi } from '~/composables/core/base'
+// // plugins/api.client.js
+// import { useApi } from '~/composables/core/base'
 
-export default defineNuxtPlugin((nuxtApp) => {
-    const $api = async (url, options = {}) => {
-        return await useApi(url, options)
-    }
+// export default defineNuxtPlugin((nuxtApp) => {
+//     const $api = async (url, options = {}) => {
+//         return await useApi(url, options)
+//     }
 
-    nuxtApp.provide('api', $api)
-})
+//     nuxtApp.provide('api', $api)
+// })
+
+export default defineNuxtPlugin(() => { })

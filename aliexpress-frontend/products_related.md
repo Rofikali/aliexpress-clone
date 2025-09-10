@@ -130,8 +130,8 @@ Components = dumb consumers of store + composables.
           │
           │ makes HTTP request
           │
-┌─────────┴───────────────┐
-│       useApi             │
+┌─────────┴──────────────-----─┐
+│Composable ( useApi / Base )     │
 │--------------------------│
 │ - generic fetch wrapper  │
 │ - handles retries        │
@@ -139,6 +139,8 @@ Components = dumb consumers of store + composables.
 │ - token refresh          │
 │ - returns { data, error }│
 └─────────────────────────┘
+          |
+        Axios
 
 Add rate limiting: don’t fire loadMore multiple times at once.
 

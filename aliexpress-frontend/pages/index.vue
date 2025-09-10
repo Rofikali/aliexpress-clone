@@ -250,36 +250,31 @@ watch(
 </style> -->
 
 
-<template>
+<!-- <template>
     <div class="products-container">
-        <!-- Products List -->
+
         <div v-if="productStore.products.length" class="products-grid">
             <div v-for="product in productStore.products" :key="product.id" class="product-card">
-                <!-- <img :src="product.image" :alt="product.title" class="product-image" /> -->
-                <!-- <h3 class="product-title">{{ product.title }}</h3> -->
-                <!-- <p class="product-price">${{ product.price }}</p> -->
                 <lazy-product-list :product="product" />
             </div>
         </div>
 
-        <!-- Empty State -->
         <div v-else-if="!productStore.loading && !productStore.error" class="empty-state">
             No products found.
         </div>
 
-        <!-- Loading Spinner -->
+
         <div v-if="productStore.loading" class="loading-state">
             Loading products...
         </div>
 
-        <!-- Error Message -->
+
         <div v-if="productStore.error" class="error-state">
             <div v-for="(err, idx) in productStore.error" :key="idx">
                 ❌ {{ err.message || "Something went wrong." }}
             </div>
         </div>
 
-        <!-- Infinite Scroll Sentinel -->
         <div ref="sentinelRef" v-if="productStore.hasNext && !productStore.loading && !productStore.error"
             class="infinite-scroll-sentinel">
             Loading more products...
@@ -295,7 +290,6 @@ import { useInfiniteScroll } from "~/composables/pagination/useInfiniteScroll"
 const productStore = useProductStore()
 const sentinelRef = ref(null)
 
-// Infinite Scroll Setup
 const { bindSentinel, unbindSentinel } = useInfiniteScroll({
     loadMore: productStore.loadMore,
     hasNext: productStore.hasNext,
@@ -323,7 +317,6 @@ onUnmounted(() => {
     unbindSentinel()
 })
 
-// Watch for new products to re-bind sentinel automatically
 watch(
     () => productStore.products,
     (newVal) => {
@@ -379,5 +372,65 @@ watch(
     text-align: center;
     padding: 1rem;
     color: #777;
+}
+</style> -->
+
+
+<!-- ~/pages/index.vue -->
+<template>
+  <div class="products-container">
+    <!-- ✅ Products -->
+    <div v-if="!productStore.loading && productStore.products.length" class="products-grid">
+      <div v-for="product in productStore.products" :key="product.id" class="product-card">
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.price }}</p>
+      </div>
+    </div>
+
+    <!-- 🚫 Empty -->
+    <div v-else-if="!productStore.loading && !productStore.error">
+      No products found.
+    </div>
+
+    <!-- ⏳ Loading -->
+    <div v-if="productStore.loading">
+      Loading products...
+    </div>
+
+    <!-- ❌ Error -->
+    <div v-if="productStore.error">
+      <div v-for="(err, idx) in productStore.error" :key="idx">
+        {{ err.message || "Something went wrong." }}
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { onMounted } from "vue"
+import { useProductStore } from "~/stores/modules/productStore"
+
+const productStore = useProductStore()
+
+onMounted(async () => {
+  await productStore.fetchFirst()
+})
+</script>
+
+<style scoped>
+.products-container {
+  padding: 1rem;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
 }
 </style>

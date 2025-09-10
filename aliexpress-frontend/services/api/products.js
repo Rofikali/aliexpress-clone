@@ -94,89 +94,69 @@
 //     return normalizeResponse(await api(`${BASE}${id}/`, { method: "DELETE" }))
 // }
 
-
 // ~/services/api/product.js
-import { api } from "~/composables/core/base"
+import { handleError, normalizeResponse } from "~/composables/core/base"
 
 const BASE = "/products/"
 
-/**
- * Product API Service
- * -------------------
- * Thin wrappers for backend product endpoints.
- *
- * ✅ Returns unified { status, success, code, message, request, meta, errors, data }
- * ✅ Keeps transport/normalization in api
- * ✅ Easy to extend with new endpoints
- */
-
-/**
- * Fetch paginated products
- * 
- * @param {Object} params - query params (e.g., { cursor, page_size, category })
- * @returns {Promise<ApiResponse<Array>>}
- */
-export function getProducts(params = {}) {
-    return api(BASE, { method: "GET", params })
+export async function getProducts(params = {}) {
+    const { $api } = useNuxtApp()
+    try {
+        const res = await $api.get(BASE, { params })
+        return normalizeResponse(res)
+    } catch (e) {
+        return handleError(e)
+    }
 }
 
-/**
- * Get a single product by ID
- * 
- * @param {string|number} id - product identifier
- * @returns {Promise<ApiResponse<Object>>}
- */
-export function getProductById(id) {
-    return api(`${BASE}${id}/`, { method: "GET" })
+export async function getProductById(id) {
+    const { $api } = useNuxtApp()
+    try {
+        const res = await $api.get(`${BASE}${id}/`)
+        return normalizeResponse(res)
+    } catch (e) {
+        return handleError(e)
+    }
 }
 
-/**
- * Search products by keyword
- * 
- * @param {string} query - search keyword
- * @param {Object} params - filters (e.g., { sort, cursor })
- * @returns {Promise<ApiResponse<Array>>}
- */
-export function searchProducts(query, params = {}) {
-    return api(`${BASE}search/`, {
-        method: "GET",
-        params: { q: query, ...params },
-    })
+export async function searchProducts(query, params = {}) {
+    const { $api } = useNuxtApp()
+    try {
+        const res = await $api.get(`${BASE}search/`, {
+            params: { q: query, ...params },
+        })
+        return normalizeResponse(res)
+    } catch (e) {
+        return handleError(e)
+    }
 }
 
-/**
- * Create a new product (Seller/Admin only)
- * 
- * @param {Object} productData - product payload
- * @returns {Promise<ApiResponse<Object>>}
- */
-export function createProduct(productData) {
-    return api(BASE, {
-        method: "POST",
-        body: productData,
-    })
+export async function createProduct(productData) {
+    const { $api } = useNuxtApp()
+    try {
+        const res = await $api.post(BASE, productData)
+        return normalizeResponse(res)
+    } catch (e) {
+        return handleError(e)
+    }
 }
 
-/**
- * Update an existing product
- * 
- * @param {string|number} id - product identifier
- * @param {Object} productData - product payload
- * @returns {Promise<ApiResponse<Object>>}
- */
-export function updateProduct(id, productData) {
-    return api(`${BASE}${id}/`, {
-        method: "PUT",
-        body: productData,
-    })
+export async function updateProduct(id, productData) {
+    const { $api } = useNuxtApp()
+    try {
+        const res = await $api.put(`${BASE}${id}/`, productData)
+        return normalizeResponse(res)
+    } catch (e) {
+        return handleError(e)
+    }
 }
 
-/**
- * Delete a product
- * 
- * @param {string|number} id - product identifier
- * @returns {Promise<ApiResponse<null>>}
- */
-export function deleteProduct(id) {
-    return api(`${BASE}${id}/`, { method: "DELETE" })
+export async function deleteProduct(id) {
+    const { $api } = useNuxtApp()
+    try {
+        const res = await $api.delete(`${BASE}${id}/`)
+        return normalizeResponse(res)
+    } catch (e) {
+        return handleError(e)
+    }
 }

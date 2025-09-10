@@ -86,31 +86,6 @@ export default defineNuxtPlugin(() => {
 
 
 
-// plugins/api.client.js
-// import axios from "axios"
-
-// export default defineNuxtPlugin(() => {
-//   const config = useRuntimeConfig()
-
-//   const api = axios.create({
-//     baseURL: config.public.baseApi,
-//     timeout: 10000,
-//     headers: { "Content-Type": "application/json" },
-    
-//   })
-
-//   return {
-//     provide: {
-//       api, // use via `const { $api } = useNuxtApp()`
-//     },
-//   }
-// })
-
-
-
-
-
-
 
 
 

@@ -196,21 +196,51 @@
 
 //     return fetchWithAuth();
 // }
+
+// // ~/composables/core/base.js
+// export function normalizeResponse(response) {
+//   return {
+//     success: response.success,
+//     code: response.code,
+//     message: response.message,
+//     request: response.request || null,
+//     meta: response.meta || null,
+//       errors: response.errors || null,
+//       data: response.data || null,
+//   }
+// }
+
+// export function handleError(error) {
+//   if (error.response?.data) return normalizeResponse(error.response.data)
+
+//   return {
+//     success: false,
+//     code: error.response?.status || 500,
+//     message: error.message || "Unknown error occurred",
+//     request: null,
+//     meta: null,
+//     errors: null,
+//     data: null,
+//   }
+// }
+
 // ~/composables/core/base.js
-export function normalizeResponse(response) {
+export function normalizeResponse(payload) {
   return {
-    success: response.success,
-    code: response.code,
-    message: response.message,
-    request: response.request || null,
-    meta: response.meta || null,
-      errors: response.errors || null,
-      data: response.data || null,
+    success: payload.success ?? false,
+    code: payload.code ?? null,
+    message: payload.message ?? null,
+    request: payload.request ?? null,
+    meta: payload.meta ?? null,
+    errors: payload.errors ?? null,
+    data: payload.data ?? null,
   }
 }
 
 export function handleError(error) {
-  if (error.response?.data) return normalizeResponse(error.response.data)
+  if (error.response?.data) {
+    return normalizeResponse(error.response.data)
+  }
 
   return {
     success: false,

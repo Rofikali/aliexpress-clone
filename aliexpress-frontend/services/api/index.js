@@ -1,6 +1,6 @@
 
 // services/api/index.js
-export { AuthService } from './auth'
+// export { AuthService } from './auth'
 // later: export { ProductService } from './products'
 // ...
 
