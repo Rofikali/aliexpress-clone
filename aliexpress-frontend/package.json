@@ -26,6 +26,7 @@
     "pinia": "^2.0.34",
     "pinia-plugin-persistedstate": "^4.4.1",
     "prisma": "^4.12.0",
-    "stripe": "^12.0.0"
+    "stripe": "^12.0.0",
+    "vue-virtual-scroller": "^1.1.2"
   }
 }
