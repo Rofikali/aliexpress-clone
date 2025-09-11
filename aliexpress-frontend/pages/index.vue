@@ -377,9 +377,10 @@ watch(
 
 
 <!-- ~/pages/index.vue -->
-<template>
+
+<!-- <template>
   <div class="products-container">
-    <!-- ✅ Products -->
+
     <div v-if="!productStore.loading && productStore.products.length" class="products-grid">
       <div v-for="product in productStore.products" :key="product.id" class="product-card">
         <h3>{{ product.name }}</h3>
@@ -387,17 +388,17 @@ watch(
       </div>
     </div>
 
-    <!-- 🚫 Empty -->
+
     <div v-else-if="!productStore.loading && !productStore.error">
       No products found.
     </div>
 
-    <!-- ⏳ Loading -->
+
     <div v-if="productStore.loading">
       Loading products...
     </div>
 
-    <!-- ❌ Error -->
+
     <div v-if="productStore.error">
       <div v-for="(err, idx) in productStore.error" :key="idx">
         {{ err.message || "Something went wrong." }}
@@ -411,17 +412,13 @@ import { onMounted } from "vue"
 import { useProductStore } from "~/stores/modules/productStore"
 
 const productStore = useProductStore()
-// setTimeout(() => userStore.isLoading = false, 1000)
 onMounted(async () => {
   await productStore.fetchFirst()
   setTimeout(() => productStore.loading = false, 1000)
-//   setTimeout(() => {
-//     productStore.loading = false
-//   }, 300);
   console.log('length is here ', productStore.products.length);
 })
 
-// productStore.products.length
+
 </script>
 
 <style scoped>
@@ -439,5 +436,60 @@ onMounted(async () => {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 1rem;
+}
+</style> -->
+
+
+
+
+<!-- ~/pages/index.vue -->
+<template>
+    <div class="scroller">
+        <!-- Product List -->
+        <div v-for="product in products" :key="product.id" class="product-row">
+            {{ product.title }} — ${{ product.price }}
+        </div>
+
+        <!-- Loading + End states -->
+        <div v-if="loading" class="loading">⏳ Loading…</div>
+        <div v-else-if="!hasNext" class="end">✅ No more products</div>
+    </div>
+</template>
+
+<script setup>
+import { onMounted } from "vue"
+import { storeToRefs } from "pinia"
+import { useProductStore } from "~/stores/modules/productStore"
+
+const productStore = useProductStore()
+
+// destructure with reactivity
+const { products, loading, hasNext } = storeToRefs(productStore)
+const { fetchFirst } = productStore
+
+// Initial load only
+onMounted(async () => {
+    console.info("🚀 [Index] Fetching initial products…")
+    await fetchFirst()
+    console.info("✅ [Index] Initial load complete")
+})
+</script>
+
+<style scoped>
+.scroller {
+    height: auto;
+    border: 1px solid #ddd;
+}
+
+.product-row {
+    border-bottom: 1px solid #eee;
+    padding: 1rem;
+}
+
+.loading,
+.end {
+    text-align: center;
+    padding: 1rem;
+    font-weight: bold;
 }
 </style>
