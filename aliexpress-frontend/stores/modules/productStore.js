@@ -561,9 +561,9 @@ export const useProductStore = defineStore("productStore", () => {
         }
 
         products.value = response.data || []
+        loading.value = false
         nextCursor.value = response.meta?.next_cursor ?? null
         hasNext.value = response.meta?.has_next ?? false
-        loading.value = false
 
         console.log(`✅ Initial load: ${products.value.length} products`)
         return response

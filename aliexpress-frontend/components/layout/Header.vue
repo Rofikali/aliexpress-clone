@@ -81,10 +81,11 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
-import { useUserStore } from '~/stores/user'
+// import { useUserStore } from '~/stores/user'
+import { useAuthStore } from '~/stores/modules/authStore'
 import { useProductSearch } from '~/composables/search/useProductSearch'
 
-const userStore = useUserStore()
+const userStore = useAuthStore()
 const searchWrapper = ref(null)
 const dropdown = ref(null)
 const sentinel = ref(null)

@@ -411,10 +411,17 @@ import { onMounted } from "vue"
 import { useProductStore } from "~/stores/modules/productStore"
 
 const productStore = useProductStore()
-
+// setTimeout(() => userStore.isLoading = false, 1000)
 onMounted(async () => {
   await productStore.fetchFirst()
+  setTimeout(() => productStore.loading = false, 1000)
+//   setTimeout(() => {
+//     productStore.loading = false
+//   }, 300);
+  console.log('length is here ', productStore.products.length);
 })
+
+// productStore.products.length
 </script>
 
 <style scoped>
