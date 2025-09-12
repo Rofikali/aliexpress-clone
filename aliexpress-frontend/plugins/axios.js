@@ -77,8 +77,7 @@ export default defineNuxtPlugin(() => {
   // make available globally
   return {
     provide: {
-      api,
-      // api: api,
+      api: api,
     },
   }
 })
