@@ -7,3 +7,5 @@
 //     nuxtApp.vueApp.component('DynamicScroller', DynamicScroller)
 //     nuxtApp.vueApp.component('DynamicScrollerItem', DynamicScrollerItem)
 // })
+
+export default defineNuxtPlugin(() => { }) 

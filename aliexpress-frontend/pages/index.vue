@@ -443,16 +443,16 @@ onMounted(async () => {
 
 
 <!-- ~/pages/index.vue -->
-<template>
-    <div class="scroller">
-        <!-- Product List -->
-        <div v-for="product in products" :key="product.id" class="product-row">
-            {{ product.title }} — ${{ product.price }}
+<!-- <template>
+    <div id="IndexPage" class="mt-4 max-w-[1200px] mx-auto px-2">
+        <div class="grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
+            <div v-if="products" v-for="product in products" :key="product.id">
+                <lazy-product-list :product="product" />
+            </div>
+            <div ref="sentinelRef" class="h-1"></div>
+            <div v-if="loading" class="loading">Loading more...</div>
+            <div v-if="error" class="error">{{ error.message }}</div>
         </div>
-
-        <!-- Loading + End states -->
-        <div v-if="loading" class="loading">⏳ Loading…</div>
-        <div v-else-if="!hasNext" class="end">✅ No more products</div>
     </div>
 </template>
 
@@ -463,11 +463,10 @@ import { useProductStore } from "~/stores/modules/productStore"
 
 const productStore = useProductStore()
 
-// destructure with reactivity
-const { products, loading, hasNext } = storeToRefs(productStore)
+const { products, loading, hasNext, error, nextCursor, loadMore, reset } = storeToRefs(productStore)
 const { fetchFirst } = productStore
 
-// Initial load only
+
 onMounted(async () => {
     console.info("🚀 [Index] Fetching initial products…")
     await fetchFirst()
@@ -486,6 +485,62 @@ onMounted(async () => {
     padding: 1rem;
 }
 
+.loading,
+.end {
+    text-align: center;
+    padding: 1rem;
+    font-weight: bold;
+}
+</style> -->
+
+
+<template>
+    <div id="IndexPage" class="mt-4 max-w-[1200px] mx-auto px-2">
+        <div class="grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
+            <div v-if="products" v-for="product in products" :key="product.id">
+                <lazy-product-list :product="product" />
+            </div>
+
+            <!-- 👇 sentinel controlled by useInfiniteScroll -->
+            <div ref="sentinelRef" class="h-1"></div>
+
+            <div v-if="loading" class="loading">Loading more...</div>
+            <div v-if="error" class="error">{{ error.message }}</div>
+        </div>
+    </div>
+</template>
+
+<script setup>
+import { onMounted } from "vue"
+import { storeToRefs } from "pinia"
+import { useProductStore } from "~/stores/modules/productStore"
+import { useInfiniteScroll } from "~/composables/pagination/useInfiniteScroll"
+
+const productStore = useProductStore()
+const { products, loading, hasNext, error } = storeToRefs(productStore)
+const { fetchFirst, loadMore } = productStore
+
+// ✅ Hook up useInfiniteScroll
+const { sentinelRef, bindSentinel } = useInfiniteScroll({
+    loadMore,
+    hasNext,
+    isLoading: loading,
+    prefetch: true, // auto load when visible
+    debug: true,    // optional logging
+})
+
+// Initial load
+onMounted(async () => {
+    console.info("🚀 [Index] Fetching initial products…")
+    await fetchFirst()
+    console.info("✅ [Index] Initial load complete")
+
+    // bind sentinel AFTER initial load
+    bindSentinel(sentinelRef)
+})
+</script>
+
+<style scoped>
 .loading,
 .end {
     text-align: center;
