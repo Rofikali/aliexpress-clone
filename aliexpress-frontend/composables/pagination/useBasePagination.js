@@ -334,6 +334,7 @@
 //     }
 // }
 
+
 // ~/composables/pagination/useBasePagination.js
 import { ref, computed } from "vue"
 import { useNuxtApp } from "#app"
@@ -358,12 +359,15 @@ export function usePagination(url, options = {}) {
 
     const count = computed(() => products.value.length)
 
-    function _dedupeAppend(existing, incoming) {
-        if (!dedupeKey) return existing.concat(incoming)
-        const map = new Map()
-        for (const r of existing) map.set(r[dedupeKey], r)
-        for (const r of incoming) map.set(r[dedupeKey], r)
-        return Array.from(map.values())
+    // 🔄 Reset state (like store.reset)
+    const reset = () => {
+        products.value = []
+        nextCursor.value = null
+        hasNext.value = true
+        error.value = null
+        try { currentAbort?.abort() } catch { }
+        currentAbort = null
+        console.log("🔄 [usePagination] state reset")
     }
 
     async function _request(params = {}, attempt = 0) {
@@ -399,19 +403,28 @@ export function usePagination(url, options = {}) {
         }
     }
 
+    // 📥 First fetch (like store.fetchFirst)
     async function fetchFirst(params = {}) {
         console.info("🚀 [usePagination] fetchFirst called", params)
+        reset()
         loading.value = true
-        error.value = null
         inFlight = true
+        error.value = null
+
         try {
-            const data = await _request(params)
-            const items = data.products || data.data || []
-            products.value = Array.isArray(items) ? items : []
-            nextCursor.value = data.next_cursor ?? null
-            hasNext.value = !!data.has_next ?? (nextCursor.value !== null)
-            console.info(`[usePagination] fetchFirst success. Loaded=${products.value.length}, hasNext=${hasNext.value}`)
-            return products.value
+            const response = await _request(params)
+
+            if (!response.success) {
+                error.value = response.errors || [{ message: response.message }]
+                return response
+            }
+
+            products.value = response.data || []
+            nextCursor.value = response.meta?.next_cursor ?? response.next_cursor ?? null
+            hasNext.value = response.meta?.has_next ?? response.has_next ?? false
+
+            console.info(`✅ [usePagination] Initial load: ${products.value.length} products`)
+            return response
         } catch (err) {
             error.value = err
             console.error("[usePagination] fetchFirst error", err)
@@ -422,8 +435,10 @@ export function usePagination(url, options = {}) {
         }
     }
 
+    // ➕ Load more (like store.loadMore)
     async function loadMore(params = {}) {
         console.info("📥 [usePagination] loadMore called", params)
+
         if (!hasNext.value) {
             console.warn("[usePagination] No more items to load")
             return
@@ -434,18 +449,36 @@ export function usePagination(url, options = {}) {
         }
 
         loading.value = true
-        error.value = null
         inFlight = true
+        error.value = null
+
         try {
             const requestParams = { ...params }
             if (nextCursor.value) requestParams.cursor = nextCursor.value
-            const data = await _request(requestParams)
-            const newItems = data.products || data.data || []
-            products.value = _dedupeAppend(products.value, Array.isArray(newItems) ? newItems : [])
-            nextCursor.value = data.next_cursor ?? null
-            hasNext.value = !!data.has_next ?? (nextCursor.value !== null && newItems.length > 0)
-            console.info(`[usePagination] loadMore success. Added=${newItems.length}, Total=${products.value.length}, hasNext=${hasNext.value}`)
-            return newItems
+
+            const response = await _request(requestParams)
+
+            if (!response.success) {
+                error.value = response.errors || [{ message: response.message }]
+                return response
+            }
+
+            const newProducts = Array.isArray(response.data)
+                ? response.data
+                : response.data
+                    ? [response.data]
+                    : []
+
+            // ✅ Deduplicate (same as store)
+            const map = new Map(products.value.map(p => [p[dedupeKey], p]))
+            for (const item of newProducts) map.set(item[dedupeKey], item)
+            products.value = Array.from(map.values())
+
+            nextCursor.value = response.meta?.next_cursor ?? response.next_cursor ?? null
+            hasNext.value = response.meta?.has_next ?? response.has_next ?? false
+
+            console.info(`✅ [usePagination] loadMore success. Added=${newProducts.length}, Total=${products.value.length}, hasNext=${hasNext.value}`)
+            return response
         } catch (err) {
             error.value = err
             console.error("[usePagination] loadMore error", err)
@@ -456,20 +489,11 @@ export function usePagination(url, options = {}) {
         }
     }
 
-    async function reset(params = {}) {
-        console.info("🔄 [usePagination] reset called")
-        try { currentAbort?.abort() } catch { }
-        currentAbort = null
-        products.value = []
-        nextCursor.value = null
-        hasNext.value = true
-        error.value = null
-        return fetchFirst(params)
-    }
-
+    // ♻️ Force reload (just reset+fetchFirst)
     async function forceReload(params = {}) {
         console.info("♻️ [usePagination] forceReload called")
-        return reset(params)
+        reset()
+        return fetchFirst(params)
     }
 
     if (options.autoFetch !== false) {
@@ -477,12 +501,14 @@ export function usePagination(url, options = {}) {
     }
 
     return {
+        // variables
         products,
         nextCursor,
         hasNext,
         loading,
         error,
         count,
+        // functions
         fetchFirst,
         loadMore,
         reset,

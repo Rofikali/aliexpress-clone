@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
     <div id="MainHeader" class="flex items-center w-full bg-white">
         <div class="flex lg:justify-start justify-between gap-10 max-w-[1150px] w-full px-3 py-5 mx-auto">
 
@@ -12,9 +12,9 @@
                 <div class="flex items-center border-2 border-[#FF4646] rounded-md w-full">
                     <input v-model="query" @focus="isOpen = true" type="search" placeholder="kitchen accessories"
                         class="w-full placeholder-gray-400 text-sm pl-3 focus:outline-none" />
-                    <span class="mr-2" v-if="loading && items.length === 0" aria-hidden>
+                    <!-- <span class="mr-2" v-if="loading && items.length === 0" aria-hidden>
                         <Icon name="eos-icons:loading" size="20" />
-                    </span>
+                    </span> -->
                     <button class="flex items-center h-full p-1.5 px-2 bg-[#FF4646]">
                         <Icon name="ph:magnifying-glass" size="20" color="#ffffff" />
                     </button>
@@ -59,7 +59,7 @@
                     @mouseleave="isCartHover = false">
                     <span
                         class="absolute flex items-center justify-center -right-[3px] top-0 bg-[#FF4646] h-[17px] min-w-[17px] text-xs text-white px-0.5 rounded-full">
-                        {{ userStore.cart.length }}
+                        <!-- {{ userStore.cart.length }} -->
                     </span>
                     <div class="min-w-[40px]">
                         <Icon name="ph:shopping-cart-simple-light" size="33" :color="isCartHover ? '#FF4646' : ''" />
@@ -92,7 +92,7 @@ const dropdownMaxHeight = ref(300)
 
 
 const { query, items, loading, search, loadMore, hasNext, enableFuzzy, fuzzyFields } = useProductSearch({
-    pageSize: 10,
+    pageSize: 12,
     debounceMs: 350,
     autoFetch: false,
     autoStartObserver: false,
@@ -165,10 +165,10 @@ onBeforeUnmount(() => {
     window.removeEventListener('resize', calculateDropdownHeight)
     if (observer) observer.disconnect()
 })
-</script> -->
+</script>
 
 
-<template>
+<!-- <template>
     <div>
 <h1>Header File</h1>
     </div>
@@ -178,4 +178,4 @@ onBeforeUnmount(() => {
 
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped></style> -->
