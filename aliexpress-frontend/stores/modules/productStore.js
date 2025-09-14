@@ -1,4 +1,4 @@
-// // // ~/stores/modules/productStore.js
+// ~/stores/modules/productStore.js
 
 // import { defineStore } from "pinia"
 // import { ref } from "vue"
@@ -99,163 +99,159 @@
 // })
 
 
+// // ~/stores/modules/productStore.js
+// import { defineStore } from "pinia"
+// import { usePagination } from "~/composables/pagination/useBasePagination"
+
+// export const useProductStore = defineStore("productStore", () => {
+//     console.info("🛒 [ProductStore] Initializing...")
+
+//     const {
+//         products,
+//         nextCursor,
+//         hasNext,
+//         loading,
+//         error,
+//         fetchFirst,
+//         loadMore,
+//         reset,
+//         forceReload,
+//     } = usePagination("/products", {
+//         pageSize: 12,
+//         dedupeKey: "id",
+//         retries: 1,
+//         retryBackoffMs: 500,
+//         debug: true,      // enable internal pagination logs
+//         autoFetch: false, // we control fetch manually
+//     })
+
+//     // Wrap actions with extra logging
+//     const fetchFirstWithLog = async (params = {}) => {
+//         console.info("🚀 [ProductStore] Fetching first products...", params)
+//         try {
+//             const res = await fetchFirst(params)
+//             console.info(`✅ [ProductStore] First fetch done. Count=${products.value.length}`)
+//             return res
+//         } catch (err) {
+//             console.error("❌ [ProductStore] fetchFirst failed:", err)
+//             // throw err
+//             return err
+//         }
+//     }
+
+//     const loadMoreWithLog = async (params = {}) => {
+//         console.info("📥 [ProductStore] Loading more products...", params)
+//         try {
+//             const res = await loadMore(params)
+//             if (!res || res.length === 0) {
+//                 console.warn("⚠️ [ProductStore] No more products returned from loadMore")
+//             } else {
+//                 console.info(`✅ [ProductStore] Loaded ${res.length} more. Total=${products.value.length}`)
+//             }
+//             return res
+//         } catch (err) {
+//             console.error("❌ [ProductStore] loadMore failed:", err)
+//             // throw err
+//             return err
+//         }
+//     }
+
+//     const resetWithLog = async (params = {}) => {
+//         console.info("🔄 [ProductStore] Resetting store and refetching...", params)
+//         return reset(params)
+//     }
+
+//     return {
+//         products,
+//         nextCursor,
+//         hasNext,
+//         loading,
+//         error,
+//         fetchFirst: fetchFirstWithLog,
+//         loadMore: loadMoreWithLog,
+//         reset: resetWithLog,
+//         forceReload,
+//     }
+// })
+
+
+
+// //  *** Never touch above code base 
+// // Above both code working fine 
+// // ~/stores/modules/productStore.js
+// import { defineStore } from "pinia"
+// import { usePagination } from "~/composables/pagination/useBasePagination"
+// import { getProducts } from "~/services/api/products"
+
+// export const useProductStore = defineStore("productStore", () => {
+//     // Pass the transport function directly
+//     const pagination = usePagination(getProducts, { pageSize: 12, debug: true })
+
+//     return {
+//         products: pagination.items,
+//         loading: pagination.loading,
+//         error: pagination.error,
+//         nextCursor: pagination.nextCursor,
+//         hasNext: pagination.hasNext,
+//         count: pagination.count,
+//         fetchFirst: pagination.fetchFirst,
+//         loadMore: pagination.loadMore,
+//         reset: pagination.reset,
+//         forceReload: pagination.forceReload,
+//     }
+// })
+
 // ~/stores/modules/productStore.js
 import { defineStore } from "pinia"
+import { getProducts, getProductById } from "~/services/api/products"
 import { usePagination } from "~/composables/pagination/useBasePagination"
 
 export const useProductStore = defineStore("productStore", () => {
-    console.info("🛒 [ProductStore] Initializing...")
+    // ============ Pagination (list of products) ============
+    const pagination = usePagination(getProducts, { pageSize: 12, debug: true })
 
-    const {
-        products,
-        nextCursor,
-        hasNext,
-        loading,
-        error,
-        fetchFirst,
-        loadMore,
-        reset,
-        forceReload,
-    } = usePagination("/products", {
-        pageSize: 12,
-        dedupeKey: "id",
-        retries: 1,
-        retryBackoffMs: 500,
-        debug: true,      // enable internal pagination logs
-        autoFetch: false, // we control fetch manually
-    })
+    // ============ Single product ============
+    const product = ref(null)
+    const productLoading = ref(false)
+    const productError = ref(null)
 
-    // Wrap actions with extra logging
-    const fetchFirstWithLog = async (params = {}) => {
-        console.info("🚀 [ProductStore] Fetching first products...", params)
-        try {
-            const res = await fetchFirst(params)
-            console.info(`✅ [ProductStore] First fetch done. Count=${products.value.length}`)
-            return res
-        } catch (err) {
-            console.error("❌ [ProductStore] fetchFirst failed:", err)
-            throw err
+    async function fetchProductById(id) {
+        console.info("🚀 [productStore] fetchProductById:", id)
+        productLoading.value = true
+        productError.value = null
+        product.value = null
+
+        const response = await getProductById(id)
+
+        if (response.success) {
+            product.value = response.data
+            console.info("✅ [productStore] product loaded:", response.data)
+        } else {
+            productError.value = response
+            console.error("❌ [productStore] failed to load product:", response)
         }
-    }
 
-    const loadMoreWithLog = async (params = {}) => {
-        console.info("📥 [ProductStore] Loading more products...", params)
-        try {
-            const res = await loadMore(params)
-            if (!res || res.length === 0) {
-                console.warn("⚠️ [ProductStore] No more products returned from loadMore")
-            } else {
-                console.info(`✅ [ProductStore] Loaded ${res.length} more. Total=${products.value.length}`)
-            }
-            return res
-        } catch (err) {
-            console.error("❌ [ProductStore] loadMore failed:", err)
-            throw err
-        }
-    }
-
-    const resetWithLog = async (params = {}) => {
-        console.info("🔄 [ProductStore] Resetting store and refetching...", params)
-        return reset(params)
+        productLoading.value = false
+        return response
     }
 
     return {
-        products,
-        nextCursor,
-        hasNext,
-        loading,
-        error,
-        fetchFirst: fetchFirstWithLog,
-        loadMore: loadMoreWithLog,
-        reset: resetWithLog,
-        forceReload,
+        // List
+        products: pagination.items,
+        loading: pagination.loading,
+        error: pagination.error,
+        nextCursor: pagination.nextCursor,
+        hasNext: pagination.hasNext,
+        count: pagination.count,
+        fetchFirst: pagination.fetchFirst,
+        loadMore: pagination.loadMore,
+        reset: pagination.reset,
+        forceReload: pagination.forceReload,
+
+        // Single
+        product,
+        productLoading,
+        productError,
+        fetchProductById,
     }
 })
-
-
-
-
-
-// // // ~/stores/modules/productStore.js
-// // import { defineStore } from "pinia"
-// // import { usePagination } from "~/composables/pagination/useBasePagination"
-
-// // export const useProductStore = defineStore("productStore", () => {
-// //     // ✅ Generic pagination composable for products
-// //     const pagination = usePagination("/products/", {
-// //         pageSize: 12,
-// //         dedupeKey: "id",
-// //         retries: 2,
-// //         retryBackoffMs: 500,
-// //         debug: true,
-// //     })
-
-// //     // 🔄 Reset with console log
-// //     async function resetProducts(params = {}) {
-// //         console.info("🔄 [ProductStore] Resetting products with params:", params)
-// //         try {
-// //             const res = await pagination.reset(params)
-// //             console.info(`✅ [ProductStore] Reset complete. Loaded ${pagination.count.value} products.`)
-// //             return res
-// //         } catch (err) {
-// //             console.error("❌ [ProductStore] Reset failed:", err)
-// //             throw err
-// //         }
-// //     }
-
-// //     // ⭐ Fetch first products
-// //     async function fetchFirst(params = {}) {
-// //         console.info("⭐ [ProductStore] Fetching featured products…", params)
-// //         try {
-// //             const res = await pagination.reset({ ...params, featured: true })
-// //             console.info(`✅ [ProductStore] Fetched ${pagination.count.value} featured products.`)
-// //             return res
-// //         } catch (err) {
-// //             console.error("❌ [ProductStore] Failed to fetch featured:", err)
-// //             throw err
-// //         }
-// //     }
-
-// //     // 🔍 Search products
-// //     async function searchProducts(query, params = {}) {
-// //         console.info(`🔍 [ProductStore] Searching products with query="${query}"`, params)
-// //         try {
-// //             const res = await pagination.reset({ ...params, q: query })
-// //             console.info(`✅ [ProductStore] Search returned ${pagination.count.value} results.`)
-// //             return res
-// //         } catch (err) {
-// //             console.error("❌ [ProductStore] Search failed:", err)
-// //             throw err
-// //         }
-// //     }
-
-// //     // 📦 Load next page (prefetch for UX)
-// //     async function prefetchNext(params = {}) {
-// //         if (pagination.hasNext.value && !pagination.loading.value) {
-// //             console.info("📦 [ProductStore] Prefetching next page…")
-// //             try {
-// //                 const res = await pagination.loadMore(params)
-// //                 console.info(`✅ [ProductStore] Prefetched ${res?.length || 0} products. Total: ${pagination.count.value}`)
-// //                 return res
-// //             } catch (err) {
-// //                 console.warn("⚠️ [ProductStore] Prefetch failed:", err)
-// //                 return []
-// //             }
-// //         } else {
-// //             console.warn("⚠️ [ProductStore] Prefetch skipped: no next page or already loading.")
-// //             return []
-// //         }
-// //     }
-
-// //     return {
-// //         // spread pagination state & methods directly
-// //         ...pagination,
-
-// //         // domain-specific actions with logs
-// //         resetProducts,
-// //         fetchFirst,
-// //         searchProducts,
-// //         prefetchNext,
-// //     }
-// // })
-

@@ -499,6 +499,8 @@ onMounted(async () => {
         <div class="grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
             <div v-if="products" v-for="product in products" :key="product.id">
                 <lazy-product-list :product="product" />
+                 <!-- <div>{{  product.title }}</div> -->
+                 <!-- <div>{{  product.description }}</div> -->
             </div>
 
             <!-- 👇 sentinel controlled by useInfiniteScroll -->

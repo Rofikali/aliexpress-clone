@@ -6,10 +6,9 @@
             hover:shadow-[0_0_10px_3px_rgba(0,0,0,0.15)] 
             cursor-pointer
         ">
-        <NuxtLink :to="{ name: 'product-id', params: { id: product.id } }" class="block">
+        <NuxtLink :to="{ name: 'products-id', params: { id: product.id } }" class="block">
             <NuxtImg class="rounded-T" :src="product.image" alt="User Image" loading="lazy" />
             <div id="ProductDetails">
-
                 <span class="flex items-center justify-start gap-3 px-1 pt-1">
                     <span class="text-[#FF6674] font-semibold">${{ priceComputed }}</span>
                     <span class="text-gray-500 text-sm text-light line-through">${{ oldPriceComputed }}</span>
@@ -31,8 +30,8 @@
                 </p>
 
                 <p class="px-1 pt-0.5 text-xs text-[#252525]">
-                    {{ product.title }}
-                    <!-- {{ product.title.substring(0, 60) }} -->
+                    <!-- {{ product.title }} -->
+                    {{ product.title.substring(0, 60) }}
                 </p>
 
                 <p class="px-1 pb-1">
