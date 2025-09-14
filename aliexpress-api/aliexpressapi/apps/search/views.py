@@ -1,7 +1,7 @@
 # apps.search.views.py
 
 # Serializers
-from apps.products.serializers import ProductSerializer
+from apps.products.serializers.products_serializser import ProductSerializer
 
 # Models
 from apps.products.models import Product

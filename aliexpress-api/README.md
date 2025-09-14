@@ -84,7 +84,7 @@ project_root/
 │   └── **init**.py
 │
 ├── apps/                               # Domain-driven apps
-│   ├── accounts/
+```│   ├── accounts/
 │   │   ├── admin.py
 │   │   ├── apps.py
 │   │   ├── models/
@@ -118,8 +118,15 @@ project_root/
 │   │       ├── test_email_verification.py 
 │   │       ├── test_kyc.py
 │   │       └── test_device.py
-│   │
+```│   │
+
+
+```
 │   ├── products/
+```
+
+```
+```
 │   ├── posts/
 │   ├── orders/
 │   ├── payments/

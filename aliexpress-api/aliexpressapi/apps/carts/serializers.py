@@ -1,7 +1,7 @@
 # apps/cart_wishlist/serializers.py
 from rest_framework import serializers
 from .models import Cart, CartItem, Wishlist, WishlistItem
-from apps.products.serializers import ProductSerializer
+from apps.products.serializers.products_serializser import ProductSerializer
 
 
 # -------------------- CART ITEM --------------------

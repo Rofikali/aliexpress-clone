@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Order, OrderItem, Shipment, Return
-from apps.products.serializers import ProductSerializer  # ✅ if exists
+from apps.products.serializers.products_serializser import ProductSerializer  # ✅ if exists
 
 
 class OrderItemSerializer(serializers.ModelSerializer):

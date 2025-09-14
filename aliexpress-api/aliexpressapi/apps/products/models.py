@@ -111,6 +111,9 @@ class ProductVariant(models.Model):
     class Meta:
         db_table = "products_productvariant"
 
+    def __str__(self):
+        return f"{self.product}, {self.variant_type}"
+
 
 class ProductAttribute(models.Model):
     product = models.ForeignKey(
