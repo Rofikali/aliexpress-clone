@@ -106,17 +106,97 @@ class ProductImageAdmin(admin.ModelAdmin):
     search_fields = ("product__title",)
 
 
+# @admin.register(ProductVariant)
+# class ProductVariantAdmin(admin.ModelAdmin):
+#     # list_display = ("id", "product", "name", "price")
+#     list_display = ("id", "product", "price")
+#     search_fields = ("product__title", "name")
+
+
+# @admin.register(ProductAttribute)
+# class ProductAttributeAdmin(admin.ModelAdmin):
+#     list_display = ("id", "variant", "attribute_name", "attribute_value")
+#     search_fields = ("attribute_name", "attribute_value")
+
+from django.contrib import admin
+from .models import ProductVariant, ProductAttribute
+
+
+class ProductAttributeInline(admin.TabularInline):
+    """
+    Inline attributes inside ProductVariant.
+    Uses a tabular layout for compact editing.
+    """
+
+    model = ProductAttribute
+    extra = 1  # Show 1 empty row by default
+    fields = ("attribute_name", "attribute_value")
+    show_change_link = True
+
+
 @admin.register(ProductVariant)
 class ProductVariantAdmin(admin.ModelAdmin):
-    # list_display = ("id", "product", "name", "price")
-    list_display = ("id", "product", "price")
-    search_fields = ("product__title", "name")
+    """
+    Admin for Product Variants with inline attributes.
+    """
+
+    list_display = (
+        "id",
+        "product",
+        "sku",
+        # "name",
+        "price",
+        "stock",
+        # "is_active",
+        "created_at",
+    )
+    list_display_links = ("id", "sku")
+    list_filter = ("product__brand", "product__category")
+    search_fields = ("product__title", "sku")
+    ordering = ("-created_at",)
+    readonly_fields = ("created_at", "updated_at")
+    list_per_page = 25
+
+    fieldsets = (
+        (
+            "Basic Info",
+            {
+                "fields": ("product", "sku", "price", "stock"),
+            },
+        ),
+        (
+            "Timestamps",
+            {
+                "fields": ("created_at", "updated_at"),
+                "classes": ("collapse",),
+            },
+        ),
+    )
+
+    inlines = [ProductAttributeInline]  # 🚀 Inline attributes here
 
 
 @admin.register(ProductAttribute)
 class ProductAttributeAdmin(admin.ModelAdmin):
+    """
+    Still keep standalone admin for Product Attributes (optional).
+    """
+
     list_display = ("id", "variant", "attribute_name", "attribute_value")
-    search_fields = ("attribute_name", "attribute_value")
+    list_display_links = ("id", "attribute_name")
+    list_filter = (
+        "attribute_name",
+        "variant__product__brand",
+        "variant__product__category",
+    )
+    search_fields = (
+        "attribute_name",
+        "attribute_value",
+        "variant__sku",
+        "variant__product__title",
+    )
+    ordering = ("attribute_name",)
+    list_per_page = 50
 
 
 @admin.register(Inventory)

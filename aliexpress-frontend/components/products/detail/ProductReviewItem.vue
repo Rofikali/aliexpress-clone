@@ -1,7 +1,7 @@
 <template>
   <div class="review-item">
-    <p class="author"><strong>{{ review.author }}</strong></p>
-    <p class="rating">⭐ {{ review.rating }}/5</p>
+    <p class="author"><strong>review author - {{ review.author }}</strong></p>
+    <p class="rating">rating ⭐ {{ review.rating }}/5</p>
     <p class="comment">{{ review.comment }}</p>
   </div>
 </template>

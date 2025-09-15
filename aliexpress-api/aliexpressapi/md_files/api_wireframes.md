@@ -16,6 +16,7 @@
 <summary>📦 Models</summary>
 
 ### Homepage
+
 | Field       | Type       | Notes                     |
 |------------|-----------|---------------------------|
 | id         | UUIDField | Primary key               |
@@ -57,6 +58,7 @@ class HomepageSerializer(serializers.ModelSerializer):
 <summary>📦 Models</summary>
 
 ### Category
+
 | Field       | Type        | Notes                        |
 |-------------|------------|-------------------------------|
 | id          | UUIDField  | Primary key                  |
@@ -110,6 +112,7 @@ class CategorySerializer(serializers.ModelSerializer):
 <summary>📦 Models</summary>
 
 ### Product
+
 | Field          | Type          | Notes                               |
 |----------------|---------------|-------------------------------------|
 | id             | UUIDField     | Primary key                          |
@@ -117,7 +120,7 @@ class CategorySerializer(serializers.ModelSerializer):
 | slug           | SlugField     | Unique                               |
 | description    | TextField     | Full description                     |
 | sku            | CharField     | Unique                               |
-| price          | Decimal(12,2) | Base price                            |
+| price          | Decimal(12,2) | Base price                           |
 | discount_price | Decimal(12,2) | Nullable                             |
 | currency       | CharField(3)  | Defaults "USD"                        |
 | image          | ImageField    | Main product image                    |
@@ -183,6 +186,7 @@ class ProductSerializer(serializers.ModelSerializer):
 <summary>📦 Models</summary>
 
 ### CartItem
+
 | Field       | Type        | Notes                         |
 |-------------|------------|-------------------------------|
 | id          | UUIDField  | Primary key                  |
@@ -228,6 +232,7 @@ class CartItemSerializer(serializers.ModelSerializer):
 <summary>📦 Models</summary>
 
 ### Order
+
 | Field        | Type        | Notes                     |
 |--------------|------------|---------------------------|
 | id           | UUIDField  | Primary key              |
@@ -276,6 +281,7 @@ class OrderSerializer(serializers.ModelSerializer):
 <summary>📦 Models</summary>
 
 ### User
+
 | Field        | Type      | Notes               |
 |--------------|----------|-------------------|
 | id           | UUIDField| Primary key       |
@@ -315,6 +321,7 @@ class UserSerializer(serializers.ModelSerializer):
 <summary>📦 Models</summary>
 
 ### Brand
+
 | Field       | Type        | Notes                |
 |-------------|------------|--------------------|
 | id          | UUIDField  | Primary key        |
@@ -355,6 +362,7 @@ class BrandSerializer(serializers.ModelSerializer):
 <summary>📦 Models</summary>
 
 ### Inventory
+
 | Field      | Type       | Notes                   |
 |------------|-----------|------------------------|
 | id         | UUIDField | Primary key            |
@@ -388,4 +396,3 @@ class InventorySerializer(serializers.ModelSerializer):
   **Query params:** `?q=`, `?category=`, `?brand=`, `?sort=`
 
 </details>
-

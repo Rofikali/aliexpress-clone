@@ -1,11 +1,12 @@
 <template>
   <div class="product-info">
-    <h1>{{ product?.name }}</h1>
-    <p class="price">₹{{ product?.price }}</p>
+    <h1>Title - {{ product?.title }}</h1>
+    <p class="price">Price - ₹{{ product?.price }}</p>
+    <p class="price">Descount Price - ₹{{ product?.discount_price }}</p>
     <p class="stock" :class="{ 'out-of-stock': !product?.in_stock }">
       {{ product?.in_stock ? "In Stock" : "Out of Stock" }}
     </p>
-    <p class="description">{{ product?.short_description }}</p>
+    <p class="description">Description - {{ product?.description }}</p>
   </div>
 </template>
 
