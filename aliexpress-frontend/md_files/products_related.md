@@ -35,27 +35,9 @@
           │ makes HTTP request
           │
 ┌─────────┴──────────────-----─┐
-│Composable ( useApi / Base )     │
+│Composable ( Base )     │
 │--------------------------│
-│ - generic fetch wrapper  │
-│ - handles retries        │
-│ - circuit breaker        │
-│ - token refresh          │
-│ - returns { data, error }│
+│ - generic normalize response wrapper  │
 └─────────────────────────┘
           |
         Axios
-
-
-🔹 Key Idea
-
-useApi = fetcher only
-
-usePagination = reusable cursor-based logic
-
-productStore = domain brain 🧠 (owns infinite scroll + products state)
-
-Components = only render 📺
-
-So your components don’t import useInfiniteScroll anymore.
-They just ref="productStore.sentinelRef" → store handles everything.
