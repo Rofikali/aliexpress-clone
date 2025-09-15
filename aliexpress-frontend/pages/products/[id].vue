@@ -37,11 +37,7 @@ onMounted(() => {
       <!-- RIGHT: Info + Actions -->
       <div class="main-info">
         <ProductInfo :product="product" />
-        <ProductActions
-          :product="product"
-          @add-to-cart="addToCart"
-          @wishlist="addToWishlist"
-        />
+        <ProductActions :product="product" @add-to-cart="addToCart" @wishlist="addToWishlist" />
         <ProductMeta :product="product" />
       </div>
     </div>
@@ -71,8 +67,7 @@ import { onMounted, ref } from "vue"
 import { useProductStore } from "~/stores/modules/productStore"
 import { getProducts } from "~/services/api/products"
 
-// 🖼 Components
-// import ProductGallery from "~/components/products/detail/ProductGallery.vue"
+
 import ProductInfo from "~/components/products/detail/ProductInfo.vue"
 import ProductActions from "~/components/products/detail/ProductActions.vue"
 import ProductMeta from "~/components/products/detail/ProductMeta.vue"
@@ -80,7 +75,7 @@ import ProductTabs from "~/components/products/detail/ProductTabs.vue"
 import ProductSpecs from "~/components/products/detail/ProductSpecs.vue"
 import ProductReviewList from "~/components/products/detail/ProductReviewList.vue"
 import ProductRelated from "~/components/products/detail/ProductRelated.vue"
-// import { LazyProductsDetailProductGallery } from "#components"
+
 
 const route = useRoute()
 const id = route.params.id
@@ -149,6 +144,7 @@ function addToWishlist(product) {
   text-align: center;
   padding: 2rem;
 }
+
 .error {
   color: red;
   text-align: center;
