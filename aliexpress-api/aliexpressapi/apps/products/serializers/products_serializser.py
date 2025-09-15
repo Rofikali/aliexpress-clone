@@ -72,13 +72,22 @@ class ProductDetailSerializer(serializers.ModelSerializer):
     brand = BrandSerializer(read_only=True)
     image = serializers.SerializerMethodField()
 
+
     class Meta:
         model = Product
         fields = [
             "id",
             "title",
+            'slug',
             "description",
+            'sku',
             "price",
+            'discount_price',
+            'currency',
+            'stock',
+            'is_active',
+            'rating',
+            'review_count',
             "image",
             "images",
             "category",

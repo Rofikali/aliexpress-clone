@@ -24,6 +24,18 @@ nuxt3-frontend/
 │   └── wishlist.vue
 │
 ├── components/                     # Dumb UI components
+         /products/      # Only product-related components
+            detail/
+               ProductGallery.vue     # Main product images (carousel/zoom)
+               ProductThumbnail.vue   # Thumbnails selector
+               ProductInfo.vue        # Title, price, stock, description
+               ProductSpecs.vue       # Technical details/specs table
+               ProductActions.vue     # Add to cart, wishlist, share, etc.
+               ProductMeta.vue        # SKU, category, tags, etc.
+               ProductTabs.vue        # Tabbed layout: Description / Reviews / Q&A
+               ProductReviewList.vue  # Paginated reviews (uses usePagination)
+               ProductReviewItem.vue  # Single review card
+               ProductRelated.vue     # Related products carousel/grid
 │   ├── common/
 │   │   ├── Header.vue
 │   │   ├── Footer.vue
@@ -46,14 +58,12 @@ nuxt3-frontend/
 │
 ├── composables/                    # Smart hooks (Composition API)
 │   ├── core/
-│   │   ├── useApi.js               # wrapper around $fetch + retry
-│   │   ├── useDebounce.js
-│   │   └── useThrottle.js
+│   │   ├── base.js               # handleError(e) # authHeaders(token) 
 │   ├── observer/
 │   │   └── useObserverCore.js
 │   ├── pagination/
-│   │   ├── useInfiniteProductScroll.js
-│   │   └── useFillViewport.js
+│   │   ├── useBasePagination.js
+│   │   └── useInfiniteScroll.js
 │   └── search/
 │       ├── useBaseSearch.js
 │       ├── useInfiniteSearch.js
@@ -61,7 +71,6 @@ nuxt3-frontend/
 │
 ├── services/                       # API service layer (business logic)
 │   └── api/
-            base.js                 # handleError(e) # authHeaders(token) 
 │       ├── auth.js                 # login, register, verify email
 │       ├── cart.js
 │       ├── products.js
@@ -71,10 +80,7 @@ nuxt3-frontend/
 │       └── index.js                # export all services from here
 │
 ├── plugins/                        # Nuxt app-level plugins
-│   ├── api.client.js               # inject $api from useApi
-│   ├── fetch-retry.client.js       # global fetch retry/backoff
-│   ├── dayjs.client.js
-│   └── toast.client.js             # toast notifications
+│   ├── axios.js               # inject $api from base
 │
 ├── middleware/                     # Route guards
 │   ├── auth.global.js              # block unauth users

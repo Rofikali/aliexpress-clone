@@ -19,7 +19,7 @@
 
 <script setup>
 import { ref, watchEffect, toRefs } from 'vue'
-import { useUserStore } from '~/stores/user'
+import { useAuthStore } from '~/stores/modules/authStore'
 
 const props = defineProps({
     product: {
@@ -32,7 +32,7 @@ const props = defineProps({
 // console.log('product value title', product.value.title);
 
 const { product } = toRefs(props)
-const userStore = useUserStore()
+const userStore = useAuthStore()
 
 const currentImage = ref(null)
 const images = ref([])

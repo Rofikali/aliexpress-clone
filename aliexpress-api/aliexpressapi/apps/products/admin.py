@@ -89,6 +89,7 @@ class ProductAdmin(admin.ModelAdmin):
         "title",
         "brand",
         "category",
+        # 'seller',
         "price",
         "created_at",
         "updated_at",
