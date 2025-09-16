@@ -1,15 +1,17 @@
-# new here
-# apps.products/viewsets.py
+# apps.products/views/product_view.py
 from rest_framework.viewsets import ViewSet
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 
-from apps.products.models import (
+from apps.products.models.product_model import (
     Product,
 )
-from apps.products.serializers.products_serializser import ProductSerializer, ProductDetailSerializer
+from apps.products.serializers.products_serializser import (
+    ProductSerializer,
+    ProductDetailSerializer,
+)
 from rest_framework.permissions import AllowAny
 
 from components.paginations.base_pagination import BaseCursorPagination
@@ -18,11 +20,6 @@ from components.caching.cache_factory import (
     # cache_factory,
     get_cache,
 )  # ✅ generic cache factory
-
-
-# apps.products/viewsets.py
-
-# apps.products/viewsets.py
 
 
 class ProductsViewSet(ViewSet):

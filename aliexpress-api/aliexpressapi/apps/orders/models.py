@@ -2,7 +2,8 @@ from django.db import models
 from django.conf import settings
 
 # Ensure the app is registered in INSTALLED_APPS in settings.py
-from apps.products.models import Product, Inventory
+from apps.products.models.product_model import Product
+from apps.products.models.inventory_model import Inventory
 
 User = settings.AUTH_USER_MODEL
 

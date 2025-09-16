@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.products.models import (
+from apps.products.models.product_variant_model import (
     ProductVariant,
 )
 

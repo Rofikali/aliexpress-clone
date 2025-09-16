@@ -3,7 +3,8 @@
 │-------------------------│
 │ - binds to productStore │
 │ - binds scroll event    │ # with infinteScrollPagination Composable
-│ - calls store.loadMore()│
+│ - calls store.loadMore()
+  - fetchFirst()
 └─────────▲───────────────┘
           │
           │
@@ -25,10 +26,10 @@
 ┌─────────┴───────────────┐
 │    productService        │
 │--------------------------│
-│ - knows API response     │    not using helper/response_fetctory
+│ - knows API response     │     using helper/response_fetctory for normalization
 │   shape (data.products,  │
 │   data.pagination)       │
-│ - wraps useApi call      │
+│ - wraps Base calls      │
 │ - normalizes data        │
 └─────────▲───────────────┘
           │

@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 
 from drf_spectacular.utils import extend_schema
 
-from apps.products.models import (
+from apps.products.models.category_model import (
     Category,
 )
 from apps.products.serializers.category_serializer import (

@@ -4,7 +4,7 @@
 from apps.products.serializers.products_serializser import ProductSerializer
 
 # Models
-from apps.products.models import Product
+from apps.products.models.product_model import Product
 
 # Django ORM tools
 from django.db.models import Q
