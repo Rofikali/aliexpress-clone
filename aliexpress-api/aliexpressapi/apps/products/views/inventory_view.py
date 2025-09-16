@@ -12,8 +12,7 @@ from apps.products.models.inventory_model import (
 )
 from apps.products.serializers.inventory_serializer import (
     InventorySerializer,
-)
-
+) 
 
 # -------------------- INVENTORY --------------------
 class InventoryViewSet(ViewSet):
