@@ -1,11 +1,13 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from apps.products.models.product_model import Product
+import uuid
 
 User = get_user_model()
 
 
 class ProductVariant(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     VARIANT_TYPE_CHOICES = [
         ("size", "Size"),
         ("color", "Color"),

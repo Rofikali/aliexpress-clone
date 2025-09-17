@@ -148,8 +148,10 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_nested.routers import NestedDefaultRouter
 
 from apps.products.views.product_view import ProductsViewSet
-from apps.products.views.product_variants_viewset import ProductVariantViewSet
-from apps.products.views.product_attribute_viewset import ProductAttributeViewSet
+# from apps.products.views.product_variants_viewset import ProductVariantViewSet
+# from apps.products.views.product_attribute_viewset import ProductAttributeViewSet
+from apps.products.views.products_variants_view import ProductVariantViewSet
+from apps.products.views.product_attribute_view import ProductAttributeViewSet
 
 # Root router
 router = DefaultRouter()

@@ -63,6 +63,7 @@ from apps.products.models.brand_model import Brand
 from apps.products.models.product_variant_model import ProductVariant
 from apps.products.models.product_attribute_model import ProductAttribute
 from apps.products.models.inventory_model import Inventory
+import nested_admin
 
 
 @admin.register(Category)
@@ -80,22 +81,22 @@ class BrandAdmin(admin.ModelAdmin):
     ordering = ("name",)
 
 
-@admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "title",
-        "brand",
-        "category",
-        # 'seller',
-        "price",
-        "created_at",
-        "updated_at",
-    )
-    search_fields = ("title", "description")
-    list_filter = ("brand", "category", "created_at")
-    ordering = ("-created_at",)
-    readonly_fields = ("created_at", "updated_at")
+# @admin.register(Product)
+# class ProductAdmin(admin.ModelAdmin):
+#     list_display = (
+#         "id",
+#         "title",
+#         "brand",
+#         "category",
+#         # 'seller',
+#         "price",
+#         "created_at",
+#         "updated_at",
+#     )
+#     search_fields = ("title", "description")
+#     list_filter = ("brand", "category", "created_at")
+#     ordering = ("-created_at",)
+#     readonly_fields = ("created_at", "updated_at")
 
 
 @admin.register(ProductImages)
@@ -104,94 +105,81 @@ class ProductImageAdmin(admin.ModelAdmin):
     search_fields = ("product__title",)
 
 
+# class ProductAttributeInline(admin.TabularInline):
+#     """
+#     Inline attributes inside ProductVariant.
+#     Uses a tabular layout for compact editing.
+#     """
+
+#     model = ProductAttribute
+#     extra = 1  # Show 1 empty row by default
+#     fields = ("attribute_name", "attribute_value")
+#     show_change_link = True
+
+
 # @admin.register(ProductVariant)
 # class ProductVariantAdmin(admin.ModelAdmin):
-#     # list_display = ("id", "product", "name", "price")
-#     list_display = ("id", "product", "price")
-#     search_fields = ("product__title", "name")
+#     """
+#     Admin for Product Variants with inline attributes.
+#     """
+
+#     list_display = (
+#         "id",
+#         "product",
+#         "sku",
+#         # "name",
+#         "price",
+#         "stock",
+#         # "is_active",
+#         "created_at",
+#     )
+#     list_display_links = ("id", "sku")
+#     list_filter = ("product__brand", "product__category")
+#     search_fields = ("product__title", "sku")
+#     ordering = ("-created_at",)
+#     readonly_fields = ("created_at", "updated_at")
+#     list_per_page = 25
+
+#     fieldsets = (
+#         (
+#             "Basic Info",
+#             {
+#                 "fields": ("product", "sku", "price", "stock"),
+#             },
+#         ),
+#         (
+#             "Timestamps",
+#             {
+#                 "fields": ("created_at", "updated_at"),
+#                 "classes": ("collapse",),
+#             },
+#         ),
+#     )
+
+#     inlines = [ProductAttributeInline]  # 🚀 Inline attributes here
 
 
 # @admin.register(ProductAttribute)
 # class ProductAttributeAdmin(admin.ModelAdmin):
+#     """
+#     Still keep standalone admin for Product Attributes (optional).
+#     """
+
 #     list_display = ("id", "variant", "attribute_name", "attribute_value")
-#     search_fields = ("attribute_name", "attribute_value")
-
-
-class ProductAttributeInline(admin.TabularInline):
-    """
-    Inline attributes inside ProductVariant.
-    Uses a tabular layout for compact editing.
-    """
-
-    model = ProductAttribute
-    extra = 1  # Show 1 empty row by default
-    fields = ("attribute_name", "attribute_value")
-    show_change_link = True
-
-
-@admin.register(ProductVariant)
-class ProductVariantAdmin(admin.ModelAdmin):
-    """
-    Admin for Product Variants with inline attributes.
-    """
-
-    list_display = (
-        "id",
-        "product",
-        "sku",
-        # "name",
-        "price",
-        "stock",
-        # "is_active",
-        "created_at",
-    )
-    list_display_links = ("id", "sku")
-    list_filter = ("product__brand", "product__category")
-    search_fields = ("product__title", "sku")
-    ordering = ("-created_at",)
-    readonly_fields = ("created_at", "updated_at")
-    list_per_page = 25
-
-    fieldsets = (
-        (
-            "Basic Info",
-            {
-                "fields": ("product", "sku", "price", "stock"),
-            },
-        ),
-        (
-            "Timestamps",
-            {
-                "fields": ("created_at", "updated_at"),
-                "classes": ("collapse",),
-            },
-        ),
-    )
-
-    inlines = [ProductAttributeInline]  # 🚀 Inline attributes here
-
-
-@admin.register(ProductAttribute)
-class ProductAttributeAdmin(admin.ModelAdmin):
-    """
-    Still keep standalone admin for Product Attributes (optional).
-    """
-
-    list_display = ("id", "variant", "attribute_name", "attribute_value")
-    list_display_links = ("id", "attribute_name")
-    list_filter = (
-        "attribute_name",
-        "variant__product__brand",
-        "variant__product__category",
-    )
-    search_fields = (
-        "attribute_name",
-        "attribute_value",
-        "variant__sku",
-        "variant__product__title",
-    )
-    ordering = ("attribute_name",)
-    list_per_page = 50
+#     list_display_links = ("id", "attribute_name")
+#     list_filter = (
+#         "attribute_name",
+#         "variant__product__brand",
+#         "variant__product__category",
+#     )
+#     search_fields = (
+#         "attribute_name",
+#         "attribute_value",
+#         "variant__sku",
+#         "variant__product__title",
+#     )
+#     ordering = ("attribute_name",)
+#     list_per_page = 50
 
 
 @admin.register(Inventory)
@@ -199,3 +187,52 @@ class InventoryAdmin(admin.ModelAdmin):
     list_display = ("id", "product", "stock", "sku")
     search_fields = ("product__title", "sku")
     list_filter = ("product",)
+
+
+# from .models import Product, ProductVariant, ProductAttribute
+
+
+class ProductAttributeInline(nested_admin.NestedTabularInline):
+    """
+    Attributes nested inside Variants.
+    """
+
+    model = ProductAttribute
+    extra = 1
+    fields = ("attribute_name", "attribute_value")
+    show_change_link = True
+
+
+class ProductVariantInline(nested_admin.NestedTabularInline):
+    """
+    Variants nested inside Product.
+    """
+
+    model = ProductVariant
+    extra = 1
+    fields = ("sku", "price", "stock")
+    readonly_fields = ("created_at", "updated_at")
+    show_change_link = True
+    inlines = [ProductAttributeInline]  # 🔥 Nest attributes under variants
+
+
+@admin.register(Product)
+class ProductAdmin(nested_admin.NestedModelAdmin):
+    """
+    Products with nested Variants and Attributes.
+    """
+
+    list_display = (
+        "id",
+        "title",
+        "brand",
+        "category",
+        "price",
+        "created_at",
+        "updated_at",
+    )
+    search_fields = ("title", "description")
+    list_filter = ("brand", "category", "created_at")
+    ordering = ("-created_at",)
+    readonly_fields = ("created_at", "updated_at")
+    inlines = [ProductVariantInline]  # 🔥 Variants inline with nested attributes

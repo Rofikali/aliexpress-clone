@@ -118,7 +118,6 @@
 #             )
 
 
-
 # apps/products/views/product_view.py
 from rest_framework.viewsets import ViewSet
 from rest_framework import status

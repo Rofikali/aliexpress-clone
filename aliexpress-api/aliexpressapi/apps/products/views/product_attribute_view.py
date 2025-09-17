@@ -116,43 +116,222 @@
 #         attribute.delete()
 #         return Response(status=status.HTTP_204_NO_CONTENT)
 
+# # apps/products/views/product_attribute_viewset.py
+# from rest_framework import viewsets, status
+# from rest_framework.response import Response
+# from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
+# from django.shortcuts import get_object_or_404
+# from components.responses.response_factory import ResponseFactory
+# from components.paginations.base_pagination import BaseCursorPagination
+# from components.caching.cache_factory import get_cache
+# from apps.products.models.product_attribute_model import ProductAttribute
+# from apps.products.serializers.product_attribute_serializer import (
+#     ProductAttributeSerializer,
+# )
+# from rest_framework.permissions import AllowAny
+
+
+# class ProductAttributeViewSet(viewsets.ViewSet):
+#     permission_classes = [AllowAny]
+#     cache = get_cache("products")
+
+#     def get_queryset(self):
+#         variant_id = self.kwargs.get("variant_pk")
+#         return ProductAttribute.objects.filter(variant_id=variant_id)
+
+#     # common params for docs
+
+#     path_parameters = [
+#         OpenApiParameter(
+#             name="product_pk",
+#             type=OpenApiTypes.UUID,  # <-- fix here
+#             location=OpenApiParameter.PATH,
+#             description="UUID of the parent Product",
+#         ),
+#         OpenApiParameter(
+#             name="variant_pk",
+#             type=OpenApiTypes.UUID,  # <-- fix here
+#             location=OpenApiParameter.PATH,
+#             description="UUID of the parent Product Variant",
+#         ),
+#     ]
+
+#     @extend_schema(
+#         parameters=path_parameters,
+#         responses={200: ProductAttributeSerializer(many=True)},
+#         tags=["Product Attributes"],
+#         summary="List all attributes for a product variant",
+#     )
+#     def list(self, request, product_pk=None, variant_pk=None):
+#         queryset = self.get_queryset()
+#         serializer = ProductAttributeSerializer(queryset, many=True)
+#         # return Response(serializer.data)
+#         return ResponseFactory.success_collection(
+#             items=serializer.data,
+#             message="Product attributes fetched successfully",
+#             pagination=None,
+#             status=status.HTTP_200_OK,
+#             request=request,
+#             # items=response_data["items"],
+#             # pagination=response_data["pagination"],
+#             # message="Products fetched successfully",
+#             # status=status.HTTP_200_OK,
+#             # request=request,
+#         )
+
+#     @extend_schema(
+#         parameters=path_parameters,
+#         responses={200: ProductAttributeSerializer},
+#         tags=["Product Attributes"],
+#         summary="Retrieve a single attribute",
+#     )
+#     def retrieve(self, request, pk=None, product_pk=None, variant_pk=None):
+#         attribute = get_object_or_404(self.get_queryset(), pk=pk)
+#         serializer = ProductAttributeSerializer(attribute)
+#         return Response(serializer.data)
+
+#     @extend_schema(
+#         parameters=path_parameters,
+#         request=ProductAttributeSerializer,
+#         responses={201: ProductAttributeSerializer},
+#         tags=["Product Attributes"],
+#         summary="Create a new attribute",
+#     )
+#     def create(self, request, product_pk=None, variant_pk=None):
+#         data = request.data.copy()
+#         data["product"] = product_pk
+#         data["variant"] = variant_pk
+#         serializer = ProductAttributeSerializer(data=data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+#     @extend_schema(
+#         parameters=path_parameters,
+#         request=ProductAttributeSerializer,
+#         responses={200: ProductAttributeSerializer},
+#         tags=["Product Attributes"],
+#         summary="Update an attribute",
+#     )
+#     def update(self, request, pk=None, product_pk=None, variant_pk=None):
+#         attribute = get_object_or_404(self.get_queryset(), pk=pk)
+#         serializer = ProductAttributeSerializer(
+#             attribute, data=request.data, partial=True
+#         )
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
+
+#     @extend_schema(
+#         parameters=path_parameters,
+#         responses={204: None},
+#         tags=["Product Attributes"],
+#         summary="Delete an attribute",
+#     )
+#     def destroy(self, request, pk=None, product_pk=None, variant_pk=None):
+#         attribute = get_object_or_404(self.get_queryset(), pk=pk)
+#         attribute.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 # apps/products/views/product_attribute_viewset.py
 from rest_framework import viewsets, status
-from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 from django.shortcuts import get_object_or_404
+from rest_framework.permissions import AllowAny
+
+from components.responses.response_factory import ResponseFactory
+from components.paginations.base_pagination import BaseCursorPagination
+from components.caching.cache_factory import get_cache
 
 from apps.products.models.product_attribute_model import ProductAttribute
-from apps.products.serializers.product_attribute_serializer import ProductAttributeSerializer
+from apps.products.serializers.product_attribute_serializer import (
+    ProductAttributeSerializer,
+)
 
 
 class ProductAttributeViewSet(viewsets.ViewSet):
+    permission_classes = [AllowAny]
+    cache = get_cache("product_attributes")  # 🔥 cache namespace just for attributes
+
     def get_queryset(self):
         variant_id = self.kwargs.get("variant_pk")
-        return ProductAttribute.objects.filter(variant_id=variant_id)
+        return ProductAttribute.objects.filter(variant_id=variant_id).order_by(
+            "-created_at"
+        )
 
-    # common params for docs
+    # shared docs params
     path_parameters = [
         OpenApiParameter(
-            name="product_pk", type=OpenApiTypes.INT, location=OpenApiParameter.PATH,
-            description="ID of the parent Product",
+            name="product_pk",
+            type=OpenApiTypes.UUID,
+            location=OpenApiParameter.PATH,
+            description="UUID of the parent Product",
         ),
         OpenApiParameter(
-            name="variant_pk", type=OpenApiTypes.INT, location=OpenApiParameter.PATH,
-            description="ID of the parent Product Variant",
+            name="variant_pk",
+            type=OpenApiTypes.UUID,
+            location=OpenApiParameter.PATH,
+            description="UUID of the parent Product Variant",
         ),
     ]
 
     @extend_schema(
-        parameters=path_parameters,
+        parameters=path_parameters
+        + [
+            OpenApiParameter(
+                name="cursor",
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+                description="Cursor for pagination (optional). Use 'first' for initial page.",
+                required=False,
+            ),
+            OpenApiParameter(
+                name="page_size",
+                type=OpenApiTypes.INT,
+                location=OpenApiParameter.QUERY,
+                description="Number of items per page (default=12, max=50).",
+                required=False,
+            ),
+        ],
         responses={200: ProductAttributeSerializer(many=True)},
         tags=["Product Attributes"],
         summary="List all attributes for a product variant",
+        description="Retrieve product variant attributes with cursor pagination and caching.",
     )
     def list(self, request, product_pk=None, variant_pk=None):
+        cursor = request.query_params.get("cursor") or "first"
+
+        # ✅ check cache first
+        cache_key = f"{variant_pk}:{cursor}"
+        cache_data = self.cache.get_results(cache_key)
+        if cache_data:
+            return ResponseFactory.success_collection(
+                items=cache_data.get("items", []),
+                pagination=cache_data.get("pagination", {}),
+                message="Product attributes fetched successfully (cache)",
+                status=status.HTTP_200_OK,
+                request=request,
+                cache="HIT",
+            )
+
         queryset = self.get_queryset()
-        serializer = ProductAttributeSerializer(queryset, many=True)
-        return Response(serializer.data)
+        paginator = BaseCursorPagination()
+        page = paginator.paginate_queryset(queryset, request)
+        serializer = ProductAttributeSerializer(
+            page, many=True, context={"request": request}
+        )
+
+        response_data = paginator.get_paginated_response_data(serializer.data)
+        self.cache.cache_results(cache_key, response_data)
+
+        return ResponseFactory.success_collection(
+            items=response_data["items"],
+            pagination=response_data["pagination"],
+            message="Product attributes fetched successfully",
+            status=status.HTTP_200_OK,
+            request=request,
+        )
 
     @extend_schema(
         parameters=path_parameters,
@@ -162,8 +341,13 @@ class ProductAttributeViewSet(viewsets.ViewSet):
     )
     def retrieve(self, request, pk=None, product_pk=None, variant_pk=None):
         attribute = get_object_or_404(self.get_queryset(), pk=pk)
-        serializer = ProductAttributeSerializer(attribute)
-        return Response(serializer.data)
+        serializer = ProductAttributeSerializer(attribute, context={"request": request})
+        return ResponseFactory.success_resource(
+            item=serializer.data,
+            message="Product attribute fetched successfully",
+            status=status.HTTP_200_OK,
+            request=request,
+        )
 
     @extend_schema(
         parameters=path_parameters,
@@ -174,12 +358,20 @@ class ProductAttributeViewSet(viewsets.ViewSet):
     )
     def create(self, request, product_pk=None, variant_pk=None):
         data = request.data.copy()
-        data["product"] = product_pk
-        data["variant"] = variant_pk
+        data["variant"] = variant_pk  # only variant required now
         serializer = ProductAttributeSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        # 🔥 invalidate cache for this variant
+        self.cache.clear_prefix(variant_pk)
+
+        return ResponseFactory.success_resource(
+            item=serializer.data,
+            message="Product attribute created successfully",
+            status=status.HTTP_201_CREATED,
+            request=request,
+        )
 
     @extend_schema(
         parameters=path_parameters,
@@ -190,10 +382,21 @@ class ProductAttributeViewSet(viewsets.ViewSet):
     )
     def update(self, request, pk=None, product_pk=None, variant_pk=None):
         attribute = get_object_or_404(self.get_queryset(), pk=pk)
-        serializer = ProductAttributeSerializer(attribute, data=request.data, partial=True)
+        serializer = ProductAttributeSerializer(
+            attribute, data=request.data, partial=True
+        )
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data)
+
+        # 🔥 clear cache
+        self.cache.clear_prefix(variant_pk)
+
+        return ResponseFactory.success_resource(
+            item=serializer.data,
+            message="Product attribute updated successfully",
+            status=status.HTTP_200_OK,
+            request=request,
+        )
 
     @extend_schema(
         parameters=path_parameters,
@@ -204,4 +407,12 @@ class ProductAttributeViewSet(viewsets.ViewSet):
     def destroy(self, request, pk=None, product_pk=None, variant_pk=None):
         attribute = get_object_or_404(self.get_queryset(), pk=pk)
         attribute.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+
+        # 🔥 clear cache
+        self.cache.clear_prefix(variant_pk)
+
+        return ResponseFactory.success_message(
+            message="Product attribute deleted successfully",
+            status=status.HTTP_204_NO_CONTENT,
+            request=request,
+        )

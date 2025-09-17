@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",  # optional but highly recommended
+    "nested_admin",
     # internet apps
     "apps.search",
     "apps.accounts",

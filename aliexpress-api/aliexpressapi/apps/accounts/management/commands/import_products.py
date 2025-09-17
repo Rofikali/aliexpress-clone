@@ -5,8 +5,15 @@ from decimal import Decimal
 from pathlib import Path
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
-from apps.products.models import Product, Category, Brand, ProductImage
+
+# from apps.products.models import Product, Category, Brand, ProductImages
 from apps.accounts.models import User
+
+
+from apps.products.models.product_model import Product
+from apps.products.models.category_model import Category
+from apps.products.models.brand_model import Brand
+from apps.products.models.product_images_model import ProductImages
 
 
 class Command(BaseCommand):
@@ -127,12 +134,12 @@ class Command(BaseCommand):
                     f"{product.slug}.jpg", ContentFile(img_file.read()), save=True
                 )
 
-            # -- 5 stock gallery images (ProductImage) --
-            ProductImage.objects.filter(product=product).delete()
+            # -- 5 stock gallery images (ProductImages) --
+            ProductImages.objects.filter(product=product).delete()
             with open(image_path, "rb") as img_file:
                 image_bytes = img_file.read()
                 for i in range(5):
-                    ProductImage.objects.create(
+                    ProductImages.objects.create(
                         product=product,
                         image=ContentFile(
                             image_bytes, name=f"{product.slug}-{i + 1}.jpg"

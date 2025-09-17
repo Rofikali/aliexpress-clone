@@ -15,7 +15,7 @@ class ProductAttributeSerializer(serializers.ModelSerializer):
         model = ProductAttribute
         fields = [
             "id",
-            "product",
+            # "product",
             "variant",
             "attribute_name",
             "attribute_value",
