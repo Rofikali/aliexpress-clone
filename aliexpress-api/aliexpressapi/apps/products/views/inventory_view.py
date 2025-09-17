@@ -7,13 +7,12 @@ from django.shortcuts import get_object_or_404
 
 from drf_spectacular.utils import extend_schema
 
-from apps.products.models import (
+from apps.products.models.inventory_model import (
     Inventory,
 )
-from apps.products.serializers.invertory_serializer import (
+from apps.products.serializers.inventory_serializer import (
     InventorySerializer,
-)
-
+) 
 
 # -------------------- INVENTORY --------------------
 class InventoryViewSet(ViewSet):

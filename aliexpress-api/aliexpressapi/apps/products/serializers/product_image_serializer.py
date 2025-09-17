@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from apps.products.models import (
-    ProductImage,
+from apps.products.models.product_images_model import (
+    ProductImages,
 )
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProductImage
+        model = ProductImages
         fields = ["id", "product", "image"]

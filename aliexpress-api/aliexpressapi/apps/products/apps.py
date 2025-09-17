@@ -12,7 +12,7 @@ class ProductsConfig(AppConfig):
     #     name = "apps.products"
 
     def ready(self):
-        from apps.products.models import Product
+        from apps.products.models.product_model import Product
         from components.caching.invalidation import register_cache_invalidation
 
         # Register cache invalidation for Product model

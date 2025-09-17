@@ -56,15 +56,13 @@
 
 
 from django.contrib import admin
-from .models import (
-    Category,
-    Brand,
-    Product,
-    ProductImage,
-    ProductVariant,
-    ProductAttribute,
-    Inventory,
-)
+from apps.products.models.product_model import Product
+from apps.products.models.category_model import Category
+from apps.products.models.product_images_model import ProductImages
+from apps.products.models.brand_model import Brand
+from apps.products.models.product_variant_model import ProductVariant
+from apps.products.models.product_attribute_model import ProductAttribute
+from apps.products.models.inventory_model import Inventory
 
 
 @admin.register(Category)
@@ -100,7 +98,7 @@ class ProductAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at", "updated_at")
 
 
-@admin.register(ProductImage)
+@admin.register(ProductImages)
 class ProductImageAdmin(admin.ModelAdmin):
     list_display = ("id", "product", "image")
     search_fields = ("product__title",)
@@ -117,9 +115,6 @@ class ProductImageAdmin(admin.ModelAdmin):
 # class ProductAttributeAdmin(admin.ModelAdmin):
 #     list_display = ("id", "variant", "attribute_name", "attribute_value")
 #     search_fields = ("attribute_name", "attribute_value")
-
-from django.contrib import admin
-from .models import ProductVariant, ProductAttribute
 
 
 class ProductAttributeInline(admin.TabularInline):

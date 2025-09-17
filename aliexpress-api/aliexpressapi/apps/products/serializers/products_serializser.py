@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.conf import settings
-from apps.products.models import (
+from apps.products.models.product_model import (
     Product,
 )
 
@@ -72,22 +72,21 @@ class ProductDetailSerializer(serializers.ModelSerializer):
     brand = BrandSerializer(read_only=True)
     image = serializers.SerializerMethodField()
 
-
     class Meta:
         model = Product
         fields = [
             "id",
             "title",
-            'slug',
+            "slug",
             "description",
-            'sku',
+            "sku",
             "price",
-            'discount_price',
-            'currency',
-            'stock',
-            'is_active',
-            'rating',
-            'review_count',
+            "discount_price",
+            "currency",
+            "stock",
+            "is_active",
+            "rating",
+            "review_count",
             "image",
             "images",
             "category",

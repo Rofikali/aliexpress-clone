@@ -7,8 +7,8 @@ from django.shortcuts import get_object_or_404
 
 from drf_spectacular.utils import extend_schema
 
-from apps.products.models import (
-    ProductImage,
+from apps.products.models.product_images_model import (
+    ProductImages,
 )
 from apps.products.serializers.product_image_serializer import (
     ProductImageSerializer,
@@ -28,7 +28,7 @@ class ProductImageViewSet(ViewSet):
         tags=["Product Images"],
     )
     def list(self, request):
-        queryset = ProductImage.objects.all()
+        queryset = ProductImages.objects.all()
         serializer = ProductImageSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -37,6 +37,6 @@ class ProductImageViewSet(ViewSet):
         tags=["Product Images"],
     )
     def retrieve(self, request, pk=None):
-        image = get_object_or_404(ProductImage, id=pk)
+        image = get_object_or_404(ProductImages, id=pk)
         serializer = ProductImageSerializer(image)
         return Response(serializer.data, status=status.HTTP_200_OK)

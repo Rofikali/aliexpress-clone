@@ -1,51 +1,172 @@
-# # # module4/urls.py
-# # from inspect import getmembers, isclass
+# # # # # apps.products.urls.py
+# # # # from django.urls import include, path
+# # # # from rest_framework.routers import DefaultRouter
 
+# # # # import apps.products.views as views_pkg
+
+# # # # from components.router.routers import auto_register_viewsets
+
+# # # # router = DefaultRouter()
+# # # # auto_register_viewsets(router, views_pkg)
+
+# # # # urlpatterns = [
+# # # #     path("", include(router.urls)),
+# # # # ]
+
+
+# # # # # apps/products/urls.py
+# # # # from django.urls import include, path
+# # # # from rest_framework_nested.routers import NestedDefaultRouter
+# # # # from rest_framework.routers import DefaultRouter
+
+# # # # import apps.products.views as views_pkg
+# # # # from components.router.routers import auto_register_viewsets
+
+# # # # # main router
+# # # # router = DefaultRouter()
+# # # # auto_register_viewsets(router, views_pkg)
+
+# # # # # nested router for variants under products
+# # # # # from apps.products.views.products_variants_view import ProductVariantViewSet
+# # # # from apps.products.views.products_variants_view import ProductVariantViewSet
+
+# # # # products_router = NestedDefaultRouter(router, "products", lookup="product")
+# # # # products_router.register("variants", ProductVariantViewSet, basename="product-variants")
+
+# # # # urlpatterns = [
+# # # #     path("", include(router.urls)),
+# # # #     path("", include(products_router.urls)),
+# # # # ]
+
+# # # # # apps/products/urls.py
+# # # from django.urls import include, path
+# # # from rest_framework.routers import DefaultRouter
+# # # from rest_framework_nested.routers import NestedDefaultRouter
+
+# # # import apps.products.views as views_pkg
+# # # from components.router.routers import auto_register_viewsets
+
+# # # # ---------------- Base router ----------------
+# # # router = DefaultRouter()
+# # # auto_register_viewsets(router, views_pkg)
+
+# # # # ---------------- Nested: Variants under Products ----------------
+# # # # from apps.products.viewsets.product_variants_view import ProductVariantViewSet
+# # # from apps.products.views.products_variants_view import ProductVariantViewSet
+
+# # # products_router = NestedDefaultRouter(router, "products", lookup="product")
+# # # products_router.register("variants", ProductVariantViewSet, basename="product-variants")
+
+# # # # ---------------- Nested: Attributes under Variants ----------------
+# # # from apps.products.views.product_attribute_view import ProductAttributeViewSet
+
+# # # variants_router = NestedDefaultRouter(products_router, "variants", lookup="variant")
+# # # variants_router.register(
+# # #     "attributes", ProductAttributeViewSet, basename="product-attributes"
+# # # )
+
+# # # # ---------------- URL patterns ----------------
+# # # urlpatterns = [
+# # #     path("", include(router.urls)),
+# # #     path("", include(products_router.urls)),
+# # #     path("", include(variants_router.urls)),
+# # # ]
+
+
+# # # apps/products/urls.py
 # # from django.urls import include, path
+# # from rest_framework_nested.routers import NestedDefaultRouter
 # # from rest_framework.routers import DefaultRouter
-# # from rest_framework.viewsets import ViewSet
 
-# # from . import views
 
+# # # # # nested router for variants under products
+# # # from apps.products.views.products_variants_view import ProductVariantViewSet
+# # from apps.products.views.products_variants_view import ProductVariantViewSet
+# # from apps.products.views.product_attribute_view import ProductAttributeViewSet
+
+# # import apps.products.views as views_pkg
+# # from components.router.routers import auto_register_viewsets
+
+# # # main router
 # # router = DefaultRouter()
 
-# # # Automatically find all ViewSets in views.py and register them
-# # for name, cls in getmembers(views, isclass):
-# #     if issubclass(cls, ViewSet) and cls.__module__ == views.__name__:
-# #         router.register(
-# #             rf"{name.lower().replace('viewset', '')}", cls, basename=name.lower()
-# #         )
+# # # main router
+# # router = DefaultRouter()
+# # auto_register_viewsets(
+# #     router,
+# #     views_pkg,
+# #     exclude=["ProductAttributeViewSet"],  # 🚀 don't auto-register this one
+# # )
+
+# # # nested router
+# # products_router = NestedDefaultRouter(router, "products", lookup="product")
+# # products_router.register("variants", ProductVariantViewSet, basename="product-variants")
+
+# # variants_router = NestedDefaultRouter(products_router, "variants", lookup="variant")
+# # variants_router.register(
+# #     "attributes", ProductAttributeViewSet, basename="variant-attributes"
+# # )
 
 # # urlpatterns = [
-# #     path("", include(router.urls)),  # Register the routes under '/api/products/'
+# #     path("", include(router.urls)),
+# #     path("", include(products_router.urls)),
+# #     path("", include(variants_router.urls)),
 # # ]
 
 
 # from django.urls import include, path
 # from rest_framework.routers import DefaultRouter
+# from rest_framework_nested.routers import NestedDefaultRouter
 
-# from . import views as views_pkg
+# from apps.products.views.product_view import ProductsViewSet
+# from apps.products.views.products_variants_view import ProductVariantViewSet
+# from apps.products.views.product_attribute_view import ProductAttributeViewSet
 
-# from components.router.routers import auto_register_viewsets
-
+# # Root router
 # router = DefaultRouter()
-# auto_register_viewsets(router, views_pkg)
+# router.register("products", ProductsViewSet, basename="products")
+
+# # Nested: product → variants
+# products_router = NestedDefaultRouter(router, "products", lookup="product")
+# products_router.register("variants", ProductVariantViewSet, basename="product-variants")
+
+# # Nested: variant → attributes
+# variants_router = NestedDefaultRouter(products_router, "variants", lookup="variant")
+# variants_router.register(
+#     "attributes", ProductAttributeViewSet, basename="product-variant-attributes"
+# )
 
 # urlpatterns = [
 #     path("", include(router.urls)),
+#     path("", include(products_router.urls)),
+#     path("", include(variants_router.urls)),
 # ]
 
-
+# apps/products/urls.py
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
+from rest_framework_nested.routers import NestedDefaultRouter
 
-import apps.products.views as views_pkg
+from apps.products.views.product_view import ProductsViewSet
+from apps.products.views.product_variants_viewset import ProductVariantViewSet
+from apps.products.views.product_attribute_viewset import ProductAttributeViewSet
 
-from components.router.routers import auto_register_viewsets
-
+# Root router
 router = DefaultRouter()
-auto_register_viewsets(router, views_pkg)
+router.register("products", ProductsViewSet, basename="products")
+
+# Nested: product → variants
+products_router = NestedDefaultRouter(router, "products", lookup="product")
+products_router.register("variants", ProductVariantViewSet, basename="product-variants")
+
+# Nested: variant → attributes
+variants_router = NestedDefaultRouter(products_router, "variants", lookup="variant")
+variants_router.register(
+    "attributes", ProductAttributeViewSet, basename="product-variant-attributes"
+)
 
 urlpatterns = [
     path("", include(router.urls)),
+    path("", include(products_router.urls)),
+    path("", include(variants_router.urls)),
 ]
