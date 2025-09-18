@@ -2,39 +2,37 @@
     <div id="MainHeader" class="flex items-center w-full bg-white">
         <div class="flex lg:justify-start justify-between gap-10 max-w-[1150px] w-full px-3 py-5 mx-auto">
 
-            <!-- Logo -->
+
             <NuxtLink to="/" class="min-w-[170px]">
                 <img width="170" src="/AliExpress-logo.png" />
             </NuxtLink>
 
-            <!-- Search -->
+
             <div ref="searchWrapper" class="max-w-[700px] w-full md:block hidden relative">
                 <div class="flex items-center border-2 border-[#FF4646] rounded-md w-full">
                     <input v-model="query" @focus="isOpen = true" type="search" placeholder="kitchen accessories"
                         class="w-full placeholder-gray-400 text-sm pl-3 focus:outline-none" />
-                    <span class="mr-2" v-if="loading && items.length === 0" aria-hidden>
+                    <!-- <span class="mr-2" v-if="loading && items.length === 0" aria-hidden>
                         <Icon name="eos-icons:loading" size="20" />
-                    </span>
+                    </span> -->
                     <button class="flex items-center h-full p-1.5 px-2 bg-[#FF4646]">
                         <Icon name="ph:magnifying-glass" size="20" color="#ffffff" />
                     </button>
                 </div>
 
-                <!-- Dropdown -->
+
                 <div v-if="isOpen" ref="dropdown" :style="{ maxHeight: `${dropdownMaxHeight}px` }"
                     class="absolute bg-white max-w-[700px] w-full shadow-md mt-1 rounded-md z-50 overflow-y-auto"
                     @scroll="onScroll">
-                    <!-- Fuzzy search hint -->
+
                     <div v-if="enableFuzzy && query" class="text-xs text-gray-500 px-2 py-1">
                         Showing approximate matches for "{{ query }}" in {{ fuzzyFields.join(', ') }}
                     </div>
 
-                    <!-- Loading / Empty States -->
-                    <div v-if="loading && items.length === 0" class="py-4 text-center">Loading...</div>
+
                     <div v-else-if="!loading && items.length === 0" class="py-4 text-center">No results</div>
 
-                    <!-- Items -->
-                    <!-- <h2>items - {{  items  }}</h2> -->
+
                     <div v-for="item in items" :key="item.id" class="p-1">
                         <NuxtLink :to="{ name: 'product-id', params: { id: item.id } }"
                             class="flex items-center justify-between w-full cursor-pointer hover:bg-gray-100">
@@ -42,26 +40,26 @@
                                 <img class="rounded-md" width="40" :src="item.image" />
                                 <div class="truncate ml-2">{{ item.title }}</div>
                             </div>
-                            <!-- <div class="truncate">${{ item.price / 100 }}</div> -->
+
                             <div class="truncate ml-2">{{ item.description }}</div>
                         </NuxtLink>
                     </div>
 
-                    <!-- Sentinel for IntersectionObserver -->
+
                     <div ref="sentinel" class="h-1"></div>
 
-                    <!-- Loading more -->
+
                     <div v-if="loading && items.length > 0" class="py-2 text-center">Loading more…</div>
                 </div>
             </div>
 
-            <!-- Cart -->
+
             <NuxtLink to="/shoppingcart" class="flex items-center">
                 <button class="relative md:block hidden" @mouseenter="isCartHover = true"
                     @mouseleave="isCartHover = false">
                     <span
                         class="absolute flex items-center justify-center -right-[3px] top-0 bg-[#FF4646] h-[17px] min-w-[17px] text-xs text-white px-0.5 rounded-full">
-                        {{ userStore.cart.length }}
+                        <!-- {{ userStore.cart.length }} -->
                     </span>
                     <div class="min-w-[40px]">
                         <Icon name="ph:shopping-cart-simple-light" size="33" :color="isCartHover ? '#FF4646' : ''" />
@@ -69,7 +67,7 @@
                 </button>
             </NuxtLink>
 
-            <!-- Mobile menu -->
+
             <button @click="userStore.isMenuOverlay = true"
                 class="md:hidden block rounded-full p-1.5 -mt-[4px] hover:bg-gray-200">
                 <Icon name="radix-icons:hamburger-menu" size="33" />
@@ -81,10 +79,10 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
-import { useUserStore } from '~/stores/user'
+import { useAuthStore } from '~/stores/modules/authStore'
 import { useProductSearch } from '~/composables/search/useProductSearch'
 
-const userStore = useUserStore()
+const userStore = useAuthStore()
 const searchWrapper = ref(null)
 const dropdown = ref(null)
 const sentinel = ref(null)
@@ -92,9 +90,9 @@ const isOpen = ref(false)
 const isCartHover = ref(false)
 const dropdownMaxHeight = ref(300)
 
-// --- Product search composable ---
+
 const { query, items, loading, search, loadMore, hasNext, enableFuzzy, fuzzyFields } = useProductSearch({
-    pageSize: 10,
+    pageSize: 12,
     debounceMs: 350,
     autoFetch: false,
     autoStartObserver: false,
@@ -102,18 +100,16 @@ const { query, items, loading, search, loadMore, hasNext, enableFuzzy, fuzzyFiel
     fuzzyFields: ['title', 'description']
 })
 
-// --- Debounced search ---
+
 watch(query, (val) => search(val))
 
-// --- Click outside ---
+
 function onClickOutside(e) {
     if (searchWrapper.value && !searchWrapper.value.contains(e.target)) {
         isOpen.value = false
     }
 }
 
-// --- IntersectionObserver for infinite scroll ---
-let observer
 function initObserver() {
     if (!sentinel.value) return
     observer = new IntersectionObserver(async ([entry]) => {
@@ -124,7 +120,7 @@ function initObserver() {
     observer.observe(sentinel.value)
 }
 
-// --- Auto-fill dropdown until scrollable ---
+
 async function autoFillDropdown() {
     if (!dropdown.value) return
     const maxLoops = 50
@@ -136,7 +132,6 @@ async function autoFillDropdown() {
     }
 }
 
-// --- Dynamic dropdown height ---
 function calculateDropdownHeight() {
     if (!dropdown.value) return
     const viewportHeight = window.innerHeight
@@ -145,7 +140,7 @@ function calculateDropdownHeight() {
     dropdownMaxHeight.value = Math.min(maxHeight, 400)
 }
 
-// --- Fallback scroll for non-IntersectionObserver browsers ---
+
 function onScroll() {
     if (!dropdown.value || loading.value || !hasNext.value) return
     const { scrollTop, clientHeight, scrollHeight } = dropdown.value
@@ -171,3 +166,16 @@ onBeforeUnmount(() => {
     if (observer) observer.disconnect()
 })
 </script>
+
+
+<!-- <template>
+    <div>
+<h1>Header File</h1>
+    </div>
+</template>
+
+<script setup>
+
+</script>
+
+<style lang="scss" scoped></style> -->

@@ -42,9 +42,10 @@
 
 <script setup>
 import MainLayout from '~/layouts/MainLayout.vue';
-import { useUserStore } from '~/stores/user';
-const userStore = useUserStore()
-const user = useSupabaseUser()
+// import { useUserStore } from '~/stores/user';
+import { useAuthStore } from '~/stores/modules/authStore';
+const userStore = useAuthStore()
+const user = userStore.user
 
 let orders = ref(null)
 

@@ -211,11 +211,11 @@
 
 // ~/composables/search/useBaseSearch.js
 import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
-import { usePagination } from '~/composables/pagination/usePagination'
+import { usePagination } from '~/composables/pagination/useBasePagination'
 import { useObserverCore } from '~/composables/observer/useObserverCore'
 import { useDebouncedSearch } from '~/composables/debounce/useDebouncedSearch'
 import { useSearchCache } from '~/composables/cache/useSearchCache'
-import { fuzzySearch } from '~/utils/fuzzySearch'
+import { fuzzySearch } from '~/utils/sesarch/fuzzySearch'
 
 export function useBaseSearch(options = {}) {
     const {

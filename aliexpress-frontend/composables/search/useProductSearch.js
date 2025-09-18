@@ -3,7 +3,7 @@ import { useBaseSearch } from '~/composables/search/useBaseSearch'
 
 export function useProductSearch(opts = {}) {
     return useBaseSearch({
-        endpoint: '/api/searchproducts/',
+        endpoint: '/api/v1/searchproducts/',
         itemsPath: 'products',
         pageSize: opts.pageSize ?? 10,
         debounceMs: opts.debounceMs ?? 300,

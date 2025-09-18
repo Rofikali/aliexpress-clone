@@ -1,4 +1,8 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
+from django.conf import settings
+
+User = settings.AUTH_USER_MODEL
 
 
 # Create your models here.
@@ -29,7 +33,7 @@ class RecommendationRule(models.Model):
 
 
 class RecommendationLog(models.Model):
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(
         "products.Product", on_delete=models.CASCADE, related_name="logged_product"
     )

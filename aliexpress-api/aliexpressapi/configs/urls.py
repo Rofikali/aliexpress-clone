@@ -21,18 +21,36 @@ from django.conf.urls.static import static
 
 from django.contrib import admin
 from django.urls import path, include
-# drf Spectacular 
-from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+
+# drf Spectacular
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('apps.products.urls')),
-    path('api/', include('apps.search.urls')),
+    path("admin/", admin.site.urls),
+    path("_nested_admin/", include("nested_admin.urls")),
+    path("api/v1/", include("apps.accounts.urls")),
+    path("api/v1/", include("apps.products.urls")),
+    path("api/v1/", include("apps.search.urls")),
+    path("api/v1/", include("apps.carts.urls")),
+    path("api/v1/", include("apps.orders.urls")),
     # YOUR PATTERNS
-    # drf Spectacular 
-    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    # drf Spectacular
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # Optional UI:
-    path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path(
+        "api/schema/swagger-ui/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path(
+        "api/schema/redoc/",
+        SpectacularRedocView.as_view(url_name="schema"),
+        name="redoc",
+    ),
 ]
 
 
@@ -40,5 +58,3 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-

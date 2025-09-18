@@ -1,6 +1,5 @@
 import os
 from dotenv import load_dotenv
-import drf_spectacular
 
 load_dotenv()
 
@@ -35,12 +34,15 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "drf_spectacular",
+    "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",  # optional but highly recommended
+    "nested_admin",
     # internet apps
     "apps.search",
     "apps.accounts",
     "apps.products",
     "apps.orders",
-    'apps.carts'
+    "apps.carts",
 ]
 
 MIDDLEWARE = [
@@ -55,6 +57,10 @@ MIDDLEWARE = [
     # "components.throttling.middleware.RateLimitHeadersMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # made my me custom middleware
+    "components.middleware.request_timer.RequestTimerMiddleware",
+    # 👇 Add our middleware at the end (after auth)
+    "components.middleware.kyc_middleware.EnforceKYCApprovalMiddleware",
 ]
 
 # ROOT_URLCONF = "aliexpressapi.urls"
@@ -78,16 +84,19 @@ TEMPLATES = [
 WSGI_APPLICATION = "configs.wsgi.application"
 # WSGI_APPLICATION = "aliexpressapi.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
+# settings.py
+# REST_FRAMEWORK = {
+#     # "EXCEPTION_HANDLER": "components.exceptions.handlers.custom_exception_handler",
+#     "EXCEPTION_HANDLER": "components.exceptions.handlers.",
 # }
+
+# REST_FRAMEWORK = {
+#     "EXCEPTION_HANDLER": "components.exceptions.handlers.custom_exception_handler",
+# }
+
+# settings.py # make it true in production
+ENFORCE_KYC = os.environ.get("ENFORCE_KYC", default=False)
+ENFORCE_KYC = os.environ.get("ENFORCE_KYC")
 
 
 # Password validation
@@ -140,63 +149,47 @@ AUTH_USER_MODEL = (
     "accounts.User"  # "accounts.User"  # 'accounts' should be the name of your app
 )
 
-from datetime import timedelta
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "components.authentication.backends.CustomJWTAuthentication",
     ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
+    "EXCEPTION_HANDLER": "components.exceptions.handlers.custom_exception_handler",
 }
 
-REST_FRAMEWORK = {
-    # YOUR SETTINGS
-    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-}
+from datetime import timedelta
 
+
+# settings.py
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),  # short-lived
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # long-lived
-    "ROTATE_REFRESH_TOKENS": True,  # issue new refresh on refresh
+    "ALGORITHM": "HS256",  # Prefer RS256/ES256 + JWKS if you can manage keys
+    "SIGNING_KEY": os.environ.get("JWT_SIGNING_KEY"),  # do NOT hardcode
+    "VERIFYING_KEY": os.environ.get("JWT_VERIFYING_KEY", default=""),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=15),
+    "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
-    "ALGORITHM": "HS256",
-    "SIGNING_KEY": os.environ.get("SECRET_KEY"),
+    "UPDATE_LAST_LOGIN": True,
     "AUTH_HEADER_TYPES": ("Bearer",),
+    "LEEWAY": 10,  # small clock drift
 }
 
+# Cookies (if you choose cookie-backed refresh)
+JWT_REFRESH_COOKIE = "refresh_token"
+JWT_ACCESS_COOKIE = ""  # keep access in header
+JWT_COOKIE_SAMESITE = "Strict"  # or "Lax" for cross-subdomain UX
+JWT_COOKIE_SECURE = True  # True in production (HTTPS required)
+JWT_COOKIE_HTTPONLY = True
 
 # drf 'drf_spectacular',
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Your Project API",
+    "TITLE": "My Aliexpress E-commerce API",
     "DESCRIPTION": "Your project description",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
     # OTHER SETTINGS
 }
-
-
-# ---- DRF ---- Throttling
-# REST_FRAMEWORK = {
-#     "DEFAULT_THROTTLE_CLASSES": [
-#         "components.throttling.base_throttle.ScopedBurstThrottle",
-#         "components.throttling.base_throttle.ScopedSustainedThrottle",
-#     ],
-#     "DEFAULT_THROTTLE_RATES": {
-#         "burst": "60/min",  # short-term
-#         "sustained": "1000/day",  # long-term
-#         "products-list": "30/min",
-#         "search": "15/min",
-#     },
-# }
-
-
-# Central place to tune rates per scope
-# THROTTLING_RATES = {
-#     "burst": "60/second",  # spike control
-#     "sustained": "3000/min",  # steady protection
-#     "user": "600/min",  # if using ScopedUserThrottle on specific views
-#     "anon": "120/min",  # if using ScopedAnonThrottle on specific views
-#     "search": "30/second",  # custom scope example for search endpoints
-#     "auth_login": "10/min",  # protect login
-#     "product_detail": "120/second",
-# }

@@ -3,108 +3,165 @@
 ### Learn how to build this!
 ### Searching STORE with Reuseable Codebase
 <!-- // https://collectionapi.metmuseum.org/public/collection/v1/departments -->
+
+## aliexpressclone nuxt3 frontend with drf api composition api style *** New Way ***
 nuxt3-frontend/
 │
-├── utils/                                      # General utility functions
-│   └── fuzzySearch.js                          # Simple fuzzy filter helper
+├── app.vue
+├── nuxt.config.js                  # Nuxt configuration (JS only)
 │
-├── composables/                                # Global reusable logic (auto-imported by Nuxt)
-│   ├── cache/
-│   │   ├── LRUCache.js                         # Updated cache with TTL + persistence
-│   │   └── useSearchCache.js                   # Cache wrapper for search-specific logic
-│   │
-│   ├── debounce/
-│   │   └── useDebouncedSearch.js               # Debounce helper for search inputs
-│   │
-│   ├── observer/
-│   │   └── useObserverCore.js                  # IntersectionObserver logic
-│   │
-│   ├── pagination/
-│   │   ├── usePagination.js                    # Pagination state & logic
-│   │   ├── useObserver.js                      # Infinite scroll observer
-│   │   └── useInfiniteScroll.js                # Infinite scrolling helper
-│   │
-│   ├── search/
-│   │   ├── useBaseSearch.js                    # Base search using cache & concurrency guard
-│   │   ├── useSearch.js                        # Simple search
-│   │   ├── useInfiniteSearch.js                # Cursor-based infinite search
-│   │   └── useSearchFilters.js                 # Manage filters/facets
-│   │
-│   ├── useThrottle.js                          # Throttle helper
-│   ├── usePaginatedFetch.js                    # Universal fetch for paginated data
-│   ├── useAuth.js                              # JWT authentication handler
-│   ├── useApi.js                               # API fetch wrapper for DRF
-│   └── useNotifications.js                     # Toast/alert system
+├── pages/                          # Route-driven views
+│   ├── index.vue
+│   ├── auth/
+│   │   ├── login.vue
+│   │   ├── register.vue
+│   │   └── profile.vue
+│   ├── products/
+│   │   ├── index.vue               # product list
+│   │   └── [id]-[slug].vue         # product detail
+│   ├── cart.vue
+│   ├── orders.vue
+│   └── wishlist.vue
 │
-├── stores/                                     # Pinia state stores
-│   ├── searchStore/
-│   │   ├── useProductSearchStore.js            # Product search
-│   │   ├── useUserSearchStore.js               # User search
-│   │   └── useCategorySearchStore.js           # Category search
-│   │
-│   ├── productStore.js                         # Product CRUD & listing
-│   ├── categoryStore.js                        # Categories & filters
-│   ├── cartStore.js                            # Shopping cart
-│   ├── orderStore.js                           # Orders & tracking
-│   └── authStore.js                            # Auth & user info
-│
-├── components/                                 # UI components
-│   ├── ui/                                     # Reusable Tailwind UI elements
-│   │   ├── Button.vue
-│   │   ├── Input.vue
-│   │   ├── Select.vue
-│   │   └── Pagination.vue
-│   │
-│   ├── layout/                                 # Layout parts
+├── components/                     # Dumb UI components
+         /products/      # Only product-related components
+            detail/
+               ProductGallery.vue     # Main product images (carousel/zoom)
+               ProductThumbnail.vue   # Thumbnails selector
+               ProductInfo.vue        # Title, price, stock, description
+               ProductSpecs.vue       # Technical details/specs table
+               ProductActions.vue     # Add to cart, wishlist, share, etc.
+               ProductMeta.vue        # SKU, category, tags, etc.
+               ProductTabs.vue        # Tabbed layout: Description / Reviews / Q&A
+               ProductReviewList.vue  # Paginated reviews (uses usePagination)
+               ProductReviewItem.vue  # Single review card
+               ProductRelated.vue     # Related products carousel/grid
+│   ├── common/
 │   │   ├── Header.vue
 │   │   ├── Footer.vue
 │   │   ├── Sidebar.vue
 │   │   └── Navbar.vue
-│   │
-│   ├── product/
-│   │   ├── ProductCard.vue
-│   │   ├── ProductList.vue
-│   │   └── ProductDetails.vue
-│   │
-│   └── category/
-│       ├── CategoryList.vue
-│       └── CategoryFilter.vue
-    throttle
-        useBaseThrottle.js
+│   └── ui/
+│       ├── Button.vue
+│       ├── Input.vue
+│       ├── Select.vue
+│       ├── Pagination.vue
+│       └── SearchDropdown.vue
 │
-├── pages/                                      # Auto-generated Nuxt routes
-│   ├── index.vue                               # Home
-│   ├── login.vue                               # Login
-│   ├── register.vue                            # Register
-│   ├── products/
-│   │   ├── index.vue                           # Product listing
-│   │   └── [id].vue                            # Product detail
-│   ├── categories/
-│   │   ├── index.vue
-│   │   └── [slug].vue
-│   ├── cart.vue
-│   └── orders.vue
+├── stores/                         # Pinia: centralized state
+│   ├── authStore.js
+│   ├── productStore.js
+│   └── search/
+│       ├── product.js
+│       ├── user.js
+│       └── category.js
 │
-├── layouts/                                    # App layouts
-│   ├── default.vue                             # Main layout
-│   └── auth.vue                                # Auth pages layout
+├── composables/                    # Smart hooks (Composition API)
+│   ├── core/
+│   │   ├── base.js               # handleError(e) # authHeaders(token) 
+│   ├── observer/
+│   │   └── useObserverCore.js
+│   ├── pagination/
+│   │   ├── useBasePagination.js
+│   │   └── useInfiniteScroll.js
+│   └── search/
+│       ├── useBaseSearch.js
+│       ├── useInfiniteSearch.js
+│       └── useSearchFilters.js
 │
-├── assets/                                     # Styles, fonts, images
-│   ├── css/
-│   │   └── main.css                            # Tailwind & custom styles
-│   └── images/
+├── services/                       # API service layer (business logic)
+│   └── api/
+│       ├── auth.js                 # login, register, verify email
+│       ├── cart.js
+│       ├── products.js
+│       ├── category.js
+│       ├── orders.js
+│       ├── wishlist.js
+│       └── index.js                # export all services from here
 │
-├── middleware/                                 # Route guards
-│   ├── auth.global.js                          # Require login
-│   └── guest.global.js                         # Block logged-in users from auth pages
+├── plugins/                        # Nuxt app-level plugins
+│   ├── axios.js               # inject $api from base
 │
-├── plugins/                                    # Nuxt plugins
-│   ├── axios.js                                # Axios instance (DRF)
-│   ├── toast.js                                # Toast notifications
-│   └── dayjs.js                                # Date formatting
+├── middleware/                     # Route guards
+│   ├── auth.global.js              # block unauth users
+│   └── guest.global.js             # block logged-in users from login/register
 │
-├── public/                                     # Static files (favicon, robots.txt)
+├── utils/                          # Pure utility functions
+│   ├── format/
+│   │   └── money.js
+│   └── search/
+│       └── fuzzy.js
 │
-├── nuxt.config.ts
-├── package.json
-└── tailwind.config.js
+├── assets/                         # Tailwind & static assets
+│   └── css/
+│       └── main.css
+│
+├── public/                         # static public files
+│
+├── tests/                          # Vitest / Playwright
+│   ├── unit/
+│   ├── integration/
+│   └── e2e/
+│
+├── tailwind.config.js
+└── package.json
+
+
+UI (pages/components)
+   ▼
+Composables (logic, hooks)
+   ▼
+Services (API calls → DRF)
+   ▼
+Stores (Pinia state management)
+   ▼
+Plugins/Middleware (auth, toast, utils)
+   ▼
+Backend (Django DRF)
+
+
+
+🔑 Flow now looks like:
+UI → Composable → Store → Service → API
+
+
+
+Browser
+   │
+   ▼
+Nuxt 3 Server/Client Boot
+   │
+   ▼
+Plugins Run → $api, $toast, $dayjs
+   │
+   ▼
+Pinia Store Init → authStore, productStore, etc.
+   │
+   ▼
+Middleware Execution
+   ├─ auth.global.js → check tokens, refresh, redirect
+   └─ guest.global.js → redirect logged-in users away from login/register
+   │
+   ▼
+Page Component Mounts
+   │
+   ▼
+Composables / Services
+   ├─ useApi() → API calls (DRF backend)
+   ├─ useInfiniteProductScroll() → load products
+   └─ useSearchFilters() → apply filters
+   │
+   ▼
+Pinia Store Updates
+   ├─ authStore.user populated
+   ├─ productStore.list updated
+   └─ cartStore updated
+   │
+   ▼
+Components Render Reactively
+   ├─ Header, Navbar → show user/cart info
+   ├─ ProductList → infinite scroll
+   └─ Cart/Wishlist → display current items
+   │
+   ▼
+User Interaction → triggers actions → repeat composables/API → store → components

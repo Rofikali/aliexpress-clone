@@ -154,10 +154,11 @@
 </template>
 
 <script setup>
-import { useUserStore } from '~/stores/user';
+// import { useAuthStore } from '~/stores/user';
+import { useAuthStore } from '~/stores/modules/authStore'
 // import { useUserSearchStore } from '~/stores/searchStore/useUserSearchStore';
 const userSearch = useUserSearchStore()
-const userStore = useUserStore()
+const userStore = useAuthStore()
 
 // const client = useSupabaseClient()
 // const user = useSupabaseUser()
