@@ -169,3 +169,21 @@ project_root/
 ├── docker-compose.yml
 ├── manage.py
 └── README.md
+
+
+
+This yields the exact endpoints you specified:
+
+GET /api/v1/products/
+
+GET /api/v1/products/{id}/
+
+GET /api/v1/products/{product_pk}/variants/
+
+GET /api/v1/products/{product_pk}/variants/{id}/
+
+GET /api/v1/products/{product_pk}/variants/{variant_pk}/attributes/
+
+POST /api/v1/products/{product_pk}/variants/{variant_pk}/attributes/
+
+GET/PUT/DELETE /api/v1/products/{product_pk}/variants/{variant_pk}/attributes/{id}/

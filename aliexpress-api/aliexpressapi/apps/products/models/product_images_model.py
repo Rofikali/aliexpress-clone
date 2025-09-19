@@ -1,3 +1,5 @@
+# apps.products.models.product_images_model.py
+
 from django.db import models
 import uuid
 from django.contrib.auth import get_user_model
@@ -17,3 +19,6 @@ class ProductImages(models.Model):
 
     class Meta:
         db_table = "products_productimage"
+
+    def __str__(self):
+        return f"{self.product.title} - Image: {self.image.url}"
