@@ -1,10 +1,10 @@
 # apps.search.views.py
 
 # Serializers
-from apps.products.serializers.products_serializser import ProductSerializer
+from apps.products.serializers.product import ProductSerializer
 
 # Models
-from apps.products.models.product_model import Product
+from apps.products.models.product import Product
 
 # Django ORM tools
 from django.db.models import Q

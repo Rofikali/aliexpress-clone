@@ -7,10 +7,10 @@ from django.shortcuts import get_object_or_404
 
 from drf_spectacular.utils import extend_schema
 
-from apps.products.models.product_images_model import (
+from apps.products.models.product_images import (
     ProductImages,
 )
-from apps.products.serializers.product_image_serializer import (
+from apps.products.serializers.product_image import (
     ProductImageSerializer,
 )
 

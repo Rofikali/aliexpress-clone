@@ -44,8 +44,8 @@
 import uuid
 from django.db import models
 from django.contrib.auth import get_user_model
-from apps.products.models.category_model import Category
-from apps.products.models.brand_model import Brand
+from apps.products.models.category import Category
+from apps.products.models.brand import Brand
 
 User = get_user_model()
 

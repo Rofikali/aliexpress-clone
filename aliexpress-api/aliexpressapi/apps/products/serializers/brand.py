@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.products.models.brand_model import (
+from apps.products.models.brand import (
     Brand,
 )
 

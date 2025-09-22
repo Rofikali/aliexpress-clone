@@ -423,10 +423,10 @@ from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny
 
-from apps.products.models.product_attribute_model import ProductAttribute
+from apps.products.models.product_attribute import ProductAttribute
 
 # from apps.products.serializers.products_serializser import ProductAttributeSerializer
-from apps.products.serializers.product_attribute_serializer import (
+from apps.products.serializers.product_attribute import (
     ProductAttributeSerializer,
 )
 

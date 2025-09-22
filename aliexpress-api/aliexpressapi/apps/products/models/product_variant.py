@@ -69,9 +69,9 @@
 # apps.products.models.product_variant_model.py
 import uuid
 from django.db import models
-from apps.products.models.product_model import Product
-from apps.products.models.product_images_model import ProductImages
-from apps.products.models.product_attribute_model import (
+from apps.products.models.product import Product
+from apps.products.models.product_images import ProductImages
+from apps.products.models.product_attribute import (
     ProductAttribute,
     ProductAttributeValue,
 )

@@ -50,7 +50,7 @@
 #     ]
 
 from rest_framework import serializers
-from apps.products.models.product_variant_model import ProductVariant
+from apps.products.models.product_variant import ProductVariant
 
 
 class ProductVariantSerializer(serializers.ModelSerializer):

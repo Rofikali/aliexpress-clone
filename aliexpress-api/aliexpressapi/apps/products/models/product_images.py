@@ -3,7 +3,7 @@
 from django.db import models
 import uuid
 from django.contrib.auth import get_user_model
-from apps.products.models.product_model import Product
+from apps.products.models.product import Product
 
 User = get_user_model()
 

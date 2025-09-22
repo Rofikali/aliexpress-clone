@@ -6,7 +6,7 @@ from pathlib import Path
 from django.core.management.base import BaseCommand
 from faker import Faker
 from apps.accounts.models.user import User
-from apps.products.models.product_model import (
+from apps.products.models.product import (
     Category,
     Brand,
 )  # ✅ assumes you have Category & Brand models

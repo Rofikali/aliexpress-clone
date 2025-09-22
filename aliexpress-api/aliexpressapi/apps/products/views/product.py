@@ -216,8 +216,8 @@ from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 from rest_framework.permissions import AllowAny
 
-from apps.products.models.product_model import Product
-from apps.products.serializers.products_serializser import (
+from apps.products.models.product import Product
+from apps.products.serializers.product import (
     ProductSerializer,
     ProductDetailSerializer,
 )
@@ -288,6 +288,7 @@ class ProductsViewSet(ViewSet):
     )
     def retrieve(self, request, pk=None):
         product = get_object_or_404(Product, id=pk)
+        #  add here filters that returns only related products
         serializer = ProductDetailSerializer(product, context={"request": request})
         return ResponseFactory.success_resource(
             item=serializer.data,

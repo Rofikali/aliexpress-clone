@@ -13,7 +13,7 @@
 #         ]
 
 from rest_framework import serializers
-from apps.products.models.product_attribute_model import (
+from apps.products.models.product_attribute import (
     ProductAttribute,
     ProductAttributeValue,
 )

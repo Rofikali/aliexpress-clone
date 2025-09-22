@@ -123,9 +123,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema
-
-from apps.products.models.product_variant_model import ProductVariant
-from apps.products.serializers.product_variants_serializer import (
+from components.responses.response_factory import ResponseFactory
+from apps.products.models.product_variant import ProductVariant
+from apps.products.serializers.product_variants import (
     ProductVariantSerializer,
 )
 
@@ -145,7 +145,11 @@ class ProductVariantViewSet(ViewSet):
     def list(self, request, product_pk=None):
         queryset = self.get_queryset(product_pk)
         serializer = ProductVariantSerializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return ResponseFactory.success_resource(
+            item=serializer.data,
+            message="Product variants retrieved successfully.",
+            status=status.HTTP_200_OK,
+        )
 
     @extend_schema(
         responses={200: ProductVariantSerializer},
@@ -155,4 +159,8 @@ class ProductVariantViewSet(ViewSet):
     def retrieve(self, request, pk=None, product_pk=None):
         variant = get_object_or_404(self.get_queryset(product_pk), id=pk)
         serializer = ProductVariantSerializer(variant)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return ResponseFactory.success_resource(
+            item=serializer.data,
+            message="Product variant retrieved successfully.",
+            status=status.HTTP_200_OK,
+        )

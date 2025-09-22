@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.products.models.category_model import (
+from apps.products.models.category import (
     Category,
 )
 
