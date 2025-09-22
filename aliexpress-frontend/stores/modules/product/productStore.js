@@ -203,12 +203,13 @@
 
 // ~/stores/modules/productStore.js
 import { defineStore } from "pinia"
-import { getProducts, getProductById } from "~/services/api/products"
+import { getProducts, getProductById } from "~/services/api/products/product"
 import { usePagination } from "~/composables/pagination/useBasePagination"
 
 export const useProductStore = defineStore("productStore", () => {
     // ============ Pagination (list of products) ============
     const pagination = usePagination(getProducts, { pageSize: 12, debug: true })
+    console.log('pagination in products store ', pagination);
 
     // ============ Single product ============
     const product = ref(null)

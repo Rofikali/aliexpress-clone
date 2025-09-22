@@ -1,4 +1,4 @@
-// // ~/services/api/product.js
+// // ~/services/api/products/product.js
 //  * Product API Service
 //  * -------------------
 //  * A thin wrapper around backend product endpoints.
