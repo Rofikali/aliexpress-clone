@@ -7,10 +7,10 @@ from django.shortcuts import get_object_or_404
 
 from drf_spectacular.utils import extend_schema
 
-from apps.products.models.inventory_model import (
+from apps.products.models.inventory import (
     Inventory,
 )
-from apps.products.serializers.inventory_serializer import (
+from apps.products.serializers.inventory import (
     InventorySerializer,
 ) 
 

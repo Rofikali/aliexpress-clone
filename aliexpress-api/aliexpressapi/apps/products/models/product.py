@@ -67,7 +67,9 @@ class Product(models.Model):
     rating = models.FloatField(default=0.0)
     review_count = models.IntegerField(default=0)
     seller = models.ForeignKey(User, on_delete=models.CASCADE, db_index=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, db_index=True)
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, db_index=True, related_name="category_products"
+    )
     brand = models.ForeignKey(
         Brand,
         null=True,

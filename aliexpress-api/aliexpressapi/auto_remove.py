@@ -127,3 +127,5 @@ if __name__ == "__main__":
 
     # ✅ Call custom Django management commands
     ProductsCommandRunner("./apps/accounts/management/fake_products.json").run()
+
+# python manage.py seed_homepage

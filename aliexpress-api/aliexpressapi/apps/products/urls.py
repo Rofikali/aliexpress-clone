@@ -142,20 +142,22 @@
 #     path("", include(variants_router.urls)),
 # ]
 
-# apps/products/urls.py
+# import apps.products.views as views_pkg
+
+# from components.router.routers import auto_register_viewsets
+from components.router.routers import auto_register_viewsets
+import apps.products.views as views_pkg
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from rest_framework_nested.routers import NestedDefaultRouter
 
-from apps.products.views.product import ProductsViewSet
-# from apps.products.views.product_variants_viewset import ProductVariantViewSet
-# from apps.products.views.product_attribute_viewset import ProductAttributeViewSet
+# from apps.products.views.product import ProductsViewSet
 from apps.products.views.products_variants import ProductVariantViewSet
 from apps.products.views.product_attribute import ProductAttributeViewSet
 
 # Root router
 router = DefaultRouter()
-router.register("products", ProductsViewSet, basename="products")
+auto_register_viewsets(router, views_pkg)
 
 # Nested: product → variants
 products_router = NestedDefaultRouter(router, "products", lookup="product")

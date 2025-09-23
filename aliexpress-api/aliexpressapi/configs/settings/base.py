@@ -38,11 +38,12 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",  # optional but highly recommended
     "nested_admin",
     # internet apps
-    "apps.search",
+    "apps.home",
     "apps.accounts",
     "apps.products",
     "apps.orders",
     "apps.carts",
+    "apps.search",
 ]
 
 MIDDLEWARE = [

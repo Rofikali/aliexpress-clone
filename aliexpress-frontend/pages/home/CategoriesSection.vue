@@ -1,6 +1,6 @@
 <template>
     <div>
-Products Page
+<h1>Categories</h1>
     </div>
 </template>
 

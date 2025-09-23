@@ -6,18 +6,16 @@ from django.shortcuts import get_object_or_404
 
 from drf_spectacular.utils import extend_schema
 
-from apps.products.models.brand_model import (
+from apps.products.models.brand import (
     Brand,
 )
-from apps.products.serializers.brand_serializer import BrandSerializer  
+from apps.products.serializers.brand import BrandSerializer
 
 from components.responses.response_factory import ResponseFactory
 from components.caching.cache_factory import (
     # cache_factory,
     get_cache,
 )  # ✅ generic cache factory
-
-
 
 
 # -------------------- BRAND --------------------

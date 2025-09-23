@@ -124,6 +124,7 @@
 
 
 # apps.products/serializers/products_serializser.py
+from django.conf import settings
 from rest_framework import serializers
 from apps.products.models.product import Product
 from apps.products.serializers.product_image import ProductImageSerializer
@@ -203,11 +204,11 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             "description",
             "currency",
             "image",
-            # extras 
-            'images',
-            'category',
-            'brand',
-            # end extras 
+            # extras
+            "images",
+            "category",
+            "brand",
+            # end extras
             "stock",
             "is_active",
             "rating",

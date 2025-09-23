@@ -5,100 +5,128 @@
 <!-- // https://collectionapi.metmuseum.org/public/collection/v1/departments -->
 
 ## aliexpressclone nuxt3 frontend with drf api composition api style *** New Way ***
+
 nuxt3-frontend/
 │
 ├── app.vue
 ├── nuxt.config.js                  # Nuxt configuration (JS only)
 │
 ├── pages/                          # Route-driven views
-│   ├── index.vue
+│   ├── index.vue                   # Landing page
 │   ├── auth/
 │   │   ├── login.vue
 │   │   ├── register.vue
 │   │   └── profile.vue
 │   ├── products/
-│   │   ├── index.vue               # product list
-│   │   └── [id]-[slug].vue         # product detail
+│   │   ├── index.vue               # Product list
+│   │   └── [id]-[slug].vue        # Product detail
 │   ├── cart.vue
 │   ├── orders.vue
-│   └── wishlist.vue
+│   ├── wishlist.vue
+
+│   ├── index.vue               # Homepage main page
+│       └── sections/               # Modular homepage sections
+│           ├── HeroSection.vue
+│           ├── FeaturedProducts.vue
+│           ├── CategoriesSection.vue
+│           ├── BannerSection.vue
+│           └── Testimonials.vue
 │
 ├── components/                     # Dumb UI components
-         /products/      # Only product-related components
-            detail/
-               ProductGallery.vue     # Main product images (carousel/zoom)
-               ProductThumbnail.vue   # Thumbnails selector
-               ProductInfo.vue        # Title, price, stock, description
-               ProductSpecs.vue       # Technical details/specs table
-               ProductActions.vue     # Add to cart, wishlist, share, etc.
-               ProductMeta.vue        # SKU, category, tags, etc.
-               ProductTabs.vue        # Tabbed layout: Description / Reviews / Q&A
-               ProductReviewList.vue  # Paginated reviews (uses usePagination)
-               ProductReviewItem.vue  # Single review card
-               ProductRelated.vue     # Related products carousel/grid
-│   ├── common/
+│   ├── products/                   # Only product-related components
+│   │   └── detail/
+│   │       ├── ProductGallery.vue
+│   │       ├── ProductThumbnail.vue
+│   │       ├── ProductInfo.vue
+│   │       ├── ProductSpecs.vue
+│   │       ├── ProductActions.vue
+│   │       ├── ProductMeta.vue
+│   │       ├── ProductTabs.vue
+│   │       ├── ProductReviewList.vue
+│   │       ├── ProductReviewItem.vue
+│   │       ├── ProductRelated.vue
+│   │       ├── VariantSelection.vue
+│   │       └── VariantAttributes.vue
+│   │
+│   ├── common/                     # Global layout components
 │   │   ├── Header.vue
 │   │   ├── Footer.vue
 │   │   ├── Sidebar.vue
 │   │   └── Navbar.vue
-│   └── ui/
-│       ├── Button.vue
-│       ├── Input.vue
-│       ├── Select.vue
-│       ├── Pagination.vue
-│       └── SearchDropdown.vue
+│   │
+│   ├── ui/                         # Reusable UI elements
+│   │   ├── Button.vue
+│   │   ├── Input.vue
+│   │   ├── Select.vue
+│   │   ├── Pagination.vue
+│   │   └── SearchDropdown.vue
+│   │
+│   └── homepage/                   # NEW: Homepage-specific components
+│       ├── Hero.vue
+│       ├── FeaturedProducts.vue
+│       ├── Banner.vue
+│       ├── Categories.vue
+│       └── Testimonials.vue
 │
-├── stores/                         # Pinia: centralized state
+├── stores/                          # Pinia: centralized state
 │   ├── authStore.js
 │   ├── productStore.js
+│   ├── homepageStore.js            # NEW: Homepage state
 │   └── search/
 │       ├── product.js
 │       ├── user.js
 │       └── category.js
 │
-├── composables/                    # Smart hooks (Composition API)
+├── composables/                     # Smart hooks (Composition API)
 │   ├── core/
-│   │   ├── base.js               # handleError(e) # authHeaders(token) 
+│   │   └── base.js                 # handleError(e), authHeaders(token)
 │   ├── observer/
 │   │   └── useObserverCore.js
 │   ├── pagination/
 │   │   ├── useBasePagination.js
 │   │   └── useInfiniteScroll.js
-│   └── search/
-│       ├── useBaseSearch.js
-│       ├── useInfiniteSearch.js
-│       └── useSearchFilters.js
+│   ├── search/
+│   │   ├── useBaseSearch.js
+│   │   ├── useInfiniteSearch.js
+│   │   └── useSearchFilters.js
+│   └── homepage/                   # NEW: Homepage hooks did not use it for now later i will 
+│       ├── useHomepageData.js
+│       └── useFeaturedProducts.js
 │
-├── services/                       # API service layer (business logic)
+├── services/                        # API service layer (business logic)
 │   └── api/
-│       ├── auth.js                 # login, register, verify email
+│       ├── auth.js
 │       ├── cart.js
 │       ├── products.js
 │       ├── category.js
 │       ├── orders.js
 │       ├── wishlist.js
-│       └── index.js                # export all services from here
+│       └── homepage.js             # NEW: Homepage API
+│       └── index.js                # Export all services
 │
-├── plugins/                        # Nuxt app-level plugins
-│   ├── axios.js               # inject $api from base
+├── plugins/                         # Nuxt app-level plugins
+│   └── axios.js                     # Inject $api
 │
-├── middleware/                     # Route guards
-│   ├── auth.global.js              # block unauth users
-│   └── guest.global.js             # block logged-in users from login/register
+├── middleware/                      # Route guards
+│   ├── auth.global.js               # Block unauthenticated users
+│   └── guest.global.js              # Block logged-in users from login/register
 │
-├── utils/                          # Pure utility functions
+├── utils/                           # Pure utility functions
 │   ├── format/
 │   │   └── money.js
-│   └── search/
-│       └── fuzzy.js
+│   ├── search/
+│   │   └── fuzzy.js
+│   └── homepage/                    # NEW: Homepage utilities
+│       └── transformHomepageData.js
 │
-├── assets/                         # Tailwind & static assets
+├── assets/                           # Tailwind & static assets
 │   └── css/
 │       └── main.css
 │
-├── public/                         # static public files
+├── public/                           # Static public files
+│   └── images/homepage/             # NEW: banners, hero, category images
 │
-├── tests/                          # Vitest / Playwright
+├── tests/                            # Vitest / Playwright
 │   ├── unit/
 │   ├── integration/
 │   └── e2e/

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.products.models.inventory_model import (
+from apps.products.models.inventory import (
     Inventory,
 )
 
