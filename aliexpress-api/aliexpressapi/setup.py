@@ -15,7 +15,7 @@ def run_cmd(cmd):
 
 def main():
     # Step 1: makemigrations for specific apps
-    run_cmd("python manage.py makemigrations accounts products orders carts search")
+    run_cmd("python manage.py makemigrations home accounts products orders carts search")
 
     # Step 2: migrate
     run_cmd("python manage.py migrate")

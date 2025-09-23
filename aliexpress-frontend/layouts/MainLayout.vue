@@ -142,14 +142,14 @@
         </div>
     </div>
 
-    <Loading v-if="userStore.isLoading" />
+    <Loading v-if="userStore.loading" />
 
     <div class="lg:pt-[150px] md:pt-[130px] pt-[80px]" />
     <NuxtLayout>
       <slot />
     </NuxtLayout>
 
-    <Footer v-if="!userStore.isLoading" />
+    <Footer v-if="!userStore.loading" />
 
 </template>
 

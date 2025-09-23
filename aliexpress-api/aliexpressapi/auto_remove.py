@@ -1,36 +1,9 @@
-# from pathlib import Path
-# import shutil
-
-# base = Path("./apps")
-# db_file = Path("./database/db.sqlite3")
-
-# # remove SQLite file if exists
-# if db_file.exists():
-#     if db_file.is_file():
-#         print(f"Removing SQLite file: {db_file}")
-#         db_file.unlink()
-#     else:
-#         print(f"{db_file} is not a file, skipping...")
-# else:
-#     print("No SQLite file found")
-
-# # remove __pycache__ dirs
-# if base.exists() and base.is_dir():
-#     print("Apps dir exists")
-#     removed = False
-#     for path in base.rglob("*"):
-#         if "__pycache__" in path.parts and path.is_dir():
-#             print(f"Removing pycache dir: {path}")
-#             shutil.rmtree(path)
-#             removed = True
-#     if not removed:
-#         print("No __pycache__ directories found")
-# else:
-#     print("Apps dir does not exist")
-
-
+# aliexpress-api/aliexpressapi/auto_remove.py
 from pathlib import Path
 import shutil
+import django
+import os
+from django.core.management import call_command
 
 
 class Cleaner:
@@ -109,11 +82,50 @@ class MigrationsCleaner(Cleaner):
             print("No migration files found")
 
 
+class ProductsCommandRunner:
+    """Runs custom management commands for products."""
+
+    def __init__(self, json_path: str):
+        self.json_path = json_path
+
+    def run(self):
+        from django.core.management import CommandError
+
+        try:
+            print("✅ Running generate_products_json...")
+            call_command("generate_products_json", self.json_path, count=50)
+        except CommandError as e:
+            print(f"❌ Error in generate_products_json: {e}")
+
+        try:
+            print("✅ Running import_products...")
+            call_command("import_products", self.json_path, format="json")
+        except CommandError as e:
+            print(f"❌ Error in import_products: {e}")
+
+
+# class LoadProducts:
+#     def __init__(self):
+#         pass
+
+#     def __call__(self, *args, **kwds):
+#         setup.call_command("loaddata", "fake_products.json")
+
+
 # --- usage ---
 if __name__ == "__main__":
+    # Set up Django so call_command works
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "configs.settings.dev")
+    django.setup()
+
     base = Path("./apps")
     db_file = Path("./database/db.sqlite3")
 
-    DatabaseCleaner(db_file).clean()
-    PycacheCleaner(base).clean()
-    MigrationsCleaner(base).clean()  # <-- added here
+    # DatabaseCleaner(db_file).clean()
+    # PycacheCleaner(base).clean()
+    # MigrationsCleaner(base).clean()
+
+    # ✅ Call custom Django management commands
+    ProductsCommandRunner("./apps/accounts/management/fake_products.json").run()
+
+# python manage.py seed_homepage

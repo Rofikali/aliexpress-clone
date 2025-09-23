@@ -1,0 +1,4 @@
+python manage.py makemigrations home
+python manage.py migrate
+python manage.py createsuperuser  # if not yet created
+python manage.py seed_homepage    # loads demo homepage

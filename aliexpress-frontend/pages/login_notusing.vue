@@ -41,7 +41,7 @@ async function handleLogin() {
 
 
 <script setup>
-import { useProductStore } from "~/stores/modules/productStore";
+import { useProductStore } from "~/stores/modules/product/productStore";
 
 // SSR-friendly fetching
 const productStore = useProductStore();
