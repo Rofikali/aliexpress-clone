@@ -34,7 +34,8 @@
                 </p>
 
                 <p class="px-1 pb-1">
-                    <span class="text-[#009A66] text-xs font-semibold">Free Shipping</span>
+                    <span class="text-[#009A66] text-xs font-semibold ">Free Shipping</span>
+                      {{ product.category.name }}
                 </p>
 
             </div>

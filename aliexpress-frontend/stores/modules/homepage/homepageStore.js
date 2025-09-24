@@ -51,7 +51,7 @@
 
 
 import { defineStore } from "pinia"
-import { getHomepageData } from "~/services/api/homepage"
+import { getHomepageData } from "~/services/api/home/homepage"
 
 export const useHomepageStore = defineStore("homepageStore", () => {
     const sections = ref([])   // all homepage sections as they come from API

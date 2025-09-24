@@ -24,17 +24,17 @@ class HomepageViewSet(viewsets.ViewSet):
         summary="Get homepage sections",
     )
     def list(self, request):
-        cache_key = "homepage:sections"
-        cached = CACHE.get_results(cache_key)
-        if cached:
-            return ResponseFactory.success_collection(
-                items=cached.get("items", []),
-                pagination=cached.get("pagination", {}),
-                message="Homepage sections (cache)",
-                status=status.HTTP_200_OK,
-                request=request,
-                cache="HIT",
-            )
+        # cache_key = "homepage:sections"
+        # cached = CACHE.get_results(cache_key)
+        # if cached:
+        #     return ResponseFactory.success_collection(
+        #         items=cached.get("items", []),
+        #         pagination=cached.get("pagination", {}),
+        #         message="Homepage sections (cache)",
+        #         status=status.HTTP_200_OK,
+        #         request=request,
+        #         cache="HIT",
+        #     )
 
         # qs = HomepageSection.objects.filter(is_active=True).prefetch_related(
         #     "banners", "products__product"
@@ -50,7 +50,7 @@ class HomepageViewSet(viewsets.ViewSet):
             qs, many=True, context={"request": request}
         )
         data = serializer.data
-        CACHE.cache_results(cache_key, {"items": data, "pagination": {}})
+        # CACHE.cache_results(cache_key, {"items": data, "pagination": {}})
         return ResponseFactory.success_collection(
             items=data,
             pagination={},
@@ -85,17 +85,17 @@ class HomepageViewSet(viewsets.ViewSet):
         url_path="featured",
     )
     def featured(self, request):
-        cache_key = "homepage:featured"
-        cached = CACHE.get_results(cache_key)
-        if cached:
-            return ResponseFactory.success_collection(
-                items=cached.get("items", []),
-                pagination=cached.get("pagination", {}),
-                message="Featured (cache)",
-                status=status.HTTP_200_OK,
-                request=request,
-                cache="HIT",
-            )
+        # cache_key = "homepage:featured"
+        # cached = CACHE.get_results(cache_key)
+        # if cached:
+        #     return ResponseFactory.success_collection(
+        #         items=cached.get("items", []),
+        #         pagination=cached.get("pagination", {}),
+        #         message="Featured (cache)",
+        #         status=status.HTTP_200_OK,
+        #         request=request,
+        #         cache="HIT",
+        #     )
 
         sections = HomepageSection.objects.filter(
             is_active=True, type__in=["banner", "product_carousel"]
@@ -104,7 +104,7 @@ class HomepageViewSet(viewsets.ViewSet):
             sections, many=True, context={"request": request}
         )
         data = serializer.data
-        CACHE.cache_results(cache_key, {"items": data, "pagination": {}})
+        # CACHE.cache_results(cache_key, {"items": data, "pagination": {}})
         return ResponseFactory.success_collection(
             items=data,
             pagination={},

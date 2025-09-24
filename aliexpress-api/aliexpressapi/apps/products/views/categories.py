@@ -198,57 +198,20 @@ class CategoryViewSet(ViewSet):
         summary="Retrieve single category with products",
         description="Retrieve a single category by ID along with all related products.",
     )
-    # def retrieve(self, request, pk=None):
-    #     cursor = request.query_params.get("cursor") or "first"
-    #     cache_data = self.cache.get_results(cursor)
-    #     if cache_data:
-    #         return ResponseFactory.success_collection(
-    #             items=cache_data.get("items", []),
-    #             pagination=cache_data.get("pagination", {}),
-    #             message="Category Products fetched successfully (cache)",
-    #             status=status.HTTP_200_OK,
-    #             request=request,
-    #             cache="HIT",
-    #         )
-    #     """Return single category + all related products"""
-    #     category = get_object_or_404(Category, id=pk)
-    #     paginator = BaseCursorPagination()
-    #     page = paginator.paginate_queryset(category, request)
-    #     serializer = CategoryWithProductsSerializer(
-    #         page, category, context={"request": request}
-    #     )
-    #     response_data = paginator.get_paginated_response_data(serializer.data)
-    #     self.cache.cache_results(cursor, response_data)
-
-    #     return ResponseFactory.success_collection(
-    #         items=response_data["items"],
-    #         pagination=response_data["pagination"],
-    #         message="Products fetched successfully",
-    #         status=status.HTTP_200_OK,
-    #         request=request,
-    #     )
-
-    #     # return ResponseFactory.success_collection(
-    #     #     item=serializer.data,
-    #     #     message="Category and related products fetched successfully",
-    #     #     request=request,
-    #     #     status=status.HTTP_200_OK,
-    #     # )
-
     def retrieve(self, request, pk=None):
         cursor = request.query_params.get("cursor") or "first"
 
         # 🔹 1. Try cache
-        cache_data = self.cache.get_results(cursor)
-        if cache_data:
-            return ResponseFactory.success_collection(
-                items=cache_data.get("items", []),
-                pagination=cache_data.get("pagination", {}),
-                message="Category Products fetched successfully (cache)",
-                status=status.HTTP_200_OK,
-                request=request,
-                cache="HIT",
-            )
+        # cache_data = self.cache.get_results(cursor)
+        # if cache_data:
+        #     return ResponseFactory.success_collection(
+        #         items=cache_data.get("items", []),
+        #         pagination=cache_data.get("pagination", {}),
+        #         message="Category Products fetched successfully (cache)",
+        #         status=status.HTTP_200_OK,
+        #         request=request,
+        #         cache="HIT",
+        #     )
 
         # 🔹 2. Fetch category
         category = get_object_or_404(Category, id=pk)
@@ -267,7 +230,7 @@ class CategoryViewSet(ViewSet):
         response_data = paginator.get_paginated_response_data(products_serialzer.data)
 
         # 🔹 6. Cache results
-        self.cache.cache_results(cursor, response_data)
+        # self.cache.cache_results(cursor, response_data)
 
         # 🔹 7. Response
         return ResponseFactory.success_collection(

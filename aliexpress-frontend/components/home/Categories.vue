@@ -7,7 +7,11 @@
         :key="cat.id"
         class="p-4 border rounded"
       >
+
+      <NuxtLink :to="{ name: 'home-categories-id', params: { id: cat.category.id } }" class="block">
         <p>{{ cat.category.name || 'Unnamed Category' }}</p>
+      </NuxtLink>
+      <h1>ids : {{ cat.category.id }}</h1>
         <p>{{ cat.category.description || 'Unnamed Category' }}</p>
       </div>
     </div>

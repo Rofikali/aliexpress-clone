@@ -1,29 +1,4 @@
-// import { handleError, normalizeResponse } from '~/composables/core/base'
-
-// const BASE = '/homepage/'
-// // http://localhost:8000/api/v1/homepage/
-
-// export async function getHomepageData() {
-//     const { $api } = useNuxtApp()
-//     try {
-//         const res = await $api.get(BASE)
-//         return normalizeResponse(res)
-//     } catch (e) {
-//         return handleError(e)
-//     }
-// }
-
-// export async function getFeaturedProducts(params = {}) {
-//     const { $api } = useNuxtApp()
-//     try {
-//         const res = await $api.get(`${BASE}featured/`, { params })
-//         return normalizeResponse(res)
-//     } catch (e) {
-//         return handleError(e)
-//     }
-// }
-
-
+// ~/services/api/homepage/homepage.js
 import { handleError, normalizeResponse } from "~/composables/core/base"
 
 const BASE = "/homepage/"
@@ -45,7 +20,7 @@ function logError(method, url, error) {
 }
 
 // ===============================
-// Products API Service
+// HomePage API Service
 // ===============================
 export async function getHomepageData(params = {}) {
     const { $api } = useNuxtApp()
