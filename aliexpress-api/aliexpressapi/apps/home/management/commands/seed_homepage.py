@@ -1,68 +1,4 @@
-# from django.core.management.base import BaseCommand
-# from apps.home.models.banner import HomepageBanner
-# from apps.home.models.section import HomepageSection
-# from apps.home.models.section_product import HomepageProduct
-# from apps.products.models.category import Category
-# from apps.products.models.product import Product
-# from pathlib import Path
-
-
-# class Command(BaseCommand):
-#     help = "Seed homepage with demo sections, banners, and featured products"
-
-#     def handle(self, *args, **kwargs):
-#         # 1️⃣ Create sections
-#         hero_section, _ = HomepageSection.objects.get_or_create(
-#             title="Main Hero Banner",
-#             type="banner",
-#             defaults={
-#                 "is_active": True,
-#             },
-#         )
-
-#         flash_deals, _ = HomepageSection.objects.get_or_create(
-#             title="Flash Deals",
-#             type="products",
-#             defaults={
-#                 "is_active": True,
-#             },
-#         )
-
-#         categories, _ = HomepageSection.objects.get_or_create(
-#             title="Top Categories",
-#             type="categories",
-#             defaults={"is_active": True},
-#         )
-
-#         self.stdout.write(self.style.SUCCESS("✅ Sections created."))
-#         # ✅ Use same stock image for all products
-#         image_path = (
-#             Path(__file__).resolve().parent.parent.parent.parent.parent / "default.jpg"
-#         )
-
-#         # 2️⃣ Create banner
-#         HomepageBanner.objects.get_or_create(
-#             section=hero_section,
-#             title="Big Sale Banner",
-#             defaults={
-#                 "image": image_path,
-#                 "link_url": "/sale",
-#             },
-#         )
-#         self.stdout.write(self.style.SUCCESS("✅ Banner created."))
-
-#         # 3️⃣ Attach products (first 5 as Flash Deals)
-#         sample_products = Product.objects.all()[:5]
-#         for rank, product in enumerate(sample_products, start=1):
-#             HomepageProduct.objects.get_or_create(
-#                 section=flash_deals,
-#                 product=product,
-#                 defaults={"featured_rank": rank},
-#             )
-#         self.stdout.write(self.style.SUCCESS("✅ Flash Deal products linked."))
-
-#         self.stdout.write(self.style.SUCCESS("🎉 Homepage seeded successfully!"))
-
+# apps/home/management/commands/seed_homepage.py
 
 from django.core.management.base import BaseCommand
 from django.core.files.base import ContentFile
@@ -70,15 +6,14 @@ from apps.home.models.banner import HomepageBanner
 from apps.home.models.section import HomepageSection
 from apps.home.models.section_product import HomepageProduct
 from apps.home.models.section_category import HomepageCategory
+from apps.home.models.promotion import HomepagePromotion  # ✅ make sure this exists
 from apps.products.models.category import Category
 from apps.products.models.product import Product
 from pathlib import Path
 
 
 class Command(BaseCommand):
-    help = (
-        "Seed homepage with demo sections, banners, featured products, and categories"
-    )
+    help = "Seed homepage with demo sections, banners, featured products, categories, and promotions"
 
     def handle(self, *args, **kwargs):
         image_path = (
@@ -90,19 +25,23 @@ class Command(BaseCommand):
             )
             return
 
-        # 1️⃣ Create sections
+        # 1️⃣ Create sections safely
         sections_data = [
             {"title": "Main Hero Banner", "type": "banner", "slug": "main-hero-banner"},
             {"title": "Flash Deals", "type": "products", "slug": "flash-deals"},
             {"title": "Top Categories", "type": "categories", "slug": "top-categories"},
+            {"title": "Promotions", "type": "promo", "slug": "promo"},
         ]
 
         created_sections = []
         for data in sections_data:
             section, created = HomepageSection.objects.get_or_create(
-                title=data["title"],
-                type=data["type"],
-                defaults={"is_active": True, "slug": data["slug"]},
+                slug=data["slug"],
+                defaults={
+                    "title": data["title"],
+                    "type": data["type"],
+                    "is_active": True,
+                },
             )
             if created:
                 created_sections.append(section.title)
@@ -110,18 +49,18 @@ class Command(BaseCommand):
             self.style.SUCCESS(f"✅ Sections created: {created_sections}")
         )
 
-        # Extract sections
+        # Extract sections (always safe)
         hero_section = HomepageSection.objects.get(slug="main-hero-banner")
         flash_deals_section = HomepageSection.objects.get(slug="flash-deals")
         top_categories_section = HomepageSection.objects.get(slug="top-categories")
+        promotions_section = HomepageSection.objects.get(slug="promo")
 
-        # 2️⃣ Create hero banners
+        # 2️⃣ Hero Banners
         hero_banners = [
             {"title": "Big Sale Banner", "link_url": "/sale"},
             {"title": "Sakku on Hero Image", "link_url": "/hero/sakku"},
         ]
 
-        created_banners = []
         for banner_data in hero_banners:
             banner, created = HomepageBanner.objects.get_or_create(
                 section=hero_section,
@@ -135,42 +74,51 @@ class Command(BaseCommand):
                         ContentFile(img_file.read()),
                         save=True,
                     )
-                created_banners.append(banner.title)
-        self.stdout.write(self.style.SUCCESS(f"✅ Banners created: {created_banners}"))
+        self.stdout.write(self.style.SUCCESS("✅ Banners seeded."))
 
-        # 3️⃣ Attach products to Flash Deals
+        # 3️⃣ Flash Deal Products
         sample_products = Product.objects.all()[:5]
-        created_products = []
         for rank, product in enumerate(sample_products, start=1):
             if not product.image:
                 with open(image_path, "rb") as img_file:
                     product.image.save(
                         f"{product.slug}.jpg", ContentFile(img_file.read()), save=True
                     )
-            hp, created = HomepageProduct.objects.get_or_create(
+            HomepageProduct.objects.get_or_create(
                 section=flash_deals_section,
                 product=product,
                 defaults={"featured_rank": rank, "sort_order": rank},
             )
-            if created:
-                created_products.append(product.title)
-        self.stdout.write(
-            self.style.SUCCESS(f"✅ Flash Deal products linked: {created_products}")
-        )
+        self.stdout.write(self.style.SUCCESS("✅ Flash Deals seeded."))
 
-        # 4️⃣ Attach top categories
+        # 4️⃣ Top Categories
         top_categories = Category.objects.all()[:5]
-        created_categories = []
         for order, category in enumerate(top_categories, start=1):
-            hc, created = HomepageCategory.objects.get_or_create(
+            HomepageCategory.objects.get_or_create(
                 section=top_categories_section,
                 category=category,
                 defaults={"sort_order": order},
             )
-            if created:
-                created_categories.append(category.name)
-        self.stdout.write(
-            self.style.SUCCESS(f"✅ Top categories linked: {created_categories}")
-        )
+        self.stdout.write(self.style.SUCCESS("✅ Top Categories seeded."))
+
+        # 5️⃣ Promotions (A → E sample)
+        promotions = [
+            {"title": "Amazing Deal A", "link_url": "/promo/a"},
+            {"title": "Brilliant Deal B", "link_url": "/promo/b"},
+            {"title": "Cool Deal C", "link_url": "/promo/c"},
+            {"title": "Discount D", "link_url": "/promo/d"},
+            {"title": "Exclusive E", "link_url": "/promo/e"},
+        ]
+
+        for order, promo in enumerate(promotions, start=1):
+            HomepagePromotion.objects.get_or_create(
+                section=promotions_section,
+                title=promo["title"],
+                defaults={
+                    "link_url": promo["link_url"],
+                    "sort_order": order,
+                },
+            )
+        self.stdout.write(self.style.SUCCESS("✅ Promotions seeded."))
 
         self.stdout.write(self.style.SUCCESS("🎉 Homepage seeded successfully!"))

@@ -1,0 +1,290 @@
+{
+    "sections": [
+        {
+            "id": "570b5ff8-704c-43b6-98fa-75efc9ad42f5",
+            "title": "Main Hero Banner",
+            "slug": "main-hero-banner",
+            "type": "banner"
+        },
+        {
+            "id": "2d154c26-d624-4fa2-ab2a-f3fe38450259",
+            "title": "Flash Deals",
+            "slug": "flash-deals",
+            "type": "products"
+        },
+        {
+            "id": "aa8df3e7-033f-476e-8e80-1df2023056f5",
+            "title": "Top Categories",
+            "slug": "top-categories",
+            "type": "categories"
+        },
+        {
+            "id": "5c5fc031-2806-4109-b087-5b6fdb9e8fcd",
+            "title": "Promotions",
+            "slug": "promo",
+            "type": "promo"
+        }
+    ],
+    "banners": [
+        {
+            "id": "653f37e1-a83b-4fb2-8982-94c7d3f70044",
+            "section_slug": "main-hero-banner",
+            "title": "Big Sale Banner",
+            "link_url": "/sale",
+            "image": "default.jpg"
+        },
+        {
+            "id": "3028e543-7d84-4683-8c39-fb9505d1cac9",
+            "section_slug": "main-hero-banner",
+            "title": "Sakku on Hero Image",
+            "link_url": "/hero/sakku",
+            "image": "default.jpg"
+        }
+    ],
+    "flash_deals": [
+        {
+            "id": "713a3975-b576-44d6-87c8-2c83a9cdbdec",
+            "section_slug": "flash-deals",
+            "title": "Product 1",
+            "slug": "product-1",
+            "description": "Sample description for Product 1",
+            "price": 105,
+            "sku": "sku-2cf93415",
+            "image": "default.jpg"
+        },
+        {
+            "id": "3fb03c16-1df5-4659-b434-e44787163b6b",
+            "section_slug": "flash-deals",
+            "title": "Product 2",
+            "slug": "product-2",
+            "description": "Sample description for Product 2",
+            "price": 110,
+            "sku": "sku-463165ba",
+            "image": "default.jpg"
+        },
+        {
+            "id": "87098763-54ab-411a-a94a-0cbf17297ebe",
+            "section_slug": "flash-deals",
+            "title": "Product 3",
+            "slug": "product-3",
+            "description": "Sample description for Product 3",
+            "price": 115,
+            "sku": "sku-98080f9a",
+            "image": "default.jpg"
+        },
+        {
+            "id": "c4fb9585-7dbb-4276-b200-8fb9c4bb1cca",
+            "section_slug": "flash-deals",
+            "title": "Product 4",
+            "slug": "product-4",
+            "description": "Sample description for Product 4",
+            "price": 120,
+            "sku": "sku-416c3ade",
+            "image": "default.jpg"
+        },
+        {
+            "id": "68c6a16d-db07-4086-94c6-24a1e2349972",
+            "section_slug": "flash-deals",
+            "title": "Product 5",
+            "slug": "product-5",
+            "description": "Sample description for Product 5",
+            "price": 125,
+            "sku": "sku-501436c2",
+            "image": "default.jpg"
+        },
+        {
+            "id": "246a45d3-a638-409d-9f8e-7fed495b8271",
+            "section_slug": "flash-deals",
+            "title": "Product 6",
+            "slug": "product-6",
+            "description": "Sample description for Product 6",
+            "price": 130,
+            "sku": "sku-b02a01d1",
+            "image": "default.jpg"
+        },
+        {
+            "id": "a87616a1-3743-4d03-bc6d-4c98e6e9e9e9",
+            "section_slug": "flash-deals",
+            "title": "Product 7",
+            "slug": "product-7",
+            "description": "Sample description for Product 7",
+            "price": 135,
+            "sku": "sku-ad4c6b59",
+            "image": "default.jpg"
+        },
+        {
+            "id": "03bf0e93-7cb3-4a85-90e4-cb7ec8d1ee43",
+            "section_slug": "flash-deals",
+            "title": "Product 8",
+            "slug": "product-8",
+            "description": "Sample description for Product 8",
+            "price": 140,
+            "sku": "sku-81ee9a56",
+            "image": "default.jpg"
+        },
+        {
+            "id": "9735760d-438e-4ed1-9ea8-2ccb81fc1de8",
+            "section_slug": "flash-deals",
+            "title": "Product 9",
+            "slug": "product-9",
+            "description": "Sample description for Product 9",
+            "price": 145,
+            "sku": "sku-cf71d87c",
+            "image": "default.jpg"
+        },
+        {
+            "id": "7dce4013-0deb-404e-9b06-a1baaab38fcc",
+            "section_slug": "flash-deals",
+            "title": "Product 10",
+            "slug": "product-10",
+            "description": "Sample description for Product 10",
+            "price": 150,
+            "sku": "sku-726c04a8",
+            "image": "default.jpg"
+        }
+    ],
+    "categories": [
+        {
+            "id": "8202937e-5e30-4b52-8a5a-927bb41feee1",
+            "section_slug": "top-categories",
+            "name": "Category 1",
+            "slug": "category-1",
+            "image": "default.jpg"
+        },
+        {
+            "id": "e77e5b5c-57ac-481c-8315-fad3d890ea88",
+            "section_slug": "top-categories",
+            "name": "Category 2",
+            "slug": "category-2",
+            "image": "default.jpg"
+        },
+        {
+            "id": "a8d86622-b748-47e9-a828-768d577d1193",
+            "section_slug": "top-categories",
+            "name": "Category 3",
+            "slug": "category-3",
+            "image": "default.jpg"
+        },
+        {
+            "id": "894bfd92-18de-4e92-8e24-4afaaeab5e4d",
+            "section_slug": "top-categories",
+            "name": "Category 4",
+            "slug": "category-4",
+            "image": "default.jpg"
+        },
+        {
+            "id": "a4d9738c-0bd1-4b4f-969f-626949fe80e3",
+            "section_slug": "top-categories",
+            "name": "Category 5",
+            "slug": "category-5",
+            "image": "default.jpg"
+        },
+        {
+            "id": "3d8520fc-0b8d-415d-8ed6-36215605f2a5",
+            "section_slug": "top-categories",
+            "name": "Category 6",
+            "slug": "category-6",
+            "image": "default.jpg"
+        },
+        {
+            "id": "b8e7c237-9f0a-43b1-bf49-212ebbef01c1",
+            "section_slug": "top-categories",
+            "name": "Category 7",
+            "slug": "category-7",
+            "image": "default.jpg"
+        },
+        {
+            "id": "f0388517-9330-47a0-9658-137489bb1a5d",
+            "section_slug": "top-categories",
+            "name": "Category 8",
+            "slug": "category-8",
+            "image": "default.jpg"
+        },
+        {
+            "id": "81757618-fd8f-4e83-99e4-b32d383785a5",
+            "section_slug": "top-categories",
+            "name": "Category 9",
+            "slug": "category-9",
+            "image": "default.jpg"
+        },
+        {
+            "id": "7e17634e-f5e7-4bfc-8e7a-f7290c39f5f5",
+            "section_slug": "top-categories",
+            "name": "Category 10",
+            "slug": "category-10",
+            "image": "default.jpg"
+        }
+    ],
+    "promotions": [
+        {
+            "id": "c7c99f7c-d0d8-4513-9495-765bff74aee1",
+            "section_slug": "promo",
+            "title": "Promotion 1",
+            "link_url": "/promo/1",
+            "image": "default.jpg"
+        },
+        {
+            "id": "d38b7933-30ce-4ca7-981d-f47cfeb6c35a",
+            "section_slug": "promo",
+            "title": "Promotion 2",
+            "link_url": "/promo/2",
+            "image": "default.jpg"
+        },
+        {
+            "id": "51238d03-72ab-493d-b759-e72ebb9eaad5",
+            "section_slug": "promo",
+            "title": "Promotion 3",
+            "link_url": "/promo/3",
+            "image": "default.jpg"
+        },
+        {
+            "id": "333beb72-a1dd-4791-b68c-09056b7d1876",
+            "section_slug": "promo",
+            "title": "Promotion 4",
+            "link_url": "/promo/4",
+            "image": "default.jpg"
+        },
+        {
+            "id": "076462b8-aa2b-438d-a56a-ce05996bcf57",
+            "section_slug": "promo",
+            "title": "Promotion 5",
+            "link_url": "/promo/5",
+            "image": "default.jpg"
+        },
+        {
+            "id": "eaed7c28-7029-4227-81c1-c81baa31a331",
+            "section_slug": "promo",
+            "title": "Promotion 6",
+            "link_url": "/promo/6",
+            "image": "default.jpg"
+        },
+        {
+            "id": "24ff69f3-5716-4ff0-b31b-e1ef6c3e1101",
+            "section_slug": "promo",
+            "title": "Promotion 7",
+            "link_url": "/promo/7",
+            "image": "default.jpg"
+        },
+        {
+            "id": "5d5a6aa2-ce64-41a0-b70a-c669c8dc83be",
+            "section_slug": "promo",
+            "title": "Promotion 8",
+            "link_url": "/promo/8",
+            "image": "default.jpg"
+        },
+        {
+            "id": "a4364f0e-b922-4a4d-ad5e-57bcf6ddc2ba",
+            "section_slug": "promo",
+            "title": "Promotion 9",
+            "link_url": "/promo/9",
+            "image": "default.jpg"
+        },
+        {
+            "id": "5ff24ba3-fed8-4967-91ed-88fb579d1a3e",
+            "section_slug": "promo",
+            "title": "Promotion 10",
+            "link_url": "/promo/10",
+            "image": "default.jpg"
+        }
+    ]
+}

@@ -176,9 +176,14 @@
 
 // ~/stores/modules/categoryStore.js
 import { defineStore } from "pinia"
-import { getCategoryWithProducts } from "~/services/api/categories/category"
+import { getCategories, getCategoryWithProducts } from "~/services/api/categories/category"
+import { usePagination } from "~/composables/pagination/useBasePagination"
 
 export const useCategoryStore = defineStore("categoryStore", () => {
+    // ============ Pagination (list of products) ============
+    const pagination = usePagination(getCategories, { pageSize: 12, debug: true })
+    console.log('pagination in category store for all categories --------> ', pagination);
+
     // const category = ref(null)         // category info (id, name, description)
     const products = ref([])           // product list
     const nextCursor = ref(null)       // pagination cursor
@@ -256,7 +261,19 @@ export const useCategoryStore = defineStore("categoryStore", () => {
     }
 
     return {
-        // category,
+        // Listing categories
+        categories: pagination.items,
+        loading: pagination.loading,
+        error: pagination.error,
+        nextCursor: pagination.nextCursor,
+        hasNext: pagination.hasNext,
+        // count: pagination.count,
+        fetchCategories: pagination.fetchFirst,
+        loadMore: pagination.loadMore,
+        reset: pagination.reset,
+        forceReload: pagination.forceReload,
+
+        // single category related products,
         products,
         nextCursor,
         hasNext,

@@ -137,9 +137,6 @@ from apps.products.models.category import Category
 from apps.products.serializers.category import CategorySerializer
 from apps.products.serializers.product import ProductSerializer
 from components.responses.response_factory import ResponseFactory
-from apps.products.serializers.category_with_products import (
-    CategoryWithProductsSerializer,
-)
 from components.caching.cache_factory import get_cache
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 from components.paginations.base_pagination import BaseCursorPagination
@@ -171,6 +168,17 @@ class CategoryViewSet(ViewSet):
         description="Retrieve all product categories with optional caching.",
     )
     def list(self, request):
+        # cursor = request.query_params.get("cursor") or "first"
+        # cache_data = self.cache.get_results(cursor)
+        # if cache_data:
+        #     return ResponseFactory.success_collection(
+        #         items=cache_data.get("items", []),
+        #         pagination=cache_data.get("pagination", {}),
+        #         message="Products fetched successfully (cache)",
+        #         status=status.HTTP_200_OK,
+        #         request=request,
+        #     )
+
         """Return all categories"""
         queryset = Category.objects.all().order_by("-created_at")
         serializer = CategorySerializer(queryset, many=True)

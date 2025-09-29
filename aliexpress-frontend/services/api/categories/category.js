@@ -16,6 +16,21 @@ function logError(method, url, error) {
 // ===============================
 // Category API Service
 // ===============================
+export async function getCategories(params = {}) {
+    const { $api } = useNuxtApp()
+    const url = BASE
+    try {
+        logRequest("get", url, params)
+        const res = await $api.get(url, { params })
+        logSuccess("get", url, res)
+        return normalizeResponse(res)
+    } catch (e) {
+        logError("get", url, e)
+        return handleError(e)
+    }
+}
+
+
 export async function getCategoryWithProducts(categoryId, params = {}) {
     const { $api } = useNuxtApp()
     const url = `${BASE}${categoryId}/`

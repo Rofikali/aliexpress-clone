@@ -63,7 +63,7 @@ export const useHomepageStore = defineStore("homepageStore", () => {
         error.value = null
         try {
             const res = await getHomepageData()
-            console.log('inside response ----------->  ', res.data);
+            console.log('inside response homgepageStore----------->  ', res.data);
             if (res.success) {
                 sections.value = res.data || []
             } else {

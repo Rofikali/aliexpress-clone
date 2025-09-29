@@ -255,6 +255,7 @@ class ProductsViewSet(ViewSet):
         cursor = request.query_params.get("cursor") or "first"
 
         cache_data = self.cache.get_results(cursor)
+        
         if cache_data:
             return ResponseFactory.success_collection(
                 items=cache_data.get("items", []),
