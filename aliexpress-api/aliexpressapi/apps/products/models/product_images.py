@@ -1,5 +1,6 @@
 # apps.products.models.product_images_model.py
 
+from attr import attributes
 from django.db import models
 import uuid
 from django.contrib.auth import get_user_model
@@ -9,6 +10,7 @@ User = get_user_model()
 
 
 class ProductImages(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name="product_images", db_index=True
     )
@@ -16,6 +18,7 @@ class ProductImages(models.Model):
     alt_text = models.CharField(max_length=255, blank=True)
     position = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = "products_productimage"

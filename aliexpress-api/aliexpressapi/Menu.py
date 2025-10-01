@@ -19,6 +19,7 @@ class Spinner:
         self.message = message
         self.running = False
         self.spinner_cycle = ["|", "/", "-", "\\"]
+        self.fixture_file = "./full_fixture.json"  # <--- add this line here
 
     def start(self):
         self.running = True
@@ -228,7 +229,9 @@ def menu():
     print("2. Remove __pycache__ directories")
     print("3. Remove migration files")
     print("4. Run migrations & ensure superuser")
-    print("5. Run product commands")
+    print(
+        "5. Run product, Categories, Brands, Inventory, Product_variant, Varint_Values, Product_Attributes, Products_Attribute_Values"
+    )
     print("6. Seed homepage")
     print("7. Run ALL (with global spinner + elapsed time)")
     print("0. Exit")
@@ -250,14 +253,27 @@ if __name__ == "__main__":
 
         if choice == "1":
             DatabaseCleaner(db_file).clean()
+            # python manage.py flush
         elif choice == "2":
             PycacheCleaner(base).clean()
         elif choice == "3":
             MigrationsCleaner(base).clean()
         elif choice == "4":
             MigrationAndSuperuser().run()
+        # elif choice == "5":
+        #     ProductsCommandRunner("./apps/accounts/management/fake_products.json").run()
         elif choice == "5":
-            ProductsCommandRunner("./apps/accounts/management/fake_products.json").run()
+            fixture_file = "./full_fixture.json"
+            if Path(fixture_file).exists():
+                print(f"Loading fixture: {fixture_file} ...")
+                run_cmd(
+                    f"python manage.py loaddata {fixture_file}",
+                    message="Loading full_fixture.json",
+                )
+                print("✅ Fixture loaded successfully!")
+            else:
+                print(f"❌ Fixture file not found: {fixture_file}")
+
         elif choice == "6":
             spinner = Spinner("Seeding homepage")
             spinner.start()
@@ -265,6 +281,7 @@ if __name__ == "__main__":
             spinner.stop()
             print("✅ Homepage seeded!")
         elif choice == "7":
+            fixture_file = "./full_fixture.json"  # <--- add this line here
             confirm = (
                 input(
                     "\n⚠️ This will remove DB, __pycache__, migrations, run migrations, "
@@ -283,9 +300,13 @@ if __name__ == "__main__":
                 PycacheCleaner(base).clean(use_spinner=False)
                 MigrationsCleaner(base).clean(use_spinner=False)
                 MigrationAndSuperuser().run(use_spinner=False)
-                ProductsCommandRunner(
-                    "./apps/accounts/management/fake_products.json"
-                ).run(use_spinner=False)
+                # ProductsCommandRunner(
+                #     "./apps/accounts/management/fake_products.json"
+                # ).run(use_spinner=False)
+                run_cmd(
+                    f"python manage.py loaddata {fixture_file}",
+                    message="Loading full_fixture.json",
+                )
                 os.system("python manage.py seed_homepage")
 
                 spinner.stop()

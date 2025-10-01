@@ -8,6 +8,7 @@ User = get_user_model()
 
 
 class Inventory(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     REASON_CHOICES = [
         ("order", "Order"),
         ("restock", "Restock"),
@@ -28,4 +29,4 @@ class Inventory(models.Model):
         db_table = "products_inventory"
 
     def __str__(self):
-        return f'{self.sku} - Change: {self.change} - Reason: {self.reason}'
+        return f"{self.sku} - Change: {self.change} - Reason: {self.reason}"
