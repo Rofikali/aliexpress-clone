@@ -33,6 +33,7 @@ from apps.home.serializers.section_category_serializer import HomepageCategorySe
 from apps.home.serializers.promotion_serializer import HomepagePromotionSerializer
 
 
+# i just commented this nothing else
 class HomepageSectionSerializer(serializers.ModelSerializer):
     banners = HomepageBannerSerializer(many=True, read_only=True)
     products = HomepageProductSerializer(many=True, read_only=True)
@@ -48,9 +49,32 @@ class HomepageSectionSerializer(serializers.ModelSerializer):
             "type",
             "position",
             "is_active",
-            "metadata",
+            # "metadata",
             "banners",
             "products",
             "categories",  # ✅ new
             "promotions",  # ✅ added
         ]
+
+
+# class HomepageSectionDetailSerializer(serializers.ModelSerializer):
+#     banners = HomepageBannerSerializer(many=True, read_only=True)
+#     products = HomepageProductSerializer(many=True, read_only=True)
+#     categories = HomepageCategorySerializer(many=True, read_only=True)  # ✅ new
+#     promotions = HomepagePromotionSerializer(many=True, read_only=True)  # ✅ new
+
+#     class Meta:
+#         model = HomepageSection
+#         fields = [
+#             "id",
+#             "title",
+#             "slug",
+#             "type",
+#             "position",
+#             "is_active",
+#             "metadata",
+#             "banners",
+#             "products",
+#             "categories",  # ✅ new
+#             "promotions",  # ✅ added
+#         ]

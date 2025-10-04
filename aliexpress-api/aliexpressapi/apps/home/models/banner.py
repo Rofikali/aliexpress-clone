@@ -1,11 +1,11 @@
 # apps/home/models/banner.py
 import uuid
 from django.db import models
-from apps.home.models.section import HomepageSection
+# from apps.home.models.section import HomepageSection
 
 class HomepageBanner(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    section = models.ForeignKey(HomepageSection, related_name="banners", on_delete=models.CASCADE)
+    # section = models.ForeignKey(HomepageSection, related_name="banners", on_delete=models.CASCADE)
     title = models.CharField(max_length=255, null=True, blank=True)
     image = models.ImageField(upload_to="home/banners/")
     link_url = models.CharField(max_length=512, null=True, blank=True)

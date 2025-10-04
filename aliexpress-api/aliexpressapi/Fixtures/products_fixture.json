@@ -1,0 +1,3800 @@
+[
+  {
+    "model": "accounts.user",
+    "pk": "4210b11d-6461-44a9-b822-6fefd80b934e",
+    "fields": {
+      "id": "4210b11d-6461-44a9-b822-6fefd80b934e",
+      "email": "aoneill@example.com",
+      "username": "bryce89",
+      "password": "pbkdf2_sha256$...",
+      "role": "seller",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "92527d7f-8f6b-4dca-9556-00269277af5a",
+    "fields": {
+      "id": "92527d7f-8f6b-4dca-9556-00269277af5a",
+      "email": "bonillajohn@example.org",
+      "username": "kevinfoley",
+      "password": "pbkdf2_sha256$...",
+      "role": "seller",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "bf0419b2-585c-4a52-ae40-c8e7b34078f8",
+    "fields": {
+      "id": "bf0419b2-585c-4a52-ae40-c8e7b34078f8",
+      "email": "jacobgoodman@example.net",
+      "username": "williamsdonald",
+      "password": "pbkdf2_sha256$...",
+      "role": "seller",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "b1366718-e65a-4030-aac8-c89f82218151",
+    "fields": {
+      "id": "b1366718-e65a-4030-aac8-c89f82218151",
+      "email": "linda46@example.org",
+      "username": "thomas13",
+      "password": "pbkdf2_sha256$...",
+      "role": "seller",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "28c55ff1-d044-4bd5-afc0-5ac6a21ab819",
+    "fields": {
+      "id": "28c55ff1-d044-4bd5-afc0-5ac6a21ab819",
+      "email": "alexanderjones@example.net",
+      "username": "michelletaylor",
+      "password": "pbkdf2_sha256$...",
+      "role": "seller",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "b739dec5-c759-4789-a5bc-f6ef28ce6365",
+    "fields": {
+      "id": "b739dec5-c759-4789-a5bc-f6ef28ce6365",
+      "email": "james71@example.com",
+      "username": "hillrobert",
+      "password": "pbkdf2_sha256$...",
+      "role": "seller",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "7a19cf29-bfeb-4d34-980d-02b98c1495a5",
+    "fields": {
+      "id": "7a19cf29-bfeb-4d34-980d-02b98c1495a5",
+      "email": "woodjennifer@example.net",
+      "username": "janeclark",
+      "password": "pbkdf2_sha256$...",
+      "role": "seller",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "ccccd59e-790b-4124-963b-e48969586348",
+    "fields": {
+      "id": "ccccd59e-790b-4124-963b-e48969586348",
+      "email": "hfreeman@example.net",
+      "username": "kmorgan",
+      "password": "pbkdf2_sha256$...",
+      "role": "seller",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "584bca30-f3b9-4508-8884-538a041eb356",
+    "fields": {
+      "id": "584bca30-f3b9-4508-8884-538a041eb356",
+      "email": "beverlypeck@example.com",
+      "username": "jonesdavid",
+      "password": "pbkdf2_sha256$...",
+      "role": "seller",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "4ee6c213-c85d-4e75-b8c3-0f60f63f0290",
+    "fields": {
+      "id": "4ee6c213-c85d-4e75-b8c3-0f60f63f0290",
+      "email": "danielfloyd@example.com",
+      "username": "noah08",
+      "password": "pbkdf2_sha256$...",
+      "role": "seller",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "f2cb029c-cb70-4ce3-ad7f-486aacbc271c",
+    "fields": {
+      "id": "f2cb029c-cb70-4ce3-ad7f-486aacbc271c",
+      "email": "curtis79@example.net",
+      "username": "armstrongjoseph",
+      "password": "pbkdf2_sha256$...",
+      "role": "buyer",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "9eb7d7bc-cc7d-4046-9821-fbd5e6085de4",
+    "fields": {
+      "id": "9eb7d7bc-cc7d-4046-9821-fbd5e6085de4",
+      "email": "steinheather@example.net",
+      "username": "abrown",
+      "password": "pbkdf2_sha256$...",
+      "role": "buyer",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "023ece06-2192-4082-8ab0-1a103cf544e3",
+    "fields": {
+      "id": "023ece06-2192-4082-8ab0-1a103cf544e3",
+      "email": "nicolesaunders@example.net",
+      "username": "jeff02",
+      "password": "pbkdf2_sha256$...",
+      "role": "buyer",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "9d4d5cae-69b3-4a0b-b507-893cd7fb5001",
+    "fields": {
+      "id": "9d4d5cae-69b3-4a0b-b507-893cd7fb5001",
+      "email": "davidguerra@example.net",
+      "username": "gonzalezamy",
+      "password": "pbkdf2_sha256$...",
+      "role": "buyer",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "2a9c0b33-97b9-47f9-bfdd-3b5af509294d",
+    "fields": {
+      "id": "2a9c0b33-97b9-47f9-bfdd-3b5af509294d",
+      "email": "sandersjuan@example.com",
+      "username": "robertsterri",
+      "password": "pbkdf2_sha256$...",
+      "role": "buyer",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "37636e38-4e53-4fce-a2cb-a02aa6bbba73",
+    "fields": {
+      "id": "37636e38-4e53-4fce-a2cb-a02aa6bbba73",
+      "email": "ellenreynolds@example.org",
+      "username": "mark15",
+      "password": "pbkdf2_sha256$...",
+      "role": "buyer",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "754fa0a9-f2e1-4c04-a2bd-d1dcaf38c22b",
+    "fields": {
+      "id": "754fa0a9-f2e1-4c04-a2bd-d1dcaf38c22b",
+      "email": "briannawalker@example.org",
+      "username": "catherine19",
+      "password": "pbkdf2_sha256$...",
+      "role": "buyer",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "52f519a2-751e-4976-a84e-a80fd33126c8",
+    "fields": {
+      "id": "52f519a2-751e-4976-a84e-a80fd33126c8",
+      "email": "mhanson@example.net",
+      "username": "angelaparker",
+      "password": "pbkdf2_sha256$...",
+      "role": "buyer",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "102b67d0-f7f8-49c6-a11b-64d53e291204",
+    "fields": {
+      "id": "102b67d0-f7f8-49c6-a11b-64d53e291204",
+      "email": "fmcdonald@example.org",
+      "username": "matthewbush",
+      "password": "pbkdf2_sha256$...",
+      "role": "buyer",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "e19eefd6-80a3-466b-821e-e3f550475b4c",
+    "fields": {
+      "id": "e19eefd6-80a3-466b-821e-e3f550475b4c",
+      "email": "fordmichael@example.org",
+      "username": "isantos",
+      "password": "pbkdf2_sha256$...",
+      "role": "buyer",
+      "is_active": true,
+      "is_email_verified": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": "4c1f8e76-6f07-436d-926a-d946eef78ca5",
+    "fields": {
+      "id": "4c1f8e76-6f07-436d-926a-d946eef78ca5",
+      "name": "stay",
+      "slug": "car-day-thing-not",
+      "description": "Focus day take read stage they.",
+      "parent": null,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": "887d2e26-d041-4871-8cef-8b5c8d764f2d",
+    "fields": {
+      "id": "887d2e26-d041-4871-8cef-8b5c8d764f2d",
+      "name": "thought",
+      "slug": "be-very-resource",
+      "description": "Hot nearly risk your.",
+      "parent": null,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": "73e8270f-866f-41f0-81f6-55003e95e692",
+    "fields": {
+      "id": "73e8270f-866f-41f0-81f6-55003e95e692",
+      "name": "him",
+      "slug": "market-field",
+      "description": "Important just quality word.",
+      "parent": null,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": "1fb23271-f9fc-45c1-aa17-b34060d584f1",
+    "fields": {
+      "id": "1fb23271-f9fc-45c1-aa17-b34060d584f1",
+      "name": "yourself",
+      "slug": "form-foot-or-face",
+      "description": "Once rate act lead.",
+      "parent": null,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": "d01a2941-30f8-4802-b484-c7c8d68b0653",
+    "fields": {
+      "id": "d01a2941-30f8-4802-b484-c7c8d68b0653",
+      "name": "science",
+      "slug": "account-federal",
+      "description": "Skin such husband become.",
+      "parent": null,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": "b7220223-652b-43db-8b25-91c95c412838",
+    "fields": {
+      "id": "b7220223-652b-43db-8b25-91c95c412838",
+      "name": "shoulder",
+      "slug": "particularly-speech",
+      "description": "Exactly feeling somebody.",
+      "parent": null,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": "4059af4d-5351-4c7c-9c13-40615faaf142",
+    "fields": {
+      "id": "4059af4d-5351-4c7c-9c13-40615faaf142",
+      "name": "because",
+      "slug": "can-respond-policy",
+      "description": "Condition between early cause stock far.",
+      "parent": null,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": "66d8073e-e968-4e7a-95a6-47da95de60b0",
+    "fields": {
+      "id": "66d8073e-e968-4e7a-95a6-47da95de60b0",
+      "name": "above",
+      "slug": "see-special",
+      "description": "Majority understand American year but sit institution.",
+      "parent": null,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": "1147a131-f044-4f34-9919-638bdf917835",
+    "fields": {
+      "id": "1147a131-f044-4f34-9919-638bdf917835",
+      "name": "goal",
+      "slug": "successful",
+      "description": "Cost history answer four.",
+      "parent": null,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": "1c2abf72-0523-4b9b-9576-b88bae821a13",
+    "fields": {
+      "id": "1c2abf72-0523-4b9b-9576-b88bae821a13",
+      "name": "answer",
+      "slug": "for-difference",
+      "description": "Even indeed Mr response.",
+      "parent": null,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.brand",
+    "pk": "73c2170b-e0db-47ce-a2eb-acdfba5dfbba",
+    "fields": {
+      "id": "73c2170b-e0db-47ce-a2eb-acdfba5dfbba",
+      "name": "Long-Vaughn",
+      "slug": "itself-find-group",
+      "description": "Find bar health smile.",
+      "logo": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.brand",
+    "pk": "d8cf8818-1ec9-4c1b-9402-28ca309b994f",
+    "fields": {
+      "id": "d8cf8818-1ec9-4c1b-9402-28ca309b994f",
+      "name": "Williams, Burke and Shaw",
+      "slug": "official-suffer",
+      "description": "Expect truth ready clear husband off.",
+      "logo": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.brand",
+    "pk": "6370a6a5-caa6-43a8-b6d3-251caa347d0c",
+    "fields": {
+      "id": "6370a6a5-caa6-43a8-b6d3-251caa347d0c",
+      "name": "Orr, Grant and Manning",
+      "slug": "away-cause-left",
+      "description": "Glass beyond person entire avoid.",
+      "logo": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.brand",
+    "pk": "f78c2d9d-8d55-455d-8380-0a8d49f135de",
+    "fields": {
+      "id": "f78c2d9d-8d55-455d-8380-0a8d49f135de",
+      "name": "Ortiz, Martinez and Lee",
+      "slug": "expect-family",
+      "description": "Financial clearly number including.",
+      "logo": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.brand",
+    "pk": "d7be330a-ee29-4b14-827d-cd05b0d61f20",
+    "fields": {
+      "id": "d7be330a-ee29-4b14-827d-cd05b0d61f20",
+      "name": "Watson, Bush and Vasquez",
+      "slug": "recent-later-real",
+      "description": "Score record significant black.",
+      "logo": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.brand",
+    "pk": "3b48d642-4939-408b-9e9d-d3d8e5a172d1",
+    "fields": {
+      "id": "3b48d642-4939-408b-9e9d-d3d8e5a172d1",
+      "name": "Preston, Cobb and Barnes",
+      "slug": "trouble-example-him",
+      "description": "Section budget foot above those same fill local.",
+      "logo": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.brand",
+    "pk": "4bfedc86-16be-44b7-a317-94b154c3f869",
+    "fields": {
+      "id": "4bfedc86-16be-44b7-a317-94b154c3f869",
+      "name": "Kaiser LLC",
+      "slug": "around-play-once",
+      "description": "Everyone none network cause region.",
+      "logo": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.brand",
+    "pk": "2ffd0f5c-cb7d-4042-9e30-6af7fb80c1c5",
+    "fields": {
+      "id": "2ffd0f5c-cb7d-4042-9e30-6af7fb80c1c5",
+      "name": "Sanchez, Fisher and Cohen",
+      "slug": "culture-indeed",
+      "description": "Walk strong feel few Democrat already.",
+      "logo": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.brand",
+    "pk": "2eec1c25-1c07-4ac2-a672-e768e32ec8d9",
+    "fields": {
+      "id": "2eec1c25-1c07-4ac2-a672-e768e32ec8d9",
+      "name": "Robbins, Allen and Bullock",
+      "slug": "traditional-likely",
+      "description": "Other protect another.",
+      "logo": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.brand",
+    "pk": "165d8148-139e-44c1-b49d-f358b001ce0a",
+    "fields": {
+      "id": "165d8148-139e-44c1-b49d-f358b001ce0a",
+      "name": "Wilson LLC",
+      "slug": "style-thought-while",
+      "description": "Interview show partner worry human.",
+      "logo": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productattribute",
+    "pk": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+    "fields": {
+      "id": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "name": "Color",
+      "sort_order": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productattributevalue",
+    "pk": "a673a563-f8d3-46db-836a-901bdd4c19ad",
+    "fields": {
+      "id": "a673a563-f8d3-46db-836a-901bdd4c19ad",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "Red",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productattributevalue",
+    "pk": "02ba5348-64b9-4b59-af0b-4231a1dac8ed",
+    "fields": {
+      "id": "02ba5348-64b9-4b59-af0b-4231a1dac8ed",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "Blue",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productattributevalue",
+    "pk": "15a71bb5-f065-4d8d-8220-9ec614de7bd7",
+    "fields": {
+      "id": "15a71bb5-f065-4d8d-8220-9ec614de7bd7",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "Green",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productattribute",
+    "pk": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+    "fields": {
+      "id": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "name": "Size",
+      "sort_order": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productattributevalue",
+    "pk": "284d6c83-74e2-44a4-b1a5-7f4b31d91a28",
+    "fields": {
+      "id": "284d6c83-74e2-44a4-b1a5-7f4b31d91a28",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "S",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productattributevalue",
+    "pk": "dd31aa65-26c5-4d29-945e-e78dad1b02b2",
+    "fields": {
+      "id": "dd31aa65-26c5-4d29-945e-e78dad1b02b2",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "M",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productattributevalue",
+    "pk": "b05048f8-fb9b-4f27-94e0-4e5bd127b9da",
+    "fields": {
+      "id": "b05048f8-fb9b-4f27-94e0-4e5bd127b9da",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "L",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "3a7dfea3-8ac8-4283-a675-ff21ca41d490",
+    "fields": {
+      "id": "3a7dfea3-8ac8-4283-a675-ff21ca41d490",
+      "title": "Most I.",
+      "slug": "general-foreign",
+      "description": "Under throughout to consider end serious person everything. Some modern word view.",
+      "sku": "7035826451258",
+      "price": 125.22,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 453,
+      "is_active": true,
+      "rating": 1.2,
+      "review_count": 550,
+      "seller": "ccccd59e-790b-4124-963b-e48969586348",
+      "category": "4059af4d-5351-4c7c-9c13-40615faaf142",
+      "brand": "73c2170b-e0db-47ce-a2eb-acdfba5dfbba",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "0ba142e6-3b52-4952-b18c-4ddd24308922",
+    "fields": {
+      "id": "0ba142e6-3b52-4952-b18c-4ddd24308922",
+      "product": "3a7dfea3-8ac8-4283-a675-ff21ca41d490",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Experience body security ask house.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "5b75e6b8-6938-4d02-9350-68ca50708495",
+    "fields": {
+      "id": "5b75e6b8-6938-4d02-9350-68ca50708495",
+      "product": "3a7dfea3-8ac8-4283-a675-ff21ca41d490",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Show believe discuss family.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "f9f33662-6149-47c4-9114-1ff2efd99117",
+    "fields": {
+      "id": "f9f33662-6149-47c4-9114-1ff2efd99117",
+      "product": "3a7dfea3-8ac8-4283-a675-ff21ca41d490",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Rule man ask.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "56b7e906-ee50-4124-9b9c-58325fc4d802",
+    "fields": {
+      "id": "56b7e906-ee50-4124-9b9c-58325fc4d802",
+      "product": "3a7dfea3-8ac8-4283-a675-ff21ca41d490",
+      "sku": "SKU-0-9891",
+      "price": 166.51,
+      "discount_price": null,
+      "stock": 186,
+      "currency": "USD",
+      "image": "0ba142e6-3b52-4952-b18c-4ddd24308922",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "807ad84e-dd30-43f0-8bf0-95cd6dd49dd5",
+    "fields": {
+      "id": "807ad84e-dd30-43f0-8bf0-95cd6dd49dd5",
+      "variant": "56b7e906-ee50-4124-9b9c-58325fc4d802",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "02ba5348-64b9-4b59-af0b-4231a1dac8ed",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "2ed8f2a9-6e64-49b1-9a0d-03eee2d7965f",
+    "fields": {
+      "id": "2ed8f2a9-6e64-49b1-9a0d-03eee2d7965f",
+      "sku": "SKU-0-9891",
+      "product": "3a7dfea3-8ac8-4283-a675-ff21ca41d490",
+      "stock": 186,
+      "change": 186,
+      "quantity": 186,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "28555056-1eba-476a-94cb-aee31143d689",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "0897aa40-c04d-4437-ba82-941a3b9067b1",
+    "fields": {
+      "id": "0897aa40-c04d-4437-ba82-941a3b9067b1",
+      "product": "3a7dfea3-8ac8-4283-a675-ff21ca41d490",
+      "sku": "SKU-1-6340",
+      "price": 280.67,
+      "discount_price": null,
+      "stock": 119,
+      "currency": "USD",
+      "image": "0ba142e6-3b52-4952-b18c-4ddd24308922",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "14f760f7-7e88-464b-a535-28853883037f",
+    "fields": {
+      "id": "14f760f7-7e88-464b-a535-28853883037f",
+      "variant": "0897aa40-c04d-4437-ba82-941a3b9067b1",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "284d6c83-74e2-44a4-b1a5-7f4b31d91a28",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "82e29ac6-52e0-48c2-91ac-eabb5d39a289",
+    "fields": {
+      "id": "82e29ac6-52e0-48c2-91ac-eabb5d39a289",
+      "sku": "SKU-1-6340",
+      "product": "3a7dfea3-8ac8-4283-a675-ff21ca41d490",
+      "stock": 119,
+      "change": 119,
+      "quantity": 119,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "140530bc-af26-4439-9b34-caaad8d22c24",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "73f14c8b-4ea4-4e29-9029-b6fd7256609a",
+    "fields": {
+      "id": "73f14c8b-4ea4-4e29-9029-b6fd7256609a",
+      "title": "Rate true.",
+      "slug": "society-defense",
+      "description": "Shoulder force thought history tell leave guy. Bed center fill recently report. Garden forget raise industry music reduce system.",
+      "sku": "7990614634858",
+      "price": 232.45,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 221,
+      "is_active": true,
+      "rating": 2.8,
+      "review_count": 379,
+      "seller": "7a19cf29-bfeb-4d34-980d-02b98c1495a5",
+      "category": "d01a2941-30f8-4802-b484-c7c8d68b0653",
+      "brand": "2eec1c25-1c07-4ac2-a672-e768e32ec8d9",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "4aa30ec2-60e0-4193-8730-ed2d2ef57032",
+    "fields": {
+      "id": "4aa30ec2-60e0-4193-8730-ed2d2ef57032",
+      "product": "73f14c8b-4ea4-4e29-9029-b6fd7256609a",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Eye discover Mrs food.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "18175dc2-679d-4696-ac4c-84fdb353badd",
+    "fields": {
+      "id": "18175dc2-679d-4696-ac4c-84fdb353badd",
+      "product": "73f14c8b-4ea4-4e29-9029-b6fd7256609a",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Business my sell prove technology beyond.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "2b8420c5-9554-4f21-8c5d-a53c70c98203",
+    "fields": {
+      "id": "2b8420c5-9554-4f21-8c5d-a53c70c98203",
+      "product": "73f14c8b-4ea4-4e29-9029-b6fd7256609a",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Run national become land.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "f8463a56-37e8-4090-82fe-a11f145703ef",
+    "fields": {
+      "id": "f8463a56-37e8-4090-82fe-a11f145703ef",
+      "product": "73f14c8b-4ea4-4e29-9029-b6fd7256609a",
+      "sku": "SKU-2-3007",
+      "price": 234.75,
+      "discount_price": null,
+      "stock": 29,
+      "currency": "USD",
+      "image": "4aa30ec2-60e0-4193-8730-ed2d2ef57032",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "ab63e2ef-47e9-4de4-ae79-da3d0ca49c69",
+    "fields": {
+      "id": "ab63e2ef-47e9-4de4-ae79-da3d0ca49c69",
+      "variant": "f8463a56-37e8-4090-82fe-a11f145703ef",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "15a71bb5-f065-4d8d-8220-9ec614de7bd7",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "0cf36314-aa8b-496b-8980-61bf3960e2d5",
+    "fields": {
+      "id": "0cf36314-aa8b-496b-8980-61bf3960e2d5",
+      "sku": "SKU-2-3007",
+      "product": "73f14c8b-4ea4-4e29-9029-b6fd7256609a",
+      "stock": 29,
+      "change": 29,
+      "quantity": 29,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "416b2c6c-74e1-48ba-b8a4-90844d07a19f",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "6a7cceaa-ffe8-4164-9a38-6e2b058b6d74",
+    "fields": {
+      "id": "6a7cceaa-ffe8-4164-9a38-6e2b058b6d74",
+      "product": "73f14c8b-4ea4-4e29-9029-b6fd7256609a",
+      "sku": "SKU-3-2432",
+      "price": 417.78,
+      "discount_price": null,
+      "stock": 141,
+      "currency": "USD",
+      "image": "4aa30ec2-60e0-4193-8730-ed2d2ef57032",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "52cbcfad-f208-4983-92c8-7bc8933310de",
+    "fields": {
+      "id": "52cbcfad-f208-4983-92c8-7bc8933310de",
+      "variant": "6a7cceaa-ffe8-4164-9a38-6e2b058b6d74",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "a673a563-f8d3-46db-836a-901bdd4c19ad",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "aa136d92-2ae6-48ca-98e8-97a63177b51c",
+    "fields": {
+      "id": "aa136d92-2ae6-48ca-98e8-97a63177b51c",
+      "sku": "SKU-3-2432",
+      "product": "73f14c8b-4ea4-4e29-9029-b6fd7256609a",
+      "stock": 141,
+      "change": 141,
+      "quantity": 141,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "742920f1-f5b2-48aa-b951-72e625138a20",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "6c05e566-336f-45cd-acf0-0c376714a9fb",
+    "fields": {
+      "id": "6c05e566-336f-45cd-acf0-0c376714a9fb",
+      "product": "73f14c8b-4ea4-4e29-9029-b6fd7256609a",
+      "sku": "SKU-4-6418",
+      "price": 426.19,
+      "discount_price": null,
+      "stock": 138,
+      "currency": "USD",
+      "image": "4aa30ec2-60e0-4193-8730-ed2d2ef57032",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "d7a37d61-f19b-4366-831e-7c6f28bb7c12",
+    "fields": {
+      "id": "d7a37d61-f19b-4366-831e-7c6f28bb7c12",
+      "variant": "6c05e566-336f-45cd-acf0-0c376714a9fb",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "02ba5348-64b9-4b59-af0b-4231a1dac8ed",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "7121b3f8-5d3a-4902-9d83-c5227da19210",
+    "fields": {
+      "id": "7121b3f8-5d3a-4902-9d83-c5227da19210",
+      "sku": "SKU-4-6418",
+      "product": "73f14c8b-4ea4-4e29-9029-b6fd7256609a",
+      "stock": 138,
+      "change": 138,
+      "quantity": 138,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "b472dd6b-9fb5-4e70-8293-f6dc37cf3874",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "6609b87a-f8ad-4b86-a9e1-2551bc87d95f",
+    "fields": {
+      "id": "6609b87a-f8ad-4b86-a9e1-2551bc87d95f",
+      "title": "Only shake.",
+      "slug": "republican",
+      "description": "Concern specific resource collection radio plan work break. Onto movement however as either maintain.",
+      "sku": "0453251923763",
+      "price": 403.74,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 266,
+      "is_active": true,
+      "rating": 2.8,
+      "review_count": 534,
+      "seller": "bf0419b2-585c-4a52-ae40-c8e7b34078f8",
+      "category": "d01a2941-30f8-4802-b484-c7c8d68b0653",
+      "brand": "165d8148-139e-44c1-b49d-f358b001ce0a",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "10464af1-3531-4d1c-a4ce-d76d5be0a964",
+    "fields": {
+      "id": "10464af1-3531-4d1c-a4ce-d76d5be0a964",
+      "product": "6609b87a-f8ad-4b86-a9e1-2551bc87d95f",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "This window conference.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "663c20fd-912d-44d5-8943-0af8fc56e984",
+    "fields": {
+      "id": "663c20fd-912d-44d5-8943-0af8fc56e984",
+      "product": "6609b87a-f8ad-4b86-a9e1-2551bc87d95f",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Become between be.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "1cb3764b-9a1a-4aa2-8c63-900a4bfe16db",
+    "fields": {
+      "id": "1cb3764b-9a1a-4aa2-8c63-900a4bfe16db",
+      "product": "6609b87a-f8ad-4b86-a9e1-2551bc87d95f",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Animal help bad such.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "222d49c6-3726-42c6-a4c3-fe9a258af715",
+    "fields": {
+      "id": "222d49c6-3726-42c6-a4c3-fe9a258af715",
+      "product": "6609b87a-f8ad-4b86-a9e1-2551bc87d95f",
+      "sku": "SKU-5-6875",
+      "price": 380.65,
+      "discount_price": null,
+      "stock": 98,
+      "currency": "USD",
+      "image": "10464af1-3531-4d1c-a4ce-d76d5be0a964",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "7f320701-a78f-4785-8b73-668a00003796",
+    "fields": {
+      "id": "7f320701-a78f-4785-8b73-668a00003796",
+      "variant": "222d49c6-3726-42c6-a4c3-fe9a258af715",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "a673a563-f8d3-46db-836a-901bdd4c19ad",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "df4aa899-b975-432a-aa29-5e24ea9b8a70",
+    "fields": {
+      "id": "df4aa899-b975-432a-aa29-5e24ea9b8a70",
+      "sku": "SKU-5-6875",
+      "product": "6609b87a-f8ad-4b86-a9e1-2551bc87d95f",
+      "stock": 98,
+      "change": 98,
+      "quantity": 98,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "6cc72c23-5c9a-40e7-88f2-38c3a56dbba0",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "8f664f37-558b-45f5-a820-ae2fcacf9bfb",
+    "fields": {
+      "id": "8f664f37-558b-45f5-a820-ae2fcacf9bfb",
+      "product": "6609b87a-f8ad-4b86-a9e1-2551bc87d95f",
+      "sku": "SKU-6-2410",
+      "price": 404.21,
+      "discount_price": null,
+      "stock": 91,
+      "currency": "USD",
+      "image": "10464af1-3531-4d1c-a4ce-d76d5be0a964",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "83fb574c-21cb-4857-9221-f731ee3569d3",
+    "fields": {
+      "id": "83fb574c-21cb-4857-9221-f731ee3569d3",
+      "variant": "8f664f37-558b-45f5-a820-ae2fcacf9bfb",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "284d6c83-74e2-44a4-b1a5-7f4b31d91a28",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "28e2d811-9007-411d-9a1c-dd29e305784b",
+    "fields": {
+      "id": "28e2d811-9007-411d-9a1c-dd29e305784b",
+      "sku": "SKU-6-2410",
+      "product": "6609b87a-f8ad-4b86-a9e1-2551bc87d95f",
+      "stock": 91,
+      "change": 91,
+      "quantity": 91,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "09b26acd-0346-4798-829f-c4b9198011c7",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "9e4870c0-fb90-47bd-9977-3deba580998c",
+    "fields": {
+      "id": "9e4870c0-fb90-47bd-9977-3deba580998c",
+      "product": "6609b87a-f8ad-4b86-a9e1-2551bc87d95f",
+      "sku": "SKU-7-9843",
+      "price": 125.28,
+      "discount_price": null,
+      "stock": 127,
+      "currency": "USD",
+      "image": "10464af1-3531-4d1c-a4ce-d76d5be0a964",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "7d4eae9a-e1c2-4490-9717-57062f6f8f6c",
+    "fields": {
+      "id": "7d4eae9a-e1c2-4490-9717-57062f6f8f6c",
+      "variant": "9e4870c0-fb90-47bd-9977-3deba580998c",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "15a71bb5-f065-4d8d-8220-9ec614de7bd7",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "623c0c09-935e-41f7-8cab-5b0f4fe38063",
+    "fields": {
+      "id": "623c0c09-935e-41f7-8cab-5b0f4fe38063",
+      "sku": "SKU-7-9843",
+      "product": "6609b87a-f8ad-4b86-a9e1-2551bc87d95f",
+      "stock": 127,
+      "change": 127,
+      "quantity": 127,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "47938d5e-7d9f-4cc7-ac33-0bf73abed926",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "81cc856e-bc9f-4443-a977-7328395a4219",
+    "fields": {
+      "id": "81cc856e-bc9f-4443-a977-7328395a4219",
+      "title": "If study.",
+      "slug": "money-believe-miss",
+      "description": "Affect subject assume important. Carry pass return analysis.\nForward event sign dream specific any seem vote. Amount investment present TV arrive.",
+      "sku": "1387952877744",
+      "price": 312.71,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 429,
+      "is_active": true,
+      "rating": 1.9,
+      "review_count": 759,
+      "seller": "584bca30-f3b9-4508-8884-538a041eb356",
+      "category": "73e8270f-866f-41f0-81f6-55003e95e692",
+      "brand": "2eec1c25-1c07-4ac2-a672-e768e32ec8d9",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "55122ad3-0ea0-4941-b94b-b0a19883f208",
+    "fields": {
+      "id": "55122ad3-0ea0-4941-b94b-b0a19883f208",
+      "product": "81cc856e-bc9f-4443-a977-7328395a4219",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Fast teach that.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "2dfa827d-9400-474e-8476-2434b4ac9418",
+    "fields": {
+      "id": "2dfa827d-9400-474e-8476-2434b4ac9418",
+      "product": "81cc856e-bc9f-4443-a977-7328395a4219",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Majority citizen coach size participant follow.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "03a65e5b-1cec-437d-8bce-1cdcde072b75",
+    "fields": {
+      "id": "03a65e5b-1cec-437d-8bce-1cdcde072b75",
+      "product": "81cc856e-bc9f-4443-a977-7328395a4219",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Career reality section.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "29d29c90-2754-48ae-8006-c4bbb99ca018",
+    "fields": {
+      "id": "29d29c90-2754-48ae-8006-c4bbb99ca018",
+      "product": "81cc856e-bc9f-4443-a977-7328395a4219",
+      "sku": "SKU-8-4903",
+      "price": 44.33,
+      "discount_price": null,
+      "stock": 78,
+      "currency": "USD",
+      "image": "55122ad3-0ea0-4941-b94b-b0a19883f208",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "77cd09e1-51e1-42be-8ecf-a5fc941549fc",
+    "fields": {
+      "id": "77cd09e1-51e1-42be-8ecf-a5fc941549fc",
+      "variant": "29d29c90-2754-48ae-8006-c4bbb99ca018",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "284d6c83-74e2-44a4-b1a5-7f4b31d91a28",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "e6cc4e50-e714-4b45-94db-96cd129e7566",
+    "fields": {
+      "id": "e6cc4e50-e714-4b45-94db-96cd129e7566",
+      "sku": "SKU-8-4903",
+      "product": "81cc856e-bc9f-4443-a977-7328395a4219",
+      "stock": 78,
+      "change": 78,
+      "quantity": 78,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "55c5cfb9-19d7-4638-a835-7faa70da7aff",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "1677afb2-a615-4dca-b5cd-b11fbb86eda3",
+    "fields": {
+      "id": "1677afb2-a615-4dca-b5cd-b11fbb86eda3",
+      "product": "81cc856e-bc9f-4443-a977-7328395a4219",
+      "sku": "SKU-9-3618",
+      "price": 484.93,
+      "discount_price": null,
+      "stock": 86,
+      "currency": "USD",
+      "image": "55122ad3-0ea0-4941-b94b-b0a19883f208",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "9fbc5eb0-ff9a-4d54-898c-6777aad826bc",
+    "fields": {
+      "id": "9fbc5eb0-ff9a-4d54-898c-6777aad826bc",
+      "variant": "1677afb2-a615-4dca-b5cd-b11fbb86eda3",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "b05048f8-fb9b-4f27-94e0-4e5bd127b9da",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "824b5588-91c8-4bb0-962a-5565bd7bd46b",
+    "fields": {
+      "id": "824b5588-91c8-4bb0-962a-5565bd7bd46b",
+      "sku": "SKU-9-3618",
+      "product": "81cc856e-bc9f-4443-a977-7328395a4219",
+      "stock": 86,
+      "change": 86,
+      "quantity": 86,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "52908e8e-23d5-4401-bc6b-cbd3b7434766",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "41b8a8c6-9153-43b6-8f77-083605332d98",
+    "fields": {
+      "id": "41b8a8c6-9153-43b6-8f77-083605332d98",
+      "title": "Establish thing message.",
+      "slug": "service-kitchen",
+      "description": "His myself nothing either sea tell improve. Food Republican which region. Present Congress cut quality. Movement south process.",
+      "sku": "7178013397998",
+      "price": 41.96,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 156,
+      "is_active": true,
+      "rating": 4.4,
+      "review_count": 715,
+      "seller": "4210b11d-6461-44a9-b822-6fefd80b934e",
+      "category": "1fb23271-f9fc-45c1-aa17-b34060d584f1",
+      "brand": "2eec1c25-1c07-4ac2-a672-e768e32ec8d9",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "f20649ab-1ea0-4ad6-81f0-cae7c85fd8f9",
+    "fields": {
+      "id": "f20649ab-1ea0-4ad6-81f0-cae7c85fd8f9",
+      "product": "41b8a8c6-9153-43b6-8f77-083605332d98",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Role strong anyone approach will doctor.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "6cfa3f4f-b9bd-403a-91d2-6de9c4763bf2",
+    "fields": {
+      "id": "6cfa3f4f-b9bd-403a-91d2-6de9c4763bf2",
+      "product": "41b8a8c6-9153-43b6-8f77-083605332d98",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Push player wife.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "03ef684e-34ed-4cb8-b6a0-8dc0a0bd1744",
+    "fields": {
+      "id": "03ef684e-34ed-4cb8-b6a0-8dc0a0bd1744",
+      "product": "41b8a8c6-9153-43b6-8f77-083605332d98",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Lawyer surface yeah most sea.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "920bd85f-afec-478b-b294-7575e88f05f7",
+    "fields": {
+      "id": "920bd85f-afec-478b-b294-7575e88f05f7",
+      "product": "41b8a8c6-9153-43b6-8f77-083605332d98",
+      "sku": "SKU-10-7485",
+      "price": 397.24,
+      "discount_price": null,
+      "stock": 56,
+      "currency": "USD",
+      "image": "f20649ab-1ea0-4ad6-81f0-cae7c85fd8f9",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "3647bcd7-6378-4c67-b759-87711ebd0089",
+    "fields": {
+      "id": "3647bcd7-6378-4c67-b759-87711ebd0089",
+      "variant": "920bd85f-afec-478b-b294-7575e88f05f7",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "02ba5348-64b9-4b59-af0b-4231a1dac8ed",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "8df1b888-c867-4ea2-94c9-14e508e14449",
+    "fields": {
+      "id": "8df1b888-c867-4ea2-94c9-14e508e14449",
+      "sku": "SKU-10-7485",
+      "product": "41b8a8c6-9153-43b6-8f77-083605332d98",
+      "stock": 56,
+      "change": 56,
+      "quantity": 56,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "9827fefc-2509-446e-8b3e-9ee99859a670",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "f97f6399-87ed-40a4-ae85-f569dd7bc37a",
+    "fields": {
+      "id": "f97f6399-87ed-40a4-ae85-f569dd7bc37a",
+      "product": "41b8a8c6-9153-43b6-8f77-083605332d98",
+      "sku": "SKU-11-9920",
+      "price": 404.78,
+      "discount_price": null,
+      "stock": 112,
+      "currency": "USD",
+      "image": "f20649ab-1ea0-4ad6-81f0-cae7c85fd8f9",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "877b097a-a2b4-4c46-8ab8-5170f09b87b4",
+    "fields": {
+      "id": "877b097a-a2b4-4c46-8ab8-5170f09b87b4",
+      "variant": "f97f6399-87ed-40a4-ae85-f569dd7bc37a",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "dd31aa65-26c5-4d29-945e-e78dad1b02b2",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "7e6aee69-812f-41cd-81fa-3452f7fc0683",
+    "fields": {
+      "id": "7e6aee69-812f-41cd-81fa-3452f7fc0683",
+      "sku": "SKU-11-9920",
+      "product": "41b8a8c6-9153-43b6-8f77-083605332d98",
+      "stock": 112,
+      "change": 112,
+      "quantity": 112,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "6690b348-7dbe-4aa0-a779-cba33583b85f",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "b42f1328-1719-4d42-bd33-1f6c950b49a3",
+    "fields": {
+      "id": "b42f1328-1719-4d42-bd33-1f6c950b49a3",
+      "product": "41b8a8c6-9153-43b6-8f77-083605332d98",
+      "sku": "SKU-12-2634",
+      "price": 369.74,
+      "discount_price": null,
+      "stock": 190,
+      "currency": "USD",
+      "image": "f20649ab-1ea0-4ad6-81f0-cae7c85fd8f9",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "0e25fdbd-146a-40fb-87f7-eba1f5a4c461",
+    "fields": {
+      "id": "0e25fdbd-146a-40fb-87f7-eba1f5a4c461",
+      "variant": "b42f1328-1719-4d42-bd33-1f6c950b49a3",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "284d6c83-74e2-44a4-b1a5-7f4b31d91a28",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "2c18bcfc-08c6-45ea-a68d-93b8aeb9c0ed",
+    "fields": {
+      "id": "2c18bcfc-08c6-45ea-a68d-93b8aeb9c0ed",
+      "sku": "SKU-12-2634",
+      "product": "41b8a8c6-9153-43b6-8f77-083605332d98",
+      "stock": 190,
+      "change": 190,
+      "quantity": 190,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "0f0ea9dd-4d3d-4ddf-ab20-5bd1e80c34e9",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "0b50ca11-4214-4ebd-8ca8-1d1db44438e9",
+    "fields": {
+      "id": "0b50ca11-4214-4ebd-8ca8-1d1db44438e9",
+      "title": "Bar also.",
+      "slug": "our-range-also-fact",
+      "description": "Include particularly performance stock bank. Other author by leave find hotel east security. Skin stuff teacher heart message.",
+      "sku": "5008542948533",
+      "price": 75.12,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 272,
+      "is_active": true,
+      "rating": 1.7,
+      "review_count": 110,
+      "seller": "584bca30-f3b9-4508-8884-538a041eb356",
+      "category": "d01a2941-30f8-4802-b484-c7c8d68b0653",
+      "brand": "4bfedc86-16be-44b7-a317-94b154c3f869",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "c128dec1-bd7b-427a-833b-d316bf9f5ef4",
+    "fields": {
+      "id": "c128dec1-bd7b-427a-833b-d316bf9f5ef4",
+      "product": "0b50ca11-4214-4ebd-8ca8-1d1db44438e9",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Book know color strong.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "63d81968-9241-4eba-a8a2-7f814929522d",
+    "fields": {
+      "id": "63d81968-9241-4eba-a8a2-7f814929522d",
+      "product": "0b50ca11-4214-4ebd-8ca8-1d1db44438e9",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Finish present sport think network.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "d928b701-5f55-4cfc-a926-3a4a40049d83",
+    "fields": {
+      "id": "d928b701-5f55-4cfc-a926-3a4a40049d83",
+      "product": "0b50ca11-4214-4ebd-8ca8-1d1db44438e9",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Different entire create American fund order.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "5203c989-18d2-45c8-a0a2-bcdaeafa262d",
+    "fields": {
+      "id": "5203c989-18d2-45c8-a0a2-bcdaeafa262d",
+      "product": "0b50ca11-4214-4ebd-8ca8-1d1db44438e9",
+      "sku": "SKU-13-1131",
+      "price": 141.18,
+      "discount_price": null,
+      "stock": 140,
+      "currency": "USD",
+      "image": "c128dec1-bd7b-427a-833b-d316bf9f5ef4",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "f5bdceb9-00ba-485e-9b19-1c33c79285fe",
+    "fields": {
+      "id": "f5bdceb9-00ba-485e-9b19-1c33c79285fe",
+      "variant": "5203c989-18d2-45c8-a0a2-bcdaeafa262d",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "b05048f8-fb9b-4f27-94e0-4e5bd127b9da",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "eb9e63fb-c86e-497b-8f2e-dac8edbefe58",
+    "fields": {
+      "id": "eb9e63fb-c86e-497b-8f2e-dac8edbefe58",
+      "sku": "SKU-13-1131",
+      "product": "0b50ca11-4214-4ebd-8ca8-1d1db44438e9",
+      "stock": 140,
+      "change": 140,
+      "quantity": 140,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "62b5aa2e-375f-4792-af25-bfe986242739",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "203c7606-07b9-48c5-9fbf-735690d6506d",
+    "fields": {
+      "id": "203c7606-07b9-48c5-9fbf-735690d6506d",
+      "product": "0b50ca11-4214-4ebd-8ca8-1d1db44438e9",
+      "sku": "SKU-14-7087",
+      "price": 62.64,
+      "discount_price": null,
+      "stock": 111,
+      "currency": "USD",
+      "image": "c128dec1-bd7b-427a-833b-d316bf9f5ef4",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "8eaebb43-1c70-41e1-af30-64026cf65499",
+    "fields": {
+      "id": "8eaebb43-1c70-41e1-af30-64026cf65499",
+      "variant": "203c7606-07b9-48c5-9fbf-735690d6506d",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "dd31aa65-26c5-4d29-945e-e78dad1b02b2",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "27d80ecd-da4f-4d13-a1c0-143dca37daf8",
+    "fields": {
+      "id": "27d80ecd-da4f-4d13-a1c0-143dca37daf8",
+      "sku": "SKU-14-7087",
+      "product": "0b50ca11-4214-4ebd-8ca8-1d1db44438e9",
+      "stock": 111,
+      "change": 111,
+      "quantity": 111,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "fcdba4f3-3e00-4100-9efe-20538df7e712",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "e572a943-eec2-44e2-b569-5e3a613161ed",
+    "fields": {
+      "id": "e572a943-eec2-44e2-b569-5e3a613161ed",
+      "title": "International coach.",
+      "slug": "example-information",
+      "description": "Site vote response economy. Leader note mouth fill. Alone last later themselves we discussion.",
+      "sku": "1139749405735",
+      "price": 11.54,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 384,
+      "is_active": true,
+      "rating": 1.4,
+      "review_count": 274,
+      "seller": "4ee6c213-c85d-4e75-b8c3-0f60f63f0290",
+      "category": "1c2abf72-0523-4b9b-9576-b88bae821a13",
+      "brand": "4bfedc86-16be-44b7-a317-94b154c3f869",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "ddea5f4d-6266-4c47-a5cf-ae4eb9920eee",
+    "fields": {
+      "id": "ddea5f4d-6266-4c47-a5cf-ae4eb9920eee",
+      "product": "e572a943-eec2-44e2-b569-5e3a613161ed",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Just guess friend itself.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "9cb10206-f1ca-4604-965b-bf844c333703",
+    "fields": {
+      "id": "9cb10206-f1ca-4604-965b-bf844c333703",
+      "product": "e572a943-eec2-44e2-b569-5e3a613161ed",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Should friend wind onto produce.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "a5c283d7-47d7-486e-af2f-53d84a6204d2",
+    "fields": {
+      "id": "a5c283d7-47d7-486e-af2f-53d84a6204d2",
+      "product": "e572a943-eec2-44e2-b569-5e3a613161ed",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "System yet number some experience.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "2379a1d5-6229-43b9-838c-c6e9a8ba63ed",
+    "fields": {
+      "id": "2379a1d5-6229-43b9-838c-c6e9a8ba63ed",
+      "product": "e572a943-eec2-44e2-b569-5e3a613161ed",
+      "sku": "SKU-15-2701",
+      "price": 190.28,
+      "discount_price": null,
+      "stock": 25,
+      "currency": "USD",
+      "image": "ddea5f4d-6266-4c47-a5cf-ae4eb9920eee",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "c9610026-6585-47f8-9715-8d5582a04cf2",
+    "fields": {
+      "id": "c9610026-6585-47f8-9715-8d5582a04cf2",
+      "variant": "2379a1d5-6229-43b9-838c-c6e9a8ba63ed",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "15a71bb5-f065-4d8d-8220-9ec614de7bd7",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "1bf88a62-97a0-44b5-bf3f-9e5a6758ad46",
+    "fields": {
+      "id": "1bf88a62-97a0-44b5-bf3f-9e5a6758ad46",
+      "sku": "SKU-15-2701",
+      "product": "e572a943-eec2-44e2-b569-5e3a613161ed",
+      "stock": 25,
+      "change": 25,
+      "quantity": 25,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "0740e018-930d-4f80-ab4e-2a8e53351a8b",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "4df58b58-3814-4d8d-86eb-bce7d1e6ce85",
+    "fields": {
+      "id": "4df58b58-3814-4d8d-86eb-bce7d1e6ce85",
+      "product": "e572a943-eec2-44e2-b569-5e3a613161ed",
+      "sku": "SKU-16-9941",
+      "price": 445.37,
+      "discount_price": null,
+      "stock": 72,
+      "currency": "USD",
+      "image": "ddea5f4d-6266-4c47-a5cf-ae4eb9920eee",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "27a6f20c-69d7-4531-ba49-157c3b3a2768",
+    "fields": {
+      "id": "27a6f20c-69d7-4531-ba49-157c3b3a2768",
+      "variant": "4df58b58-3814-4d8d-86eb-bce7d1e6ce85",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "284d6c83-74e2-44a4-b1a5-7f4b31d91a28",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "f452a6c3-97f3-4b7d-9d80-2ad27a0d77d0",
+    "fields": {
+      "id": "f452a6c3-97f3-4b7d-9d80-2ad27a0d77d0",
+      "sku": "SKU-16-9941",
+      "product": "e572a943-eec2-44e2-b569-5e3a613161ed",
+      "stock": 72,
+      "change": 72,
+      "quantity": 72,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "8a5b71de-1e1a-4bcd-81c3-cd15370aa276",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "0a5fd432-9e27-42bf-92c7-746fff382b7f",
+    "fields": {
+      "id": "0a5fd432-9e27-42bf-92c7-746fff382b7f",
+      "product": "e572a943-eec2-44e2-b569-5e3a613161ed",
+      "sku": "SKU-17-6150",
+      "price": 95.89,
+      "discount_price": null,
+      "stock": 110,
+      "currency": "USD",
+      "image": "ddea5f4d-6266-4c47-a5cf-ae4eb9920eee",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "a7bbbda4-2927-4e6e-919b-22c41c8e613a",
+    "fields": {
+      "id": "a7bbbda4-2927-4e6e-919b-22c41c8e613a",
+      "variant": "0a5fd432-9e27-42bf-92c7-746fff382b7f",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "02ba5348-64b9-4b59-af0b-4231a1dac8ed",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "0d46a860-9f74-4c69-a7c3-f72c938a5df2",
+    "fields": {
+      "id": "0d46a860-9f74-4c69-a7c3-f72c938a5df2",
+      "sku": "SKU-17-6150",
+      "product": "e572a943-eec2-44e2-b569-5e3a613161ed",
+      "stock": 110,
+      "change": 110,
+      "quantity": 110,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "de4e337d-f3ef-4fd9-82ee-7b266f867c30",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "7f813dd7-54fe-4ef4-9af1-53c882c7e51d",
+    "fields": {
+      "id": "7f813dd7-54fe-4ef4-9af1-53c882c7e51d",
+      "title": "Head.",
+      "slug": "radio-game-owner",
+      "description": "Kitchen bar Mr strategy mother try as. Attorney write will site old movement fear hope.",
+      "sku": "2316734702706",
+      "price": 452.96,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 445,
+      "is_active": true,
+      "rating": 4.7,
+      "review_count": 534,
+      "seller": "4ee6c213-c85d-4e75-b8c3-0f60f63f0290",
+      "category": "b7220223-652b-43db-8b25-91c95c412838",
+      "brand": "f78c2d9d-8d55-455d-8380-0a8d49f135de",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "89f98e41-78f2-44be-adab-57624a58ea64",
+    "fields": {
+      "id": "89f98e41-78f2-44be-adab-57624a58ea64",
+      "product": "7f813dd7-54fe-4ef4-9af1-53c882c7e51d",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Hair section hot.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "18240e60-d028-4b77-84bc-2c5d74597e66",
+    "fields": {
+      "id": "18240e60-d028-4b77-84bc-2c5d74597e66",
+      "product": "7f813dd7-54fe-4ef4-9af1-53c882c7e51d",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Consumer win great town government thank.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "9aa8c63a-7b67-47ab-996e-f0c2f2fab8c1",
+    "fields": {
+      "id": "9aa8c63a-7b67-47ab-996e-f0c2f2fab8c1",
+      "product": "7f813dd7-54fe-4ef4-9af1-53c882c7e51d",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Put star important.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "43b7103c-fd3c-4efb-a720-0ec06554f5f9",
+    "fields": {
+      "id": "43b7103c-fd3c-4efb-a720-0ec06554f5f9",
+      "product": "7f813dd7-54fe-4ef4-9af1-53c882c7e51d",
+      "sku": "SKU-18-5232",
+      "price": 162.71,
+      "discount_price": null,
+      "stock": 4,
+      "currency": "USD",
+      "image": "89f98e41-78f2-44be-adab-57624a58ea64",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "8e8818e3-af77-4470-8c50-de3926cef339",
+    "fields": {
+      "id": "8e8818e3-af77-4470-8c50-de3926cef339",
+      "variant": "43b7103c-fd3c-4efb-a720-0ec06554f5f9",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "dd31aa65-26c5-4d29-945e-e78dad1b02b2",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "dfb4b92a-dff6-43e7-82b9-354c433073bf",
+    "fields": {
+      "id": "dfb4b92a-dff6-43e7-82b9-354c433073bf",
+      "sku": "SKU-18-5232",
+      "product": "7f813dd7-54fe-4ef4-9af1-53c882c7e51d",
+      "stock": 4,
+      "change": 4,
+      "quantity": 4,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "f6c35514-f14d-47ce-8e62-a6b0a801ef3c",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "1edc38e1-30f7-4733-ab18-782547e994bc",
+    "fields": {
+      "id": "1edc38e1-30f7-4733-ab18-782547e994bc",
+      "title": "Foot bag.",
+      "slug": "i-other-tax-edge-so",
+      "description": "Particularly once north everybody. Other rather claim use them enough keep from.\nFill foot radio herself management already ball recently. Cup player gas fly night song.",
+      "sku": "2619378077958",
+      "price": 156.15,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 232,
+      "is_active": true,
+      "rating": 2.7,
+      "review_count": 475,
+      "seller": "92527d7f-8f6b-4dca-9556-00269277af5a",
+      "category": "4059af4d-5351-4c7c-9c13-40615faaf142",
+      "brand": "2ffd0f5c-cb7d-4042-9e30-6af7fb80c1c5",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "0c4980d2-5cfc-404f-b632-27f15249b598",
+    "fields": {
+      "id": "0c4980d2-5cfc-404f-b632-27f15249b598",
+      "product": "1edc38e1-30f7-4733-ab18-782547e994bc",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Picture politics billion chair floor.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "7b59c63d-6039-4176-9685-eeddb7751197",
+    "fields": {
+      "id": "7b59c63d-6039-4176-9685-eeddb7751197",
+      "product": "1edc38e1-30f7-4733-ab18-782547e994bc",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Window word air drop.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "12fe03e9-9489-40c1-a244-7b0f04a8ac84",
+    "fields": {
+      "id": "12fe03e9-9489-40c1-a244-7b0f04a8ac84",
+      "product": "1edc38e1-30f7-4733-ab18-782547e994bc",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Small around charge both far skin.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "8a095743-625b-4791-adb0-cb1b7c0fe191",
+    "fields": {
+      "id": "8a095743-625b-4791-adb0-cb1b7c0fe191",
+      "product": "1edc38e1-30f7-4733-ab18-782547e994bc",
+      "sku": "SKU-19-1895",
+      "price": 113.23,
+      "discount_price": null,
+      "stock": 173,
+      "currency": "USD",
+      "image": "0c4980d2-5cfc-404f-b632-27f15249b598",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "92cef84d-4368-4492-af5c-0a9cdfcc8fd2",
+    "fields": {
+      "id": "92cef84d-4368-4492-af5c-0a9cdfcc8fd2",
+      "variant": "8a095743-625b-4791-adb0-cb1b7c0fe191",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "284d6c83-74e2-44a4-b1a5-7f4b31d91a28",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "b137399e-822a-45b8-8b01-fda78d96fdda",
+    "fields": {
+      "id": "b137399e-822a-45b8-8b01-fda78d96fdda",
+      "sku": "SKU-19-1895",
+      "product": "1edc38e1-30f7-4733-ab18-782547e994bc",
+      "stock": 173,
+      "change": 173,
+      "quantity": 173,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "58820dbf-9247-42cf-a8e4-ab24d4e9aa7f",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "9f3f8646-424b-4658-9b91-3a6127fa873e",
+    "fields": {
+      "id": "9f3f8646-424b-4658-9b91-3a6127fa873e",
+      "product": "1edc38e1-30f7-4733-ab18-782547e994bc",
+      "sku": "SKU-20-7369",
+      "price": 349.73,
+      "discount_price": null,
+      "stock": 79,
+      "currency": "USD",
+      "image": "0c4980d2-5cfc-404f-b632-27f15249b598",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "e5d9e59b-df4c-42e1-9a98-8a6658c745de",
+    "fields": {
+      "id": "e5d9e59b-df4c-42e1-9a98-8a6658c745de",
+      "variant": "9f3f8646-424b-4658-9b91-3a6127fa873e",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "02ba5348-64b9-4b59-af0b-4231a1dac8ed",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "bd82dda9-aa84-4b50-9f88-84dcfa9951d4",
+    "fields": {
+      "id": "bd82dda9-aa84-4b50-9f88-84dcfa9951d4",
+      "sku": "SKU-20-7369",
+      "product": "1edc38e1-30f7-4733-ab18-782547e994bc",
+      "stock": 79,
+      "change": 79,
+      "quantity": 79,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "e8bc0abe-db65-4546-988f-0799d594f53a",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "7c1bbf5c-a348-4148-a9e0-e3fe9e8d0da8",
+    "fields": {
+      "id": "7c1bbf5c-a348-4148-a9e0-e3fe9e8d0da8",
+      "title": "Cost arm like use.",
+      "slug": "final-debate-less",
+      "description": "Month center term I dark. City remember according space onto quality.\nSister environmental arrive similar daughter five. Blue sign plant specific while.",
+      "sku": "2250637459261",
+      "price": 213.52,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 244,
+      "is_active": true,
+      "rating": 2.9,
+      "review_count": 363,
+      "seller": "28c55ff1-d044-4bd5-afc0-5ac6a21ab819",
+      "category": "1147a131-f044-4f34-9919-638bdf917835",
+      "brand": "d7be330a-ee29-4b14-827d-cd05b0d61f20",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "9ac8b5e1-d7a0-42ca-873c-0a9ceabd6e4f",
+    "fields": {
+      "id": "9ac8b5e1-d7a0-42ca-873c-0a9ceabd6e4f",
+      "product": "7c1bbf5c-a348-4148-a9e0-e3fe9e8d0da8",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Woman challenge note order mention individual.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "2ae83a63-8e86-48fa-a1d0-39677ce79a8c",
+    "fields": {
+      "id": "2ae83a63-8e86-48fa-a1d0-39677ce79a8c",
+      "product": "7c1bbf5c-a348-4148-a9e0-e3fe9e8d0da8",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Lawyer daughter past painting respond.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "c5c2fd65-6822-47ae-aa05-f8f72ffee071",
+    "fields": {
+      "id": "c5c2fd65-6822-47ae-aa05-f8f72ffee071",
+      "product": "7c1bbf5c-a348-4148-a9e0-e3fe9e8d0da8",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "According treatment everything role.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "13221ef1-5922-4fb7-a754-58bae5a0989d",
+    "fields": {
+      "id": "13221ef1-5922-4fb7-a754-58bae5a0989d",
+      "product": "7c1bbf5c-a348-4148-a9e0-e3fe9e8d0da8",
+      "sku": "SKU-21-8200",
+      "price": 230.55,
+      "discount_price": null,
+      "stock": 27,
+      "currency": "USD",
+      "image": "9ac8b5e1-d7a0-42ca-873c-0a9ceabd6e4f",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "8e4112fe-70c5-4f94-b135-ec492e3dff96",
+    "fields": {
+      "id": "8e4112fe-70c5-4f94-b135-ec492e3dff96",
+      "variant": "13221ef1-5922-4fb7-a754-58bae5a0989d",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "15a71bb5-f065-4d8d-8220-9ec614de7bd7",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "30b9da17-4d68-40cb-9790-dfe430a7c55a",
+    "fields": {
+      "id": "30b9da17-4d68-40cb-9790-dfe430a7c55a",
+      "sku": "SKU-21-8200",
+      "product": "7c1bbf5c-a348-4148-a9e0-e3fe9e8d0da8",
+      "stock": 27,
+      "change": 27,
+      "quantity": 27,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "d6532231-5596-417f-891d-c1843e929f05",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "9334d223-9f14-4b6b-a39e-3f5ab09ccd12",
+    "fields": {
+      "id": "9334d223-9f14-4b6b-a39e-3f5ab09ccd12",
+      "product": "7c1bbf5c-a348-4148-a9e0-e3fe9e8d0da8",
+      "sku": "SKU-22-4040",
+      "price": 129.79,
+      "discount_price": null,
+      "stock": 124,
+      "currency": "USD",
+      "image": "9ac8b5e1-d7a0-42ca-873c-0a9ceabd6e4f",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "d530bf2b-6f95-4377-8623-e6a6b45f95a4",
+    "fields": {
+      "id": "d530bf2b-6f95-4377-8623-e6a6b45f95a4",
+      "variant": "9334d223-9f14-4b6b-a39e-3f5ab09ccd12",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "02ba5348-64b9-4b59-af0b-4231a1dac8ed",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "41f41e31-6205-4ff2-9148-0365b147d782",
+    "fields": {
+      "id": "41f41e31-6205-4ff2-9148-0365b147d782",
+      "sku": "SKU-22-4040",
+      "product": "7c1bbf5c-a348-4148-a9e0-e3fe9e8d0da8",
+      "stock": 124,
+      "change": 124,
+      "quantity": 124,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "ab361c48-6127-451d-b794-002cf402ad7f",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "5b601a8f-abcb-4dc6-b734-cfbb67016933",
+    "fields": {
+      "id": "5b601a8f-abcb-4dc6-b734-cfbb67016933",
+      "title": "Partner civil list.",
+      "slug": "student-some-low",
+      "description": "Though all field life bit. Staff man she yard leg. In story usually small.\nIdea reach face born. See station service pay economic. Environmental season before less activity.",
+      "sku": "1402276484239",
+      "price": 221.42,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 346,
+      "is_active": true,
+      "rating": 3.2,
+      "review_count": 494,
+      "seller": "92527d7f-8f6b-4dca-9556-00269277af5a",
+      "category": "1fb23271-f9fc-45c1-aa17-b34060d584f1",
+      "brand": "d8cf8818-1ec9-4c1b-9402-28ca309b994f",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "d47f0913-a495-4fe8-9a4c-51aa1835353b",
+    "fields": {
+      "id": "d47f0913-a495-4fe8-9a4c-51aa1835353b",
+      "product": "5b601a8f-abcb-4dc6-b734-cfbb67016933",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Animal challenge fast half fall want.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "8a3dd844-156c-4b94-8f63-4dc49d435928",
+    "fields": {
+      "id": "8a3dd844-156c-4b94-8f63-4dc49d435928",
+      "product": "5b601a8f-abcb-4dc6-b734-cfbb67016933",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Teacher notice customer seem describe use.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "52740ead-e5cb-4a5e-bb15-7fcb26ecfcf9",
+    "fields": {
+      "id": "52740ead-e5cb-4a5e-bb15-7fcb26ecfcf9",
+      "product": "5b601a8f-abcb-4dc6-b734-cfbb67016933",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Significant these change.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "2420a8c8-fc8d-40f7-8ba3-9cf0f944fc5f",
+    "fields": {
+      "id": "2420a8c8-fc8d-40f7-8ba3-9cf0f944fc5f",
+      "product": "5b601a8f-abcb-4dc6-b734-cfbb67016933",
+      "sku": "SKU-23-6173",
+      "price": 31.69,
+      "discount_price": null,
+      "stock": 72,
+      "currency": "USD",
+      "image": "d47f0913-a495-4fe8-9a4c-51aa1835353b",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "7551015b-52af-40ea-adce-0c9b8210ca14",
+    "fields": {
+      "id": "7551015b-52af-40ea-adce-0c9b8210ca14",
+      "variant": "2420a8c8-fc8d-40f7-8ba3-9cf0f944fc5f",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "02ba5348-64b9-4b59-af0b-4231a1dac8ed",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "35209693-95ba-4d42-bc30-9d4b5eb29c07",
+    "fields": {
+      "id": "35209693-95ba-4d42-bc30-9d4b5eb29c07",
+      "sku": "SKU-23-6173",
+      "product": "5b601a8f-abcb-4dc6-b734-cfbb67016933",
+      "stock": 72,
+      "change": 72,
+      "quantity": 72,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "1e276225-e7a6-4732-aa3a-37ee27e6f530",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "49151a2a-0451-4f9e-b8b9-a61a32d6d979",
+    "fields": {
+      "id": "49151a2a-0451-4f9e-b8b9-a61a32d6d979",
+      "product": "5b601a8f-abcb-4dc6-b734-cfbb67016933",
+      "sku": "SKU-24-9129",
+      "price": 342.75,
+      "discount_price": null,
+      "stock": 64,
+      "currency": "USD",
+      "image": "d47f0913-a495-4fe8-9a4c-51aa1835353b",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "a64d4c06-ec03-4408-9f06-2b5f370f4147",
+    "fields": {
+      "id": "a64d4c06-ec03-4408-9f06-2b5f370f4147",
+      "variant": "49151a2a-0451-4f9e-b8b9-a61a32d6d979",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "02ba5348-64b9-4b59-af0b-4231a1dac8ed",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "b16ab9b1-dfec-4d7d-9467-b83466a1575f",
+    "fields": {
+      "id": "b16ab9b1-dfec-4d7d-9467-b83466a1575f",
+      "sku": "SKU-24-9129",
+      "product": "5b601a8f-abcb-4dc6-b734-cfbb67016933",
+      "stock": 64,
+      "change": 64,
+      "quantity": 64,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "f7432b2b-45d0-47ee-b8d7-f68b2defcfc0",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "89e240f4-0f8b-4dc2-8441-ac13e38359ac",
+    "fields": {
+      "id": "89e240f4-0f8b-4dc2-8441-ac13e38359ac",
+      "title": "Part concern mind.",
+      "slug": "these-stay-agree",
+      "description": "Bit morning vote middle understand. Generation cover area public soon or set four. Spend with visit soon phone current.",
+      "sku": "7613156416149",
+      "price": 292.43,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 396,
+      "is_active": true,
+      "rating": 2.7,
+      "review_count": 740,
+      "seller": "ccccd59e-790b-4124-963b-e48969586348",
+      "category": "b7220223-652b-43db-8b25-91c95c412838",
+      "brand": "3b48d642-4939-408b-9e9d-d3d8e5a172d1",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "af3460c2-2397-430e-a208-a84b68ac46ef",
+    "fields": {
+      "id": "af3460c2-2397-430e-a208-a84b68ac46ef",
+      "product": "89e240f4-0f8b-4dc2-8441-ac13e38359ac",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Themselves speak audience thought law.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "fa064531-7cb9-4ef9-9126-50658991928e",
+    "fields": {
+      "id": "fa064531-7cb9-4ef9-9126-50658991928e",
+      "product": "89e240f4-0f8b-4dc2-8441-ac13e38359ac",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Good start chair smile ahead ability.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "99b11e52-13ce-4b0e-b889-1e6d5c309e4c",
+    "fields": {
+      "id": "99b11e52-13ce-4b0e-b889-1e6d5c309e4c",
+      "product": "89e240f4-0f8b-4dc2-8441-ac13e38359ac",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Example candidate too need.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "57e8443b-b8b5-4c70-8c33-8790259a94b1",
+    "fields": {
+      "id": "57e8443b-b8b5-4c70-8c33-8790259a94b1",
+      "product": "89e240f4-0f8b-4dc2-8441-ac13e38359ac",
+      "sku": "SKU-25-8839",
+      "price": 197.78,
+      "discount_price": null,
+      "stock": 77,
+      "currency": "USD",
+      "image": "af3460c2-2397-430e-a208-a84b68ac46ef",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "adfb7eef-fe09-4ed1-b948-582a2091ad64",
+    "fields": {
+      "id": "adfb7eef-fe09-4ed1-b948-582a2091ad64",
+      "variant": "57e8443b-b8b5-4c70-8c33-8790259a94b1",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "b05048f8-fb9b-4f27-94e0-4e5bd127b9da",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "edf37c7c-979e-47b8-a8c7-f44c4d2ae11c",
+    "fields": {
+      "id": "edf37c7c-979e-47b8-a8c7-f44c4d2ae11c",
+      "sku": "SKU-25-8839",
+      "product": "89e240f4-0f8b-4dc2-8441-ac13e38359ac",
+      "stock": 77,
+      "change": 77,
+      "quantity": 77,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "be11b466-962b-4954-8083-84cc6352aab5",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "6def1783-d66c-4f18-83fd-e9bad33a625a",
+    "fields": {
+      "id": "6def1783-d66c-4f18-83fd-e9bad33a625a",
+      "product": "89e240f4-0f8b-4dc2-8441-ac13e38359ac",
+      "sku": "SKU-26-1952",
+      "price": 319.68,
+      "discount_price": null,
+      "stock": 112,
+      "currency": "USD",
+      "image": "af3460c2-2397-430e-a208-a84b68ac46ef",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "fcd5f237-d654-4240-920e-0717425fb2c0",
+    "fields": {
+      "id": "fcd5f237-d654-4240-920e-0717425fb2c0",
+      "variant": "6def1783-d66c-4f18-83fd-e9bad33a625a",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "a673a563-f8d3-46db-836a-901bdd4c19ad",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "07ca2121-9581-4133-bdff-3cf8e3add5c7",
+    "fields": {
+      "id": "07ca2121-9581-4133-bdff-3cf8e3add5c7",
+      "sku": "SKU-26-1952",
+      "product": "89e240f4-0f8b-4dc2-8441-ac13e38359ac",
+      "stock": 112,
+      "change": 112,
+      "quantity": 112,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "de33fe6a-342b-44b6-9b87-9e8cace2174e",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "f7b4e29b-4a0d-4d06-a302-934a97e695e9",
+    "fields": {
+      "id": "f7b4e29b-4a0d-4d06-a302-934a97e695e9",
+      "title": "Above.",
+      "slug": "common-number",
+      "description": "Those development mouth unit individual. Create little choice author box bring lawyer. Trouble player decide among glass trip.\nHair summer cell.",
+      "sku": "4115861669085",
+      "price": 337.11,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 120,
+      "is_active": true,
+      "rating": 4.5,
+      "review_count": 265,
+      "seller": "4ee6c213-c85d-4e75-b8c3-0f60f63f0290",
+      "category": "4059af4d-5351-4c7c-9c13-40615faaf142",
+      "brand": "2ffd0f5c-cb7d-4042-9e30-6af7fb80c1c5",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "fde37072-4196-4a88-b9b9-962baf7548d3",
+    "fields": {
+      "id": "fde37072-4196-4a88-b9b9-962baf7548d3",
+      "product": "f7b4e29b-4a0d-4d06-a302-934a97e695e9",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Travel major nation.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "43238239-2d86-4f9e-b322-0b66801b6f4b",
+    "fields": {
+      "id": "43238239-2d86-4f9e-b322-0b66801b6f4b",
+      "product": "f7b4e29b-4a0d-4d06-a302-934a97e695e9",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Section expert finish health prove.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "ebdcccf6-872a-466a-bf00-e1fcbb32bf26",
+    "fields": {
+      "id": "ebdcccf6-872a-466a-bf00-e1fcbb32bf26",
+      "product": "f7b4e29b-4a0d-4d06-a302-934a97e695e9",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Per wonder else.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "8dba9633-54f9-425f-9843-f8c14dda437b",
+    "fields": {
+      "id": "8dba9633-54f9-425f-9843-f8c14dda437b",
+      "product": "f7b4e29b-4a0d-4d06-a302-934a97e695e9",
+      "sku": "SKU-27-9150",
+      "price": 318.18,
+      "discount_price": null,
+      "stock": 146,
+      "currency": "USD",
+      "image": "fde37072-4196-4a88-b9b9-962baf7548d3",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "bad70d1e-21dd-47ba-9662-f4550e5b744a",
+    "fields": {
+      "id": "bad70d1e-21dd-47ba-9662-f4550e5b744a",
+      "variant": "8dba9633-54f9-425f-9843-f8c14dda437b",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "a673a563-f8d3-46db-836a-901bdd4c19ad",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "f9db35c8-dc4f-43ca-a6d2-08f65b2b2c6d",
+    "fields": {
+      "id": "f9db35c8-dc4f-43ca-a6d2-08f65b2b2c6d",
+      "sku": "SKU-27-9150",
+      "product": "f7b4e29b-4a0d-4d06-a302-934a97e695e9",
+      "stock": 146,
+      "change": 146,
+      "quantity": 146,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "bcd05424-ce8e-48bc-b5aa-707d62a03bde",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "67953fbe-2190-43bb-ade5-d57a4d939a27",
+    "fields": {
+      "id": "67953fbe-2190-43bb-ade5-d57a4d939a27",
+      "product": "f7b4e29b-4a0d-4d06-a302-934a97e695e9",
+      "sku": "SKU-28-3625",
+      "price": 89.91,
+      "discount_price": null,
+      "stock": 147,
+      "currency": "USD",
+      "image": "fde37072-4196-4a88-b9b9-962baf7548d3",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "acd94ec9-120b-46bf-a83f-c52d014ec3c4",
+    "fields": {
+      "id": "acd94ec9-120b-46bf-a83f-c52d014ec3c4",
+      "variant": "67953fbe-2190-43bb-ade5-d57a4d939a27",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "15a71bb5-f065-4d8d-8220-9ec614de7bd7",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "e0481b16-dc05-4d85-bf9d-b485bfa5f5bd",
+    "fields": {
+      "id": "e0481b16-dc05-4d85-bf9d-b485bfa5f5bd",
+      "sku": "SKU-28-3625",
+      "product": "f7b4e29b-4a0d-4d06-a302-934a97e695e9",
+      "stock": 147,
+      "change": 147,
+      "quantity": 147,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "6e08afe7-ebe8-471b-96cb-f06d994375d5",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "50395c7d-eea8-4825-902b-c8d12f972fc8",
+    "fields": {
+      "id": "50395c7d-eea8-4825-902b-c8d12f972fc8",
+      "title": "Candidate.",
+      "slug": "fine-whose-family",
+      "description": "And relate sister how entire learn step so. Practice include even source well play better. Well page particularly within third become term.",
+      "sku": "1906263314221",
+      "price": 252.65,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 130,
+      "is_active": true,
+      "rating": 2.9,
+      "review_count": 11,
+      "seller": "92527d7f-8f6b-4dca-9556-00269277af5a",
+      "category": "887d2e26-d041-4871-8cef-8b5c8d764f2d",
+      "brand": "3b48d642-4939-408b-9e9d-d3d8e5a172d1",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "c80df123-330c-4c17-b461-780a3f6acf16",
+    "fields": {
+      "id": "c80df123-330c-4c17-b461-780a3f6acf16",
+      "product": "50395c7d-eea8-4825-902b-c8d12f972fc8",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Wish fund but positive unit do.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "29b15272-ef07-4c28-a137-9d3dc1851f4c",
+    "fields": {
+      "id": "29b15272-ef07-4c28-a137-9d3dc1851f4c",
+      "product": "50395c7d-eea8-4825-902b-c8d12f972fc8",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Hotel safe their.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "7211503e-7f28-44d0-bd75-f85baaae6b4d",
+    "fields": {
+      "id": "7211503e-7f28-44d0-bd75-f85baaae6b4d",
+      "product": "50395c7d-eea8-4825-902b-c8d12f972fc8",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Model tonight have eat.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "dab0694b-a6e2-4e9a-bed6-4b3cc6246f13",
+    "fields": {
+      "id": "dab0694b-a6e2-4e9a-bed6-4b3cc6246f13",
+      "product": "50395c7d-eea8-4825-902b-c8d12f972fc8",
+      "sku": "SKU-29-6043",
+      "price": 426.89,
+      "discount_price": null,
+      "stock": 112,
+      "currency": "USD",
+      "image": "c80df123-330c-4c17-b461-780a3f6acf16",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "da1e4e39-b559-4ffa-bf9f-a638a2c01999",
+    "fields": {
+      "id": "da1e4e39-b559-4ffa-bf9f-a638a2c01999",
+      "variant": "dab0694b-a6e2-4e9a-bed6-4b3cc6246f13",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "a673a563-f8d3-46db-836a-901bdd4c19ad",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "9467c869-53e4-45cc-9176-0f61fba3e1a8",
+    "fields": {
+      "id": "9467c869-53e4-45cc-9176-0f61fba3e1a8",
+      "sku": "SKU-29-6043",
+      "product": "50395c7d-eea8-4825-902b-c8d12f972fc8",
+      "stock": 112,
+      "change": 112,
+      "quantity": 112,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "3222bf52-8a8f-4bc4-acd5-b01b54c15166",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "65b07286-9bd9-480a-ac91-c850d0f40753",
+    "fields": {
+      "id": "65b07286-9bd9-480a-ac91-c850d0f40753",
+      "product": "50395c7d-eea8-4825-902b-c8d12f972fc8",
+      "sku": "SKU-30-8071",
+      "price": 65.63,
+      "discount_price": null,
+      "stock": 116,
+      "currency": "USD",
+      "image": "c80df123-330c-4c17-b461-780a3f6acf16",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "fe2f98fb-bd7f-4196-a132-7f3be3db622e",
+    "fields": {
+      "id": "fe2f98fb-bd7f-4196-a132-7f3be3db622e",
+      "variant": "65b07286-9bd9-480a-ac91-c850d0f40753",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "b05048f8-fb9b-4f27-94e0-4e5bd127b9da",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "5b11030b-f770-441d-85df-22eb7a98a4c7",
+    "fields": {
+      "id": "5b11030b-f770-441d-85df-22eb7a98a4c7",
+      "sku": "SKU-30-8071",
+      "product": "50395c7d-eea8-4825-902b-c8d12f972fc8",
+      "stock": 116,
+      "change": 116,
+      "quantity": 116,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "45468d88-4aad-4b98-8489-76f1d9ea5423",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "b75d2f8f-ab87-48b2-9092-49c5a514277f",
+    "fields": {
+      "id": "b75d2f8f-ab87-48b2-9092-49c5a514277f",
+      "product": "50395c7d-eea8-4825-902b-c8d12f972fc8",
+      "sku": "SKU-31-4886",
+      "price": 186.68,
+      "discount_price": null,
+      "stock": 31,
+      "currency": "USD",
+      "image": "c80df123-330c-4c17-b461-780a3f6acf16",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "87754a25-bc28-4c22-91ba-85a323f2588a",
+    "fields": {
+      "id": "87754a25-bc28-4c22-91ba-85a323f2588a",
+      "variant": "b75d2f8f-ab87-48b2-9092-49c5a514277f",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "dd31aa65-26c5-4d29-945e-e78dad1b02b2",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "0aa11d50-b2bf-4416-b277-9c00ce201e91",
+    "fields": {
+      "id": "0aa11d50-b2bf-4416-b277-9c00ce201e91",
+      "sku": "SKU-31-4886",
+      "product": "50395c7d-eea8-4825-902b-c8d12f972fc8",
+      "stock": 31,
+      "change": 31,
+      "quantity": 31,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "5d75c2e4-6916-4f13-b926-5f840303c375",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "d16a6a24-0d5f-46ef-b0db-6c49484e183e",
+    "fields": {
+      "id": "d16a6a24-0d5f-46ef-b0db-6c49484e183e",
+      "title": "Tough product she.",
+      "slug": "behavior-southern",
+      "description": "Culture choose wall list. Rest describe pressure enter world audience. Service off develop enter practice.",
+      "sku": "1633627658331",
+      "price": 481.03,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 161,
+      "is_active": true,
+      "rating": 2.2,
+      "review_count": 48,
+      "seller": "b739dec5-c759-4789-a5bc-f6ef28ce6365",
+      "category": "d01a2941-30f8-4802-b484-c7c8d68b0653",
+      "brand": "2ffd0f5c-cb7d-4042-9e30-6af7fb80c1c5",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "c2942b53-0c5d-4757-8398-c84dffb65ac9",
+    "fields": {
+      "id": "c2942b53-0c5d-4757-8398-c84dffb65ac9",
+      "product": "d16a6a24-0d5f-46ef-b0db-6c49484e183e",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Employee more too check case.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "242427af-b6bd-4862-b0a4-26b934dfe402",
+    "fields": {
+      "id": "242427af-b6bd-4862-b0a4-26b934dfe402",
+      "product": "d16a6a24-0d5f-46ef-b0db-6c49484e183e",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Stand all enjoy executive fall.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "83b1dad0-9519-482b-a1e2-a1e4538313a1",
+    "fields": {
+      "id": "83b1dad0-9519-482b-a1e2-a1e4538313a1",
+      "product": "d16a6a24-0d5f-46ef-b0db-6c49484e183e",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Win direction picture realize plan really.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "242a0a90-74c5-4ce9-9b6a-2e86aa6a09ea",
+    "fields": {
+      "id": "242a0a90-74c5-4ce9-9b6a-2e86aa6a09ea",
+      "product": "d16a6a24-0d5f-46ef-b0db-6c49484e183e",
+      "sku": "SKU-32-4746",
+      "price": 332.17,
+      "discount_price": null,
+      "stock": 10,
+      "currency": "USD",
+      "image": "c2942b53-0c5d-4757-8398-c84dffb65ac9",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "cca9e31e-d9aa-4fc8-9c69-3dd48de3cd15",
+    "fields": {
+      "id": "cca9e31e-d9aa-4fc8-9c69-3dd48de3cd15",
+      "variant": "242a0a90-74c5-4ce9-9b6a-2e86aa6a09ea",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "b05048f8-fb9b-4f27-94e0-4e5bd127b9da",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "99077142-68af-45d1-8578-dc5194f0d7d6",
+    "fields": {
+      "id": "99077142-68af-45d1-8578-dc5194f0d7d6",
+      "sku": "SKU-32-4746",
+      "product": "d16a6a24-0d5f-46ef-b0db-6c49484e183e",
+      "stock": 10,
+      "change": 10,
+      "quantity": 10,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "c196415b-004f-4a6e-89a6-774b95ae7936",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "e3d676b0-75cf-4bf2-b42b-014ac4e35be7",
+    "fields": {
+      "id": "e3d676b0-75cf-4bf2-b42b-014ac4e35be7",
+      "product": "d16a6a24-0d5f-46ef-b0db-6c49484e183e",
+      "sku": "SKU-33-9848",
+      "price": 93.33,
+      "discount_price": null,
+      "stock": 186,
+      "currency": "USD",
+      "image": "c2942b53-0c5d-4757-8398-c84dffb65ac9",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "b6d83752-bbcb-4933-acf2-2cfce101119f",
+    "fields": {
+      "id": "b6d83752-bbcb-4933-acf2-2cfce101119f",
+      "variant": "e3d676b0-75cf-4bf2-b42b-014ac4e35be7",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "dd31aa65-26c5-4d29-945e-e78dad1b02b2",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "8e3e7190-7f05-490a-8534-0c80cb0b3a12",
+    "fields": {
+      "id": "8e3e7190-7f05-490a-8534-0c80cb0b3a12",
+      "sku": "SKU-33-9848",
+      "product": "d16a6a24-0d5f-46ef-b0db-6c49484e183e",
+      "stock": 186,
+      "change": 186,
+      "quantity": 186,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "abc9a4c2-e640-4f00-946b-c65fa783488c",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "d7b12189-9eff-46e5-9202-e25e7f2f3bbc",
+    "fields": {
+      "id": "d7b12189-9eff-46e5-9202-e25e7f2f3bbc",
+      "product": "d16a6a24-0d5f-46ef-b0db-6c49484e183e",
+      "sku": "SKU-34-7224",
+      "price": 46.68,
+      "discount_price": null,
+      "stock": 9,
+      "currency": "USD",
+      "image": "c2942b53-0c5d-4757-8398-c84dffb65ac9",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "8971a715-d3ef-4eef-9c92-1090a649c53a",
+    "fields": {
+      "id": "8971a715-d3ef-4eef-9c92-1090a649c53a",
+      "variant": "d7b12189-9eff-46e5-9202-e25e7f2f3bbc",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "a673a563-f8d3-46db-836a-901bdd4c19ad",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "c6b31567-2cdf-4e24-8930-14c6524f40e1",
+    "fields": {
+      "id": "c6b31567-2cdf-4e24-8930-14c6524f40e1",
+      "sku": "SKU-34-7224",
+      "product": "d16a6a24-0d5f-46ef-b0db-6c49484e183e",
+      "stock": 9,
+      "change": 9,
+      "quantity": 9,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "a0d709de-b941-4484-9ab1-700a2bbbe9ee",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "90a6bf14-63fe-4007-9ef5-55d4136d811a",
+    "fields": {
+      "id": "90a6bf14-63fe-4007-9ef5-55d4136d811a",
+      "title": "Near leader born.",
+      "slug": "four-example-size",
+      "description": "Forward relationship one see offer perform might move. Despite ten door situation forget body.\nHe yourself system thought wall data. Case everything us take. Impact young change but chance.",
+      "sku": "9135267569449",
+      "price": 433.87,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 118,
+      "is_active": true,
+      "rating": 4.0,
+      "review_count": 798,
+      "seller": "bf0419b2-585c-4a52-ae40-c8e7b34078f8",
+      "category": "d01a2941-30f8-4802-b484-c7c8d68b0653",
+      "brand": "73c2170b-e0db-47ce-a2eb-acdfba5dfbba",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "b4ef34e7-2d9f-4d02-b853-da8b38c339b6",
+    "fields": {
+      "id": "b4ef34e7-2d9f-4d02-b853-da8b38c339b6",
+      "product": "90a6bf14-63fe-4007-9ef5-55d4136d811a",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Certainly white financial.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "6d9a7a97-0790-49d3-a20d-8200aa7288e4",
+    "fields": {
+      "id": "6d9a7a97-0790-49d3-a20d-8200aa7288e4",
+      "product": "90a6bf14-63fe-4007-9ef5-55d4136d811a",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Sound little whether.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "f903dff6-7b2a-4b5d-bd8e-10fe19764fb8",
+    "fields": {
+      "id": "f903dff6-7b2a-4b5d-bd8e-10fe19764fb8",
+      "product": "90a6bf14-63fe-4007-9ef5-55d4136d811a",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Place many fall.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "9991be95-bd67-4123-a9d7-d45cc30d24b4",
+    "fields": {
+      "id": "9991be95-bd67-4123-a9d7-d45cc30d24b4",
+      "product": "90a6bf14-63fe-4007-9ef5-55d4136d811a",
+      "sku": "SKU-35-8990",
+      "price": 450.31,
+      "discount_price": null,
+      "stock": 145,
+      "currency": "USD",
+      "image": "b4ef34e7-2d9f-4d02-b853-da8b38c339b6",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "24056c92-ce10-473b-b9ac-34fbb55cca01",
+    "fields": {
+      "id": "24056c92-ce10-473b-b9ac-34fbb55cca01",
+      "variant": "9991be95-bd67-4123-a9d7-d45cc30d24b4",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "dd31aa65-26c5-4d29-945e-e78dad1b02b2",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "46aed9b1-1db7-49c5-94a2-3f4a9ccf959c",
+    "fields": {
+      "id": "46aed9b1-1db7-49c5-94a2-3f4a9ccf959c",
+      "sku": "SKU-35-8990",
+      "product": "90a6bf14-63fe-4007-9ef5-55d4136d811a",
+      "stock": 145,
+      "change": 145,
+      "quantity": 145,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "e3180728-2e77-490f-bc29-ff2ce5b9a38c",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "b5a90b7a-9bb7-48b6-b9c7-35384339a51e",
+    "fields": {
+      "id": "b5a90b7a-9bb7-48b6-b9c7-35384339a51e",
+      "title": "Training east ball heart.",
+      "slug": "wish-institution",
+      "description": "Suggest senior anything fish spend or spring. Certain air indeed PM church set. Might memory experience exist discussion more reduce.",
+      "sku": "8525694968105",
+      "price": 398.44,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 176,
+      "is_active": true,
+      "rating": 3.1,
+      "review_count": 635,
+      "seller": "b1366718-e65a-4030-aac8-c89f82218151",
+      "category": "4059af4d-5351-4c7c-9c13-40615faaf142",
+      "brand": "6370a6a5-caa6-43a8-b6d3-251caa347d0c",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "7a62753e-f3af-4761-9c8e-d319533abdb3",
+    "fields": {
+      "id": "7a62753e-f3af-4761-9c8e-d319533abdb3",
+      "product": "b5a90b7a-9bb7-48b6-b9c7-35384339a51e",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Customer story anyone church.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "0d07f506-5e32-442c-8345-43d2524fd399",
+    "fields": {
+      "id": "0d07f506-5e32-442c-8345-43d2524fd399",
+      "product": "b5a90b7a-9bb7-48b6-b9c7-35384339a51e",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Try knowledge identify.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "5ffb6279-a60e-47b2-9140-75e36b7ea47d",
+    "fields": {
+      "id": "5ffb6279-a60e-47b2-9140-75e36b7ea47d",
+      "product": "b5a90b7a-9bb7-48b6-b9c7-35384339a51e",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Take particularly statement.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "05278433-b39a-4594-ba57-9d8cdf768fdf",
+    "fields": {
+      "id": "05278433-b39a-4594-ba57-9d8cdf768fdf",
+      "product": "b5a90b7a-9bb7-48b6-b9c7-35384339a51e",
+      "sku": "SKU-36-3018",
+      "price": 457.49,
+      "discount_price": null,
+      "stock": 185,
+      "currency": "USD",
+      "image": "7a62753e-f3af-4761-9c8e-d319533abdb3",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "b79f9dff-6a08-4d99-919b-d8b59cf24c61",
+    "fields": {
+      "id": "b79f9dff-6a08-4d99-919b-d8b59cf24c61",
+      "variant": "05278433-b39a-4594-ba57-9d8cdf768fdf",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "02ba5348-64b9-4b59-af0b-4231a1dac8ed",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "ccefb1f6-37b9-43a5-b720-9e14a07ebbf5",
+    "fields": {
+      "id": "ccefb1f6-37b9-43a5-b720-9e14a07ebbf5",
+      "sku": "SKU-36-3018",
+      "product": "b5a90b7a-9bb7-48b6-b9c7-35384339a51e",
+      "stock": 185,
+      "change": 185,
+      "quantity": 185,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "b32619e6-5563-4b1c-aec6-2429633e5e32",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "5285a48d-64e0-41d9-a51e-2d97a3e8e6e8",
+    "fields": {
+      "id": "5285a48d-64e0-41d9-a51e-2d97a3e8e6e8",
+      "product": "b5a90b7a-9bb7-48b6-b9c7-35384339a51e",
+      "sku": "SKU-37-6057",
+      "price": 252.64,
+      "discount_price": null,
+      "stock": 109,
+      "currency": "USD",
+      "image": "7a62753e-f3af-4761-9c8e-d319533abdb3",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "52c1de00-7217-4471-8a19-82477c822248",
+    "fields": {
+      "id": "52c1de00-7217-4471-8a19-82477c822248",
+      "variant": "5285a48d-64e0-41d9-a51e-2d97a3e8e6e8",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "02ba5348-64b9-4b59-af0b-4231a1dac8ed",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "5e4e5ed0-e65a-472a-a847-a45b2da33b1e",
+    "fields": {
+      "id": "5e4e5ed0-e65a-472a-a847-a45b2da33b1e",
+      "sku": "SKU-37-6057",
+      "product": "b5a90b7a-9bb7-48b6-b9c7-35384339a51e",
+      "stock": 109,
+      "change": 109,
+      "quantity": 109,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "96da5af4-d35a-4768-adfb-1cb47ec6f671",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "fa2125e1-566f-496b-a8c7-cb35f0b4502e",
+    "fields": {
+      "id": "fa2125e1-566f-496b-a8c7-cb35f0b4502e",
+      "title": "Admit small his.",
+      "slug": "kitchen-choose-only",
+      "description": "Color theory begin law everyone study project. Challenge technology suffer example.\nHeavy feel family go production then. Prevent particularly wrong scientist adult.",
+      "sku": "3715619816375",
+      "price": 466.79,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 420,
+      "is_active": true,
+      "rating": 4.1,
+      "review_count": 868,
+      "seller": "ccccd59e-790b-4124-963b-e48969586348",
+      "category": "73e8270f-866f-41f0-81f6-55003e95e692",
+      "brand": "f78c2d9d-8d55-455d-8380-0a8d49f135de",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "6c957bd5-47dd-4859-940b-dc6e54b93d81",
+    "fields": {
+      "id": "6c957bd5-47dd-4859-940b-dc6e54b93d81",
+      "product": "fa2125e1-566f-496b-a8c7-cb35f0b4502e",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Voice many agent yet company.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "42f03fed-7a14-458c-b797-bcf5691efd3b",
+    "fields": {
+      "id": "42f03fed-7a14-458c-b797-bcf5691efd3b",
+      "product": "fa2125e1-566f-496b-a8c7-cb35f0b4502e",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Region forget goal important.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "61f193f9-38a2-4010-897c-a17721245215",
+    "fields": {
+      "id": "61f193f9-38a2-4010-897c-a17721245215",
+      "product": "fa2125e1-566f-496b-a8c7-cb35f0b4502e",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Environment beyond simply very its.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "bd16254b-3222-4a07-be28-b8124930990d",
+    "fields": {
+      "id": "bd16254b-3222-4a07-be28-b8124930990d",
+      "product": "fa2125e1-566f-496b-a8c7-cb35f0b4502e",
+      "sku": "SKU-38-4288",
+      "price": 259.99,
+      "discount_price": null,
+      "stock": 33,
+      "currency": "USD",
+      "image": "6c957bd5-47dd-4859-940b-dc6e54b93d81",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "45dfac78-b0ef-488c-b92e-8c796274a8bc",
+    "fields": {
+      "id": "45dfac78-b0ef-488c-b92e-8c796274a8bc",
+      "variant": "bd16254b-3222-4a07-be28-b8124930990d",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "284d6c83-74e2-44a4-b1a5-7f4b31d91a28",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "e0e62836-1a54-4104-96ca-3635185c5758",
+    "fields": {
+      "id": "e0e62836-1a54-4104-96ca-3635185c5758",
+      "sku": "SKU-38-4288",
+      "product": "fa2125e1-566f-496b-a8c7-cb35f0b4502e",
+      "stock": 33,
+      "change": 33,
+      "quantity": 33,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "380f2e8c-bb04-4c9f-b625-40249f7f6722",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "b8fcd8e7-d33b-4f3e-98c3-c0eaf05968a0",
+    "fields": {
+      "id": "b8fcd8e7-d33b-4f3e-98c3-c0eaf05968a0",
+      "title": "Little represent service.",
+      "slug": "put-represent",
+      "description": "Order while economy type wish after without major. They effort toward can office daughter happen near. While cause billion.",
+      "sku": "9917645769524",
+      "price": 363.97,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 168,
+      "is_active": true,
+      "rating": 3.6,
+      "review_count": 158,
+      "seller": "28c55ff1-d044-4bd5-afc0-5ac6a21ab819",
+      "category": "d01a2941-30f8-4802-b484-c7c8d68b0653",
+      "brand": "73c2170b-e0db-47ce-a2eb-acdfba5dfbba",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "43f43cf4-a0b1-49cd-85a2-0616fd9cff4b",
+    "fields": {
+      "id": "43f43cf4-a0b1-49cd-85a2-0616fd9cff4b",
+      "product": "b8fcd8e7-d33b-4f3e-98c3-c0eaf05968a0",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Trouble pick cost.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "ed486720-a5c3-4479-bbd8-b311268bf047",
+    "fields": {
+      "id": "ed486720-a5c3-4479-bbd8-b311268bf047",
+      "product": "b8fcd8e7-d33b-4f3e-98c3-c0eaf05968a0",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Big gas be establish option husband.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "5f03570c-d453-40b2-a851-ff654443d948",
+    "fields": {
+      "id": "5f03570c-d453-40b2-a851-ff654443d948",
+      "product": "b8fcd8e7-d33b-4f3e-98c3-c0eaf05968a0",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Economic Republican international imagine pressure exist.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "bc84529e-2da4-441c-8321-ccccfaf9f1dd",
+    "fields": {
+      "id": "bc84529e-2da4-441c-8321-ccccfaf9f1dd",
+      "product": "b8fcd8e7-d33b-4f3e-98c3-c0eaf05968a0",
+      "sku": "SKU-39-3985",
+      "price": 455.1,
+      "discount_price": null,
+      "stock": 156,
+      "currency": "USD",
+      "image": "43f43cf4-a0b1-49cd-85a2-0616fd9cff4b",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "1d816ce4-f1dd-4df1-9774-6d1f345d56be",
+    "fields": {
+      "id": "1d816ce4-f1dd-4df1-9774-6d1f345d56be",
+      "variant": "bc84529e-2da4-441c-8321-ccccfaf9f1dd",
+      "attribute": "8553deac-5c7c-47fa-9004-5b0d700a5d02",
+      "value": "dd31aa65-26c5-4d29-945e-e78dad1b02b2",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "6d11b68e-afd0-4d61-bcd5-6d6c90ff0a7b",
+    "fields": {
+      "id": "6d11b68e-afd0-4d61-bcd5-6d6c90ff0a7b",
+      "sku": "SKU-39-3985",
+      "product": "b8fcd8e7-d33b-4f3e-98c3-c0eaf05968a0",
+      "stock": 156,
+      "change": 156,
+      "quantity": 156,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "dd57e76b-537c-4901-a806-7f00ce32055c",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": "5a0df59b-821d-4365-8429-761bcc6e4238",
+    "fields": {
+      "id": "5a0df59b-821d-4365-8429-761bcc6e4238",
+      "title": "Organization capital yard.",
+      "slug": "strong-later-world",
+      "description": "She evening strategy happy court add move window. Above executive trouble. Institution home soldier box.",
+      "sku": "1588459709914",
+      "price": 168.52,
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 487,
+      "is_active": true,
+      "rating": 4.3,
+      "review_count": 677,
+      "seller": "b739dec5-c759-4789-a5bc-f6ef28ce6365",
+      "category": "b7220223-652b-43db-8b25-91c95c412838",
+      "brand": "f78c2d9d-8d55-455d-8380-0a8d49f135de",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "f5bc7003-dcb9-4f1b-8bef-3c2baffe8647",
+    "fields": {
+      "id": "f5bc7003-dcb9-4f1b-8bef-3c2baffe8647",
+      "product": "5a0df59b-821d-4365-8429-761bcc6e4238",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Vote truth kind wish PM control.",
+      "position": 0,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "57ff5ed5-090a-4415-9a13-de902bffa15f",
+    "fields": {
+      "id": "57ff5ed5-090a-4415-9a13-de902bffa15f",
+      "product": "5a0df59b-821d-4365-8429-761bcc6e4238",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "He notice again state political late television.",
+      "position": 1,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productimages",
+    "pk": "6ef7909c-c57e-46d7-8449-5b94fe3f4d88",
+    "fields": {
+      "id": "6ef7909c-c57e-46d7-8449-5b94fe3f4d88",
+      "product": "5a0df59b-821d-4365-8429-761bcc6e4238",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "alt_text": "Stand issue set.",
+      "position": 2,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "e29c56fa-3cb4-475f-a5fd-b88926fd7333",
+    "fields": {
+      "id": "e29c56fa-3cb4-475f-a5fd-b88926fd7333",
+      "product": "5a0df59b-821d-4365-8429-761bcc6e4238",
+      "sku": "SKU-40-3105",
+      "price": 220.68,
+      "discount_price": null,
+      "stock": 118,
+      "currency": "USD",
+      "image": "f5bc7003-dcb9-4f1b-8bef-3c2baffe8647",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "626589f8-cc38-4741-99a0-1d801fd753e0",
+    "fields": {
+      "id": "626589f8-cc38-4741-99a0-1d801fd753e0",
+      "variant": "e29c56fa-3cb4-475f-a5fd-b88926fd7333",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "15a71bb5-f065-4d8d-8220-9ec614de7bd7",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "0f6d50ee-149d-4193-870f-9ee7965ec88c",
+    "fields": {
+      "id": "0f6d50ee-149d-4193-870f-9ee7965ec88c",
+      "sku": "SKU-40-3105",
+      "product": "5a0df59b-821d-4365-8429-761bcc6e4238",
+      "stock": 118,
+      "change": 118,
+      "quantity": 118,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "c4e4e60c-d766-49b6-9e61-7b3483ead18a",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariant",
+    "pk": "3cd0cdf4-5a11-4fdc-b943-bb89b50d17ac",
+    "fields": {
+      "id": "3cd0cdf4-5a11-4fdc-b943-bb89b50d17ac",
+      "product": "5a0df59b-821d-4365-8429-761bcc6e4238",
+      "sku": "SKU-41-7629",
+      "price": 477.67,
+      "discount_price": null,
+      "stock": 86,
+      "currency": "USD",
+      "image": "f5bc7003-dcb9-4f1b-8bef-3c2baffe8647",
+      "is_active": true,
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.productvariantvalue",
+    "pk": "a4adb87e-26c3-4337-95ee-c52be5a835a8",
+    "fields": {
+      "id": "a4adb87e-26c3-4337-95ee-c52be5a835a8",
+      "variant": "3cd0cdf4-5a11-4fdc-b943-bb89b50d17ac",
+      "attribute": "65a2e2c6-7fe6-4d48-aab7-db93c920229b",
+      "value": "a673a563-f8d3-46db-836a-901bdd4c19ad",
+      "created_at": "2025-10-01T15:26:36.336276+00:00",
+      "updated_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  },
+  {
+    "model": "products.inventory",
+    "pk": "bdc021bd-d665-4383-a512-a7caa5dd1cf5",
+    "fields": {
+      "id": "bdc021bd-d665-4383-a512-a7caa5dd1cf5",
+      "sku": "SKU-41-7629",
+      "product": "5a0df59b-821d-4365-8429-761bcc6e4238",
+      "stock": 86,
+      "change": 86,
+      "quantity": 86,
+      "reason": "restock",
+      "location": "Main Warehouse",
+      "reference_id": "f8338a8a-2836-4cc6-bed5-10514b4d1b65",
+      "created_at": "2025-10-01T15:26:36.336276+00:00"
+    }
+  }
+]

@@ -35,3 +35,17 @@ export async function getHomepageData(params = {}) {
         return handleError(e)
     }
 }
+
+export async function getHomepageDataById(id) {
+    const { $api } = useNuxtApp()
+    const url = `${BASE}${id}/`
+    try {
+        logRequest("get", url)
+        const res = await $api.get(url)
+        logSuccess("get", url, res)
+        return normalizeResponse(res)
+    } catch (e) {
+        logError("get", url, e)
+        return handleError(e)
+    }
+}
