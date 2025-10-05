@@ -1,15 +1,12 @@
 # apps/home/models/section_category.py
 import uuid
 from django.db import models
-from apps.home.models.section import HomepageSection
+# from apps.home.models.section import HomepageSection
 from apps.products.models.category import Category
 
 
 class HomepageCategory(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    section = models.ForeignKey(
-        HomepageSection, related_name="categories", on_delete=models.CASCADE
-    )
     category = models.ForeignKey(Category, related_name="+", on_delete=models.CASCADE)
     sort_order = models.PositiveIntegerField(default=0)
 

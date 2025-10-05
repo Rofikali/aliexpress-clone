@@ -8,7 +8,7 @@ class HomepagePromotionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = HomepagePromotion
-        fields = ["id", "title",  "image", "link_url", "sort_order"]
+        fields = ["id", "title", "image", "sort_order"]
         # fields = ["id", "title", "description", "image", "link_url", "sort_order"]
 
     def get_image(self, obj):

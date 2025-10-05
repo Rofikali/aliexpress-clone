@@ -12,7 +12,7 @@ class HomepageBannerSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "image",
-            "link_url",
+            # "link_url",
             "alt_text",
             "sort_order",
             "is_active",

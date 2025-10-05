@@ -181,12 +181,15 @@ class CategoryViewSet(ViewSet):
 
         """Return all categories"""
         queryset = Category.objects.all().order_by("-created_at")
-        serializer = CategorySerializer(queryset, many=True)
-        response_data = serializer.data
+        paginator = BaseCursorPagination()
+        page = paginator.paginate_queryset(queryset, request)
+        serializer = CategorySerializer(page, many=True)
+        response_data = paginator.get_paginated_response_data(serializer.data)
 
         return ResponseFactory.success_collection(
             items=response_data,
             message="Categories fetched successfully",
+            pagination=response_data["pagination"],
             request=request,
             status=status.HTTP_200_OK,
         )
