@@ -134,6 +134,9 @@ from apps.products.serializers.brand import BrandSerializer
 
 class ProductSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
+    category = serializers.SerializerMethodField()
+    brand = serializers.SerializerMethodField()
+    seller = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
@@ -151,6 +154,9 @@ class ProductSerializer(serializers.ModelSerializer):
             "is_active",
             "rating",
             "review_count",
+            "seller",
+            "category",
+            "brand",
             "created_at",
             "updated_at",
         ]
@@ -182,6 +188,24 @@ class ProductSerializer(serializers.ModelSerializer):
             # logger.warning(f"Image URL error for product {obj.pk}: {e}")
             return None
 
+    def get_category(self, obj):
+        if obj.category:
+            return {
+                # "id": str(obj.category.id),
+                "name": obj.category.name,
+                # "slug": obj.category.slug,
+            }
+        return None
+
+    def get_brand(self, obj):
+        if obj.brand:
+            return {"name": obj.brand.name}
+
+    def get_seller(self, obj):
+        if obj.seller:
+            return {
+                'name': obj.seller.username
+            }
 
 class ProductDetailSerializer(serializers.ModelSerializer):
     images = ProductImageSerializer(many=True, source="product_images", read_only=True)

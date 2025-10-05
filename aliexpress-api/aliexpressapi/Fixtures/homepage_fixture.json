@@ -1,0 +1,247 @@
+[
+  {
+    "model": "home.homepagesection",
+    "pk": "a05909c9-be90-47e3-a3df-2186427cecda",
+    "fields": {
+      "id": "a05909c9-be90-47e3-a3df-2186427cecda",
+      "title": "Business standard wrong tend.",
+      "slug": "forward-study",
+      "type": "banner",
+      "position": 0,
+      "is_active": true,
+      "metadata": {},
+      "created_at": "2025-10-01T15:30:46.523680+00:00",
+      "updated_at": "2025-10-01T15:30:46.523680+00:00"
+    }
+  },
+  {
+    "model": "home.homepagebanner",
+    "pk": "9c179191-c670-4022-87c2-55a3b5d044b6",
+    "fields": {
+      "section_id": "a05909c9-be90-47e3-a3df-2186427cecda",
+      "title": "Change might begin.",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "https://smith-woods.info/",
+      "alt_text": "Its laugh defense entire.",
+      "sort_order": 0,
+      "is_active": true,
+      "created_at": "2025-10-01T15:30:46.523680+00:00",
+      "updated_at": "2025-10-01T15:30:46.523680+00:00"
+    }
+  },
+  {
+    "model": "home.homepagebanner",
+    "pk": "afa6166e-374c-4d6b-a9c4-7f0250c9bd38",
+    "fields": {
+      "section_id": "a05909c9-be90-47e3-a3df-2186427cecda",
+      "title": "Area mother.",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "https://gallagher.com/",
+      "alt_text": "Determine stage decade explain position paper pretty.",
+      "sort_order": 1,
+      "is_active": true,
+      "created_at": "2025-10-01T15:30:46.523680+00:00",
+      "updated_at": "2025-10-01T15:30:46.523680+00:00"
+    }
+  },
+  {
+    "model": "home.homepagebanner",
+    "pk": "ed9444ea-78e3-4058-aaa3-9c211602c248",
+    "fields": {
+      "section_id": "a05909c9-be90-47e3-a3df-2186427cecda",
+      "title": "On environmental.",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "http://www.wolfe-mendez.com/",
+      "alt_text": "Lead special product.",
+      "sort_order": 2,
+      "is_active": true,
+      "created_at": "2025-10-01T15:30:46.523680+00:00",
+      "updated_at": "2025-10-01T15:30:46.523680+00:00"
+    }
+  },
+  {
+    "model": "home.homepagesection",
+    "pk": "8b14f1c2-890b-48ea-8bf0-a69752f25c47",
+    "fields": {
+      "id": "8b14f1c2-890b-48ea-8bf0-a69752f25c47",
+      "title": "Pick sort poor.",
+      "slug": "sell-kind-condition",
+      "type": "promo",
+      "position": 1,
+      "is_active": true,
+      "metadata": {},
+      "created_at": "2025-10-01T15:30:46.523680+00:00",
+      "updated_at": "2025-10-01T15:30:46.523680+00:00"
+    }
+  },
+  {
+    "model": "home.homepagepromotion",
+    "pk": "55c5d3bd-df8b-4608-b1dc-2b12f4d73729",
+    "fields": {
+      "section_id": "8b14f1c2-890b-48ea-8bf0-a69752f25c47",
+      "title": "Couple approach.",
+      "description": "Probably wish then system open relationship prepare trouble note as.",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "http://henson-garcia.com/",
+      "sort_order": 0,
+      "is_active": true,
+      "created_at": "2025-10-01T15:30:46.523680+00:00",
+      "updated_at": "2025-10-01T15:30:46.523680+00:00"
+    }
+  },
+  {
+    "model": "home.homepagepromotion",
+    "pk": "cdca9f91-5fbd-4599-984f-b3318f4ed3f2",
+    "fields": {
+      "section_id": "8b14f1c2-890b-48ea-8bf0-a69752f25c47",
+      "title": "Bad box.",
+      "description": "Maintain resource apply begin figure choice.",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "https://www.diaz.biz/",
+      "sort_order": 1,
+      "is_active": true,
+      "created_at": "2025-10-01T15:30:46.523680+00:00",
+      "updated_at": "2025-10-01T15:30:46.523680+00:00"
+    }
+  },
+  {
+    "model": "home.homepagepromotion",
+    "pk": "aace2ad5-78d0-47db-8e47-2be4b2dfb0fc",
+    "fields": {
+      "section_id": "8b14f1c2-890b-48ea-8bf0-a69752f25c47",
+      "title": "Course down.",
+      "description": "Hour finally attention will simply ever staff.",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "http://www.taylor-mccullough.net/",
+      "sort_order": 2,
+      "is_active": true,
+      "created_at": "2025-10-01T15:30:46.523680+00:00",
+      "updated_at": "2025-10-01T15:30:46.523680+00:00"
+    }
+  },
+  {
+    "model": "home.homepagesection",
+    "pk": "5843f690-ab0a-4f0a-9c9e-cea6d4e11a43",
+    "fields": {
+      "id": "5843f690-ab0a-4f0a-9c9e-cea6d4e11a43",
+      "title": "Line law must.",
+      "slug": "music-say-threat",
+      "type": "categories",
+      "position": 2,
+      "is_active": true,
+      "metadata": {},
+      "created_at": "2025-10-01T15:30:46.523680+00:00",
+      "updated_at": "2025-10-01T15:30:46.523680+00:00"
+    }
+  },
+  {
+    "model": "home.homepagecategory",
+    "pk": "43a997a1-1806-46d9-9a40-91bfaa1ce23a",
+    "fields": {
+      "section_id": "5843f690-ab0a-4f0a-9c9e-cea6d4e11a43",
+      "category_id": "1147a131-f044-4f34-9919-638bdf917835",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "home.homepagecategory",
+    "pk": "1bf8086f-2d71-40d1-a942-b5a65a1c1c15",
+    "fields": {
+      "section_id": "5843f690-ab0a-4f0a-9c9e-cea6d4e11a43",
+      "category_id": "1c2abf72-0523-4b9b-9576-b88bae821a13",
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "home.homepagecategory",
+    "pk": "a172d134-0dd7-49bc-a678-cb423a0e4d7c",
+    "fields": {
+      "section_id": "5843f690-ab0a-4f0a-9c9e-cea6d4e11a43",
+      "category_id": "1fb23271-f9fc-45c1-aa17-b34060d584f1",
+      "sort_order": 2
+    }
+  },
+  {
+    "model": "home.homepagecategory",
+    "pk": "8dff1921-2a53-4ec0-b46c-997c18bb97ac",
+    "fields": {
+      "section_id": "5843f690-ab0a-4f0a-9c9e-cea6d4e11a43",
+      "category_id": "4059af4d-5351-4c7c-9c13-40615faaf142",
+      "sort_order": 3
+    }
+  },
+  {
+    "model": "home.homepagecategory",
+    "pk": "7c999b1d-1934-4390-a3d7-7d0f8929b4d1",
+    "fields": {
+      "section_id": "5843f690-ab0a-4f0a-9c9e-cea6d4e11a43",
+      "category_id": "4c1f8e76-6f07-436d-926a-d946eef78ca5",
+      "sort_order": 4
+    }
+  },
+  {
+    "model": "home.homepagesection",
+    "pk": "c4db54ef-e190-4584-9e72-3ab7f4ab3102",
+    "fields": {
+      "id": "c4db54ef-e190-4584-9e72-3ab7f4ab3102",
+      "title": "Environmental once reflect.",
+      "slug": "look-people-tax",
+      "type": "products",
+      "position": 3,
+      "is_active": true,
+      "metadata": {},
+      "created_at": "2025-10-01T15:30:46.523680+00:00",
+      "updated_at": "2025-10-01T15:30:46.523680+00:00"
+    }
+  },
+  {
+    "model": "home.homepageproduct",
+    "pk": "00b5e8c8-97c5-41cb-ba50-9a881666eb0b",
+    "fields": {
+      "section_id": "c4db54ef-e190-4584-9e72-3ab7f4ab3102",
+      "product_id": "0b50ca11-4214-4ebd-8ca8-1d1db44438e9",
+      "featured_rank": 1,
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "home.homepageproduct",
+    "pk": "a116dfb1-1502-4cd4-80ad-aa060e600fce",
+    "fields": {
+      "section_id": "c4db54ef-e190-4584-9e72-3ab7f4ab3102",
+      "product_id": "1edc38e1-30f7-4733-ab18-782547e994bc",
+      "featured_rank": 2,
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "home.homepageproduct",
+    "pk": "076922d1-a949-4d9a-b4b7-9d66910eb63a",
+    "fields": {
+      "section_id": "c4db54ef-e190-4584-9e72-3ab7f4ab3102",
+      "product_id": "3a7dfea3-8ac8-4283-a675-ff21ca41d490",
+      "featured_rank": 3,
+      "sort_order": 2
+    }
+  },
+  {
+    "model": "home.homepageproduct",
+    "pk": "4072599c-04f4-4274-ace2-206b5b55d7a0",
+    "fields": {
+      "section_id": "c4db54ef-e190-4584-9e72-3ab7f4ab3102",
+      "product_id": "41b8a8c6-9153-43b6-8f77-083605332d98",
+      "featured_rank": 4,
+      "sort_order": 3
+    }
+  },
+  {
+    "model": "home.homepageproduct",
+    "pk": "1c846d56-56eb-4fca-901a-87fb674d45fd",
+    "fields": {
+      "section_id": "c4db54ef-e190-4584-9e72-3ab7f4ab3102",
+      "product_id": "50395c7d-eea8-4825-902b-c8d12f972fc8",
+      "featured_rank": 5,
+      "sort_order": 4
+    }
+  }
+]

@@ -1,8 +1,0 @@
-********** Gemerate and import_products **************
-
-Step 1: Generate fake products JSON
-    python manage.py generate_products_json ./apps/accounts/management/fake_products.json --count 50
-
-
-Step 2: Import products into DB
-    python manage.py import_products ./apps/accounts/management/fake_products.json --format json

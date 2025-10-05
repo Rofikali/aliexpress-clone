@@ -1,114 +1,155 @@
 # apps/home/views/home_viewset.py
 from rest_framework import viewsets, status
-from rest_framework.decorators import action
-from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
+from drf_spectacular.utils import extend_schema
 
-from apps.home.models.section import HomepageSection
-from apps.home.serializers.section_serializer import HomepageSectionSerializer
 from components.caching.cache_factory import get_cache
 from components.responses.response_factory import ResponseFactory
 
 CACHE = get_cache("homepage")  # use your existing cache factory
 
 
+# class HomepageViewSet(viewsets.ViewSet):
+#     """
+#     Return a list of active homepage sections (cached).
+#     """
+
+#     @extend_schema(
+#         responses={200: HomepageSectionSerializer(many=True)},
+#         tags=["Homepage"],
+#         summary="Get homepage sections",
+#     )
+#     def list(self, request):
+#         qs = HomepageSection.objects.filter(is_active=True).prefetch_related(
+#             "banners",
+#             "products__product",
+#             "categories__category",
+#             "promotions",  # ✅ added
+#         )
+
+#         serializer = HomepageSectionSerializer(
+#             qs, many=True, context={"request": request}
+#         )
+#         data = serializer.data
+#         return ResponseFactory.success_collection(
+#             items=data,
+#             pagination={},
+#             message="Homepage sections",
+#             status=status.HTTP_200_OK,
+#             request=request,
+#         )
+
+#     @extend_schema(
+#         responses={200: HomepageSectionSerializer},
+#         tags=["Homepage"],
+#         summary="Retrieve single homepage section",
+#     )
+#     def retrieve(self, request, pk=None):
+#         section = get_object_or_404(
+#             HomepageSection.objects.prefetch_related(
+#                 "banners",
+#                 "products__product",
+#                 "categories__category",
+#                 "promotions",  # ✅ added
+#             ),
+#             pk=pk,
+#             is_active=True,
+#         )
+#         serializer = HomepageSectionSerializer(section, context={"request": request})
+#         return ResponseFactory.success_resource(
+#             item=serializer.data,
+#             message="Homepage section retrieved",
+#             status=status.HTTP_200_OK,
+#             request=request,
+#         )
+
+#     @extend_schema(
+#         responses={200: HomepageSectionSerializer},
+#         tags=["Homepage"],
+#         summary="Retrieve homepage Banner, Products and Promotions section",
+#     )
+#     @action(
+#         detail=False,
+#         methods=["get"],
+#         url_path="featured",
+#     )
+#     def featured(self, request):
+#         sections = (
+#             HomepageSection.objects.filter(
+#                 is_active=True,
+#                 type__in=["banner", "product_carousel", "promo"],  # ✅ include promo
+#             ).prefetch_related("banners", "products__product", "promotions")  # ✅ added
+#         )
+
+#         serializer = HomepageSectionSerializer(
+#             sections, many=True, context={"request": request}
+#         )
+#         data = serializer.data
+#         return ResponseFactory.success_collection(
+#             items=data,
+#             pagination={},
+#             message="Featured homepage content",
+#             status=status.HTTP_200_OK,
+#             request=request,
+#         )
+
+from drf_spectacular.utils import OpenApiResponse
+from apps.home.serializers.banner_serializer import HomepageBannerSerializer
+from apps.home.serializers.section_category_serializer import HomepageCategorySerializer
+from apps.home.serializers.section_product_serializer import HomepageProductSerializer
+from apps.home.serializers.promotion_serializer import HomepagePromotionSerializer
+
+from apps.home.models.banner import HomepageBanner
+from apps.home.models.section_category import HomepageCategory
+from apps.home.models.section_product import HomepageProduct
+from apps.home.models.promotion import HomepagePromotion
+
+
 class HomepageViewSet(viewsets.ViewSet):
     """
-    Return a list of active homepage sections (cached).
+    Aggregated homepage data for frontend (like Amazon/Flipkart).
     """
 
     @extend_schema(
-        responses={200: HomepageSectionSerializer(many=True)},
+        responses={
+            200: OpenApiResponse(
+                description="Aggregated homepage data",
+            )
+        },
         tags=["Homepage"],
-        summary="Get homepage sections",
+        summary="Get homepage aggregated content",
     )
     def list(self, request):
-        cache_key = "homepage:sections"
-        cached = CACHE.get_results(cache_key)
-        if cached:
-            return ResponseFactory.success_collection(
-                items=cached.get("items", []),
-                pagination=cached.get("pagination", {}),
-                message="Homepage sections (cache)",
-                status=status.HTTP_200_OK,
-                request=request,
-                cache="HIT",
-            )
-
-        # qs = HomepageSection.objects.filter(is_active=True).prefetch_related(
-        #     "banners", "products__product"
-        # )
-
-        qs = HomepageSection.objects.filter(is_active=True).prefetch_related(
-            "banners",
-            "products__product",
-            "categories__category",  # ✅ new
+        # Fetch active items
+        banners = HomepageBanner.objects.filter(is_active=True).order_by("sort_order")
+        categories = HomepageCategory.objects.select_related("category").order_by(
+            "sort_order"
+        )
+        featured_products = HomepageProduct.objects.select_related("product").order_by(
+            "featured_rank"
+        )
+        promotions = HomepagePromotion.objects.filter(is_active=True).order_by(
+            "sort_order"
         )
 
-        serializer = HomepageSectionSerializer(
-            qs, many=True, context={"request": request}
-        )
-        data = serializer.data
-        CACHE.cache_results(cache_key, {"items": data, "pagination": {}})
-        return ResponseFactory.success_collection(
-            items=data,
-            pagination={},
-            message="Homepage sections",
-            status=status.HTTP_200_OK,
-            request=request,
-        )
+        # Serialize
+        data = {
+            "banners": HomepageBannerSerializer(
+                banners, many=True, context={"request": request}
+            ).data,
+            "categories": HomepageCategorySerializer(
+                categories, many=True, context={"request": request}
+            ).data,
+            "featured_products": HomepageProductSerializer(
+                featured_products, many=True, context={"request": request}
+            ).data,
+            "promotions": HomepagePromotionSerializer(
+                promotions, many=True, context={"request": request}
+            ).data,
+        }
 
-    @extend_schema(
-        responses={200: HomepageSectionSerializer},
-        tags=["Homepage"],
-        summary="Retrieve single homepage section",
-    )
-    def retrieve(self, request, pk=None):
-        section = get_object_or_404(HomepageSection, pk=pk, is_active=True)
-        serializer = HomepageSectionSerializer(section, context={"request": request})
         return ResponseFactory.success_resource(
-            item=serializer.data,
-            message="Homepage section retrieved",
-            status=status.HTTP_200_OK,
-            request=request,
-        )
-
-    @extend_schema(
-        responses={200: HomepageSectionSerializer},
-        tags=["Homepage"],
-        summary="Retrieve homepage Banner and Porducts section",
-    )
-    @action(
-        detail=False,
-        methods=["get"],
-        url_path="featured",
-    )
-    def featured(self, request):
-        cache_key = "homepage:featured"
-        cached = CACHE.get_results(cache_key)
-        if cached:
-            return ResponseFactory.success_collection(
-                items=cached.get("items", []),
-                pagination=cached.get("pagination", {}),
-                message="Featured (cache)",
-                status=status.HTTP_200_OK,
-                request=request,
-                cache="HIT",
-            )
-
-        sections = HomepageSection.objects.filter(
-            is_active=True, type__in=["banner", "product_carousel"]
-        ).prefetch_related("banners", "products__product")
-        serializer = HomepageSectionSerializer(
-            sections, many=True, context={"request": request}
-        )
-        data = serializer.data
-        CACHE.cache_results(cache_key, {"items": data, "pagination": {}})
-        return ResponseFactory.success_collection(
-            items=data,
-            pagination={},
-            message="Featured homepage content",
+            item=data,
+            message="Homepage aggregated content",
             status=status.HTTP_200_OK,
             request=request,
         )

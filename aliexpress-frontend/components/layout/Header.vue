@@ -7,6 +7,13 @@
                 <img width="170" src="/AliExpress-logo.png" />
             </NuxtLink>
 
+            <NuxtLink :to="{ name: 'category'}" class="mx-auto">
+                <strong>Categories</strong>
+            </NuxtLink>
+
+            <NuxtLink to="/products" class="max-auto">
+                <strong>Products</strong>
+            </NuxtLink>
 
             <div ref="searchWrapper" class="max-w-[700px] w-full md:block hidden relative">
                 <div class="flex items-center border-2 border-[#FF4646] rounded-md w-full">
@@ -81,7 +88,15 @@
 import { ref, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
 import { useAuthStore } from '~/stores/modules/authStore'
 import { useProductSearch } from '~/composables/search/useProductSearch'
-
+// category related 
+// import { useCategoryStore } from '~/stores/modules/categoryStore';
+// const categoryStore = useCategoryStore()
+// onMounted( async ()=> {
+//     console.info("🚀 [Index] Fetching initial Categories")
+//     await categoryStore.fetchCategories()
+//     console.info("✅ [Index] Initial load complete")
+// })
+// categoy related end here 
 const userStore = useAuthStore()
 const searchWrapper = ref(null)
 const dropdown = ref(null)

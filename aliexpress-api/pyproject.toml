@@ -12,6 +12,7 @@ dependencies = [
     "djangorestframework-simplejwt[token-blacklist]>=5.5.1",
     "drf-nested-routers>=0.95.0",
     "drf-spectacular>=0.28.0",
+    "factory-boy>=3.3.3",
     "faker>=37.5.3",
     "inflect>=7.5.0",
     "pillow>=11.3.0",

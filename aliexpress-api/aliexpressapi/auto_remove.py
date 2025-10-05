@@ -104,14 +104,6 @@ class ProductsCommandRunner:
             print(f"❌ Error in import_products: {e}")
 
 
-# class LoadProducts:
-#     def __init__(self):
-#         pass
-
-#     def __call__(self, *args, **kwds):
-#         setup.call_command("loaddata", "fake_products.json")
-
-
 # --- usage ---
 if __name__ == "__main__":
     # Set up Django so call_command works
@@ -121,9 +113,9 @@ if __name__ == "__main__":
     base = Path("./apps")
     db_file = Path("./database/db.sqlite3")
 
-    # DatabaseCleaner(db_file).clean()
-    # PycacheCleaner(base).clean()
-    # MigrationsCleaner(base).clean()
+    DatabaseCleaner(db_file).clean()
+    PycacheCleaner(base).clean()
+    MigrationsCleaner(base).clean()
 
     # ✅ Call custom Django management commands
     ProductsCommandRunner("./apps/accounts/management/fake_products.json").run()
