@@ -30,17 +30,9 @@ const props = defineProps({
             :key="item.id"
             class="bg-white rounded-xl shadow p-4 hover:shadow-lg cursor-pointer flex flex-col"
           >
-            <!-- <img
-              :src="item.product.image || '/github-logo.png'"
-              :alt="item.product.title"
-              class="w-full h-40 object-cover rounded-lg mb-4"
-            /> -->
-            <!-- <h2>item - {{  item }}</h2> -->
-            <h1>id - {{ item.sort_order  }}</h1>
-            <h3>featured rant - {{  item.featured_rank }}</h3>
-            <!-- <h3 class="font-medium text-gray-800 flex-1">{{ item.title }}</h3>
-            <p class="text-blue-600 font-bold mt-2">${{ item.product.default_price }}</p>
-            <p class="text-blue-600 font-bold mt-2">${{ item.product.description.substring(0, 50) }}</p> -->
+            <NuxtImg class="rounded-T" :src="item.image" alt="No Fount Image" loading="lazy" />
+            <p class="text-blue-600 font-bold mt-2">title - {{ item.product }}</p>
+            <p class="text-blue-600 font-bold mt-2">desc - {{ item.description.substring(0, 15) }}</p>
           </div>
         </div>
       </div>

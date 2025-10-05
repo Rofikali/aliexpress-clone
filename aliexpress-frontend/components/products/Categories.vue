@@ -2,12 +2,12 @@
   <div class="related-products">
     <div class="related-list">
       <div v-for="category in categories" :key="category.id" class="related-card">
-        <!-- <NuxtLink :to="{ name: 'products-id', params: { id: p.id } }" class="block"> -->
+        <NuxtLink :to="{ name: 'products-id', params: { id: category.id } }" class="block">
           <NuxtImg class="rounded-T" :src="category.image" alt="User Image" loading="lazy" />
           <p>{{ category.title }}</p>
           <p>₹{{ category.price }}</p>
-          <p>₹{{ category.description.substring(0, 10) }}</p>
-        <!-- </NuxtLink> -->
+          <p>₹{{ category.description.substring(0, 15) }}</p>
+        </NuxtLink>
       </div>
        <!-- categories - {{ categories }} -->
     </div>

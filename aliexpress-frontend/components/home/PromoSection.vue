@@ -4,7 +4,7 @@
       <h2 class="text-3xl font-bold mb-8">🔥 Limited-Time Promotions</h2>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div v-for="promo in data.promotions" :key="promo.id"
+        <div v-for="promo in data" :key="promo.id"
           class="bg-white rounded-xl shadow p-6 hover:shadow-lg"
         >
           <img
