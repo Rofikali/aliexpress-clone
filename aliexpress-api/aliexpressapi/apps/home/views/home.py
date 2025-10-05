@@ -94,13 +94,13 @@ CACHE = get_cache("homepage")  # use your existing cache factory
 
 from drf_spectacular.utils import OpenApiResponse
 from apps.home.serializers.banner_serializer import HomepageBannerSerializer
-from apps.home.serializers.section_category_serializer import HomepageCategorySerializer
-from apps.home.serializers.section_product_serializer import HomepageProductSerializer
+from apps.home.serializers.category_serializer import HomepageCategorySerializer
+from apps.home.serializers.product_serializer import HomepageProductSerializer
 from apps.home.serializers.promotion_serializer import HomepagePromotionSerializer
 
 from apps.home.models.banner import HomepageBanner
-from apps.home.models.section_category import HomepageCategory
-from apps.home.models.section_product import HomepageProduct
+from apps.home.models.category import HomepageCategory
+from apps.home.models.product import HomepageProduct
 from apps.home.models.promotion import HomepagePromotion
 
 

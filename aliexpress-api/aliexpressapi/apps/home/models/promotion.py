@@ -1,13 +1,13 @@
 # apps/home/models/promotion.py
 import uuid
 from django.db import models
-from apps.home.models.section import HomepageSection
+# from apps.home.models.section import HomepageSection
 
 class HomepagePromotion(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    section = models.ForeignKey(
-        HomepageSection, related_name="promotions", on_delete=models.CASCADE
-    )
+    # section = models.ForeignKey(
+    #     HomepageSection, related_name="promotions", on_delete=models.CASCADE
+    # )
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to="home/promotions/")

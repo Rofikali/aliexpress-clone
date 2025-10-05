@@ -3,8 +3,8 @@ from rest_framework.permissions import AllowAny
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 
-from apps.home.models.section_category import HomepageCategory
-from apps.home.serializers.section_category_serializer import HomepageCategorySerializer
+from apps.home.models.category import HomepageCategory
+from apps.home.serializers.category_serializer import HomepageCategorySerializer
 from components.responses.response_factory import ResponseFactory
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 

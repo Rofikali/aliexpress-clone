@@ -2,8 +2,11 @@ from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 from django.shortcuts import get_object_or_404
 
-from apps.home.models.section_product import HomepageProduct
-from apps.home.serializers.section_product_serializer import HomepageProductSerializer, HomepageProductDetailSerializer
+from apps.home.models.product import HomepageProduct
+from apps.home.serializers.product_serializer import (
+    HomepageProductSerializer,
+    HomepageProductDetailSerializer,
+)
 from components.responses.response_factory import ResponseFactory
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 
@@ -37,7 +40,9 @@ class HomepageFeaturedProductViewSet(viewsets.ViewSet):
         product = get_object_or_404(
             HomepageProduct.objects.select_related("product"), pk=pk
         )
-        serializer = HomepageProductDetailSerializer(product, context={"request": request})
+        serializer = HomepageProductDetailSerializer(
+            product, context={"request": request}
+        )
         return ResponseFactory.success_resource(
             item=serializer.data, message="Featured product detail", request=request
         )

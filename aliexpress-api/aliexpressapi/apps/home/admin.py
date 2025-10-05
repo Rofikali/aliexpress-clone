@@ -39,9 +39,10 @@
 
 from django.contrib import admin
 from apps.home.models.banner import HomepageBanner
+
 # from apps.home.models.section import HomepageSection
-from apps.home.models.section_product import HomepageProduct
-from apps.home.models.section_category import HomepageCategory
+from apps.home.models.product import HomepageProduct
+from apps.home.models.category import HomepageCategory
 from apps.home.models.promotion import HomepagePromotion  # ✅ new
 
 
@@ -70,15 +71,15 @@ class HomepageProductAdmin(admin.ModelAdmin):
 
 @admin.register(HomepageCategory)
 class HomepageCategoryAdmin(admin.ModelAdmin):
-    list_display = ("section", "category", "sort_order")
-    list_filter = ("section",)
+    list_display = ( "category", "sort_order")
+    # list_filter = ("category",)
     search_fields = ("category__name",)
     ordering = ("sort_order",)
 
 
 @admin.register(HomepagePromotion)  # ✅ new
 class HomepagePromotionAdmin(admin.ModelAdmin):
-    list_display = ("title", "section", "link_url", "is_active", "sort_order")
-    list_filter = ("section", "is_active")
+    list_display = ("title", "link_url", "is_active", "sort_order")
+    list_filter = ("is_active",)
     search_fields = ("title",)
     ordering = ("sort_order",)

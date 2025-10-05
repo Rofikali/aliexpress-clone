@@ -1,8 +1,10 @@
 # apps/home/models/section_product.py
 import uuid
 from django.db import models
-from apps.home.models.section import HomepageSection
+
+# from apps.home.models.section import HomepageSection
 from apps.products.models.product import Product
+
 
 class HomepageProduct(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
