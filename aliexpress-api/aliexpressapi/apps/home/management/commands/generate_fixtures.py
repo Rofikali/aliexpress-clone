@@ -29,9 +29,6 @@ img_path = (
     / "media"
     / "default.jpg"
 )
-# img_path = Path(__file__).resolve().parent.parent.parent.parent.parent / "default.jpg"
-# print('image path is  ---------- > ', img_path)
-# print('image media path ', Path(__file__).resolve().parent.parent.parent.parent.parent / 'media' / 'default.jpg')
 
 
 def new_uuid():
@@ -194,9 +191,9 @@ def generate_product_fixture(filename="fixtures/products_fixture.json"):
 
     NUM_SELLERS = 10
     NUM_BUYERS = 10
-    NUM_CATEGORIES = 10
+    NUM_CATEGORIES = 50
     NUM_BRANDS = 10
-    NUM_PRODUCTS = 20
+    NUM_PRODUCTS = 30
     IMAGES_PER_PRODUCT = 3
 
     # Users
