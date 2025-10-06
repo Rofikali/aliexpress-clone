@@ -1,6 +1,7 @@
 # apps/home/models/section_category.py
 import uuid
 from django.db import models
+
 # from apps.home.models.section import HomepageSection
 from apps.products.models.category import Category
 
@@ -15,4 +16,4 @@ class HomepageCategory(models.Model):
         db_table = "home_section_category"
 
     def __str__(self):
-        return f"{self.section.slug} -> {self.category.name}"
+        return f"{self.id} -> {self.category.slug} -> {self.category.name}"

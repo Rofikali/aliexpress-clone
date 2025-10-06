@@ -1,245 +1,169 @@
 [
   {
-    "model": "home.homepagesection",
-    "pk": "a05909c9-be90-47e3-a3df-2186427cecda",
-    "fields": {
-      "id": "a05909c9-be90-47e3-a3df-2186427cecda",
-      "title": "Business standard wrong tend.",
-      "slug": "forward-study",
-      "type": "banner",
-      "position": 0,
-      "is_active": true,
-      "metadata": {},
-      "created_at": "2025-10-01T15:30:46.523680+00:00",
-      "updated_at": "2025-10-01T15:30:46.523680+00:00"
-    }
-  },
-  {
     "model": "home.homepagebanner",
-    "pk": "9c179191-c670-4022-87c2-55a3b5d044b6",
+    "pk": "c8178b2a-d796-4bd0-a9b9-10123bf300c3",
     "fields": {
-      "section_id": "a05909c9-be90-47e3-a3df-2186427cecda",
-      "title": "Change might begin.",
+      "title": "Crime end.",
       "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "https://smith-woods.info/",
-      "alt_text": "Its laugh defense entire.",
+      "link_url": "http://hines.com/",
+      "alt_text": "Have western start fine great.",
       "sort_order": 0,
       "is_active": true,
-      "created_at": "2025-10-01T15:30:46.523680+00:00",
-      "updated_at": "2025-10-01T15:30:46.523680+00:00"
+      "created_at": "2025-10-06T17:34:06.106875+00:00",
+      "updated_at": "2025-10-06T17:34:06.106875+00:00"
     }
   },
   {
     "model": "home.homepagebanner",
-    "pk": "afa6166e-374c-4d6b-a9c4-7f0250c9bd38",
+    "pk": "16c0f9c9-86d9-458d-99a1-4d46fd9848f7",
     "fields": {
-      "section_id": "a05909c9-be90-47e3-a3df-2186427cecda",
-      "title": "Area mother.",
+      "title": "Girl at.",
       "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "https://gallagher.com/",
-      "alt_text": "Determine stage decade explain position paper pretty.",
+      "link_url": "https://www.robbins.net/",
+      "alt_text": "Other station answer analysis.",
       "sort_order": 1,
       "is_active": true,
-      "created_at": "2025-10-01T15:30:46.523680+00:00",
-      "updated_at": "2025-10-01T15:30:46.523680+00:00"
+      "created_at": "2025-10-06T17:34:06.106875+00:00",
+      "updated_at": "2025-10-06T17:34:06.106875+00:00"
     }
   },
   {
     "model": "home.homepagebanner",
-    "pk": "ed9444ea-78e3-4058-aaa3-9c211602c248",
+    "pk": "413e4f0b-2d50-4429-92b2-2999748fb277",
     "fields": {
-      "section_id": "a05909c9-be90-47e3-a3df-2186427cecda",
-      "title": "On environmental.",
+      "title": "Bank else.",
       "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "http://www.wolfe-mendez.com/",
-      "alt_text": "Lead special product.",
+      "link_url": "http://jimenez-harris.com/",
+      "alt_text": "State health eye.",
       "sort_order": 2,
       "is_active": true,
-      "created_at": "2025-10-01T15:30:46.523680+00:00",
-      "updated_at": "2025-10-01T15:30:46.523680+00:00"
-    }
-  },
-  {
-    "model": "home.homepagesection",
-    "pk": "8b14f1c2-890b-48ea-8bf0-a69752f25c47",
-    "fields": {
-      "id": "8b14f1c2-890b-48ea-8bf0-a69752f25c47",
-      "title": "Pick sort poor.",
-      "slug": "sell-kind-condition",
-      "type": "promo",
-      "position": 1,
-      "is_active": true,
-      "metadata": {},
-      "created_at": "2025-10-01T15:30:46.523680+00:00",
-      "updated_at": "2025-10-01T15:30:46.523680+00:00"
+      "created_at": "2025-10-06T17:34:06.106875+00:00",
+      "updated_at": "2025-10-06T17:34:06.106875+00:00"
     }
   },
   {
     "model": "home.homepagepromotion",
-    "pk": "55c5d3bd-df8b-4608-b1dc-2b12f4d73729",
+    "pk": "651b2a8c-8a2a-444a-895a-bbadce86f928",
     "fields": {
-      "section_id": "8b14f1c2-890b-48ea-8bf0-a69752f25c47",
-      "title": "Couple approach.",
-      "description": "Probably wish then system open relationship prepare trouble note as.",
+      "title": "Matter security.",
+      "description": "Soon water ready movie set.",
       "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "http://henson-garcia.com/",
+      "link_url": "https://mendoza.info/",
       "sort_order": 0,
       "is_active": true,
-      "created_at": "2025-10-01T15:30:46.523680+00:00",
-      "updated_at": "2025-10-01T15:30:46.523680+00:00"
+      "created_at": "2025-10-06T17:34:06.106875+00:00",
+      "updated_at": "2025-10-06T17:34:06.106875+00:00"
     }
   },
   {
     "model": "home.homepagepromotion",
-    "pk": "cdca9f91-5fbd-4599-984f-b3318f4ed3f2",
+    "pk": "94b95eff-e1f6-43d4-bc1a-8cdfa471b67a",
     "fields": {
-      "section_id": "8b14f1c2-890b-48ea-8bf0-a69752f25c47",
-      "title": "Bad box.",
-      "description": "Maintain resource apply begin figure choice.",
+      "title": "Technology run scene.",
+      "description": "Ground court least national treatment will heart drug step woman.",
       "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "https://www.diaz.biz/",
+      "link_url": "https://johnson-miller.com/",
       "sort_order": 1,
       "is_active": true,
-      "created_at": "2025-10-01T15:30:46.523680+00:00",
-      "updated_at": "2025-10-01T15:30:46.523680+00:00"
+      "created_at": "2025-10-06T17:34:06.106875+00:00",
+      "updated_at": "2025-10-06T17:34:06.106875+00:00"
     }
   },
   {
     "model": "home.homepagepromotion",
-    "pk": "aace2ad5-78d0-47db-8e47-2be4b2dfb0fc",
+    "pk": "00ba3720-4e01-4b39-ada2-0c932f7f89f8",
     "fields": {
-      "section_id": "8b14f1c2-890b-48ea-8bf0-a69752f25c47",
-      "title": "Course down.",
-      "description": "Hour finally attention will simply ever staff.",
+      "title": "Vote.",
+      "description": "Ever for seek job miss from position story impact.",
       "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "http://www.taylor-mccullough.net/",
+      "link_url": "http://www.moore-thompson.info/",
       "sort_order": 2,
       "is_active": true,
-      "created_at": "2025-10-01T15:30:46.523680+00:00",
-      "updated_at": "2025-10-01T15:30:46.523680+00:00"
-    }
-  },
-  {
-    "model": "home.homepagesection",
-    "pk": "5843f690-ab0a-4f0a-9c9e-cea6d4e11a43",
-    "fields": {
-      "id": "5843f690-ab0a-4f0a-9c9e-cea6d4e11a43",
-      "title": "Line law must.",
-      "slug": "music-say-threat",
-      "type": "categories",
-      "position": 2,
-      "is_active": true,
-      "metadata": {},
-      "created_at": "2025-10-01T15:30:46.523680+00:00",
-      "updated_at": "2025-10-01T15:30:46.523680+00:00"
+      "created_at": "2025-10-06T17:34:06.106875+00:00",
+      "updated_at": "2025-10-06T17:34:06.106875+00:00"
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "43a997a1-1806-46d9-9a40-91bfaa1ce23a",
+    "pk": "c7527d11-cffb-469f-b126-8ad8d4dd2d47",
     "fields": {
-      "section_id": "5843f690-ab0a-4f0a-9c9e-cea6d4e11a43",
-      "category_id": "1147a131-f044-4f34-9919-638bdf917835",
+      "category_id": "0205cf86-a854-4fb9-82e0-ad0a83419a17",
       "sort_order": 0
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "1bf8086f-2d71-40d1-a942-b5a65a1c1c15",
+    "pk": "4436d1ba-f465-485e-ac4f-11b2e9afb824",
     "fields": {
-      "section_id": "5843f690-ab0a-4f0a-9c9e-cea6d4e11a43",
-      "category_id": "1c2abf72-0523-4b9b-9576-b88bae821a13",
+      "category_id": "0a89b814-82ee-423e-91ea-f8f2d49fbd9d",
       "sort_order": 1
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "a172d134-0dd7-49bc-a678-cb423a0e4d7c",
+    "pk": "6c85dd60-8caf-417f-af64-c9560cbe9f2d",
     "fields": {
-      "section_id": "5843f690-ab0a-4f0a-9c9e-cea6d4e11a43",
-      "category_id": "1fb23271-f9fc-45c1-aa17-b34060d584f1",
+      "category_id": "0bea2f7c-362d-4bea-ae52-011d1d5d8516",
       "sort_order": 2
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "8dff1921-2a53-4ec0-b46c-997c18bb97ac",
+    "pk": "1b4ff5f4-e092-46e3-810c-9c3f353c464e",
     "fields": {
-      "section_id": "5843f690-ab0a-4f0a-9c9e-cea6d4e11a43",
-      "category_id": "4059af4d-5351-4c7c-9c13-40615faaf142",
+      "category_id": "0e227c5e-e4f5-4895-82ce-70e6a67883be",
       "sort_order": 3
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "7c999b1d-1934-4390-a3d7-7d0f8929b4d1",
+    "pk": "d376b227-2b2a-46b0-ac07-1daa9bbead73",
     "fields": {
-      "section_id": "5843f690-ab0a-4f0a-9c9e-cea6d4e11a43",
-      "category_id": "4c1f8e76-6f07-436d-926a-d946eef78ca5",
+      "category_id": "14fbd9cf-f5c8-46e0-9e00-b063decdc526",
       "sort_order": 4
     }
   },
   {
-    "model": "home.homepagesection",
-    "pk": "c4db54ef-e190-4584-9e72-3ab7f4ab3102",
-    "fields": {
-      "id": "c4db54ef-e190-4584-9e72-3ab7f4ab3102",
-      "title": "Environmental once reflect.",
-      "slug": "look-people-tax",
-      "type": "products",
-      "position": 3,
-      "is_active": true,
-      "metadata": {},
-      "created_at": "2025-10-01T15:30:46.523680+00:00",
-      "updated_at": "2025-10-01T15:30:46.523680+00:00"
-    }
-  },
-  {
     "model": "home.homepageproduct",
-    "pk": "00b5e8c8-97c5-41cb-ba50-9a881666eb0b",
+    "pk": "4d0bc33f-a5e0-489d-96b9-c32134c03a83",
     "fields": {
-      "section_id": "c4db54ef-e190-4584-9e72-3ab7f4ab3102",
-      "product_id": "0b50ca11-4214-4ebd-8ca8-1d1db44438e9",
+      "product_id": "075109fb-0e1d-42ed-a8a3-e8ef954b01ff",
       "featured_rank": 1,
       "sort_order": 0
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "a116dfb1-1502-4cd4-80ad-aa060e600fce",
+    "pk": "74cbef20-7e80-4d4c-919e-743369eb6f8f",
     "fields": {
-      "section_id": "c4db54ef-e190-4584-9e72-3ab7f4ab3102",
-      "product_id": "1edc38e1-30f7-4733-ab18-782547e994bc",
+      "product_id": "10ab8a2d-b4ba-4b33-aad7-95f8c181631c",
       "featured_rank": 2,
       "sort_order": 1
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "076922d1-a949-4d9a-b4b7-9d66910eb63a",
+    "pk": "a3564e25-0f51-42f4-bdcc-282a25ef5dd6",
     "fields": {
-      "section_id": "c4db54ef-e190-4584-9e72-3ab7f4ab3102",
-      "product_id": "3a7dfea3-8ac8-4283-a675-ff21ca41d490",
+      "product_id": "17d75f5e-e816-4349-9d8f-55f38b318d3b",
       "featured_rank": 3,
       "sort_order": 2
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "4072599c-04f4-4274-ace2-206b5b55d7a0",
+    "pk": "36fb87a1-e8e2-4614-93e4-af1a5226b24b",
     "fields": {
-      "section_id": "c4db54ef-e190-4584-9e72-3ab7f4ab3102",
-      "product_id": "41b8a8c6-9153-43b6-8f77-083605332d98",
+      "product_id": "21a24007-54fa-43b4-b566-375c5f1c8e08",
       "featured_rank": 4,
       "sort_order": 3
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "1c846d56-56eb-4fca-901a-87fb674d45fd",
+    "pk": "dfac3faa-a7ef-431b-834e-2852d42841b5",
     "fields": {
-      "section_id": "c4db54ef-e190-4584-9e72-3ab7f4ab3102",
-      "product_id": "50395c7d-eea8-4825-902b-c8d12f972fc8",
+      "product_id": "242c2b5b-9260-4d39-ae67-2cf0e7dcbb79",
       "featured_rank": 5,
       "sort_order": 4
     }

@@ -187,7 +187,7 @@ class CategoryViewSet(ViewSet):
         response_data = paginator.get_paginated_response_data(serializer.data)
 
         return ResponseFactory.success_collection(
-            items=response_data,
+            items=response_data["items"],
             message="Categories fetched successfully",
             pagination=response_data["pagination"],
             request=request,

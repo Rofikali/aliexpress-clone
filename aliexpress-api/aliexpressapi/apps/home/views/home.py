@@ -104,6 +104,10 @@ from apps.home.models.product import HomepageProduct
 from apps.home.models.promotion import HomepagePromotion
 
 
+from apps.products.models.category import Category
+from apps.products.serializers.category import CategorySerializer
+
+
 class HomepageViewSet(viewsets.ViewSet):
     """
     Aggregated homepage data for frontend (like Amazon/Flipkart).
@@ -121,9 +125,10 @@ class HomepageViewSet(viewsets.ViewSet):
     def list(self, request):
         # Fetch active items
         banners = HomepageBanner.objects.filter(is_active=True).order_by("sort_order")
-        categories = HomepageCategory.objects.select_related("category").order_by(
-            "sort_order"
-        )
+        # categories = HomepageCategory.objects.select_related("category").order_by(
+        #     "sort_order"
+        # )
+        categories = Category.objects.all().order_by("name")[:5]
         featured_products = HomepageProduct.objects.select_related("product").order_by(
             "featured_rank"
         )
@@ -136,7 +141,7 @@ class HomepageViewSet(viewsets.ViewSet):
             "banners": HomepageBannerSerializer(
                 banners, many=True, context={"request": request}
             ).data,
-            "categories": HomepageCategorySerializer(
+            "categories": CategorySerializer(
                 categories, many=True, context={"request": request}
             ).data,
             "featured_products": HomepageProductSerializer(

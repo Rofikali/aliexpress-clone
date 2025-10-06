@@ -18,4 +18,4 @@ class HomepageProduct(models.Model):
         db_table = "home_section_product"
 
     def __str__(self):
-        return f"SectionProduct: {self.section.slug} -> {self.product_id}"
+        return f"SectionProduct: {self.product.slug} -> {self.product_id}"

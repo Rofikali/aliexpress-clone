@@ -71,7 +71,7 @@ class HomepageProductAdmin(admin.ModelAdmin):
 
 @admin.register(HomepageCategory)
 class HomepageCategoryAdmin(admin.ModelAdmin):
-    list_display = ( "category", "sort_order")
+    list_display = ("id", "category", "sort_order")
     # list_filter = ("category",)
     search_fields = ("category__name",)
     ordering = ("sort_order",)
