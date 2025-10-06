@@ -31,18 +31,15 @@ const props = defineProps({
         <h2 class="text-2xl font-bold mb-8">Browse Categories</h2>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
           <div v-for="cat in data || []"
-            :key="cat.category.id"
+            :key="cat.id"
             class="bg-white rounded-xl shadow p-6 hover:shadow-lg cursor-pointer">
-             <NuxtLink :to="{ name: 'home-categories-id', params: { id: cat.category.id } }" class="block">
-            <img
-              :src="cat.category.image || '/google-logo.png'"
-              alt=""
-              class="w-full h-32 object-cover rounded-lg mb-4"
-            />
-            </NuxtLink>
-            <h3 class="text-lg font-semibold">name - {{ cat.category.name }}</h3>
-            <h2 class="text-lg font-semibold">desc - {{ cat.category.description }}</h2>
-          </div>
+             <NuxtLink :to="{ name: 'home-categories-id', params: { id: cat.id } }" class="block">
+               <NuxtImg class="rounded-T" :src="cat.image || '/github-logo.png'" alt="Image Not Available" loading="lazy" />
+               
+                <h3 class="text-lg font-semibold">name - {{ cat.name }}</h3>
+                <h2 class="text-lg font-semibold">desc - {{ cat.description }}</h2>
+              </NuxtLink>
+          </div>  
           <div>No Products Related This Category .</div>
         </div>
       </section>

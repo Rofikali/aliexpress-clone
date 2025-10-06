@@ -18,13 +18,14 @@
 
       <strong>Featured Products</strong>
 
-      <!-- <h1>retured data - {{ featuredProductsSection }}</h1> -->
+      <!-- {{ featuredProductsSection }}</h1> -->
       <LazyHomeFeaturedProducts
         v-if="featuredProductsSection"
         :data="featuredProductsSection.data"
       />
 
       <h1>Categoires Data </h1>
+      <!-- {{ categoriesSection.data }} -->
       <LazyHomeCategories v-if="categoriesSection" :data="categoriesSection.data" />
 
       <!-- <h1>Promotions - {{ promotions }}</h1> -->
@@ -68,11 +69,3 @@ const testimonialsSection = computed(() => sections.value.find(s => s.type === "
 
 <style scoop>
 </style>
-
-
-<!-- 1 think i wanna know i already have products and category models but now here i
- am creating banners, categories, featured_products, promotions these models i am thinking that may
-  i use categories homepage have to use already made category same like featured_products homepage 
-   i have to use already product models and use filters that i only shows featured_rand of
-    something else and show what do you say or it's better 
-to create new models for home page sessitioins  -->
