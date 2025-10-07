@@ -1,169 +1,169 @@
 [
   {
     "model": "home.homepagebanner",
-    "pk": "c8178b2a-d796-4bd0-a9b9-10123bf300c3",
+    "pk": "23b3b603-1343-446f-ab47-3a8152b369d9",
     "fields": {
-      "title": "Crime end.",
-      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "http://hines.com/",
-      "alt_text": "Have western start fine great.",
+      "title": "Say.",
+      "image": "C:\\Users\\BINANDA PC\\Desktop\\Rofik_DATA\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "http://www.martin.org/",
+      "alt_text": "Style happy senior.",
       "sort_order": 0,
       "is_active": true,
-      "created_at": "2025-10-06T17:34:06.106875+00:00",
-      "updated_at": "2025-10-06T17:34:06.106875+00:00"
+      "created_at": "2025-10-07T07:31:43.543241+00:00",
+      "updated_at": "2025-10-07T07:31:43.543241+00:00"
     }
   },
   {
     "model": "home.homepagebanner",
-    "pk": "16c0f9c9-86d9-458d-99a1-4d46fd9848f7",
+    "pk": "93252b11-3ccc-4626-abc5-b732ac22f88e",
     "fields": {
-      "title": "Girl at.",
-      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "https://www.robbins.net/",
-      "alt_text": "Other station answer analysis.",
+      "title": "Whose parent account.",
+      "image": "C:\\Users\\BINANDA PC\\Desktop\\Rofik_DATA\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "http://oconnor.com/",
+      "alt_text": "Not dog front shoulder.",
       "sort_order": 1,
       "is_active": true,
-      "created_at": "2025-10-06T17:34:06.106875+00:00",
-      "updated_at": "2025-10-06T17:34:06.106875+00:00"
+      "created_at": "2025-10-07T07:31:43.543241+00:00",
+      "updated_at": "2025-10-07T07:31:43.543241+00:00"
     }
   },
   {
     "model": "home.homepagebanner",
-    "pk": "413e4f0b-2d50-4429-92b2-2999748fb277",
+    "pk": "87dc5e22-15b3-4a00-9c29-000b75b1c04b",
     "fields": {
-      "title": "Bank else.",
-      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "http://jimenez-harris.com/",
-      "alt_text": "State health eye.",
+      "title": "Maintain police same.",
+      "image": "C:\\Users\\BINANDA PC\\Desktop\\Rofik_DATA\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "https://hunter.com/",
+      "alt_text": "Especially leg natural then place.",
       "sort_order": 2,
       "is_active": true,
-      "created_at": "2025-10-06T17:34:06.106875+00:00",
-      "updated_at": "2025-10-06T17:34:06.106875+00:00"
+      "created_at": "2025-10-07T07:31:43.543241+00:00",
+      "updated_at": "2025-10-07T07:31:43.543241+00:00"
     }
   },
   {
     "model": "home.homepagepromotion",
-    "pk": "651b2a8c-8a2a-444a-895a-bbadce86f928",
+    "pk": "19dd921b-5f15-4fb8-bad7-7b578242453e",
     "fields": {
-      "title": "Matter security.",
-      "description": "Soon water ready movie set.",
-      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "https://mendoza.info/",
+      "title": "Tonight consumer available building.",
+      "description": "Executive both address computer accept arrive turn.",
+      "image": "C:\\Users\\BINANDA PC\\Desktop\\Rofik_DATA\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "http://www.serrano-stewart.com/",
       "sort_order": 0,
       "is_active": true,
-      "created_at": "2025-10-06T17:34:06.106875+00:00",
-      "updated_at": "2025-10-06T17:34:06.106875+00:00"
+      "created_at": "2025-10-07T07:31:43.543241+00:00",
+      "updated_at": "2025-10-07T07:31:43.543241+00:00"
     }
   },
   {
     "model": "home.homepagepromotion",
-    "pk": "94b95eff-e1f6-43d4-bc1a-8cdfa471b67a",
+    "pk": "cf16f083-081f-44c6-b215-3559f1de8737",
     "fields": {
-      "title": "Technology run scene.",
-      "description": "Ground court least national treatment will heart drug step woman.",
-      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "https://johnson-miller.com/",
+      "title": "Security article.",
+      "description": "Above mean community wear father upon Mrs stage.",
+      "image": "C:\\Users\\BINANDA PC\\Desktop\\Rofik_DATA\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "http://www.austin.com/",
       "sort_order": 1,
       "is_active": true,
-      "created_at": "2025-10-06T17:34:06.106875+00:00",
-      "updated_at": "2025-10-06T17:34:06.106875+00:00"
+      "created_at": "2025-10-07T07:31:43.543241+00:00",
+      "updated_at": "2025-10-07T07:31:43.543241+00:00"
     }
   },
   {
     "model": "home.homepagepromotion",
-    "pk": "00ba3720-4e01-4b39-ada2-0c932f7f89f8",
+    "pk": "2a90c781-6177-48e8-87d4-167ecf7c0119",
     "fields": {
-      "title": "Vote.",
-      "description": "Ever for seek job miss from position story impact.",
-      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "http://www.moore-thompson.info/",
+      "title": "Anyone address themselves.",
+      "description": "Most probably record strategy brother air reflect system recently moment.",
+      "image": "C:\\Users\\BINANDA PC\\Desktop\\Rofik_DATA\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "https://www.montgomery.info/",
       "sort_order": 2,
       "is_active": true,
-      "created_at": "2025-10-06T17:34:06.106875+00:00",
-      "updated_at": "2025-10-06T17:34:06.106875+00:00"
+      "created_at": "2025-10-07T07:31:43.543241+00:00",
+      "updated_at": "2025-10-07T07:31:43.543241+00:00"
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "c7527d11-cffb-469f-b126-8ad8d4dd2d47",
+    "pk": "b886ac50-d27e-4e78-a01a-5b8ea53658da",
     "fields": {
-      "category_id": "0205cf86-a854-4fb9-82e0-ad0a83419a17",
+      "category_id": "0d333175-e2ae-4ea9-87af-c555e6ff8981",
       "sort_order": 0
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "4436d1ba-f465-485e-ac4f-11b2e9afb824",
+    "pk": "a233fcdc-9723-4188-8283-5c3a4760f912",
     "fields": {
-      "category_id": "0a89b814-82ee-423e-91ea-f8f2d49fbd9d",
+      "category_id": "0ff95e2c-16fe-4f8a-a05e-edd58406b53b",
       "sort_order": 1
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "6c85dd60-8caf-417f-af64-c9560cbe9f2d",
+    "pk": "1767f25f-4312-43d8-bf75-141fbdc7f5b7",
     "fields": {
-      "category_id": "0bea2f7c-362d-4bea-ae52-011d1d5d8516",
+      "category_id": "103f1931-cfd4-4397-a3e1-8ceea2757f61",
       "sort_order": 2
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "1b4ff5f4-e092-46e3-810c-9c3f353c464e",
+    "pk": "294d6cc1-274e-4056-9847-543c12c33e38",
     "fields": {
-      "category_id": "0e227c5e-e4f5-4895-82ce-70e6a67883be",
+      "category_id": "17e3b22c-93b2-4fc3-9f6d-1f8500aa030c",
       "sort_order": 3
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "d376b227-2b2a-46b0-ac07-1daa9bbead73",
+    "pk": "eacbbda7-d3ae-45ca-80a6-5108f00e9f21",
     "fields": {
-      "category_id": "14fbd9cf-f5c8-46e0-9e00-b063decdc526",
+      "category_id": "249ed1c3-a4ff-4121-9f3b-389252766f2f",
       "sort_order": 4
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "4d0bc33f-a5e0-489d-96b9-c32134c03a83",
+    "pk": "57a6b976-c94a-4424-8869-518e0aa26864",
     "fields": {
-      "product_id": "075109fb-0e1d-42ed-a8a3-e8ef954b01ff",
+      "product_id": "176b10e1-abe1-42ca-a106-821b8572aa0f",
       "featured_rank": 1,
       "sort_order": 0
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "74cbef20-7e80-4d4c-919e-743369eb6f8f",
+    "pk": "ffca78e6-451d-44f7-9c14-9bf9614bf691",
     "fields": {
-      "product_id": "10ab8a2d-b4ba-4b33-aad7-95f8c181631c",
+      "product_id": "1c71d792-9e28-46a3-acc4-11ec25ba8c19",
       "featured_rank": 2,
       "sort_order": 1
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "a3564e25-0f51-42f4-bdcc-282a25ef5dd6",
+    "pk": "3d9e237d-57e7-4045-819b-6c223b4551db",
     "fields": {
-      "product_id": "17d75f5e-e816-4349-9d8f-55f38b318d3b",
+      "product_id": "2444f931-d1e5-49df-95bb-8b05e687be41",
       "featured_rank": 3,
       "sort_order": 2
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "36fb87a1-e8e2-4614-93e4-af1a5226b24b",
+    "pk": "2ae43d99-13af-4485-83f2-24d9c6fe57d5",
     "fields": {
-      "product_id": "21a24007-54fa-43b4-b566-375c5f1c8e08",
+      "product_id": "453bb376-b67f-469b-9f88-704e5caffa81",
       "featured_rank": 4,
       "sort_order": 3
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "dfac3faa-a7ef-431b-834e-2852d42841b5",
+    "pk": "d1f1e46c-15fc-4c45-b0d4-88f6db417f83",
     "fields": {
-      "product_id": "242c2b5b-9260-4d39-ae67-2cf0e7dcbb79",
+      "product_id": "47daefb6-bb8f-45b4-949d-bb6edd8f668c",
       "featured_rank": 5,
       "sort_order": 4
     }
