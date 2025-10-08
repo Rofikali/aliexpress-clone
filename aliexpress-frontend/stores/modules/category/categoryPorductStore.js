@@ -1,12 +1,13 @@
 // ~/stores/modules/categoryStore.js
 import { defineStore } from "pinia"
-import { getCategories, getCategoryWithProducts } from "~/services/api/categories/category"
-import { usePagination } from "~/composables/pagination/useBasePagination"
+import { getCategoryWithProducts } from "~/services/api/categories/category"
+// import { getCategories, getCategoryWithProducts } from "~/services/api/categories/category"
+// import { usePagination } from "~/composables/pagination/useBasePagination"
 
-export const useCategoryStore = defineStore("categoryStore", () => {
+export const useCategoryProductsStore = defineStore("categoryStore", () => {
     // ============ Pagination (list of products) ============
-    const pagination = usePagination(getCategories, { pageSize: 12, debug: true })
-    console.log('pagination in category store for all categories --------> ', pagination);
+    // const pagination = usePagination(getCategories, { pageSize: 12, debug: true })
+    // console.log('pagination in category store for all categories --------> ', pagination);
 
     // const category = ref(null)         // category info (id, name, description)
     const products = ref([])           // product list
@@ -15,7 +16,7 @@ export const useCategoryStore = defineStore("categoryStore", () => {
     const loading = ref(false)
     const error = ref(null)
 
-    async function fetchFirst(categoryId) {
+    async function fetchCategoryProducts(categoryId) {
         loading.value = true
         error.value = null
         try {
@@ -85,17 +86,17 @@ export const useCategoryStore = defineStore("categoryStore", () => {
     }
 
     return {
-        // Listing categories
-        categories: pagination.items,
-        loading: pagination.loading,
-        error: pagination.error,
-        nextCursor: pagination.nextCursor,
-        hasNext: pagination.hasNext,
-        // count: pagination.count,
-        fetchCategories: pagination.fetchFirst,
-        loadMore: pagination.loadMore,
-        reset: pagination.reset,
-        forceReload: pagination.forceReload,
+        // // Listing categories
+        // categories: pagination.items,
+        // loading: pagination.loading,
+        // error: pagination.error,
+        // nextCursor: pagination.nextCursor,
+        // hasNext: pagination.hasNext,
+        // // count: pagination.count,
+        // fetchCategories: pagination.fetchFirst,
+        // loadMore: pagination.loadMore,
+        // reset: pagination.reset,
+        // forceReload: pagination.forceReload,
 
         // single category related products,
         products,
@@ -103,7 +104,7 @@ export const useCategoryStore = defineStore("categoryStore", () => {
         hasNext,
         loading,
         error,
-        fetchFirst,
+        fetchCategoryProducts,
         loadMore,
     }
 })

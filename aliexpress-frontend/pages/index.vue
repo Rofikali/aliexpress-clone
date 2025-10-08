@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <h1 class="text-2xl font-bold mb-4">Homepage</h1>
@@ -19,20 +18,14 @@
       <strong>Featured Products</strong>
 
       <!-- {{ featuredProductsSection }}</h1> -->
-      <LazyHomeFeaturedProducts
-        v-if="featuredProductsSection"
-        :data="featuredProductsSection.data"
-      />
+      <LazyHomeFeaturedProducts v-if="featuredProductsSection" :data="featuredProductsSection.data" />
 
       <h1>Categoires Data </h1>
       <!-- {{ categoriesSection.data }} -->
       <LazyHomeCategories v-if="categoriesSection" :data="categoriesSection.data" />
 
       <!-- <h1>Promotions - {{ promotions }}</h1> -->
-      <LazyHomePromoSection 
-        v-if="promotions" 
-        :data="promotions.data" 
-      />
+      <LazyHomePromoSection v-if="promotions" :data="promotions.data" />
       <div v-else>No promotions data</div>
 
       <strong>For Feauture Plan</strong>
@@ -67,5 +60,4 @@ const testimonialsSection = computed(() => sections.value.find(s => s.type === "
 
 </script>
 
-<style scoop>
-</style>
+<style scoop></style>
