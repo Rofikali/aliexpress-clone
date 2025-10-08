@@ -134,45 +134,7 @@ class MigrationsCleaner(Cleaner):
             print("No migration files found")
 
 
-class ProductsCommandRunner:
-    def __init__(self, json_path: str):
-        self.json_path = json_path
-
-    def run(self, use_spinner=True):
-        from django.core.management import CommandError
-
-        try:
-            print("Running generate_products_json...")
-            if use_spinner:
-                spinner = Spinner("Generating products JSON")
-                spinner.start()
-                call_command("generate_products_json", self.json_path, count=50)
-                spinner.stop()
-            else:
-                call_command("generate_products_json", self.json_path, count=50)
-            print("✅ generate_products_json completed")
-        except CommandError as e:
-            if use_spinner:
-                spinner.stop()
-            print(f"❌ Error: {e}")
-
-        try:
-            print("Running import_products...")
-            if use_spinner:
-                spinner = Spinner("Importing products")
-                spinner.start()
-                call_command("import_products", self.json_path, format="json")
-                spinner.stop()
-            else:
-                call_command("import_products", self.json_path, format="json")
-            print("✅ import_products completed")
-        except CommandError as e:
-            if use_spinner:
-                spinner.stop()
-            print(f"❌ Error: {e}")
-
-
-# ------------------------------
+# ----------------------------------------------
 # Migration + Superuser setup
 # ------------------------------
 class MigrationAndSuperuser:
@@ -229,11 +191,8 @@ def menu():
     print("2. Remove __pycache__ directories")
     print("3. Remove migration files")
     print("4. Run migrations & ensure superuser")
-    print(
-        "5. Run product, Categories, Brands, Inventory, Product_variant, Varint_Values, Product_Attributes, Products_Attribute_Values"
-    )
-    print("6. Seed homepage")
-    print("7. Run ALL (with global spinner + elapsed time)")
+    print("5. All models: generate all models JSON & imports")
+    print("6. Run ALL (with global spinner + elapsed time)")
     print("0. Exit")
     return input("Choose an option: ").strip()
 
@@ -260,27 +219,15 @@ if __name__ == "__main__":
             MigrationsCleaner(base).clean()
         elif choice == "4":
             MigrationAndSuperuser().run()
-        # elif choice == "5":
-        #     ProductsCommandRunner("./apps/accounts/management/fake_products.json").run()
-        elif choice == "5":
-            fixture_file = "./full_fixture.json"
-            if Path(fixture_file).exists():
-                print(f"Loading fixture: {fixture_file} ...")
-                run_cmd(
-                    f"python manage.py loaddata {fixture_file}",
-                    message="Loading full_fixture.json",
-                )
-                print("✅ Fixture loaded successfully!")
-            else:
-                print(f"❌ Fixture file not found: {fixture_file}")
 
-        elif choice == "6":
+        elif choice == "5":
             spinner = Spinner("Seeding homepage")
             spinner.start()
-            os.system("python manage.py seed_homepage")
+            os.system("python manage.py generate_fixtures")
+            os.system("python manage.py generate_homepage_fixtures")
             spinner.stop()
             print("✅ Homepage seeded!")
-        elif choice == "7":
+        elif choice == "6":
             fixture_file = "./full_fixture.json"  # <--- add this line here
             confirm = (
                 input(
@@ -300,14 +247,8 @@ if __name__ == "__main__":
                 PycacheCleaner(base).clean(use_spinner=False)
                 MigrationsCleaner(base).clean(use_spinner=False)
                 MigrationAndSuperuser().run(use_spinner=False)
-                # ProductsCommandRunner(
-                #     "./apps/accounts/management/fake_products.json"
-                # ).run(use_spinner=False)
-                run_cmd(
-                    f"python manage.py loaddata {fixture_file}",
-                    message="Loading full_fixture.json",
-                )
-                os.system("python manage.py seed_homepage")
+                os.system("python manage.py generate_fixtures")
+                os.system("python manage.py generate_homepage_fixtures")
 
                 spinner.stop()
                 elapsed = time.time() - start_time

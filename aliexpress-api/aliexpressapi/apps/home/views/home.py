@@ -94,18 +94,23 @@ CACHE = get_cache("homepage")  # use your existing cache factory
 
 from drf_spectacular.utils import OpenApiResponse
 from apps.home.serializers.banner_serializer import HomepageBannerSerializer
-from apps.home.serializers.category_serializer import HomepageCategorySerializer
+
+# from apps.home.serializers.category_serializer import HomepageCategorySerializer
 from apps.home.serializers.product_serializer import HomepageProductSerializer
 from apps.home.serializers.promotion_serializer import HomepagePromotionSerializer
 
 from apps.home.models.banner import HomepageBanner
-from apps.home.models.category import HomepageCategory
-from apps.home.models.product import HomepageProduct
+
+# from apps.home.models.category import HomepageCategory
+# from apps.home.models.product import HomepageProduct
+
 from apps.home.models.promotion import HomepagePromotion
 
 
 from apps.products.models.category import Category
+from apps.products.models.product import Product
 from apps.products.serializers.category import CategorySerializer
+from apps.products.serializers.product import ProductSerializer
 
 
 class HomepageViewSet(viewsets.ViewSet):
@@ -129,9 +134,7 @@ class HomepageViewSet(viewsets.ViewSet):
         #     "sort_order"
         # )
         categories = Category.objects.all().order_by("name")[:5]
-        featured_products = HomepageProduct.objects.select_related("product").order_by(
-            "featured_rank"
-        )
+        featured_products = Product.objects.all().order_by("-created_at")[:7]
         promotions = HomepagePromotion.objects.filter(is_active=True).order_by(
             "sort_order"
         )
@@ -144,7 +147,7 @@ class HomepageViewSet(viewsets.ViewSet):
             "categories": CategorySerializer(
                 categories, many=True, context={"request": request}
             ).data,
-            "featured_products": HomepageProductSerializer(
+            "featured_products": ProductSerializer(
                 featured_products, many=True, context={"request": request}
             ).data,
             "promotions": HomepagePromotionSerializer(

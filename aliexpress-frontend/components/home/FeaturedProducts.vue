@@ -21,18 +21,17 @@ const props = defineProps({
 
 <template>
   <div>
-<section class="bg-gray-100 py-16">
+    <section class="bg-gray-100 py-16">
       <div class="max-w-7xl mx-auto px-6">
         <h2 class="text-2xl font-bold mb-8">Featured Products</h2>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-          <div
-            v-for="item in data"
-            :key="item.id"
-            class="bg-white rounded-xl shadow p-4 hover:shadow-lg cursor-pointer flex flex-col"
-          >
-            <NuxtImg class="rounded-T" :src="item.image" alt="No Fount Image" loading="lazy" />
-            <p class="text-blue-600 font-bold mt-2">title - {{ item.product }}</p>
-            <p class="text-blue-600 font-bold mt-2">desc - {{ item.description.substring(0, 15) }}</p>
+          <div v-for="item in data" :key="item.id"
+            class="bg-white rounded-xl shadow p-4 hover:shadow-lg cursor-pointer flex flex-col">
+            <NuxtLink :to="{ name: 'products-id', params: { id: item.id } }" class="block">
+              <NuxtImg class="rounded-T" :src="item.image" alt="No Fount Image" loading="lazy" />
+              <p class="text-blue-600 font-bold mt-2">title - {{ item.product }}</p>
+              <p class="text-blue-600 font-bold mt-2">desc - {{ item.description.substring(0, 15) }}</p>
+            </NuxtLink>
           </div>
         </div>
       </div>
@@ -46,6 +45,6 @@ const props = defineProps({
 })
 </script>
 
-<style scoped>
+<style scoped></style>
 
-</style>
+<!-- A111637209 -->
