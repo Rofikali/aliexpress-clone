@@ -2,7 +2,10 @@ from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 
 from apps.home.models.banner import HomepageBanner
-from apps.home.serializers.banner_serializer import HomepageBannerSerializer
+from apps.home.serializers.banner_serializer import (
+    HomepageBannerSerializer,
+    HomepageBannerDetailSerializer,
+)
 from components.responses.response_factory import ResponseFactory
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 
@@ -10,7 +13,7 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse
 # -----------------------------
 # Banner endpoints
 # -----------------------------
-class HomepageBannerViewSet(viewsets.ViewSet):
+class BannerViewSet(viewsets.ViewSet):
     @extend_schema(
         responses={200: HomepageBannerSerializer(many=True)},
         tags=["Homepage"],
@@ -32,7 +35,9 @@ class HomepageBannerViewSet(viewsets.ViewSet):
     )
     def retrieve(self, request, pk=None):
         banner = get_object_or_404(HomepageBanner, pk=pk, is_active=True)
-        serializer = HomepageBannerSerializer(banner, context={"request": request})
+        serializer = HomepageBannerDetailSerializer(
+            banner, context={"request": request}
+        )
         return ResponseFactory.success_resource(
             item=serializer.data, message="Banner detail", request=request
         )

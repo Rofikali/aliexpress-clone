@@ -16,6 +16,7 @@ from components.caching.cache_factory import (
     # cache_factory,
     get_cache,
 )  # ✅ generic cache factory
+from components.paginations.base_pagination import BaseCursorPagination
 
 
 # -------------------- BRAND --------------------
@@ -29,28 +30,33 @@ class BrandViewSet(ViewSet):
         description="Retrieve all brands with caching.",
     )
     def list(self, request):
-        cursor = "all"  # not paginated
-        cache_data = self.cache.get_results(cursor)
-        if cache_data:
-            return ResponseFactory.success(
-                data=cache_data,
-                message="Brands fetched successfully",
-                request=request,
-                extra={"from_cache": True},
-                status=status.HTTP_200_OK,
-            )
+        # cursor = "all"  # not paginated
+        # cache_data = self.cache.get_results(cursor)
+
+        # if cache_data:
+        #     return ResponseFactory.success_collection(
+        #         items=cache_data.get("items", []),
+        #         pagination=cache_data.get("pagination", {}),
+        #         message="Products fetched successfully (cache)",
+        #         status=status.HTTP_200_OK,
+        #         request=request,
+        #         cache="HIT",
+        #     )
 
         queryset = Brand.objects.all().order_by("-created_at")
-        serializer = BrandSerializer(queryset, many=True)
-        response_data = serializer.data
+        paginator = BaseCursorPagination()
+        page = paginator.paginate_queryset(queryset, request)
+        serializer = BrandSerializer(page, many=True, context={"request": request})
 
-        self.cache.cache_results(cursor, response_data)
+        response_data = paginator.get_paginated_response_data(serializer.data)
+        # self.cache.cache_results(cursor, response_data)
 
-        return ResponseFactory.success(
-            data=response_data,
+        return ResponseFactory.success_collection(
+            items=response_data["items"],
+            pagination=response_data["pagination"],
             message="Brands fetched successfully",
-            request=request,
             status=status.HTTP_200_OK,
+            request=request,
         )
 
     @extend_schema(
@@ -62,4 +68,9 @@ class BrandViewSet(ViewSet):
     def retrieve(self, request, pk=None):
         brand = get_object_or_404(Brand, id=pk)
         serializer = BrandSerializer(brand)
-        return ResponseFactory.success(data=serializer.data, request=request)
+        return ResponseFactory.success_resource(
+            item=serializer.data,
+            message="Single Brand fetched successfully",
+            request=request,
+            status=status.HTTP_200_OK,
+        )

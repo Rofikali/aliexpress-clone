@@ -189,11 +189,11 @@ class InventoryFactory(factory.Factory):
 def generate_product_fixture(filename="fixtures/products_fixture.json"):
     fixtures = []
 
-    NUM_SELLERS = 10
-    NUM_BUYERS = 10
+    NUM_SELLERS = 50
+    NUM_BUYERS = 50
     NUM_CATEGORIES = 50
-    NUM_BRANDS = 10
-    NUM_PRODUCTS = 30
+    NUM_BRANDS = 50
+    NUM_PRODUCTS = 50
     IMAGES_PER_PRODUCT = 3
 
     # Users
