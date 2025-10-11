@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="max-w-7xl mx-auto px-6 py-16">
-      <h2 class="text-2xl font-bold mb-8">Browse Categories</h2>
+      <h2 class="text-2xl font-bold mb-8">HOME/CATEGOIRES Browse Categories</h2>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
         <div v-for="cat in data || []" :key="cat.id"
           class="bg-white rounded-xl shadow p-6 hover:shadow-lg cursor-pointer">
