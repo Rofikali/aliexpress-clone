@@ -236,9 +236,15 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from .models import Cart, CartItem
-from .serializers import CartSerializer, CartItemSerializer
-from apps.products.models import ProductVariant
+from rest_framework.permissions import AllowAny
+from apps.carts.models.cart import Cart
+from apps.carts.models.cartItem import CartItem
+from components.caching.cache_factory import get_cache
+from apps.carts.serializers.cart import CartSerializer
+from apps.products.models.product_variant import ProductVariant
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
+from components.responses.response_factory import ResponseFactory
+from rest_framework import status
 
 
 class CartViewSet(viewsets.ModelViewSet):
@@ -254,12 +260,17 @@ class CartViewSet(viewsets.ModelViewSet):
         cart, created = Cart.objects.get_or_create(
             user=self.request.user, is_active=True
         )
-        return cart
 
     def list(self, request):
         cart = self.get_object()
         serializer = self.get_serializer(cart)
-        return Response(serializer.data)
+        # return Response(serializer.data)
+        return ResponseFactory.success_collection(
+            items=serializer.data,
+            message="all carts fetched successfully",
+            status=status.HTTP_200_OK,
+            request=request,
+        )
 
     # 🛒 Add item to cart
     @action(detail=False, methods=["post"])
@@ -311,3 +322,50 @@ class CartViewSet(viewsets.ModelViewSet):
 
         serializer = CartSerializer(cart)
         return Response(serializer.data)
+
+
+# class CartViewSet(viewsets.ViewSet):
+#     permission_classes = [AllowAny]
+#     # cache = get_cache("carts")
+
+#     @extend_schema(
+#         parameters=[
+#             OpenApiParameter(
+#                 name="cursor",
+#                 type=OpenApiTypes.STR,
+#                 location=OpenApiParameter.QUERY,
+#                 description="Cursor for pagination (optional). Use 'first' for initial page.",
+#                 required=False,
+#             ),
+#             OpenApiParameter(
+#                 name="page_size",
+#                 type=OpenApiTypes.INT,
+#                 location=OpenApiParameter.QUERY,
+#                 description="Number of items per page (default=12, max=50).",
+#                 required=False,
+#             ),
+#         ],
+#         responses={200: CartSerializer(many=True)},
+#         tags=["Products"],
+#         summary="List Products",
+#     )
+#     def list(self, request):
+#         queryset = Cart.objects.all()
+#         serializer = CartSerializer(queryset)
+#         return ResponseFactory.success_collection(
+#             items=serializer.data,
+#             status=status.HTTP_200_OK,
+#             request=request,
+#             message="fetched all carts",
+#         )
+
+#     def retrive(self, request, pk=None):
+#         # cart = self.get_object()
+#         cart_item = get_object_or_404(Cart, id=pk)
+#         serializer = CartSerializer(cart_item)
+#         return ResponseFactory.success_resource(
+#             item=serializer.data,
+#             status=status.HTTP_200_OK,
+#             request=request,
+#             message="single card item fetched successfully",
+#         )
