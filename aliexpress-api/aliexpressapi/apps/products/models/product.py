@@ -8,9 +8,6 @@ from apps.products.models.brand import Brand
 
 User = get_user_model()
 
-#  id, title, slug, description, sku, price, discount_price, currency, image, stock, is_active, rating, review_count, seller (ForeignKey to User), category (ForeignKey to Category), brand (ForeignKey to Brand), created_at, updated_at
-
-
 class Product(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=255, db_index=True)

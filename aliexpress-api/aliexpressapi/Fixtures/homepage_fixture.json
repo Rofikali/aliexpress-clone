@@ -1,169 +1,169 @@
 [
   {
     "model": "home.homepagebanner",
-    "pk": "1e2914c3-e76c-4452-b3e2-01e697de0eab",
+    "pk": "3ec56fff-9b45-4b5b-8e2a-2617f4a2d0e0",
     "fields": {
-      "title": "Loss apply especially.",
-      "image": "C:\\Users\\BINANDA PC\\Desktop\\Rofik_DATA\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "https://www.brock.com/",
-      "alt_text": "Follow husband reveal that.",
+      "title": "Perhaps same.",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "http://www.snow.com/",
+      "alt_text": "Once eat girl indeed door establish.",
       "sort_order": 0,
       "is_active": true,
-      "created_at": "2025-10-08T09:51:02.526554+00:00",
-      "updated_at": "2025-10-08T09:51:02.526554+00:00"
+      "created_at": "2025-10-11T16:25:17.462911+00:00",
+      "updated_at": "2025-10-11T16:25:17.462911+00:00"
     }
   },
   {
     "model": "home.homepagebanner",
-    "pk": "009e7532-6bd3-4971-83ab-adf90ac59b2a",
+    "pk": "ffe02b69-fb18-4434-9916-1f25b40c56a6",
     "fields": {
-      "title": "Executive section.",
-      "image": "C:\\Users\\BINANDA PC\\Desktop\\Rofik_DATA\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "http://www.harmon-fuller.com/",
-      "alt_text": "Paper control change control.",
+      "title": "Reveal.",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "http://barnes.com/",
+      "alt_text": "Pretty do open board career minute.",
       "sort_order": 1,
       "is_active": true,
-      "created_at": "2025-10-08T09:51:02.526554+00:00",
-      "updated_at": "2025-10-08T09:51:02.526554+00:00"
+      "created_at": "2025-10-11T16:25:17.462911+00:00",
+      "updated_at": "2025-10-11T16:25:17.462911+00:00"
     }
   },
   {
     "model": "home.homepagebanner",
-    "pk": "ed59d389-04c4-465a-aac6-2ae68aec1f00",
+    "pk": "fb49c578-4414-4463-bd56-7634cd4b4edf",
     "fields": {
-      "title": "Process full.",
-      "image": "C:\\Users\\BINANDA PC\\Desktop\\Rofik_DATA\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "http://www.sutton.com/",
-      "alt_text": "Thank responsibility professional bar son effort.",
+      "title": "Feeling song.",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "http://hernandez-gilmore.com/",
+      "alt_text": "Because if would hour type word.",
       "sort_order": 2,
       "is_active": true,
-      "created_at": "2025-10-08T09:51:02.526554+00:00",
-      "updated_at": "2025-10-08T09:51:02.526554+00:00"
+      "created_at": "2025-10-11T16:25:17.462911+00:00",
+      "updated_at": "2025-10-11T16:25:17.462911+00:00"
     }
   },
   {
     "model": "home.homepagepromotion",
-    "pk": "ac44c9dc-a403-48e8-87d4-86a1720ff359",
+    "pk": "e273c535-9094-438c-b6cd-da05ac95235c",
     "fields": {
-      "title": "Source edge.",
-      "description": "Up energy traditional leave sense cultural protect section top street.",
-      "image": "C:\\Users\\BINANDA PC\\Desktop\\Rofik_DATA\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "http://holloway.org/",
+      "title": "Write Congress.",
+      "description": "Reveal over value year begin learn understand live consumer.",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "https://www.schneider-booker.com/",
       "sort_order": 0,
       "is_active": true,
-      "created_at": "2025-10-08T09:51:02.526554+00:00",
-      "updated_at": "2025-10-08T09:51:02.526554+00:00"
+      "created_at": "2025-10-11T16:25:17.462911+00:00",
+      "updated_at": "2025-10-11T16:25:17.462911+00:00"
     }
   },
   {
     "model": "home.homepagepromotion",
-    "pk": "9034a8ca-de1e-4fa1-943d-df1ee7b69278",
+    "pk": "82f7edad-da01-4079-a222-362107304d3e",
     "fields": {
-      "title": "Team remember generation.",
-      "description": "Election stay somebody speech court ahead term space.",
-      "image": "C:\\Users\\BINANDA PC\\Desktop\\Rofik_DATA\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "https://peterson.com/",
+      "title": "Near offer act.",
+      "description": "Onto indeed pattern section college travel cause then.",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "https://grimes.org/",
       "sort_order": 1,
       "is_active": true,
-      "created_at": "2025-10-08T09:51:02.526554+00:00",
-      "updated_at": "2025-10-08T09:51:02.526554+00:00"
+      "created_at": "2025-10-11T16:25:17.462911+00:00",
+      "updated_at": "2025-10-11T16:25:17.462911+00:00"
     }
   },
   {
     "model": "home.homepagepromotion",
-    "pk": "55ccc596-13d6-451a-a81c-168ae37ce5ce",
+    "pk": "3f8ece10-9967-4196-a11d-cb25966b029f",
     "fields": {
-      "title": "Five south fight.",
-      "description": "Light machine high leg hold ask practice room.",
-      "image": "C:\\Users\\BINANDA PC\\Desktop\\Rofik_DATA\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "https://jackson.org/",
+      "title": "Newspaper society whom prove.",
+      "description": "Although writer government address long magazine agree.",
+      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "https://www.harris-munoz.info/",
       "sort_order": 2,
       "is_active": true,
-      "created_at": "2025-10-08T09:51:02.526554+00:00",
-      "updated_at": "2025-10-08T09:51:02.526554+00:00"
+      "created_at": "2025-10-11T16:25:17.462911+00:00",
+      "updated_at": "2025-10-11T16:25:17.462911+00:00"
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "5029fa59-7408-42b6-afd1-354af530a71c",
+    "pk": "b69d2839-a70d-4132-8016-f5f64bf3114f",
     "fields": {
-      "category_id": "0184f20e-ff9e-4de2-a78e-ca7bf213777e",
+      "category_id": "073896c8-cc81-41a0-82a2-84a66d7cdbdc",
       "sort_order": 0
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "7f8afc4c-6bed-49d4-adc6-f9e84b8dfaab",
+    "pk": "37f40bc5-da65-4606-9a5e-6762ed9247f8",
     "fields": {
-      "category_id": "01b2ff9d-9c0f-45e6-a337-859c2633bb93",
+      "category_id": "0a9c16dc-4855-48b3-92d6-e97bd0d98ed8",
       "sort_order": 1
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "a36dec9d-d494-4d5b-ae1f-c64516d1ee77",
+    "pk": "380725a9-1ad7-41a9-a2b3-10d500a0b19e",
     "fields": {
-      "category_id": "01d271b0-a7d6-46c3-ba3b-06b35ea874c4",
+      "category_id": "0d765bc7-ca01-4f75-b4e4-de0ac36d8477",
       "sort_order": 2
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "52def928-1827-4c28-858d-8569f9618493",
+    "pk": "4f962815-a5b7-474c-908c-f3d09671097d",
     "fields": {
-      "category_id": "156773fd-1149-4dc5-ac16-ff5a73467a44",
+      "category_id": "106b223c-f4c2-46c6-8fe8-e4f0f1b0c7c6",
       "sort_order": 3
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "0214337f-a945-4ec1-8702-df1843fe5499",
+    "pk": "e7c4bc31-c620-431c-b5c4-e3fbce17214d",
     "fields": {
-      "category_id": "1c2ce701-224f-4883-8554-1764059af80c",
+      "category_id": "11901aab-2ba8-4e22-b83a-1233c0306bd7",
       "sort_order": 4
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "2b1ed26c-7680-4db0-a76b-9ab14a057703",
+    "pk": "fd3fabe2-ccd1-4464-b929-9b2ed952d481",
     "fields": {
-      "product_id": "01f615be-ddd2-47f8-b4f4-ed77c3d4fe60",
+      "product_id": "064e4475-121b-4778-8775-751c81ea098c",
       "featured_rank": 1,
       "sort_order": 0
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "db5e8ce5-fee0-4268-8c67-bfd885b00746",
+    "pk": "d89d24b9-5f11-4432-8c99-c8590fe32223",
     "fields": {
-      "product_id": "02235b2d-62cf-42e0-991d-708fe977b9ef",
+      "product_id": "0f5e6127-0ea4-4b8f-abb8-3e97fe47fb88",
       "featured_rank": 2,
       "sort_order": 1
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "7c505455-0c37-44d8-8ab7-63d1521a0516",
+    "pk": "5c21627b-affc-4eda-aa54-909d1a15cc31",
     "fields": {
-      "product_id": "032044ad-7d0d-405e-996d-58c21f530358",
+      "product_id": "12d880ac-39bd-41e6-b0ff-7b758f28b212",
       "featured_rank": 3,
       "sort_order": 2
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "e15d811a-8cee-4016-81a0-dd55e99dc91d",
+    "pk": "1a4ec48c-c7d1-4717-8650-19ce764472d1",
     "fields": {
-      "product_id": "0355956d-3a27-44cb-a4e3-c429014f1fad",
+      "product_id": "14410002-1b52-4e5b-9485-32aa6a83db02",
       "featured_rank": 4,
       "sort_order": 3
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "57f9917f-e101-4c97-91f9-de99f58cf9ea",
+    "pk": "1c6cc371-ac93-42ec-afe5-c64e2940a3c7",
     "fields": {
-      "product_id": "043ab913-fd1b-489e-84cf-170ca47ec6e5",
+      "product_id": "1aadda30-4899-430b-8a2d-c712804b9ba2",
       "featured_rank": 5,
       "sort_order": 4
     }
