@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div class="max-w-md mx-auto mt-16 p-6 bg-white shadow-md rounded-lg">
         <h2 class="text-2xl font-bold mb-4">Register</h2>
 
@@ -71,4 +71,70 @@ async function handleRegister() {
         loading.value = false;
     }
 }
+</script> -->
+
+<script setup>
+import { useToast } from '#imports'
+import { z } from 'zod'
+
+const toast = useToast()
+
+const fields = [
+    {
+        name: 'email',
+        type: 'email',
+        label: 'Email',
+        placeholder: 'Enter your email',
+        required: true
+    },
+    {
+        name: 'password',
+        label: 'Password',
+        type: 'password',
+        placeholder: 'Enter your password',
+        required: true
+    },
+    {
+        name: 'remember',
+        label: 'Remember me',
+        type: 'checkbox'
+    }
+]
+
+const providers = [
+    {
+        label: 'Google',
+        icon: 'i-simple-icons-google',
+        onClick: () => {
+            toast.add({ title: 'Google', description: 'Login with Google' })
+        }
+    },
+    {
+        label: 'GitHub',
+        icon: 'i-simple-icons-github',
+        onClick: () => {
+            toast.add({ title: 'GitHub', description: 'Login with GitHub' })
+        }
+    }
+]
+
+// ✅ Plain JS version (no TypeScript types)
+const schema = z.object({
+    email: z.string().email('Invalid email'),
+    password: z.string().min(8, 'Must be at least 8 characters')
+})
+
+// ✅ Regular JS function for form submission
+function onSubmit(payload) {
+    console.log('Submitted', payload)
+}
 </script>
+
+<template>
+    <div class="flex flex-col items-center justify-center gap-4 p-4">
+        <UPageCard class="w-full max-w-md">
+            <UAuthForm :schema="schema" title="Login" description="Enter your credentials to access your account."
+                icon="i-lucide-user" :fields="fields" :providers="providers" @submit="onSubmit" />
+        </UPageCard>
+    </div>
+</template>

@@ -1,7 +1,6 @@
 uv init
 
 uv add django
-adee new
 
 uv venv
 
