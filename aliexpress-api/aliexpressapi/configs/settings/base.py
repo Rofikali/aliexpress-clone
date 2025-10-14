@@ -187,10 +187,32 @@ JWT_COOKIE_SECURE = True  # True in production (HTTPS required)
 JWT_COOKIE_HTTPONLY = True
 
 # drf 'drf_spectacular',
+# SPECTACULAR_SETTINGS = {
+#     "TITLE": "My Aliexpress E-commerce API",
+#     "DESCRIPTION": "Your project description",
+#     "VERSION": "1.0.0",
+#     "SERVE_INCLUDE_SCHEMA": False,
+#     # OTHER SETTINGS
+# }
+
 SPECTACULAR_SETTINGS = {
-    "TITLE": "My Aliexpress E-commerce API",
-    "DESCRIPTION": "Your project description",
+    "TITLE": "AliExpress Clone API",
+    "DESCRIPTION": "Real-world e-commerce backend with DRF & Nuxt3",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
-    # OTHER SETTINGS
+    "COMPONENT_SPLIT_REQUEST": True,
+    "SERVERS": [{"url": "http://localhost:8000", "description": "Local dev"}],
+    "SECURITY": [
+        {"BearerAuth": []},  # globally enable JWT auth
+    ],
+    "AUTHENTICATION_WHITELIST": [],  # optional, if you have public endpoints
+    "COMPONENTS": {
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+            }
+        }
+    },
 }
