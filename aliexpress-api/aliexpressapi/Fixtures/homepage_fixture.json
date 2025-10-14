@@ -1,169 +1,169 @@
 [
   {
     "model": "home.homepagebanner",
-    "pk": "3ec56fff-9b45-4b5b-8e2a-2617f4a2d0e0",
+    "pk": "a6f8b105-0ec9-41d7-a7a7-206363a68e5b",
     "fields": {
-      "title": "Perhaps same.",
-      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "http://www.snow.com/",
-      "alt_text": "Once eat girl indeed door establish.",
+      "title": "Kitchen.",
+      "image": "C:\\Users\\BINANDA PC\\Desktop\\Rofik_DATA\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "http://bonilla.net/",
+      "alt_text": "Here who government pass standard research.",
       "sort_order": 0,
       "is_active": true,
-      "created_at": "2025-10-11T16:25:17.462911+00:00",
-      "updated_at": "2025-10-11T16:25:17.462911+00:00"
+      "created_at": "2025-10-14T11:09:59.038782+00:00",
+      "updated_at": "2025-10-14T11:09:59.038782+00:00"
     }
   },
   {
     "model": "home.homepagebanner",
-    "pk": "ffe02b69-fb18-4434-9916-1f25b40c56a6",
+    "pk": "eca39e07-2e30-48e9-a846-16a205c17009",
     "fields": {
-      "title": "Reveal.",
-      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "http://barnes.com/",
-      "alt_text": "Pretty do open board career minute.",
+      "title": "Movement him ask.",
+      "image": "C:\\Users\\BINANDA PC\\Desktop\\Rofik_DATA\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "https://moore.com/",
+      "alt_text": "Ready participant there notice.",
       "sort_order": 1,
       "is_active": true,
-      "created_at": "2025-10-11T16:25:17.462911+00:00",
-      "updated_at": "2025-10-11T16:25:17.462911+00:00"
+      "created_at": "2025-10-14T11:09:59.038782+00:00",
+      "updated_at": "2025-10-14T11:09:59.038782+00:00"
     }
   },
   {
     "model": "home.homepagebanner",
-    "pk": "fb49c578-4414-4463-bd56-7634cd4b4edf",
+    "pk": "dda98e2f-2dd1-414a-8614-37361ddb79f2",
     "fields": {
-      "title": "Feeling song.",
-      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "http://hernandez-gilmore.com/",
-      "alt_text": "Because if would hour type word.",
+      "title": "Already table.",
+      "image": "C:\\Users\\BINANDA PC\\Desktop\\Rofik_DATA\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "https://www.cruz.com/",
+      "alt_text": "Well adult benefit each all.",
       "sort_order": 2,
       "is_active": true,
-      "created_at": "2025-10-11T16:25:17.462911+00:00",
-      "updated_at": "2025-10-11T16:25:17.462911+00:00"
+      "created_at": "2025-10-14T11:09:59.038782+00:00",
+      "updated_at": "2025-10-14T11:09:59.038782+00:00"
     }
   },
   {
     "model": "home.homepagepromotion",
-    "pk": "e273c535-9094-438c-b6cd-da05ac95235c",
+    "pk": "3ee3df2c-f099-436d-8704-4bc1c4e83c69",
     "fields": {
-      "title": "Write Congress.",
-      "description": "Reveal over value year begin learn understand live consumer.",
-      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "https://www.schneider-booker.com/",
+      "title": "Section until talk.",
+      "description": "Former decide great draw single.",
+      "image": "C:\\Users\\BINANDA PC\\Desktop\\Rofik_DATA\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "http://martinez.net/",
       "sort_order": 0,
       "is_active": true,
-      "created_at": "2025-10-11T16:25:17.462911+00:00",
-      "updated_at": "2025-10-11T16:25:17.462911+00:00"
+      "created_at": "2025-10-14T11:09:59.038782+00:00",
+      "updated_at": "2025-10-14T11:09:59.038782+00:00"
     }
   },
   {
     "model": "home.homepagepromotion",
-    "pk": "82f7edad-da01-4079-a222-362107304d3e",
+    "pk": "50594be8-7629-4bb5-b5f2-200fed3a0def",
     "fields": {
-      "title": "Near offer act.",
-      "description": "Onto indeed pattern section college travel cause then.",
-      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "https://grimes.org/",
+      "title": "Let military price.",
+      "description": "Property hand full lose politics happy.",
+      "image": "C:\\Users\\BINANDA PC\\Desktop\\Rofik_DATA\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "https://hooper.com/",
       "sort_order": 1,
       "is_active": true,
-      "created_at": "2025-10-11T16:25:17.462911+00:00",
-      "updated_at": "2025-10-11T16:25:17.462911+00:00"
+      "created_at": "2025-10-14T11:09:59.038782+00:00",
+      "updated_at": "2025-10-14T11:09:59.038782+00:00"
     }
   },
   {
     "model": "home.homepagepromotion",
-    "pk": "3f8ece10-9967-4196-a11d-cb25966b029f",
+    "pk": "9d0b34b0-7abc-4db2-b703-68e6e41fc562",
     "fields": {
-      "title": "Newspaper society whom prove.",
-      "description": "Although writer government address long magazine agree.",
-      "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "https://www.harris-munoz.info/",
+      "title": "Including miss middle claim.",
+      "description": "Their little growth job author democratic should response state.",
+      "image": "C:\\Users\\BINANDA PC\\Desktop\\Rofik_DATA\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
+      "link_url": "https://gray-perry.com/",
       "sort_order": 2,
       "is_active": true,
-      "created_at": "2025-10-11T16:25:17.462911+00:00",
-      "updated_at": "2025-10-11T16:25:17.462911+00:00"
+      "created_at": "2025-10-14T11:09:59.038782+00:00",
+      "updated_at": "2025-10-14T11:09:59.038782+00:00"
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "b69d2839-a70d-4132-8016-f5f64bf3114f",
+    "pk": "1a7fc218-27f3-42bb-a592-f987f91166f0",
     "fields": {
-      "category_id": "073896c8-cc81-41a0-82a2-84a66d7cdbdc",
+      "category_id": "00acf797-04d3-4b4b-9a02-21309de4ad43",
       "sort_order": 0
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "37f40bc5-da65-4606-9a5e-6762ed9247f8",
+    "pk": "58f61539-f6ea-4e22-8ef5-628de55ec235",
     "fields": {
-      "category_id": "0a9c16dc-4855-48b3-92d6-e97bd0d98ed8",
+      "category_id": "0a50bc66-3d40-4db9-bd63-13d0a6ca01af",
       "sort_order": 1
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "380725a9-1ad7-41a9-a2b3-10d500a0b19e",
+    "pk": "ad7b0c8c-0edc-4bc4-ab86-9a69d09821ef",
     "fields": {
-      "category_id": "0d765bc7-ca01-4f75-b4e4-de0ac36d8477",
+      "category_id": "11b72edf-7afe-4512-a84c-7bceb3ae7104",
       "sort_order": 2
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "4f962815-a5b7-474c-908c-f3d09671097d",
+    "pk": "c4ac8d34-9752-4f4d-846f-447c3249dcea",
     "fields": {
-      "category_id": "106b223c-f4c2-46c6-8fe8-e4f0f1b0c7c6",
+      "category_id": "1d0ad8cc-a6b4-40a5-8189-067ffac565e4",
       "sort_order": 3
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "e7c4bc31-c620-431c-b5c4-e3fbce17214d",
+    "pk": "91f5df4d-b591-41e4-9734-02492f3457cb",
     "fields": {
-      "category_id": "11901aab-2ba8-4e22-b83a-1233c0306bd7",
+      "category_id": "272e9651-834d-41a4-bef1-8f8926bc31aa",
       "sort_order": 4
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "fd3fabe2-ccd1-4464-b929-9b2ed952d481",
+    "pk": "38d516e1-bc24-46c4-8fde-6f2f2b2fbad7",
     "fields": {
-      "product_id": "064e4475-121b-4778-8775-751c81ea098c",
+      "product_id": "018f97d4-a2b6-4c70-87f4-d3ce04bdb7d2",
       "featured_rank": 1,
       "sort_order": 0
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "d89d24b9-5f11-4432-8c99-c8590fe32223",
+    "pk": "6371192f-d903-4cda-aeef-fde57ac13a76",
     "fields": {
-      "product_id": "0f5e6127-0ea4-4b8f-abb8-3e97fe47fb88",
+      "product_id": "029d428c-8d29-40d0-96f4-0f72512aacdd",
       "featured_rank": 2,
       "sort_order": 1
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "5c21627b-affc-4eda-aa54-909d1a15cc31",
+    "pk": "2a6f7420-6526-4c60-9da2-b4a4e4a3f4a0",
     "fields": {
-      "product_id": "12d880ac-39bd-41e6-b0ff-7b758f28b212",
+      "product_id": "0de5dda9-c5e9-46d6-8296-cac21cfee0fc",
       "featured_rank": 3,
       "sort_order": 2
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "1a4ec48c-c7d1-4717-8650-19ce764472d1",
+    "pk": "133b91f0-42db-4560-8f34-dceda1198590",
     "fields": {
-      "product_id": "14410002-1b52-4e5b-9485-32aa6a83db02",
+      "product_id": "1863df05-8b9b-4ff0-8f82-257624841d57",
       "featured_rank": 4,
       "sort_order": 3
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "1c6cc371-ac93-42ec-afe5-c64e2940a3c7",
+    "pk": "63df842f-4e21-4d18-863b-71d1c12ae311",
     "fields": {
-      "product_id": "1aadda30-4899-430b-8a2d-c712804b9ba2",
+      "product_id": "1a90fe40-807a-4778-aef1-fdf4224dccb2",
       "featured_rank": 5,
       "sort_order": 4
     }
