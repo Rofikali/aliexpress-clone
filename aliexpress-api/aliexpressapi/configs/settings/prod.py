@@ -11,38 +11,20 @@ ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # """
+
+REGION = "America-01"  # Example: India / Singapore data center
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR.parent / "database" / "db.sqlite3",  # noqa: F405
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASS"),
+        "HOST": os.environ.get("DB_HOST", "localhost"),
+        "PORT": os.environ.get("DB_PORT", "5432"),
     }
 }
 
-REGION = "America-01"   # Example: India / Singapore data center
-
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "tiktokapi",
-#         "USER": "admin",
-#         "PASSWORD": "admin",
-#         "HOST": "localhost",
-#         "PORT": "5432",
-#     }
-# }
-
-"""
-# CSRF_TRUSTED_ORIGINS = [
-#     "https://web-production-9fcc5.up.railway.app",  # ✅ Add production domain here
-# ]
-
-
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",  # Add your frontend's URL
-#     "http://127.0.0.1:3000",  # If you're using localhost
-# ]
-"""
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",  # Frontend origin

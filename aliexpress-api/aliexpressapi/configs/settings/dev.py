@@ -8,9 +8,7 @@ load_dotenv()
 # DEBUG = os.environ.get("DEBUG", "false").lower() == "true"
 
 # ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
-ALLOWED_HOSTS = [
-    "*",
-]
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # print('basedir --------->>>>>>>>>>>>>>>>>>>>>>>', BASE_DIR.parent)
@@ -50,12 +48,6 @@ CORS_ALLOW_HEADERS = [
     "x-csrftoken",
     "x-requested-with",
 ]
-
-# Set CSRF cookie SameSite policy to "Lax" for moderate cross-site protection
-# CSRF_COOKIE_SAMESITE = "Lax"
-# SESSION_COOKIE_SAMESITE = "Lax"
-# CSRF_COOKIE_SECURE = False
-# SESSION_COOKIE_SECURE = False
 
 # Resion Set into this server
 REGION = "Nepal-01"  # Example: India / Singapore data center
