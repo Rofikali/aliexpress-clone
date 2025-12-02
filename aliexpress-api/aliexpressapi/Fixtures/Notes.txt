@@ -1,2 +1,6 @@
 python manage.py generate_fixtures
 python manage.py generate_homepage_fixtures
+
+
+python manage.py generate_fake_products 50
+python manage.py generate_product_images 5

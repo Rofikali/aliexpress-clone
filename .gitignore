@@ -177,3 +177,10 @@ node_modules
 .env
 dist
 .DS_Store
+
+
+
+src 
+*.sqlite3
+__pycache__
+build

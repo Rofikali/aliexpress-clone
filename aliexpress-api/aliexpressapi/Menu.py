@@ -5,21 +5,18 @@ import shutil
 import django
 import time
 from pathlib import Path
-from django.core.management import call_command
 from threading import Thread
+from django.db import connections
 
 
-# ------------------------------
-# Spinner for long-running tasks
-# ------------------------------
+# ======================================================
+# Spinner
+# ======================================================
 class Spinner:
-    """A simple terminal spinner for long-running tasks."""
-
     def __init__(self, message="Processing..."):
         self.message = message
         self.running = False
         self.spinner_cycle = ["|", "/", "-", "\\"]
-        self.fixture_file = "./full_fixture.json"  # <--- add this line here
 
     def start(self):
         self.running = True
@@ -33,18 +30,37 @@ class Spinner:
                 end="",
             )
             idx += 1
-            time.sleep(0.1)
+            time.sleep(0.08)
 
     def stop(self):
         self.running = False
         print("\r", end="")
 
 
-# ------------------------------
+# ======================================================
+# Timer
+# ======================================================
+class Timer:
+    def __init__(self, label="Elapsed"):
+        self.label = label
+        self.start_time = None
+
+    def start(self):
+        self.start_time = time.time()
+
+    def stop(self):
+        if self.start_time is None:
+            print("⚠️ Timer not started.")
+            return None
+        elapsed = time.time() - self.start_time
+        print(f"⏱️ {self.label}: {elapsed:.2f} seconds")
+        return elapsed
+
+
+# ======================================================
 # Helpers
-# ------------------------------
-def run_cmd(cmd, show_spinner=True, message=None):
-    """Run shell command with optional spinner."""
+# ======================================================
+def run_cmd(cmd, show_spinner=False, message=None):
     if show_spinner and message:
         spinner = Spinner(message)
         spinner.start()
@@ -58,9 +74,15 @@ def run_cmd(cmd, show_spinner=True, message=None):
         sys.exit(result.returncode)
 
 
-# ------------------------------
+def ensure_dir(path: Path):
+    if not path.exists():
+        path.mkdir(parents=True, exist_ok=True)
+        print(f"📁 Created folder: {path}")
+
+
+# ======================================================
 # Cleaners
-# ------------------------------
+# ======================================================
 class Cleaner:
     def __init__(self, path: Path):
         self.path = path
@@ -70,194 +92,187 @@ class Cleaner:
 
 
 class DatabaseCleaner(Cleaner):
-    def clean(self, use_spinner=True):
+    def __init__(self, path: Path, retries: int = 6, delay: float = 0.6):
+        super().__init__(path)
+        self.retries = retries
+        self.delay = delay
+
+    def clean(self):
         if not self.exists():
-            print("No SQLite file found")
+            print("No DB file found")
             return
-        if self.path.is_file():
-            if use_spinner:
-                spinner = Spinner("Deleting database file")
-                spinner.start()
-                time.sleep(1)
+
+        try:
+            connections.close_all()
+        except:
+            pass
+
+        spinner = Spinner(f"Deleting DB: {self.path}")
+        spinner.start()
+
+        for _ in range(self.retries):
+            try:
                 self.path.unlink()
                 spinner.stop()
-            else:
-                self.path.unlink()
-            print(f"✅ Database file removed: {self.path}")
-        else:
-            print(f"{self.path} exists but is not a file, skipping...")
+                print("🗑️ Database deleted")
+                return
+            except:
+                time.sleep(self.delay)
+
+        spinner.stop()
+        print("❌ Database could not be deleted. Close apps using DB.")
+        raise PermissionError("File locked!")
 
 
 class PycacheCleaner(Cleaner):
-    def clean(self, use_spinner=True):
-        if not self.exists() or not self.path.is_dir():
-            print("Apps dir does not exist")
-            return
-        removed = False
-        for path in self.path.rglob("*"):
-            if "__pycache__" in path.parts and path.is_dir():
-                if use_spinner:
-                    spinner = Spinner(f"Removing __pycache__: {path}")
-                    spinner.start()
-                    time.sleep(0.2)
-                    shutil.rmtree(path)
-                    spinner.stop()
-                else:
-                    shutil.rmtree(path)
-                print(f"✅ Removed: {path}")
-                removed = True
-        if not removed:
-            print("No __pycache__ directories found")
+    def clean(self):
+        for p in self.path.rglob("__pycache__"):
+            if p.is_dir():
+                shutil.rmtree(p)
+                print("🧹 Removed:", p)
 
 
 class MigrationsCleaner(Cleaner):
-    def clean(self, use_spinner=True):
-        if not self.exists() or not self.path.is_dir():
-            print("Apps dir does not exist")
-            return
-        removed = False
-        for path in self.path.rglob("migrations"):
-            if path.is_dir():
-                for file in path.iterdir():
-                    if file.suffix == ".py" and file.name != "__init__.py":
-                        if use_spinner:
-                            spinner = Spinner(f"Removing migration file: {file}")
-                            spinner.start()
-                            time.sleep(0.2)
-                            file.unlink()
-                            spinner.stop()
-                        else:
-                            file.unlink()
-                        print(f"✅ Removed: {file}")
-                        removed = True
-        if not removed:
-            print("No migration files found")
+    def clean(self):
+        for m in self.path.rglob("migrations"):
+            for f in list(m.iterdir()):
+                if f.is_file() and f.name != "__init__.py":
+                    f.unlink()
+                    print("🧹 Removed:", f)
 
 
-# ----------------------------------------------
-# Migration + Superuser setup
-# ------------------------------
+# ======================================================
+# Migration + Superuser
+# ======================================================
 class MigrationAndSuperuser:
-    def run(self, use_spinner=True):
-        if use_spinner:
-            run_cmd(
-                "python manage.py makemigrations home accounts products orders carts search",
-                show_spinner=True,
-                message="Making migrations",
-            )
-            run_cmd(
-                "python manage.py migrate",
-                show_spinner=True,
-                message="Applying migrations",
-            )
-        else:
-            run_cmd(
-                "python manage.py makemigrations home accounts products orders carts search",
-                show_spinner=False,
-            )
-            run_cmd("python manage.py migrate", show_spinner=False)
+    def run(self):
+        run_cmd(
+            "python manage.py makemigrations",
+            show_spinner=True,
+            message="Making migrations",
+        )
+        run_cmd(
+            "python manage.py migrate", show_spinner=True, message="Applying migrations"
+        )
 
-        print("Checking for existing superuser...")
-
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "configs.settings.dev")
+        print("Checking superuser...")
         django.setup()
-
         from apps.accounts.models import User
 
         if not User.objects.filter(is_superuser=True).exists():
-            if use_spinner:
-                spinner = Spinner("Creating superuser")
-                spinner.start()
-                time.sleep(1)
-                User.objects.create_superuser(
-                    username="admin", email="admin@gmail.com", password="admin"
-                )
-                spinner.stop()
-            else:
-                User.objects.create_superuser(
-                    username="admin", email="admin@gmail.com", password="admin"
-                )
-            print("✅ Superuser created!")
+            User.objects.create_superuser(
+                username="admin", email="admin@gmail.com", password="admin"
+            )
+            print("👑 Superuser created")
         else:
-            print("Superuser already exists.")
+            print("✔️ Superuser already exists")
 
 
-# ------------------------------
-# Menu
-# ------------------------------
+# ======================================================
+# Fixture Loader
+# ======================================================
+class FixtureLoader:
+    def __init__(self, fixture_path, retries=3, delay=1.5):
+        self.fixture_path = fixture_path
+        self.retries = retries
+        self.delay = delay
+
+    def load(self):
+        attempt = 1
+        while attempt <= self.retries:
+            result = subprocess.run(
+                f"python manage.py loaddata {self.fixture_path}", shell=True
+            )
+            if result.returncode == 0:
+                print("📦 Fixtures loaded successfully")
+                return
+            time.sleep(self.delay)
+            attempt += 1
+        print("❌ Failed loading fixtures")
+
+
+# ======================================================
+# NEW CLASS: GenerateFixtures
+# ======================================================
+class GenerateFixtures:
+    """Reusable fixture generator class for future projects."""
+
+    def run(self):
+        print("🔄 Generating fixtures...")
+        run_cmd("uv run manage.py generate_fixtures")
+        run_cmd("uv run manage.py generate_homepage_fixtures")
+        print("✨ Fixture generation completed!")
+
+
+# ======================================================
+# MENU
+# ======================================================
 def menu():
-    print("\n=== Main Menu ===")
-    print("1. Remove database file")
-    print("2. Remove __pycache__ directories")
-    print("3. Remove migration files")
-    print("4. Run migrations & ensure superuser")
-    print("5. All models: generate all models JSON & imports")
-    print("6. Run ALL (with global spinner + elapsed time)")
-    print("0. Exit")
-    return input("Choose an option: ").strip()
+    print("\n=== Automation Menu ===")
+    print("1️⃣ Remove DB")
+    print("2️⃣ Remove __pycache__")
+    print("3️⃣ Remove migration files")
+    print("4️⃣ Run migrations + Ensure Superuser")
+    print("5️⃣ Load Products Fixture")
+    print("6️⃣ FULL RESET (DB + Pycache + Migrations + Migrate)")
+    print("7️⃣ Generate Fixtures (NEW)")
+    print("0️⃣ Exit")
+    return input("Choose: ").strip()
 
 
-# ------------------------------
-# Main Loop
-# ------------------------------
+# ======================================================
+# MAIN LOOP
+# ======================================================
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "configs.settings.dev")
     django.setup()
 
-    base = Path("./apps")
-    db_file = Path("./database/db.sqlite3")
+    # apps_path = Path("./apps")
+    # db_file = Path("./database/db.sqlite3")
+
+    apps_path = Path("./apps")
+    db_folder = Path("./database")
+    db_file = db_folder / "db.sqlite3"
+    fixtures_folder = Path("./fixtures")
+
+    # Ensure required folders exist
+    ensure_dir(apps_path)
+    ensure_dir(db_folder)
+    ensure_dir(fixtures_folder)
 
     while True:
         choice = menu()
 
         if choice == "1":
             DatabaseCleaner(db_file).clean()
-            # python manage.py flush
+
         elif choice == "2":
-            PycacheCleaner(base).clean()
+            PycacheCleaner(apps_path).clean()
+
         elif choice == "3":
-            MigrationsCleaner(base).clean()
+            MigrationsCleaner(apps_path).clean()
+
         elif choice == "4":
             MigrationAndSuperuser().run()
 
         elif choice == "5":
-            spinner = Spinner("Seeding homepage")
-            spinner.start()
-            os.system("python manage.py generate_fixtures")
-            os.system("python manage.py generate_homepage_fixtures")
-            spinner.stop()
-            print("✅ Homepage seeded!")
+            FixtureLoader("fixtures/products_fixture.json").load()
+
         elif choice == "6":
-            fixture_file = "./full_fixture.json"  # <--- add this line here
-            confirm = (
-                input(
-                    "\n⚠️ This will remove DB, __pycache__, migrations, run migrations, "
-                    "create superuser, import products, and seed homepage.\n"
-                    "Are you sure? (y/n): "
-                )
-                .strip()
-                .lower()
-            )
-            if confirm in ("y", "yes"):
-                start_time = time.time()
-                spinner = Spinner("Running ALL tasks")
-                spinner.start()
+            print("⚠️ FULL RESET...")
+            DatabaseCleaner(db_file).clean()
+            PycacheCleaner(apps_path).clean()
+            MigrationsCleaner(apps_path).clean()
+            # MigrationAndSuperuser().run()
+            print("🚀 FULL RESET DONE!")
 
-                DatabaseCleaner(db_file).clean(use_spinner=False)
-                PycacheCleaner(base).clean(use_spinner=False)
-                MigrationsCleaner(base).clean(use_spinner=False)
-                MigrationAndSuperuser().run(use_spinner=False)
-                os.system("python manage.py generate_fixtures")
-                os.system("python manage.py generate_homepage_fixtures")
+        elif choice == "7":
+            MigrationAndSuperuser().run()
+            GenerateFixtures().run()
 
-                spinner.stop()
-                elapsed = time.time() - start_time
-                print("✅ ALL steps completed!")
-                print(f"⏱ Total elapsed time: {elapsed:.2f} seconds")
-            else:
-                print("❌ Cancelled running ALL.")
         elif choice == "0":
             print("Bye 👋")
             break
+
         else:
-            print("❌ Invalid option, please try again.")
+            print("Invalid option!")

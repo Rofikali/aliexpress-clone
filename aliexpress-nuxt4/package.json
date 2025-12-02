@@ -1,0 +1,26 @@
+{
+  "name": "portfolio",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxt/ui": "^4.1.0",
+    "@pinia/nuxt": "^0.11.3",
+    "axios": "^1.13.2",
+    "nuxt": "^4.2.1",
+    "pinia": "^3.0.4",
+    "vue": "^3.5.24",
+    "vue-router": "^4.6.3"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.22",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.17"
+  }
+}
