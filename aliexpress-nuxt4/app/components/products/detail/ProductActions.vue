@@ -32,7 +32,7 @@ function shareProduct() {
 button {
   padding: 0.6rem 1.2rem;
   border: 1px solid #ddd;
-  background: #f9f9f9;
+  background: #0f0f0f;
   cursor: pointer;
 }
 </style>

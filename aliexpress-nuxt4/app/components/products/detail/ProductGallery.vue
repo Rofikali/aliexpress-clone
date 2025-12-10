@@ -1,38 +1,3 @@
-<!-- <template>
-  <div class="product_images-gallery">
-    <div class="main-image">
-      <img :src="activeImage" alt="product_images Image" />
-    </div>
-    <div class="thumbnails">
-      <product_imagesThumbnail
-        v-for="(img, idx) in images"
-        :key="idx"
-        :src="img"
-        :active="img === activeImage"
-        @click="activeImage = img"
-      />
-    </div>
-  </div>
-</template>
-
-<script setup>
-import { ref, watch } from "vue"
-import product_imagesThumbnail from "./product_imagesThumbnail.vue"
-
-const props = defineProps({
-  images: { type: Array, default: () => [] }
-})
-
-const activeImage = ref(props.images[0] || "")
-
-watch(
-  () => props.images,
-  (newVal) => {
-    if (newVal?.length) activeImage.value = newVal[0]
-  }
-)
-</script> -->
-
 
 <template>
     <div>

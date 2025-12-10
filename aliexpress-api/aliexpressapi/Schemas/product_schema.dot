@@ -323,15 +323,11 @@ digraph model_graph {
     <FONT FACE="Roboto"><B>BigAutoField</B></FONT>
     </TD></TR>
   
-  
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto"><B>product</B></FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>
     </TD></TR>
-  
-  
   
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto">change</FONT>
@@ -339,15 +335,11 @@ digraph model_graph {
     <FONT FACE="Roboto">IntegerField</FONT>
     </TD></TR>
   
-  
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT COLOR="#7B7B7B" FACE="Roboto">created_at</FONT>
     </TD><TD ALIGN="LEFT">
     <FONT COLOR="#7B7B7B" FACE="Roboto">DateTimeField</FONT>
     </TD></TR>
-  
-  
   
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT COLOR="#7B7B7B" FACE="Roboto">location</FONT>
@@ -355,15 +347,11 @@ digraph model_graph {
     <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
     </TD></TR>
   
-  
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto">quantity</FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto">IntegerField</FONT>
     </TD></TR>
-  
-  
   
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto">reason</FONT>
@@ -371,15 +359,11 @@ digraph model_graph {
     <FONT FACE="Roboto">CharField</FONT>
     </TD></TR>
   
-  
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto">reference_id</FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto">UUIDField</FONT>
     </TD></TR>
-  
-  
   
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto">sku</FONT>
@@ -387,14 +371,11 @@ digraph model_graph {
     <FONT FACE="Roboto">CharField</FONT>
     </TD></TR>
   
-  
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto">stock</FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto">IntegerField</FONT>
     </TD></TR>
-  
   
     </TABLE>
     >]
@@ -406,14 +387,11 @@ digraph model_graph {
     ProductImages
     </B></FONT></TD></TR>
   
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto"><B>id</B></FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto"><B>BigAutoField</B></FONT>
     </TD></TR>
-  
-  
   
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto"><B>product</B></FONT>
@@ -421,15 +399,11 @@ digraph model_graph {
     <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>
     </TD></TR>
   
-  
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT COLOR="#7B7B7B" FACE="Roboto">alt_text</FONT>
     </TD><TD ALIGN="LEFT">
     <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
     </TD></TR>
-  
-  
   
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT COLOR="#7B7B7B" FACE="Roboto">created_at</FONT>
@@ -437,22 +411,17 @@ digraph model_graph {
     <FONT COLOR="#7B7B7B" FACE="Roboto">DateTimeField</FONT>
     </TD></TR>
   
-  
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto">image</FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto">ImageField</FONT>
     </TD></TR>
   
-  
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto">position</FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto">IntegerField</FONT>
     </TD></TR>
-  
   
     </TABLE>
     >]
@@ -464,14 +433,11 @@ digraph model_graph {
     ProductAttribute
     </B></FONT></TD></TR>
   
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto"><B>id</B></FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto"><B>UUIDField</B></FONT>
     </TD></TR>
-  
-  
   
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT COLOR="#7B7B7B" FACE="Roboto">created_at</FONT>
@@ -479,15 +445,11 @@ digraph model_graph {
     <FONT COLOR="#7B7B7B" FACE="Roboto">DateTimeField</FONT>
     </TD></TR>
   
-  
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto">name</FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto">CharField</FONT>
     </TD></TR>
-  
-  
   
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto">sort_order</FONT>
@@ -495,14 +457,11 @@ digraph model_graph {
     <FONT FACE="Roboto">PositiveIntegerField</FONT>
     </TD></TR>
   
-  
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT COLOR="#7B7B7B" FACE="Roboto">updated_at</FONT>
     </TD><TD ALIGN="LEFT">
     <FONT COLOR="#7B7B7B" FACE="Roboto">DateTimeField</FONT>
     </TD></TR>
-  
   
     </TABLE>
     >]
@@ -514,14 +473,11 @@ digraph model_graph {
     ProductAttributeValue
     </B></FONT></TD></TR>
   
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto"><B>id</B></FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto"><B>UUIDField</B></FONT>
     </TD></TR>
-  
-  
   
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto"><B>attribute</B></FONT>
@@ -529,15 +485,11 @@ digraph model_graph {
     <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>
     </TD></TR>
   
-  
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT COLOR="#7B7B7B" FACE="Roboto">creaeted_at</FONT>
     </TD><TD ALIGN="LEFT">
     <FONT COLOR="#7B7B7B" FACE="Roboto">DateTimeField</FONT>
     </TD></TR>
-  
-  
   
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT COLOR="#7B7B7B" FACE="Roboto">updated_at</FONT>
@@ -545,14 +497,11 @@ digraph model_graph {
     <FONT COLOR="#7B7B7B" FACE="Roboto">DateTimeField</FONT>
     </TD></TR>
   
-  
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto">value</FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto">CharField</FONT>
     </TD></TR>
-  
   
     </TABLE>
     >]
@@ -564,14 +513,11 @@ digraph model_graph {
     ProductVariant
     </B></FONT></TD></TR>
   
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto"><B>id</B></FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto"><B>UUIDField</B></FONT>
     </TD></TR>
-  
-  
   
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT COLOR="#7B7B7B" FACE="Roboto"><B>image</B></FONT>
@@ -579,15 +525,11 @@ digraph model_graph {
     <FONT COLOR="#7B7B7B" FACE="Roboto"><B>ForeignKey (id)</B></FONT>
     </TD></TR>
   
-  
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto"><B>product</B></FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>
     </TD></TR>
-  
-  
   
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT COLOR="#7B7B7B" FACE="Roboto">created_at</FONT>
@@ -595,15 +537,11 @@ digraph model_graph {
     <FONT COLOR="#7B7B7B" FACE="Roboto">DateTimeField</FONT>
     </TD></TR>
   
-  
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto">currency</FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto">CharField</FONT>
     </TD></TR>
-  
-  
   
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT COLOR="#7B7B7B" FACE="Roboto">discount_price</FONT>
@@ -611,15 +549,11 @@ digraph model_graph {
     <FONT COLOR="#7B7B7B" FACE="Roboto">DecimalField</FONT>
     </TD></TR>
   
-  
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto">is_active</FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto">BooleanField</FONT>
     </TD></TR>
-  
-  
   
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto">price</FONT>
@@ -627,15 +561,11 @@ digraph model_graph {
     <FONT FACE="Roboto">DecimalField</FONT>
     </TD></TR>
   
-  
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto">sku</FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto">CharField</FONT>
     </TD></TR>
-  
-  
   
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto">stock</FONT>
@@ -643,14 +573,11 @@ digraph model_graph {
     <FONT FACE="Roboto">PositiveIntegerField</FONT>
     </TD></TR>
   
-  
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT COLOR="#7B7B7B" FACE="Roboto">updated_at</FONT>
     </TD><TD ALIGN="LEFT">
     <FONT COLOR="#7B7B7B" FACE="Roboto">DateTimeField</FONT>
     </TD></TR>
-  
   
     </TABLE>
     >]
@@ -662,14 +589,11 @@ digraph model_graph {
     ProductVariantValue
     </B></FONT></TD></TR>
   
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto"><B>id</B></FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto"><B>UUIDField</B></FONT>
     </TD></TR>
-  
-  
   
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto"><B>attribute</B></FONT>
@@ -677,15 +601,11 @@ digraph model_graph {
     <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>
     </TD></TR>
   
-  
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto"><B>value</B></FONT>
     </TD><TD ALIGN="LEFT">
     <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>
     </TD></TR>
-  
-  
   
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto"><B>variant</B></FONT>
@@ -693,15 +613,11 @@ digraph model_graph {
     <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>
     </TD></TR>
   
-  
-  
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT COLOR="#7B7B7B" FACE="Roboto">created_at</FONT>
     </TD><TD ALIGN="LEFT">
     <FONT COLOR="#7B7B7B" FACE="Roboto">DateTimeField</FONT>
     </TD></TR>
-  
-  
   
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT COLOR="#7B7B7B" FACE="Roboto">updated_at</FONT>
@@ -709,13 +625,8 @@ digraph model_graph {
     <FONT COLOR="#7B7B7B" FACE="Roboto">DateTimeField</FONT>
     </TD></TR>
   
-  
     </TABLE>
     >]
-
-
-
-
   // Relations
 
   apps_products_models_category_Category -> apps_products_models_category_Category
@@ -759,6 +670,4 @@ digraph model_graph {
 
   apps_products_models_product_variant_ProductVariantValue -> apps_products_models_product_attribute_ProductAttributeValue
   [label=" value (productvariantvalue)"] [arrowhead=none, arrowtail=dot, dir=both];
-
-
 }

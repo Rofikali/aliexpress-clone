@@ -75,12 +75,44 @@ class ProductsViewSet(ViewSet):
         tags=["Products"],
         summary="Retrieve Product",
     )
+    # def retrieve(self, request, pk=None):
+    #     product = get_object_or_404(Product, id=pk)
+    #     #  add here filters that returns only related products
+    #     serializer = ProductDetailSerializer(product, context={"request": request})
+    #     return ResponseFactory.success_resource(
+    #         item=serializer.data,
+    #         message="Single Product fetched successfully",
+    #         status=status.HTTP_200_OK,
+    #         request=request,
+    #     )
     def retrieve(self, request, pk=None):
-        product = get_object_or_404(Product, id=pk)
-        #  add here filters that returns only related products
+        product = get_object_or_404(
+            Product.objects.select_related("category", "brand").prefetch_related(
+                "product_images"
+            ),
+            id=pk,
+        )
+
         serializer = ProductDetailSerializer(product, context={"request": request})
+        data = serializer.data  # main product data
+
+        # ---- RELATED PRODUCTS LOGIC ----
+        related = Product.objects.filter(
+            category=product.category, is_active=True
+        ).exclude(id=product.id)[:12]
+
+        data["related_products"] = ProductSerializer(
+            related, many=True, context={"request": request}
+        ).data
+
+        # You can add more sections later:
+        # data["reviews"] = ...
+        # data["recommendations"] = ...
+        # data["similar_tags"] = ...
+        # etc
+
         return ResponseFactory.success_resource(
-            item=serializer.data,
+            item=data,
             message="Single Product fetched successfully",
             status=status.HTTP_200_OK,
             request=request,

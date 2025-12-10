@@ -2,7 +2,7 @@
 
 > Clean & production-ready automation flow for UV + Django projects.
 
-## 🚀 Setup & Installation
+## 🚀 Setup & Installation Manually
 
 ```bash
 uv init
@@ -37,8 +37,8 @@ uv run manage.py generate_homepage_fixtures
 
 Create a `Menu.py` script to automate everything including:
 
-* Virtual environment setup
-* Dependencies installation
+# * Virtual environment setup # FOR LATER
+# * Dependencies installation # FOR LATER
 * Migrations
 * Superuser auto-creation
 * Fake product & image generation
@@ -47,7 +47,7 @@ Create a `Menu.py` script to automate everything including:
 * Import spinner + time logs
 
 ```bash
-python Menu.py
+uv run Menu.py
 ```
 
 ⚡ One command to go from ZERO → FULL database!
@@ -79,7 +79,7 @@ python manage.py migrate
 python manage.py createsuperuser
 
 ### automate above code
-python setup.py
+python Menu.py
 
 ## Gerenate products with images
 
