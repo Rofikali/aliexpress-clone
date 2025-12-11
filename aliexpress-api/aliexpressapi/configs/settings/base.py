@@ -5,6 +5,8 @@ load_dotenv()
 
 from pathlib import Path
 
+from datetime import timedelta
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -85,16 +87,6 @@ TEMPLATES = [
 WSGI_APPLICATION = "configs.wsgi.application"
 # WSGI_APPLICATION = "aliexpressapi.wsgi.application"
 
-# settings.py
-# REST_FRAMEWORK = {
-#     # "EXCEPTION_HANDLER": "components.exceptions.handlers.custom_exception_handler",
-#     "EXCEPTION_HANDLER": "components.exceptions.handlers.",
-# }
-
-# REST_FRAMEWORK = {
-#     "EXCEPTION_HANDLER": "components.exceptions.handlers.custom_exception_handler",
-# }
-
 # settings.py # make it true in production
 ENFORCE_KYC = os.environ.get("ENFORCE_KYC", default=False)
 ENFORCE_KYC = os.environ.get("ENFORCE_KYC")
@@ -162,8 +154,6 @@ REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "components.exceptions.handlers.custom_exception_handler",
 }
 
-from datetime import timedelta
-
 
 # settings.py
 SIMPLE_JWT = {
@@ -186,14 +176,6 @@ JWT_COOKIE_SAMESITE = "Strict"  # or "Lax" for cross-subdomain UX
 JWT_COOKIE_SECURE = True  # True in production (HTTPS required)
 JWT_COOKIE_HTTPONLY = True
 
-# drf 'drf_spectacular',
-# SPECTACULAR_SETTINGS = {
-#     "TITLE": "My Aliexpress E-commerce API",
-#     "DESCRIPTION": "Your project description",
-#     "VERSION": "1.0.0",
-#     "SERVE_INCLUDE_SCHEMA": False,
-#     # OTHER SETTINGS
-# }
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "AliExpress Clone API",
