@@ -1,0 +1,28 @@
+# # Dev Launcher Configuration (dev.yaml)
+# # Auto-detected and used by run_servers.py
+# # Modify paths/commands to match your project structure
+
+project:
+  name: aliexpress-clone
+  root: .
+
+defaults:
+  venv: .venv
+
+services:
+  django_api:
+    type: django
+    path: aliexpress-api/aliexpressapi
+    venv: aliexpress-api/.venv
+    install:
+      - uv: pyproject.toml
+    run: uv run manage.py runserver 0.0.0.0:8000
+    port: 8000
+  nuxt_frontend:
+    type: nuxt
+    path: aliexpress-nuxt4
+    install:
+      - pnpm: .
+    run: pnpm run dev
+    port: 3000
+

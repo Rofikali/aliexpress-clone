@@ -147,12 +147,12 @@ class MigrationsCleaner(Cleaner):
 class MigrationAndSuperuser:
     def run(self):
         run_cmd(
-            "python manage.py makemigrations",
+            "uv run manage.py makemigrations",
             show_spinner=True,
             message="Making migrations",
         )
         run_cmd(
-            "python manage.py migrate", show_spinner=True, message="Applying migrations"
+            "uv run manage.py migrate", show_spinner=True, message="Applying migrations"
         )
 
         print("Checking superuser...")
@@ -191,6 +191,40 @@ class FixtureLoader:
         print("❌ Failed loading fixtures")
 
 
+def autodetect_django_settings():
+    """
+    Detect Django settings automatically based on this structure:
+
+        aliexpress-api/
+        ├── Menu.py
+        └── aliexpressapi/
+            └── configs/settings/dev.py
+    """
+
+    # Folder containing Menu.py → aliexpress-api
+    project_root = Path(__file__).resolve().parent
+
+    # Django project folder → aliexpressapi
+    django_root = project_root / "aliexpressapi"
+
+    # Full path to dev.py
+    settings_file = django_root / "configs" / "settings" / "dev.py"
+
+    if not settings_file.exists():
+        raise RuntimeError(f"❌ Could not locate Django dev.py at: {settings_file}")
+
+    # Convert path to module string
+    # aliexpressapi/configs/settings/dev.py → configs.settings.dev
+    relative_path = settings_file.relative_to(django_root)
+    module_name = ".".join(relative_path.with_suffix("").parts)
+
+    # Make Django importable
+    sys.path.insert(0, str(django_root))
+
+    os.environ["DJANGO_SETTINGS_MODULE"] = module_name
+    print(f"📌 Using Django settings: {module_name}")
+
+
 # ======================================================
 # NEW CLASS: GenerateFixtures
 # ======================================================
@@ -221,10 +255,49 @@ def menu():
 
 
 # ======================================================
+# Auto-Detect Django Settings (Path-based)
+# ======================================================
+# def autodetect_django_settings():
+#     """
+#     Automatically locates the Django settings module based on your
+#     folder structure:
+#         aliexpress-api/aliexpressapi/configs/settings/dev.py
+#     """
+#     root = Path(__file__).resolve().parent
+#     print(f"🔍 Detecting Django settings from root: {root}")
+
+#     # Your Django project root (contains manage.py)
+#     # Modify if needed:
+#     api_root = root / "aliexpress-api" / "aliexpressapi"
+
+#     settings_file = api_root / "configs" / "settings" / "dev.py"
+
+#     if not settings_file.exists():
+#         raise RuntimeError(f"❌ Could not locate Django dev.py at: {settings_file}")
+
+#     # Convert path → module string
+#     # aliexpressapi/configs/settings/dev.py → "configs.settings.dev"
+#     relative_path = settings_file.relative_to(api_root)
+#     module_parts = list(relative_path.with_suffix("").parts)
+#     settings_module = ".".join(module_parts)
+
+#     # Ensure Django can import this
+#     sys.path.insert(0, str(api_root))
+
+#     os.environ["DJANGO_SETTINGS_MODULE"] = settings_module
+#     print(f"📌 Using Django settings: {settings_module}")
+
+
+# Call the auto-detector BEFORE django.setup()
+# autodetect_django_settings()
+
+
+# ======================================================
 # MAIN LOOP
 # ======================================================
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "configs.settings.dev")
+    # os.environ.setdefault("DJANGO_SETTINGS_MODULE", "configs.settings.dev")
+    autodetect_django_settings()
     django.setup()
 
     # apps_path = Path("./apps")
