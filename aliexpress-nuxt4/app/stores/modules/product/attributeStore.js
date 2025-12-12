@@ -1,5 +1,6 @@
 
 import { defineStore } from "pinia"
+import { ref } from "vue"      // <<-- ADDED
 import { getAttributes, getAttributeById } from "~/services/api/products/attribute"
 
 export const useAttributeStore = defineStore("attributeStore", () => {

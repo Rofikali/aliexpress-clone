@@ -1,5 +1,6 @@
 // ~/stores/modules/productStore.js
 import { defineStore } from "pinia"
+import { ref } from "vue"      // <<-- ADDED
 import { getProducts, getProductById } from "~/services/api/products/product"
 import { usePagination } from "~/composables/pagination/useBasePagination"
 
