@@ -11,7 +11,7 @@
 
 
  <template>
-    <div class="fixed z-[-1] bg-[#000000] w-full h-[100vh]" />
+    <div class="fixed z-[-1] bg-[#5c5b5b] w-full h-[100vh]" />
     <NuxtLayout>
         <NuxtPage />
     </NuxtLayout>

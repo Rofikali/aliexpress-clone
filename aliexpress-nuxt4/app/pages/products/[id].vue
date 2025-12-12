@@ -96,10 +96,19 @@ onMounted(async () => {
 })
 
 // ✅ Handle variant selection emitted from VariantSelector
+// function handleVariantSelect(variant) {
+//   console.log("Selected variant:", variant)
+//   // Optional: do something with the selected variant in parent
+// }
+
 function handleVariantSelect(variant) {
-  console.log("Selected variant:", variant)
-  // Optional: do something with the selected variant in parent
+  // set local UI
+  product.value.price = variant.discount_price
+  product.value.image = variant.image
+  // store selected sku for checkout
+  // cart.selectedSku = variant.id
 }
+
 
 // Cart & Wishlist
 function addToCart(product) {

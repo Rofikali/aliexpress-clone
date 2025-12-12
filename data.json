@@ -1,0 +1,876 @@
+{
+  "success": true,
+  "code": 200,
+  "message": "Product variants retrieved successfully.",
+  "request": {
+    "id": "225c2638-447f-4f27-8a69-8b7fa3865e16",
+    "timestamp": "2025-12-11T06:26:30.135717Z",
+    "latency_ms": 0.1,
+    "region": "Nepal-01",
+    "cache": "MISS"
+  },
+  "meta": {},
+  "errors": null,
+  "data": [
+    {
+      "id": "cc98df23-b0ad-409a-928a-aee28559e04b",
+      "sku": "789456",
+      "price": "999999.00",
+      "discount_price": "99.00",
+      "currency": "USD",
+      "stock": 9,
+      "is_active": true,
+      "image": "/media/C%3A/Py-Apis/aliexpress-clone/aliexpress-api/aliexpressapi/media/default.jpg",
+      "attributes": [
+        {
+          "attribute_id": "b066280f-08d7-4ab5-af2b-1171c06404c7",
+          "attribute_name": "Color",
+          "value_id": "0645bf3f-6223-4d46-93f7-8fa06f81b584",
+          "value": "Red"
+        },
+        {
+          "attribute_id": "beae1ed1-8eae-455d-87ef-f3a3ca5aec1f",
+          "attribute_name": "Size",
+          "value_id": "c4a27ad5-1c8a-42dc-ba23-7015c3de08d0",
+          "value": "M"
+        }
+      ],
+      "discount_percentage": 99.99
+    },
+    {
+      "id": "9bb754d8-3eeb-494e-a640-26007c380fcc",
+      "sku": "77777777",
+      "price": "8888888.00",
+      "discount_price": "89.00",
+      "currency": "USD",
+      "stock": 5,
+      "is_active": true,
+      "image": "/media/products/images/EMAIL.jpg",
+      "attributes": [
+        {
+          "attribute_id": "b066280f-08d7-4ab5-af2b-1171c06404c7",
+          "attribute_name": "Color",
+          "value_id": "6edf4676-6e91-4f72-8847-c08577b93f82",
+          "value": "Green"
+        },
+        {
+          "attribute_id": "beae1ed1-8eae-455d-87ef-f3a3ca5aec1f",
+          "attribute_name": "Size",
+          "value_id": "26c1635b-c1f9-4cc7-bad4-47f5179fe7d0",
+          "value": "L"
+        }
+      ],
+      "discount_percentage": 100
+    },
+    {
+      "id": "22430597-f017-4447-bca9-b5e764182114",
+      "sku": "6566875456",
+      "price": "7777777777.00",
+      "discount_price": "89.00",
+      "currency": "USD",
+      "stock": 5,
+      "is_active": true,
+      "image": "/media/products/images/EMAIL.jpg",
+      "attributes": [
+        {
+          "attribute_id": "b066280f-08d7-4ab5-af2b-1171c06404c7",
+          "attribute_name": "Color",
+          "value_id": "7714c4a1-c30b-41d6-9036-410be606ff55",
+          "value": "Blue"
+        },
+        {
+          "attribute_id": "beae1ed1-8eae-455d-87ef-f3a3ca5aec1f",
+          "attribute_name": "Size",
+          "value_id": "197a12f6-c5cd-4089-b745-ad4e53515dda",
+          "value": "S"
+        }
+      ],
+      "discount_percentage": 100
+    }
+  ]
+}
+
+
+
+{
+  "success": true,
+  "code": 200,
+  "message": "Products fetched successfully (cache)",
+  "request": {
+    "id": "571f268e-5797-4328-b8b8-9d10490fbee5",
+    "timestamp": "2025-12-11T07:23:10.039588Z",
+    "latency_ms": 0.04,
+    "region": "Nepal-01",
+    "cache": "HIT"
+  },
+  "meta": {
+    "next_cursor": "bz04JnA9MjAyNS0xMi0wOSswOCUzQTUzJTNBNTQuNTY4NzUyJTJCMDAlM0EwMA==",
+    "has_next": true
+  },
+  "errors": null,
+  "data": [
+    {
+      "id": "e05c2c44-bbea-4f88-b593-18c774943c3e",
+      "title": "pyjlsdj",
+      "slug": "pyjlsdj",
+      "price": "56456456.00",
+      "discount_price": "455.00",
+      "description": "jfldjlap pytho",
+      "image": "http://localhost:8000/media/products/images/7.jpg",
+      "stock": 55454,
+      "is_active": true,
+      "created_at": "2025-12-09T09:36:23.774218Z",
+      "updated_at": "2025-12-10T07:24:43.057787Z"
+    },
+    {
+      "id": "e7973d90-7d0d-4123-8d5c-5e8db9471f7f",
+      "title": "py 22",
+      "slug": "py-22",
+      "price": "455545.00",
+      "discount_price": "4555.00",
+      "description": "py again",
+      "image": "http://localhost:8000/media/products/images/Untitled-3_LZmOQBv.tif",
+      "stock": 887,
+      "is_active": true,
+      "created_at": "2025-12-09T09:33:34.513445Z",
+      "updated_at": "2025-12-09T09:33:34.513473Z"
+    },
+    {
+      "id": "23960c90-d8b2-4652-9715-90cbfdb6e3f7",
+      "title": "py pro 2",
+      "slug": "py-pro-2",
+      "price": "645645.00",
+      "discount_price": "555.00",
+      "description": "py prodescription",
+      "image": null,
+      "stock": 55,
+      "is_active": true,
+      "created_at": "2025-12-09T08:55:53.126545Z",
+      "updated_at": "2025-12-09T08:55:53.126566Z"
+    },
+    {
+      "id": "e8141ddb-26bf-4d68-879d-c3869ff28130",
+      "title": "python14",
+      "slug": "python14",
+      "price": "788.00",
+      "discount_price": "8.00",
+      "description": "python",
+      "image": "http://localhost:8000/media/products/images/hb_V1ARo_400x400.jpg",
+      "stock": 15,
+      "is_active": true,
+      "created_at": "2025-12-09T08:53:54.568752Z",
+      "updated_at": "2025-12-09T08:53:54.568774Z"
+    },
+    {
+      "id": "34d88a2b-ffb4-40d8-88f7-ed4a156c9f6c",
+      "title": "Month start owner.",
+      "slug": "hour-hair-father",
+      "price": "289.21",
+      "discount_price": null,
+      "description": "Which everything budget thus whatever. Room good because job night tonight baby. Describe fine already send build happy newspaper.",
+      "image": "http://localhost:8000/media/products/images/wave-png-49462.png",
+      "stock": 495,
+      "is_active": true,
+      "created_at": "2025-12-02T05:54:29.397993Z",
+      "updated_at": "2025-12-07T05:50:43.381265Z"
+    },
+    {
+      "id": "854dfcb9-0552-4422-984f-0112d2859097",
+      "title": "Lawyer another.",
+      "slug": "prepare-i-magazine",
+      "price": "320.76",
+      "discount_price": null,
+      "description": "Raise company eight interesting pass wonder inside firm. Instead attorney speak late smile hand.\nBudget product well someone how risk positive hot. Speech item throw. Age east look break unit.",
+      "image": "http://localhost:8000/media/C%3A/Py-Apis/aliexpress-clone/aliexpress-api/aliexpressapi/media/default.jpg",
+      "stock": 166,
+      "is_active": true,
+      "created_at": "2025-12-02T05:54:29.397993Z",
+      "updated_at": "2025-12-02T05:54:29.397993Z"
+    },
+    {
+      "id": "3cf970c3-a32b-44bc-838f-b19664d86a7e",
+      "title": "Magazine miss black.",
+      "slug": "month-institution",
+      "price": "254.20",
+      "discount_price": null,
+      "description": "Step citizen type pattern organization piece. Public real TV development.\r\nQuickly good page stock wear. Physical beautiful task.",
+      "image": "http://localhost:8000/media/products/images/Pngtreesoft_green_ripped_torn_paper_7564520.png",
+      "stock": 391,
+      "is_active": true,
+      "created_at": "2025-12-02T05:54:29.397993Z",
+      "updated_at": "2025-12-07T05:51:46.205145Z"
+    },
+    {
+      "id": "e26fe689-df71-4e9e-9fb0-15d55aeb7c12",
+      "title": "Or brother avoid.",
+      "slug": "carry-then-director",
+      "price": "26.54",
+      "discount_price": null,
+      "description": "Thank there let account gas. Message character wait help fine along. Create clear draw fly case.\nMiss government prepare time. Minute per glass ago daughter.",
+      "image": "http://localhost:8000/media/C%3A/Py-Apis/aliexpress-clone/aliexpress-api/aliexpressapi/media/default.jpg",
+      "stock": 294,
+      "is_active": true,
+      "created_at": "2025-12-02T05:54:29.397993Z",
+      "updated_at": "2025-12-02T05:54:29.397993Z"
+    },
+    {
+      "id": "ae745481-aa62-4798-8b9e-3ad8b663ee8f",
+      "title": "Especially rock home.",
+      "slug": "investment-employee",
+      "price": "91.45",
+      "discount_price": null,
+      "description": "Kid side chance amount. Pick reveal small tell design third. Piece there year quickly expect.\nInstitution style who several. Book star decade scientist. Through every put morning majority force my.",
+      "image": "http://localhost:8000/media/C%3A/Py-Apis/aliexpress-clone/aliexpress-api/aliexpressapi/media/default.jpg",
+      "stock": 30,
+      "is_active": true,
+      "created_at": "2025-12-02T05:54:29.397993Z",
+      "updated_at": "2025-12-02T05:54:29.397993Z"
+    },
+    {
+      "id": "e13b7cf3-c37d-4d92-9d07-ec3bcd3a442b",
+      "title": "Shoulder eye.",
+      "slug": "capital-scientist",
+      "price": "42.47",
+      "discount_price": null,
+      "description": "Security husband or budget catch strong blue. Activity maybe believe. Those necessary along plant about make realize attack.\nRed through only still plan alone fine. Figure under happy over.",
+      "image": "http://localhost:8000/media/C%3A/Py-Apis/aliexpress-clone/aliexpress-api/aliexpressapi/media/default.jpg",
+      "stock": 134,
+      "is_active": true,
+      "created_at": "2025-12-02T05:54:29.397993Z",
+      "updated_at": "2025-12-02T05:54:29.397993Z"
+    },
+    {
+      "id": "c09eb7b0-77b3-4d8c-afe1-5e2f74efbbf1",
+      "title": "Clear station beat.",
+      "slug": "research-child-list",
+      "price": "47.86",
+      "discount_price": null,
+      "description": "Grow own during old style. Play support significant.\nAge treat coach guy much drug base. Democrat station become need. Medical large system join either perhaps order.",
+      "image": "http://localhost:8000/media/C%3A/Py-Apis/aliexpress-clone/aliexpress-api/aliexpressapi/media/default.jpg",
+      "stock": 58,
+      "is_active": true,
+      "created_at": "2025-12-02T05:54:29.397993Z",
+      "updated_at": "2025-12-02T05:54:29.397993Z"
+    },
+    {
+      "id": "574009c6-545e-40f0-810d-caf9cc2c6da9",
+      "title": "View community.",
+      "slug": "start-summer-some",
+      "price": "64.62",
+      "discount_price": null,
+      "description": "Plant teach agency forward ground notice glass. Note my particularly admit west over Republican return.\nExecutive point model account act. Meeting officer well plan majority.",
+      "image": "http://localhost:8000/media/C%3A/Py-Apis/aliexpress-clone/aliexpress-api/aliexpressapi/media/default.jpg",
+      "stock": 340,
+      "is_active": true,
+      "created_at": "2025-12-02T05:54:29.397993Z",
+      "updated_at": "2025-12-02T05:54:29.397993Z"
+    }
+  ]
+}
+
+
+{
+  "success": true,
+  "code": 200,
+  "message": "Product retrieved",
+  "request": {
+    "id": "1967e8b9-39dc-4e17-8b9c-9799bf9651e1",
+    "timestamp": "2025-12-11T07:24:05.116415Z",
+    "latency_ms": 0.05,
+    "region": "Nepal-01",
+    "cache": "MISS"
+  },
+  "meta": {},
+  "errors": null,
+  "data": {
+    "id": "574009c6-545e-40f0-810d-caf9cc2c6da9",
+    "title": "View community.",
+    "sku": "6202627318719",
+    "slug": "start-summer-some",
+    "price": "64.62",
+    "discount_price": null,
+    "description": "Plant teach agency forward ground notice glass. Note my particularly admit west over Republican return.\nExecutive point model account act. Meeting officer well plan majority.",
+    "currency": "USD",
+    "image": "http://localhost:8000/media/C%3A/Py-Apis/aliexpress-clone/aliexpress-api/aliexpressapi/media/default.jpg",
+    "images": [
+      {
+        "id": "75012b24-1294-4a12-a0fb-99aa52c42a2e",
+        "product": "574009c6-545e-40f0-810d-caf9cc2c6da9",
+        "image": "http://localhost:8000/media/C%3A/Py-Apis/aliexpress-clone/aliexpress-api/aliexpressapi/media/default.jpg"
+      },
+      {
+        "id": "e080d9bf-991a-4839-a505-c0a1f082e4bf",
+        "product": "574009c6-545e-40f0-810d-caf9cc2c6da9",
+        "image": "http://localhost:8000/media/C%3A/Py-Apis/aliexpress-clone/aliexpress-api/aliexpressapi/media/default.jpg"
+      },
+      {
+        "id": "c678644d-c0a1-43b1-8912-0cb25310b285",
+        "product": "574009c6-545e-40f0-810d-caf9cc2c6da9",
+        "image": "http://localhost:8000/media/C%3A/Py-Apis/aliexpress-clone/aliexpress-api/aliexpressapi/media/default.jpg"
+      }
+    ],
+    "category": {
+      "id": "af2f6a04-dfa8-4269-bdf8-25ce724cc263",
+      "name": "where",
+      "slug": "board-leader-during",
+      "description": "Purpose tonight effort others."
+    },
+    "brand": {
+      "id": "67c45fa2-a941-468b-8095-0921be288e30",
+      "name": "Lyons Inc",
+      "description": "Investment between have."
+    },
+    "stock": 340,
+    "is_active": true,
+    "rating": 1.7,
+    "review_count": 0,
+    "created_at": "2025-12-02T05:54:29.397993Z",
+    "updated_at": "2025-12-02T05:54:29.397993Z"
+  }
+
+
+
+
+  {
+  "success": true,
+  "code": 200,
+  "message": "Product variants retrieved successfully.",
+  "request": {
+    "id": "03bc8940-b213-4689-ac69-8b8057c6ab83",
+    "timestamp": "2025-12-11T07:26:09.349507Z",
+    "latency_ms": 0.05,
+    "region": "Nepal-01",
+    "cache": "MISS"
+  },
+  "meta": {},
+  "errors": null,
+  "data": [
+    {
+      "id": "3758b6b1-f988-4697-af80-d96197991e40",
+      "sku": "SKU-89-7541",
+      "price": "261.42",
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 156,
+      "is_active": true,
+      "image": "/media/C%3A/Py-Apis/aliexpress-clone/aliexpress-api/aliexpressapi/media/default.jpg",
+      "attributes": [
+        {
+          "attribute_id": "beae1ed1-8eae-455d-87ef-f3a3ca5aec1f",
+          "attribute_name": "Size",
+          "value_id": "c4a27ad5-1c8a-42dc-ba23-7015c3de08d0",
+          "value": "M"
+        }
+      ],
+      "discount_percentage": null
+    },
+    {
+      "id": "5fa8de4f-49e6-432f-ae7a-2feef79174af",
+      "sku": "SKU-90-7749",
+      "price": "176.52",
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 66,
+      "is_active": true,
+      "image": "/media/C%3A/Py-Apis/aliexpress-clone/aliexpress-api/aliexpressapi/media/default.jpg",
+      "attributes": [
+        {
+          "attribute_id": "b066280f-08d7-4ab5-af2b-1171c06404c7",
+          "attribute_name": "Color",
+          "value_id": "7714c4a1-c30b-41d6-9036-410be606ff55",
+          "value": "Blue"
+        }
+      ],
+      "discount_percentage": null
+    },
+    {
+      "id": "1f004ca4-9d84-4d00-bdb5-7a9b7e687fe3",
+      "sku": "SKU-91-7760",
+      "price": "195.80",
+      "discount_price": null,
+      "currency": "USD",
+      "stock": 152,
+      "is_active": true,
+      "image": "/media/C%3A/Py-Apis/aliexpress-clone/aliexpress-api/aliexpressapi/media/default.jpg",
+      "attributes": [
+        {
+          "attribute_id": "beae1ed1-8eae-455d-87ef-f3a3ca5aec1f",
+          "attribute_name": "Size",
+          "value_id": "c4a27ad5-1c8a-42dc-ba23-7015c3de08d0",
+          "value": "M"
+        }
+      ],
+      "discount_percentage": null
+    }
+  ]
+}
+
+
+
+
+
+
+
+this is my present response
+{
+  "success": true,
+  "code": 200,
+  "message": "Product variants fetched",
+  "request": {
+    "id": "2564762f-62e5-49ff-b1ed-f75b2d5c0621",
+    "timestamp": "2025-12-11T07:35:26.077146Z",
+    "latency_ms": 0.07,
+    "region": "Nepal-01",
+    "cache": "MISS"
+  },
+  "meta": {
+    "next_cursor": null,
+    "has_next": false,
+    "available_attributes": {
+      "b066280f-08d7-4ab5-af2b-1171c06404c7": {
+        "name": "Color",
+        "values": [
+          {
+            "id": "7714c4a1-c30b-41d6-9036-410be606ff55",
+            "value": "Blue"
+          },
+          {
+            "id": "6edf4676-6e91-4f72-8847-c08577b93f82",
+            "value": "Green"
+          },
+          {
+            "id": "0645bf3f-6223-4d46-93f7-8fa06f81b584",
+            "value": "Red"
+          }
+        ]
+      },
+      "beae1ed1-8eae-455d-87ef-f3a3ca5aec1f": {
+        "name": "Size",
+        "values": [
+          {
+            "id": "197a12f6-c5cd-4089-b745-ad4e53515dda",
+            "value": "S"
+          },
+          {
+            "id": "26c1635b-c1f9-4cc7-bad4-47f5179fe7d0",
+            "value": "L"
+          },
+          {
+            "id": "c4a27ad5-1c8a-42dc-ba23-7015c3de08d0",
+            "value": "M"
+          }
+        ]
+      }
+    },
+    "combination_map": {
+      "b066280f-08d7-4ab5-af2b-1171c06404c7:7714c4a1-c30b-41d6-9036-410be606ff55|beae1ed1-8eae-455d-87ef-f3a3ca5aec1f:197a12f6-c5cd-4089-b745-ad4e53515dda": "22430597-f017-4447-bca9-b5e764182114",
+      "b066280f-08d7-4ab5-af2b-1171c06404c7:6edf4676-6e91-4f72-8847-c08577b93f82|beae1ed1-8eae-455d-87ef-f3a3ca5aec1f:26c1635b-c1f9-4cc7-bad4-47f5179fe7d0": "9bb754d8-3eeb-494e-a640-26007c380fcc",
+      "b066280f-08d7-4ab5-af2b-1171c06404c7:0645bf3f-6223-4d46-93f7-8fa06f81b584|beae1ed1-8eae-455d-87ef-f3a3ca5aec1f:c4a27ad5-1c8a-42dc-ba23-7015c3de08d0": "cc98df23-b0ad-409a-928a-aee28559e04b"
+    }
+  },
+  "errors": null,
+  "data": [
+    {
+      "id": "22430597-f017-4447-bca9-b5e764182114",
+      "sku": "6566875456",
+      "price": "7777777777.00",
+      "discount_price": "89.00",
+      "currency": "USD",
+      "stock": 5,
+      "is_active": true,
+      "image": "http://localhost:8000/media/products/images/EMAIL.jpg",
+      "attributes": [
+        {
+          "attribute_id": "b066280f-08d7-4ab5-af2b-1171c06404c7",
+          "attribute_name": "Color",
+          "value_id": "7714c4a1-c30b-41d6-9036-410be606ff55",
+          "value": "Blue"
+        },
+        {
+          "attribute_id": "beae1ed1-8eae-455d-87ef-f3a3ca5aec1f",
+          "attribute_name": "Size",
+          "value_id": "197a12f6-c5cd-4089-b745-ad4e53515dda",
+          "value": "S"
+        }
+      ]
+    },
+    {
+      "id": "9bb754d8-3eeb-494e-a640-26007c380fcc",
+      "sku": "77777777",
+      "price": "8888888.00",
+      "discount_price": "89.00",
+      "currency": "USD",
+      "stock": 5,
+      "is_active": true,
+      "image": "http://localhost:8000/media/products/images/EMAIL.jpg",
+      "attributes": [
+        {
+          "attribute_id": "b066280f-08d7-4ab5-af2b-1171c06404c7",
+          "attribute_name": "Color",
+          "value_id": "6edf4676-6e91-4f72-8847-c08577b93f82",
+          "value": "Green"
+        },
+        {
+          "attribute_id": "beae1ed1-8eae-455d-87ef-f3a3ca5aec1f",
+          "attribute_name": "Size",
+          "value_id": "26c1635b-c1f9-4cc7-bad4-47f5179fe7d0",
+          "value": "L"
+        }
+      ]
+    }
+  ]
+}
+and this is big tech response
+{
+  "success": true,
+  "data": {
+    "id": "prod123",
+    "title": "T-Shirt",
+    "variants": [
+      {
+        "id": "sku1",
+        "price": 999,
+        "stock": 5,
+        "image": "/images/red_s.jpg",
+        "attributes": { "Color": "Red", "Size": "S" }
+      },
+      {
+        "id": "sku2",
+        "price": 1099,
+        "stock": 10,
+        "image": "/images/blue_m.jpg",
+        "attributes": { "Color": "Blue", "Size": "M" }
+      }
+    ],
+    "available_attributes": {
+      "Color": ["Red", "Blue", "Green"],
+      "Size": ["S", "M", "L"]
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+  "success": true,
+  "code": 200,
+  "message": "Product variants fetched",
+  "request": {
+    "id": "52967e5a-2181-4e92-8ea7-92e51bef0db5",
+    "timestamp": "2025-12-11T07:51:47.180010Z",
+    "latency_ms": 0.04,
+    "region": "Nepal-01",
+    "cache": "MISS"
+  },
+  "meta": {},
+  "errors": null,
+  "data": {
+    "variants": [
+      {
+        "id": "cc98df23-b0ad-409a-928a-aee28559e04b",
+        "sku": "789456",
+        "price": "999999.00",
+        "discount_price": "99.00",
+        "currency": "USD",
+        "stock": 9,
+        "is_active": true,
+        "image": "http://localhost:8000/media/C%3A/Py-Apis/aliexpress-clone/aliexpress-api/aliexpressapi/media/default.jpg",
+        "attributes": [
+          {
+            "attribute_id": "b066280f-08d7-4ab5-af2b-1171c06404c7",
+            "attribute_name": "Color",
+            "value_id": "0645bf3f-6223-4d46-93f7-8fa06f81b584",
+            "value": "Red"
+          },
+          {
+            "attribute_id": "beae1ed1-8eae-455d-87ef-f3a3ca5aec1f",
+            "attribute_name": "Size",
+            "value_id": "c4a27ad5-1c8a-42dc-ba23-7015c3de08d0",
+            "value": "M"
+          }
+        ],
+        "discount_percentage": 99.99
+      },
+      {
+        "id": "9bb754d8-3eeb-494e-a640-26007c380fcc",
+        "sku": "77777777",
+        "price": "8888888.00",
+        "discount_price": "89.00",
+        "currency": "USD",
+        "stock": 5,
+        "is_active": true,
+        "image": "http://localhost:8000/media/products/images/EMAIL.jpg",
+        "attributes": [
+          {
+            "attribute_id": "b066280f-08d7-4ab5-af2b-1171c06404c7",
+            "attribute_name": "Color",
+            "value_id": "6edf4676-6e91-4f72-8847-c08577b93f82",
+            "value": "Green"
+          },
+          {
+            "attribute_id": "beae1ed1-8eae-455d-87ef-f3a3ca5aec1f",
+            "attribute_name": "Size",
+            "value_id": "26c1635b-c1f9-4cc7-bad4-47f5179fe7d0",
+            "value": "L"
+          }
+        ],
+        "discount_percentage": 100
+      },
+      {
+        "id": "22430597-f017-4447-bca9-b5e764182114",
+        "sku": "6566875456",
+        "price": "7777777777.00",
+        "discount_price": "89.00",
+        "currency": "USD",
+        "stock": 5,
+        "is_active": true,
+        "image": "http://localhost:8000/media/products/images/EMAIL.jpg",
+        "attributes": [
+          {
+            "attribute_id": "b066280f-08d7-4ab5-af2b-1171c06404c7",
+            "attribute_name": "Color",
+            "value_id": "7714c4a1-c30b-41d6-9036-410be606ff55",
+            "value": "Blue"
+          },
+          {
+            "attribute_id": "beae1ed1-8eae-455d-87ef-f3a3ca5aec1f",
+            "attribute_name": "Size",
+            "value_id": "197a12f6-c5cd-4089-b745-ad4e53515dda",
+            "value": "S"
+          }
+        ],
+        "discount_percentage": 100
+      }
+    ],
+    "available_attributes": {
+      "b066280f-08d7-4ab5-af2b-1171c06404c7": {
+        "name": "Color",
+        "values": [
+          {
+            "id": "0645bf3f-6223-4d46-93f7-8fa06f81b584",
+            "value": "Red"
+          },
+          {
+            "id": "6edf4676-6e91-4f72-8847-c08577b93f82",
+            "value": "Green"
+          },
+          {
+            "id": "7714c4a1-c30b-41d6-9036-410be606ff55",
+            "value": "Blue"
+          }
+        ]
+      },
+      "beae1ed1-8eae-455d-87ef-f3a3ca5aec1f": {
+        "name": "Size",
+        "values": [
+          {
+            "id": "c4a27ad5-1c8a-42dc-ba23-7015c3de08d0",
+            "value": "M"
+          },
+          {
+            "id": "26c1635b-c1f9-4cc7-bad4-47f5179fe7d0",
+            "value": "L"
+          },
+          {
+            "id": "197a12f6-c5cd-4089-b745-ad4e53515dda",
+            "value": "S"
+          }
+        ]
+      }
+    },
+    "combination_map": {
+      "b066280f-08d7-4ab5-af2b-1171c06404c7:0645bf3f-6223-4d46-93f7-8fa06f81b584|beae1ed1-8eae-455d-87ef-f3a3ca5aec1f:c4a27ad5-1c8a-42dc-ba23-7015c3de08d0": "cc98df23-b0ad-409a-928a-aee28559e04b",
+      "b066280f-08d7-4ab5-af2b-1171c06404c7:6edf4676-6e91-4f72-8847-c08577b93f82|beae1ed1-8eae-455d-87ef-f3a3ca5aec1f:26c1635b-c1f9-4cc7-bad4-47f5179fe7d0": "9bb754d8-3eeb-494e-a640-26007c380fcc",
+      "b066280f-08d7-4ab5-af2b-1171c06404c7:7714c4a1-c30b-41d6-9036-410be606ff55|beae1ed1-8eae-455d-87ef-f3a3ca5aec1f:197a12f6-c5cd-4089-b745-ad4e53515dda": "22430597-f017-4447-bca9-b5e764182114"
+    }
+  }
+}
+
+
+
+
+{
+  "success": true,
+  "code": 200,
+  "message": "Product variants fetched",
+  "request": {
+    "id": "f01caeaf-1c32-4dca-ac41-52b07ff99eed",
+    "timestamp": "2025-12-11T10:15:00.254836Z",
+    "latency_ms": 0.03,
+    "region": "Nepal-01",
+    "cache": "MISS"
+  },
+  "meta": {},
+  "errors": null,
+  "data": {
+    "variants": [
+      {
+        "id": "cc98df23-b0ad-409a-928a-aee28559e04b",
+        "sku": "789456",
+        "price": "999999.00",
+        "discount_price": "99.00",
+        "currency": "USD",
+        "stock": 9,
+        "is_active": true,
+        "image": "http://localhost:8000/media/C%3A/Py-Apis/aliexpress-clone/aliexpress-api/aliexpressapi/media/default.jpg",
+        "attributes": [
+          {
+            "attribute_id": "b066280f-08d7-4ab5-af2b-1171c06404c7",
+            "attribute_name": "Color",
+            "value_id": "0645bf3f-6223-4d46-93f7-8fa06f81b584",
+            "value": "Red"
+          },
+          {
+            "attribute_id": "beae1ed1-8eae-455d-87ef-f3a3ca5aec1f",
+            "attribute_name": "Size",
+            "value_id": "c4a27ad5-1c8a-42dc-ba23-7015c3de08d0",
+            "value": "M"
+          }
+        ],
+        "discount_percentage": 99.99
+      },
+      {
+        "id": "9bb754d8-3eeb-494e-a640-26007c380fcc",
+        "sku": "77777777",
+        "price": "8888888.00",
+        "discount_price": "89.00",
+        "currency": "USD",
+        "stock": 5,
+        "is_active": true,
+        "image": "http://localhost:8000/media/products/images/EMAIL.jpg",
+        "attributes": [
+          {
+            "attribute_id": "b066280f-08d7-4ab5-af2b-1171c06404c7",
+            "attribute_name": "Color",
+            "value_id": "6edf4676-6e91-4f72-8847-c08577b93f82",
+            "value": "Green"
+          },
+          {
+            "attribute_id": "beae1ed1-8eae-455d-87ef-f3a3ca5aec1f",
+            "attribute_name": "Size",
+            "value_id": "26c1635b-c1f9-4cc7-bad4-47f5179fe7d0",
+            "value": "L"
+          }
+        ],
+        "discount_percentage": 100
+      },
+      {
+        "id": "22430597-f017-4447-bca9-b5e764182114",
+        "sku": "6566875456",
+        "price": "7777777777.00",
+        "discount_price": "89.00",
+        "currency": "USD",
+        "stock": 5,
+        "is_active": true,
+        "image": "http://localhost:8000/media/products/images/EMAIL.jpg",
+        "attributes": [
+          {
+            "attribute_id": "b066280f-08d7-4ab5-af2b-1171c06404c7",
+            "attribute_name": "Color",
+            "value_id": "7714c4a1-c30b-41d6-9036-410be606ff55",
+            "value": "Blue"
+          },
+          {
+            "attribute_id": "beae1ed1-8eae-455d-87ef-f3a3ca5aec1f",
+            "attribute_name": "Size",
+            "value_id": "197a12f6-c5cd-4089-b745-ad4e53515dda",
+            "value": "S"
+          }
+        ],
+        "discount_percentage": 100
+      }
+    ],
+    "available_attributes": {
+      "b066280f-08d7-4ab5-af2b-1171c06404c7": {
+        "name": "Color",
+        "values": [
+          {
+            "id": "0645bf3f-6223-4d46-93f7-8fa06f81b584",
+            "value": "Red"
+          },
+          {
+            "id": "6edf4676-6e91-4f72-8847-c08577b93f82",
+            "value": "Green"
+          },
+          {
+            "id": "7714c4a1-c30b-41d6-9036-410be606ff55",
+            "value": "Blue"
+          }
+        ]
+      },
+      "beae1ed1-8eae-455d-87ef-f3a3ca5aec1f": {
+        "name": "Size",
+        "values": [
+          {
+            "id": "c4a27ad5-1c8a-42dc-ba23-7015c3de08d0",
+            "value": "M"
+          },
+          {
+            "id": "26c1635b-c1f9-4cc7-bad4-47f5179fe7d0",
+            "value": "L"
+          },
+          {
+            "id": "197a12f6-c5cd-4089-b745-ad4e53515dda",
+            "value": "S"
+          }
+        ]
+      }
+    },
+    "combination_map": {
+      "b066280f-08d7-4ab5-af2b-1171c06404c7:0645bf3f-6223-4d46-93f7-8fa06f81b584|beae1ed1-8eae-455d-87ef-f3a3ca5aec1f:c4a27ad5-1c8a-42dc-ba23-7015c3de08d0": "cc98df23-b0ad-409a-928a-aee28559e04b",
+      "b066280f-08d7-4ab5-af2b-1171c06404c7:6edf4676-6e91-4f72-8847-c08577b93f82|beae1ed1-8eae-455d-87ef-f3a3ca5aec1f:26c1635b-c1f9-4cc7-bad4-47f5179fe7d0": "9bb754d8-3eeb-494e-a640-26007c380fcc",
+      "b066280f-08d7-4ab5-af2b-1171c06404c7:7714c4a1-c30b-41d6-9036-410be606ff55|beae1ed1-8eae-455d-87ef-f3a3ca5aec1f:197a12f6-c5cd-4089-b745-ad4e53515dda": "22430597-f017-4447-bca9-b5e764182114"
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

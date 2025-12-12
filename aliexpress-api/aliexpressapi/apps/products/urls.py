@@ -6,8 +6,9 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_nested.routers import NestedDefaultRouter
 
 # from apps.products.views.product import ProductsViewSet
+# from apps.products.views.products_variants import ProductVariantViewSet
 from apps.products.views.products_variants import ProductVariantViewSet
-from apps.products.views.product_attribute import ProductAttributeViewSet
+# from apps.products.views.product_attribute import ProductAttributeViewSet
 
 # Root router
 router = DefaultRouter()
@@ -19,9 +20,9 @@ products_router.register("variants", ProductVariantViewSet, basename="product-va
 
 # Nested: variant → attributes
 variants_router = NestedDefaultRouter(products_router, "variants", lookup="variant")
-variants_router.register(
-    "attributes", ProductAttributeViewSet, basename="product-variant-attributes"
-)
+# variants_router.register(
+#     "attributes", ProductAttributeViewSet, basename="product-variant-attributes"
+# )
 
 urlpatterns = [
     path("", include(router.urls)),
