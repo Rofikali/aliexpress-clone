@@ -9,6 +9,8 @@ uv init
 uv add django
 uv venv
 uv pip install -r pyproject.toml
+
+uv export > requirements.txt
 ```
 
 ## 🛠 Database Migrations & Superuser
