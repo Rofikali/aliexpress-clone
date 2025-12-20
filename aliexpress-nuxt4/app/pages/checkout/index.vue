@@ -29,6 +29,6 @@ onMounted(initCheckout)
 
 
 
-<CheckoutAddress>
+<!-- <CheckoutAddress>
   <AddressSelector />
-</CheckoutAddress>
+</CheckoutAddress> -->
