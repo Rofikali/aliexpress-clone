@@ -1,6 +1,16 @@
+<!-- <template> -->
+<!-- <div class="checkout-address"> -->
+<!-- <h3>Shipping Address</h3> -->
+<!-- <p>Address form will go here</p> -->
+<!-- </div> -->
+<!-- </template> -->
+
 <template>
   <div class="checkout-address">
-    <h3>Shipping Address</h3>
-    <p>Address form will go here</p>
+    <AddressSelector />
   </div>
 </template>
+
+<script setup>
+import AddressSelector from "./AddressSelector.vue"
+</script>

@@ -1,169 +1,169 @@
 [
   {
     "model": "home.homepagebanner",
-    "pk": "128c80a6-b7be-4634-99d2-f7835472108a",
+    "pk": "985f292e-d17f-4378-9f63-43f409203fe5",
     "fields": {
-      "title": "Left however.",
+      "title": "Miss what on.",
       "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "http://www.reed.com/",
-      "alt_text": "Record old prove part boy.",
+      "link_url": "http://www.johnson.org/",
+      "alt_text": "Explain system clearly next.",
       "sort_order": 0,
       "is_active": true,
-      "created_at": "2025-12-15T12:35:12.665957+00:00",
-      "updated_at": "2025-12-15T12:35:12.665957+00:00"
+      "created_at": "2026-06-21T09:49:55.888768+00:00",
+      "updated_at": "2026-06-21T09:49:55.888768+00:00"
     }
   },
   {
     "model": "home.homepagebanner",
-    "pk": "faef7dbe-3cdc-4254-8675-8610ca372fa8",
+    "pk": "8d4e2c2e-4efb-4944-82aa-b42e2cfe5e67",
     "fields": {
-      "title": "Pay spend receive.",
+      "title": "Prove audience it health.",
       "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "http://www.stanley.biz/",
-      "alt_text": "Increase opportunity such keep.",
+      "link_url": "http://www.horton-deleon.com/",
+      "alt_text": "Among design ground glass share magazine expect.",
       "sort_order": 1,
       "is_active": true,
-      "created_at": "2025-12-15T12:35:12.665957+00:00",
-      "updated_at": "2025-12-15T12:35:12.665957+00:00"
+      "created_at": "2026-06-21T09:49:55.888768+00:00",
+      "updated_at": "2026-06-21T09:49:55.888768+00:00"
     }
   },
   {
     "model": "home.homepagebanner",
-    "pk": "5a8e2da7-b102-4348-8e7d-ac23ee5eb87c",
+    "pk": "82c98f81-2925-455a-b183-81bc0319710f",
     "fields": {
-      "title": "Approach produce.",
+      "title": "Growth provide.",
       "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "https://white.com/",
-      "alt_text": "Century special evidence development happen.",
+      "link_url": "http://www.thompson.org/",
+      "alt_text": "Mind institution drop reflect serious better.",
       "sort_order": 2,
       "is_active": true,
-      "created_at": "2025-12-15T12:35:12.665957+00:00",
-      "updated_at": "2025-12-15T12:35:12.665957+00:00"
+      "created_at": "2026-06-21T09:49:55.888768+00:00",
+      "updated_at": "2026-06-21T09:49:55.888768+00:00"
     }
   },
   {
     "model": "home.homepagepromotion",
-    "pk": "f3ad7e50-e12a-4340-8fc0-29457e7e549a",
+    "pk": "755c5d3e-c70c-4f2d-9031-32f51fa846d9",
     "fields": {
-      "title": "Suffer serious.",
-      "description": "Something specific feel red collection.",
+      "title": "Collection back.",
+      "description": "Million anything hear foreign make.",
       "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "https://www.taylor.com/",
+      "link_url": "https://ramos.com/",
       "sort_order": 0,
       "is_active": true,
-      "created_at": "2025-12-15T12:35:12.665957+00:00",
-      "updated_at": "2025-12-15T12:35:12.665957+00:00"
+      "created_at": "2026-06-21T09:49:55.888768+00:00",
+      "updated_at": "2026-06-21T09:49:55.888768+00:00"
     }
   },
   {
     "model": "home.homepagepromotion",
-    "pk": "bddc84f1-76e8-482b-b9eb-a68302865388",
+    "pk": "a7d4f8bf-8732-443e-ac73-24d49fbdae68",
     "fields": {
-      "title": "Shake see.",
-      "description": "Matter happen letter general itself move society you standard wear.",
+      "title": "Them week board.",
+      "description": "Lawyer tree herself win before safe similar.",
       "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "http://www.robinson-reyes.com/",
+      "link_url": "http://www.moss.com/",
       "sort_order": 1,
       "is_active": true,
-      "created_at": "2025-12-15T12:35:12.665957+00:00",
-      "updated_at": "2025-12-15T12:35:12.665957+00:00"
+      "created_at": "2026-06-21T09:49:55.888768+00:00",
+      "updated_at": "2026-06-21T09:49:55.888768+00:00"
     }
   },
   {
     "model": "home.homepagepromotion",
-    "pk": "7b730d07-e3fc-4f42-a61b-22262b328aa5",
+    "pk": "2b9e6824-5614-4b42-b681-4bcae95d699d",
     "fields": {
-      "title": "Themselves blue fear.",
-      "description": "Herself energy similar shoulder tax.",
+      "title": "Red investment.",
+      "description": "Front approach guess everybody us later reason.",
       "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "https://www.smith.com/",
+      "link_url": "https://mccullough.net/",
       "sort_order": 2,
       "is_active": true,
-      "created_at": "2025-12-15T12:35:12.665957+00:00",
-      "updated_at": "2025-12-15T12:35:12.665957+00:00"
+      "created_at": "2026-06-21T09:49:55.888768+00:00",
+      "updated_at": "2026-06-21T09:49:55.888768+00:00"
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "afe36e49-229d-436e-bdc9-b24fcff6d11a",
+    "pk": "1c62ce96-c6be-4e87-a6ce-b77ab807514c",
     "fields": {
-      "category_id": "06122b2a-fc18-4a89-956c-ac70ac8ed9ba",
+      "category_id": "093a6253-31f8-4a7c-9f94-6516125d06e8",
       "sort_order": 0
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "0c7f97d8-c2de-4509-8931-89d2000089be",
+    "pk": "9daf43aa-3bad-4d54-b7b1-3b67404ba8d6",
     "fields": {
-      "category_id": "0ca840e5-8e1c-4dae-81da-769ae3768335",
+      "category_id": "0a539985-46b4-4d0f-877b-71a4322d996d",
       "sort_order": 1
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "0e4f2ef6-14ba-404d-86c3-fcb5fdc2010c",
+    "pk": "6de20ecf-ccc7-41f0-982e-d240953abd7e",
     "fields": {
-      "category_id": "164b1185-a0d9-4f31-923f-e7a0d5f9e0ae",
+      "category_id": "0b226931-de91-45a0-906a-3ff1f7c3a90a",
       "sort_order": 2
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "b3ec1e9c-2c51-43b4-acbb-dbbdfbb50f79",
+    "pk": "8a64a05e-ee44-485c-bbfe-a2eabe47dff7",
     "fields": {
-      "category_id": "20df9a2a-cde8-4a74-9b4d-24e073d9a41f",
+      "category_id": "10144652-49ff-4aab-a527-b3a086d19150",
       "sort_order": 3
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "cbf0da03-5940-4e9a-9f58-f0f5aa5f4923",
+    "pk": "32576976-7ba1-4238-be11-888639ea51a6",
     "fields": {
-      "category_id": "2126f0af-031d-4c1e-b834-6bb8d6e37c00",
+      "category_id": "161e0af8-b9d8-4939-a25b-017bc6370494",
       "sort_order": 4
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "2a79cca1-cfc7-415e-947a-7e4419c6bbb5",
+    "pk": "259fd6a1-153c-45e5-aa9a-29d972b5a6f0",
     "fields": {
-      "product_id": "08365ab6-c8f4-41a1-9664-5afcf431b930",
+      "product_id": "01dd90ed-4890-4b4e-9962-28087d341ac1",
       "featured_rank": 1,
       "sort_order": 0
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "7fa94902-19f9-45b1-9bad-ef419fbdd871",
+    "pk": "2c01fc5f-fc55-4d90-b48b-a5a75c59682b",
     "fields": {
-      "product_id": "0b304822-32ba-4a1d-993c-d34044a98361",
+      "product_id": "03b102ad-0400-4011-9479-2f35d643e1d3",
       "featured_rank": 2,
       "sort_order": 1
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "c33b2431-62ff-4c40-92e4-4270dbee148c",
+    "pk": "7de586e6-5ac0-4f7b-b54f-4f006e8b78c2",
     "fields": {
-      "product_id": "0fdcdbc1-f749-40e4-b6ff-aab9d6c9a4fc",
+      "product_id": "0d02b753-4a7e-4973-95ed-67c355578e69",
       "featured_rank": 3,
       "sort_order": 2
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "a9bc794a-1369-44cd-ba9f-f646a4e33014",
+    "pk": "3c44387c-5370-4ea8-b635-c7c9328e0382",
     "fields": {
-      "product_id": "147f2e43-59dc-4344-ab16-b03a2ab2e4aa",
+      "product_id": "0f19ce2d-648c-4a39-bed6-e8a3ae7d6a8e",
       "featured_rank": 4,
       "sort_order": 3
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "270f1214-75af-4f14-9a21-b2ecdafca74d",
+    "pk": "261af152-de91-47d7-ad31-6a751a782c7d",
     "fields": {
-      "product_id": "1d7f3d4a-4b59-4ec2-9825-c18dd17af783",
+      "product_id": "20dfd4f4-cc99-46b0-9d69-1bae7fb7ac6a",
       "featured_rank": 5,
       "sort_order": 4
     }
