@@ -1,169 +1,169 @@
 [
   {
     "model": "home.homepagebanner",
-    "pk": "985f292e-d17f-4378-9f63-43f409203fe5",
+    "pk": "fe68ae33-7c1d-4ec9-a04f-1e0b0c4db990",
     "fields": {
-      "title": "Miss what on.",
+      "title": "Option school tonight.",
       "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "http://www.johnson.org/",
-      "alt_text": "Explain system clearly next.",
+      "link_url": "http://smith.org/",
+      "alt_text": "Detail step know room benefit skill.",
       "sort_order": 0,
       "is_active": true,
-      "created_at": "2026-06-21T09:49:55.888768+00:00",
-      "updated_at": "2026-06-21T09:49:55.888768+00:00"
+      "created_at": "2026-06-29T09:19:01.282637+00:00",
+      "updated_at": "2026-06-29T09:19:01.282637+00:00"
     }
   },
   {
     "model": "home.homepagebanner",
-    "pk": "8d4e2c2e-4efb-4944-82aa-b42e2cfe5e67",
+    "pk": "302de69d-57a9-4e45-a8bb-298bf02d87e7",
     "fields": {
-      "title": "Prove audience it health.",
+      "title": "Other follow.",
       "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "http://www.horton-deleon.com/",
-      "alt_text": "Among design ground glass share magazine expect.",
+      "link_url": "http://www.whitaker.com/",
+      "alt_text": "Show painting write from.",
       "sort_order": 1,
       "is_active": true,
-      "created_at": "2026-06-21T09:49:55.888768+00:00",
-      "updated_at": "2026-06-21T09:49:55.888768+00:00"
+      "created_at": "2026-06-29T09:19:01.282637+00:00",
+      "updated_at": "2026-06-29T09:19:01.282637+00:00"
     }
   },
   {
     "model": "home.homepagebanner",
-    "pk": "82c98f81-2925-455a-b183-81bc0319710f",
+    "pk": "c5bdb248-8d9d-4f7d-9d55-c6f789eeb76e",
     "fields": {
-      "title": "Growth provide.",
+      "title": "Expect catch town.",
       "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "http://www.thompson.org/",
-      "alt_text": "Mind institution drop reflect serious better.",
+      "link_url": "http://www.young-johnson.com/",
+      "alt_text": "Those sell do occur suddenly understand.",
       "sort_order": 2,
       "is_active": true,
-      "created_at": "2026-06-21T09:49:55.888768+00:00",
-      "updated_at": "2026-06-21T09:49:55.888768+00:00"
+      "created_at": "2026-06-29T09:19:01.282637+00:00",
+      "updated_at": "2026-06-29T09:19:01.282637+00:00"
     }
   },
   {
     "model": "home.homepagepromotion",
-    "pk": "755c5d3e-c70c-4f2d-9031-32f51fa846d9",
+    "pk": "6f54fdf4-e383-44b5-96e1-f6964a7da076",
     "fields": {
-      "title": "Collection back.",
-      "description": "Million anything hear foreign make.",
+      "title": "Power personal become.",
+      "description": "Money lay front establish bad small.",
       "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "https://ramos.com/",
+      "link_url": "http://miles-ayala.info/",
       "sort_order": 0,
       "is_active": true,
-      "created_at": "2026-06-21T09:49:55.888768+00:00",
-      "updated_at": "2026-06-21T09:49:55.888768+00:00"
+      "created_at": "2026-06-29T09:19:01.282637+00:00",
+      "updated_at": "2026-06-29T09:19:01.282637+00:00"
     }
   },
   {
     "model": "home.homepagepromotion",
-    "pk": "a7d4f8bf-8732-443e-ac73-24d49fbdae68",
+    "pk": "54a3b633-c0c2-4bf2-8ebd-c1427b85191c",
     "fields": {
-      "title": "Them week board.",
-      "description": "Lawyer tree herself win before safe similar.",
+      "title": "Worry cut each.",
+      "description": "Line item court success could.",
       "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "http://www.moss.com/",
+      "link_url": "https://www.atkinson.com/",
       "sort_order": 1,
       "is_active": true,
-      "created_at": "2026-06-21T09:49:55.888768+00:00",
-      "updated_at": "2026-06-21T09:49:55.888768+00:00"
+      "created_at": "2026-06-29T09:19:01.282637+00:00",
+      "updated_at": "2026-06-29T09:19:01.282637+00:00"
     }
   },
   {
     "model": "home.homepagepromotion",
-    "pk": "2b9e6824-5614-4b42-b681-4bcae95d699d",
+    "pk": "860fd78c-7ced-4b5a-a338-cc1485593ca0",
     "fields": {
-      "title": "Red investment.",
-      "description": "Front approach guess everybody us later reason.",
+      "title": "Because customer meet.",
+      "description": "Dinner system wish instead.",
       "image": "E:\\aliexpress-clone\\aliexpress-api\\aliexpressapi\\media\\default.jpg",
-      "link_url": "https://mccullough.net/",
+      "link_url": "http://www.jackson.com/",
       "sort_order": 2,
       "is_active": true,
-      "created_at": "2026-06-21T09:49:55.888768+00:00",
-      "updated_at": "2026-06-21T09:49:55.888768+00:00"
+      "created_at": "2026-06-29T09:19:01.282637+00:00",
+      "updated_at": "2026-06-29T09:19:01.282637+00:00"
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "1c62ce96-c6be-4e87-a6ce-b77ab807514c",
+    "pk": "0f1dd704-61ea-4c49-aef1-b6fe35a7600f",
     "fields": {
-      "category_id": "093a6253-31f8-4a7c-9f94-6516125d06e8",
+      "category_id": "009fe2de-7ef2-45ef-9e2f-1d6a75455f13",
       "sort_order": 0
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "9daf43aa-3bad-4d54-b7b1-3b67404ba8d6",
+    "pk": "87d6f742-a98b-45c9-8e79-dc5c67abb46f",
     "fields": {
-      "category_id": "0a539985-46b4-4d0f-877b-71a4322d996d",
+      "category_id": "00c1d9e9-f1d5-456e-8ddf-50e936ee4312",
       "sort_order": 1
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "6de20ecf-ccc7-41f0-982e-d240953abd7e",
+    "pk": "a5e50f9c-ae0f-4ba1-bbd6-2634cc39b3ee",
     "fields": {
-      "category_id": "0b226931-de91-45a0-906a-3ff1f7c3a90a",
+      "category_id": "07dcba15-3478-46d6-b79a-5d959656aeb6",
       "sort_order": 2
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "8a64a05e-ee44-485c-bbfe-a2eabe47dff7",
+    "pk": "8bb25ac8-4f37-402e-b56e-6bef5a5fa0ba",
     "fields": {
-      "category_id": "10144652-49ff-4aab-a527-b3a086d19150",
+      "category_id": "1a53aa0e-5f83-4227-8515-9cfd73d8222f",
       "sort_order": 3
     }
   },
   {
     "model": "home.homepagecategory",
-    "pk": "32576976-7ba1-4238-be11-888639ea51a6",
+    "pk": "304ac62c-42ea-47e7-9d22-0a030bf90299",
     "fields": {
-      "category_id": "161e0af8-b9d8-4939-a25b-017bc6370494",
+      "category_id": "205925f2-9902-474e-b161-88a1c7ae0b59",
       "sort_order": 4
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "259fd6a1-153c-45e5-aa9a-29d972b5a6f0",
+    "pk": "3a69c73e-4ee7-48cc-ab3f-76f1fe968bc8",
     "fields": {
-      "product_id": "01dd90ed-4890-4b4e-9962-28087d341ac1",
+      "product_id": "01381efb-e2ea-46cc-8031-defa8fafaf0e",
       "featured_rank": 1,
       "sort_order": 0
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "2c01fc5f-fc55-4d90-b48b-a5a75c59682b",
+    "pk": "9f6d88b3-2f6b-488f-b279-6a51b80b2d53",
     "fields": {
-      "product_id": "03b102ad-0400-4011-9479-2f35d643e1d3",
+      "product_id": "01c6506e-fb24-4d3d-985a-19c0c9038214",
       "featured_rank": 2,
       "sort_order": 1
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "7de586e6-5ac0-4f7b-b54f-4f006e8b78c2",
+    "pk": "c81ff087-ea9f-40e3-99b9-ebc562eea040",
     "fields": {
-      "product_id": "0d02b753-4a7e-4973-95ed-67c355578e69",
+      "product_id": "02e09625-7acf-4d70-85c3-a2f2d7b27cd8",
       "featured_rank": 3,
       "sort_order": 2
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "3c44387c-5370-4ea8-b635-c7c9328e0382",
+    "pk": "4c8e19d1-fbfb-4818-9d9c-2bf4591880ea",
     "fields": {
-      "product_id": "0f19ce2d-648c-4a39-bed6-e8a3ae7d6a8e",
+      "product_id": "04423a48-6737-47cc-96dd-5620f5b70dc9",
       "featured_rank": 4,
       "sort_order": 3
     }
   },
   {
     "model": "home.homepageproduct",
-    "pk": "261af152-de91-47d7-ad31-6a751a782c7d",
+    "pk": "f73efb07-3bb0-48c2-9428-98bbe003e679",
     "fields": {
-      "product_id": "20dfd4f4-cc99-46b0-9d69-1bae7fb7ac6a",
+      "product_id": "0cf46106-303c-4341-9798-5a5d0963efab",
       "featured_rank": 5,
       "sort_order": 4
     }

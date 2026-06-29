@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.22",
+    "baseline-browser-mapping": "^2.10.40",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.17"
   }

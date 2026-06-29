@@ -1,0 +1,123 @@
+┌───────────────────────────────────────────────────────────────┐
+│                         CLIENTS                               │
+│  Web / Mobile / Admin / Partner APIs                          │
+└───────────────┬───────────────────────────────────────────────┘
+                │ HTTP / GraphQL / WebSockets
+                ▼
+┌───────────────────────────────────────────────────────────────┐
+│                 INBOUND ADAPTERS (HEXAGONAL)                  │
+│                                                               │
+│  Django Views / Controllers                                   │
+│  Serializers / Validators                                     │
+│  Authentication / Authorization                               │
+│                                                               │
+│  core/domains/*/adapters/inbound/                              │
+└───────────────┬───────────────────────────────────────────────┘
+                │ calls
+                ▼
+┌───────────────────────────────────────────────────────────────┐
+│                 APPLICATION LAYER (CLEAN)                     │
+│                                                               │
+│  Use Cases                                                    │
+│  ─ CreateOrder                                                │
+│  ─ CancelOrder                                                │
+│  ─ RefundPayment                                              │
+│                                                               │
+│  Orchestrates domain + ports                                  │
+│                                                               │
+│  core/domains/*/application/                                  │
+└───────────────┬───────────────────────────────────────────────┘
+                │ invokes
+                ▼
+┌───────────────────────────────────────────────────────────────┐
+│                   DOMAIN LAYER (DDD CORE)                     │
+│                                                               │
+│  Aggregates                                                   │
+│  ─ Order                                                      │
+│  ─ Payment                                                    │
+│                                                               │
+│  Entities, Value Objects, Invariants                           │
+│                                                               │
+│  core/domains/*/domain/                                       │
+│                                                               │
+│  ⚠ NO Django, NO DB, NO HTTP                                  │
+└───────────────┬───────────────────────────────────────────────┘
+                │ emits
+                ▼
+┌───────────────────────────────────────────────────────────────┐
+│                     DOMAIN EVENTS                             │
+│                                                               │
+│  OrderCreated                                                 │
+│  PaymentAuthorized                                            │
+│  InventoryReserved                                            │
+│                                                               │
+│  core/domains/*/events/                                       │
+└───────────────┬───────────────────────────────────────────────┘
+                │ consumed by
+                ▼
+┌───────────────────────────────────────────────────────────────┐
+│                 SAGAS (LONG WORKFLOWS)                        │
+│                                                               │
+│  OrderSaga                                                    │
+│  ─ Step 1: Create Order                                       │
+│  ─ Step 2: Request Payment                                    │
+│  ─ Step 3: Reserve Inventory                                  │
+│  ─ Compensation on failure                                    │
+│                                                               │
+│  core/domains/orders/sagas/                                   │
+└───────────────┬───────────────────────────────────────────────┘
+                │ uses ports
+                ▼
+┌───────────────────────────────────────────────────────────────┐
+│                OUTBOUND PORTS (INTERFACES)                    │
+│                                                               │
+│  PaymentGatewayPort                                           │
+│  OrderRepositoryPort                                          │
+│  EventPublisherPort                                           │
+│                                                               │
+│  core/domains/*/application/ports/outbound/                   │
+└───────────────┬───────────────────────────────────────────────┘
+                │ implemented by
+                ▼
+┌───────────────────────────────────────────────────────────────┐
+│              OUTBOUND ADAPTERS (HEXAGONAL)                    │
+│                                                               │
+│  Django ORM Repositories                                      │
+│  Kafka / RabbitMQ Publishers                                  │
+│  Stripe / Razorpay Clients                                    │
+│                                                               │
+│  core/domains/*/adapters/outbound/                            │
+└───────────────┬───────────────────────────────────────────────┘
+                │ persists / sends
+                ▼
+┌───────────────────────────────────────────────────────────────┐
+│               INFRASTRUCTURE / PLATFORM                       │
+│                                                               │
+│  PostgreSQL / Redis                                           │
+│  Message Broker                                               │
+│  External Payment APIs                                        │
+│                                                               │
+│  core/platform/                                               │
+└───────────────────────────────────────────────────────────────┘
+
+
+═════════════════════════════════════════════════════════════════
+                   CROSS-CUTTING CONCERNS
+═════════════════════════════════════════════════════════════════
+
+┌───────────────────────────────────────────────────────────────┐
+│                     OBSERVABILITY                             │
+│                                                               │
+│  Logs • Metrics • Traces                                      │
+│  correlation_id • saga_id • request_id                        │
+│                                                               │
+│  core/observability/                                          │
+└───────────────────────────────────────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────────┐
+│                     GOVERNANCE                                │
+│                                                               │
+│  ADRs • Architecture Reviews • Ownership                      │
+│                                                               │
+│  core/governance/                                             │
+└───────────────────────────────────────────────────────────────┘
