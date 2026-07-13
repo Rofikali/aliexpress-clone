@@ -30,8 +30,9 @@ async function submit() {
   try {
     await addAddress(form)
     toast.show("Address added", "success")
-  } catch (e: any) {
-    toast.show(e.message, "error")
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unable to save address"
+    toast.show(message, "error")
   }
 }
 </script>

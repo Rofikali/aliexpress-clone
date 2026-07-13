@@ -12,5 +12,5 @@
 </template>
 
 <script setup>
-import AddressSelector from "./AddressSelector.vue"
+import AddressSelector from "../address/AddressSelector.vue"
 </script>

@@ -1,5 +1,5 @@
 <script setup>
-import { useAuth } from '~/app/composables/useAuth'
+import { useAuth } from "~/composables/useAuth"
 
 definePageMeta({
     middleware: 'auth'

@@ -134,6 +134,8 @@ Staff-level quality is demonstrated by operational discipline, not folder count:
 - Structured logging, correlation IDs, health checks, and deployment runbooks
 - ADRs for material architecture changes
 
+The complete working agreements are in the [engineering system](docs/engineering/README.md).
+
 ## Current Limitations
 
 - The Django bootstrap selects development or production settings from `DEBUG`; use `DJANGO_SETTINGS_MODULE=configs.settings.dev` explicitly during local development until that bootstrap is simplified.

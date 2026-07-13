@@ -1,3 +1,14 @@
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail
+from django.urls import reverse
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+
 class SendVerificationEmail(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -9,13 +20,12 @@ class SendVerificationEmail(APIView):
             )
 
         # Generate email verification token
-        uid = urlsafe_base64_encode(user.pk.encode("utf-8"))
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
         token = default_token_generator.make_token(user)
 
-        # Generate verification link
-        verification_link = f"http://{get_current_site(request).domain}{
-            reverse('email_verification', kwargs={'uidb64': uid, 'token': token})
-        }"
+        verification_link = request.build_absolute_uri(
+            reverse("email_verification", kwargs={"uidb64": uid, "token": token})
+        )
 
         # Send verification email
         send_mail(

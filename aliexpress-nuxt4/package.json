@@ -7,6 +7,9 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "typecheck": "nuxt typecheck",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
@@ -22,8 +25,11 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.22",
+    "@vue/test-utils": "^2.4.6",
     "baseline-browser-mapping": "^2.10.40",
+    "happy-dom": "^17.6.1",
     "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.17"
+    "tailwindcss": "^4.1.17",
+    "vitest": "^3.2.4"
   }
 }

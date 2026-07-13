@@ -5,9 +5,10 @@ This directory is the architectural source of truth for the AliExpress clone. Th
 ## Start Here
 
 1. Read [the target architecture](architecture-roadmap.md).
-2. Read the backend rules in `../aliexpress-api/docs/`.
-3. Read the frontend rules in `../aliexpress-nuxt4/docs/`.
-4. Record material decisions as ADRs before changing cross-module boundaries.
+2. Read the [engineering system](engineering/README.md).
+3. Read the backend rules in `../aliexpress-api/docs/`.
+4. Read the frontend rules in `../aliexpress-nuxt4/docs/`.
+5. Record material decisions as ADRs before changing cross-module boundaries.
 
 ## Non-Negotiable Decisions
 
