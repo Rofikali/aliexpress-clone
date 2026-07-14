@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from rest_framework.permissions import AllowAny
 from django.shortcuts import get_object_or_404
 
 from apps.home.models.banner import HomepageBanner
@@ -14,6 +15,8 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse
 # Banner endpoints
 # -----------------------------
 class BannerViewSet(viewsets.ViewSet):
+    permission_classes = [AllowAny]
+
     @extend_schema(
         responses={200: HomepageBannerSerializer(many=True)},
         tags=["Homepage"],

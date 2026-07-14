@@ -23,6 +23,7 @@ from components.caching.cache_factory import get_cache
 
 # DRF core imports
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ViewSet
 
 
@@ -36,6 +37,8 @@ class SearchProductsViewSet(ViewSet):
     - Supports infinite scroll pagination.
     - Utilizes caching to reduce database load on repeated searches.
     """
+
+    permission_classes = [AllowAny]
 
     @extend_schema(
         parameters=[
@@ -75,7 +78,7 @@ class SearchProductsViewSet(ViewSet):
             if not query:
                 return ResponseFactory.error(
                     message="No query provided.",
-                    status_code=status.HTTP_400_BAD_REQUEST,
+                    status=status.HTTP_400_BAD_REQUEST,
                     request=request,
                 )
 

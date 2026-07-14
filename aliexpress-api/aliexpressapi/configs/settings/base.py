@@ -1,29 +1,37 @@
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
+from datetime import timedelta
 from pathlib import Path
 
-from datetime import timedelta
+from django.core.exceptions import ImproperlyConfigured
+from dotenv import load_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR.parent / ".env")
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = "django-insecure-t6ge2uc2tz-i7_^fn#zl8(y3u@7_7nca^5%$4)3jw%)4cc3y7y"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "false").lower() == "true"
-
-# ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
+def env_bool(name: str, default: bool = False) -> bool:
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on"}
 
 
-# Application definition
+def env_csv(name: str, default: tuple[str, ...] = ()) -> list[str]:
+    value = os.getenv(name)
+    if value is None:
+        return list(default)
+    return [item.strip() for item in value.split(",") if item.strip()]
+
+
+def require_env(name: str) -> str:
+    value = os.getenv(name)
+    if not value:
+        raise ImproperlyConfigured(f"{name} must be configured")
+    return value
+
+
+DEBUG = False
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -32,43 +40,37 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # external apps
     "rest_framework",
     "corsheaders",
     "drf_spectacular",
     "rest_framework_simplejwt",
-    "rest_framework_simplejwt.token_blacklist",  # optional but highly recommended
+    "rest_framework_simplejwt.token_blacklist",
     "nested_admin",
-    # internet apps
     "apps.home",
     "apps.accounts",
     "apps.products",
     "apps.order",
     "apps.carts",
     "apps.search",
-    'apps.checkout',
+    "apps.checkout",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    # corse header
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    # ... after auth middleware made my me with helped
-    # "components.throttling.middleware.RateLimitHeadersMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # made my me custom middleware
     "components.middleware.request_timer.RequestTimerMiddleware",
-    # 👇 Add our middleware at the end (after auth)
     "components.middleware.kyc_middleware.EnforceKYCApprovalMiddleware",
 ]
 
-# ROOT_URLCONF = "aliexpressapi.urls"
 ROOT_URLCONF = "configs.urls"
+WSGI_APPLICATION = "configs.wsgi.application"
+ASGI_APPLICATION = "configs.asgi.application"
 
 TEMPLATES = [
     {
@@ -85,110 +87,61 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "configs.wsgi.application"
-# WSGI_APPLICATION = "aliexpressapi.wsgi.application"
-
-# settings.py # make it true in production
-ENFORCE_KYC = os.environ.get("ENFORCE_KYC", default=False)
-ENFORCE_KYC = os.environ.get("ENFORCE_KYC")
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+ENFORCE_KYC = env_bool("ENFORCE_KYC")
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR.parent / "static"
-
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR.parent / "media"
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-# AUTH_USER_MODEL = "api.User"  # 'api' should be the name of your app
-AUTH_USER_MODEL = (
-    "accounts.User"  # "accounts.User"  # 'accounts' should be the name of your app
-)
-
+AUTH_USER_MODEL = "accounts.User"
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
+    "DEFAULT_AUTHENTICATION_CLASSES": [
         "components.authentication.backends.CustomJWTAuthentication",
-    ),
-    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.AllowAny",
     ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "EXCEPTION_HANDLER": "components.exceptions.handlers.custom_exception_handler",
 }
 
-
-# settings.py
 SIMPLE_JWT = {
-    "ALGORITHM": "HS256",  # Prefer RS256/ES256 + JWKS if you can manage keys
-    "SIGNING_KEY": os.environ.get("JWT_SIGNING_KEY"),  # do NOT hardcode
-    "VERIFYING_KEY": os.environ.get("JWT_VERIFYING_KEY", default=""),
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": os.getenv("JWT_SIGNING_KEY"),
+    "VERIFYING_KEY": os.getenv("JWT_VERIFYING_KEY", ""),
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=15),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
     "UPDATE_LAST_LOGIN": True,
     "AUTH_HEADER_TYPES": ("Bearer",),
-    "LEEWAY": 10,  # small clock drift
+    "LEEWAY": 10,
 }
 
-# Cookies (if you choose cookie-backed refresh)
 JWT_REFRESH_COOKIE = "refresh_token"
-JWT_ACCESS_COOKIE = ""  # keep access in header
-JWT_COOKIE_SAMESITE = "Strict"  # or "Lax" for cross-subdomain UX
-JWT_COOKIE_SECURE = True  # True in production (HTTPS required)
+JWT_ACCESS_COOKIE = ""
 JWT_COOKIE_HTTPONLY = True
-
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "AliExpress Clone API",
-    "DESCRIPTION": "Real-world e-commerce backend with DRF & Nuxt3",
+    "DESCRIPTION": "Marketplace API built with Django REST Framework",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
     "COMPONENT_SPLIT_REQUEST": True,
-    "SERVERS": [{"url": "http://localhost:8000", "description": "Local dev"}],
-    "SECURITY": [
-        {"BearerAuth": []},  # globally enable JWT auth
-    ],
-    "AUTHENTICATION_WHITELIST": [],  # optional, if you have public endpoints
+    "SECURITY": [{"BearerAuth": []}],
+    "AUTHENTICATION_WHITELIST": [],
     "COMPONENTS": {
         "securitySchemes": {
             "BearerAuth": {
@@ -199,3 +152,7 @@ SPECTACULAR_SETTINGS = {
         }
     },
 }
+
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = "DENY"
+SECURE_REFERRER_POLICY = "same-origin"

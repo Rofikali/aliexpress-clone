@@ -12,6 +12,8 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse
 # Promotions endpoints
 # -----------------------------
 class HomepagePromotionViewSet(viewsets.ViewSet):
+    permission_classes = [AllowAny]
+
     @extend_schema(
         responses={200: HomepagePromotionSerializer(many=True)},
         tags=["Homepage"],

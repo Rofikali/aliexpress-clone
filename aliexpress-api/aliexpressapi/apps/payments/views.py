@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ViewSet
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 
@@ -11,7 +11,7 @@ from components.responses.response_factory import ResponseFactory
 
 
 class PaymentViewSet(ViewSet):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

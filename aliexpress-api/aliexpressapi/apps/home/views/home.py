@@ -1,5 +1,6 @@
 # apps/home/views/home_viewset.py
 from rest_framework import viewsets, status
+from rest_framework.permissions import AllowAny
 from drf_spectacular.utils import extend_schema
 
 from components.caching.cache_factory import get_cache
@@ -117,6 +118,8 @@ class HomepageViewSet(viewsets.ViewSet):
     """
     Aggregated homepage data for frontend (like Amazon/Flipkart).
     """
+
+    permission_classes = [AllowAny]
 
     @extend_schema(
         responses={

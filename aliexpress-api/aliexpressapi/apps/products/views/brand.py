@@ -2,6 +2,7 @@
 # apps.products/viewsets.py
 from rest_framework.viewsets import ViewSet
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 from django.shortcuts import get_object_or_404
 
 from drf_spectacular.utils import extend_schema
@@ -21,6 +22,7 @@ from components.paginations.base_pagination import BaseCursorPagination
 
 # -------------------- BRAND --------------------
 class BrandViewSet(ViewSet):
+    permission_classes = [AllowAny]
     cache = get_cache("brands")
 
     @extend_schema(

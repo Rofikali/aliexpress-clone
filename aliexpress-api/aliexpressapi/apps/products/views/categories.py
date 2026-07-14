@@ -131,6 +131,7 @@
 
 
 from rest_framework.viewsets import ViewSet
+from rest_framework.permissions import AllowAny
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from apps.products.models.category import Category
@@ -143,6 +144,7 @@ from components.paginations.base_pagination import BaseCursorPagination
 
 
 class CategoryViewSet(ViewSet):
+    permission_classes = [AllowAny]
     cache = get_cache("categories")
 
     @extend_schema(

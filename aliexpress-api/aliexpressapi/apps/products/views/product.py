@@ -124,6 +124,7 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Prefetch
 from rest_framework.viewsets import ViewSet
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 
 from components.responses.response_factory import ResponseFactory
@@ -143,7 +144,7 @@ from apps.products.serializers.product import (
 
 
 class ProductsViewSet(ViewSet):
-    permission_classes = []  # set your permissions
+    permission_classes = [AllowAny]
     pagination_class = BaseCursorPagination
     cache = get_cache("products")  # product-level cache
     # permission_classes = [AllowAny]

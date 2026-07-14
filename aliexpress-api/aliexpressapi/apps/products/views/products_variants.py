@@ -1,6 +1,7 @@
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema
 from components.responses.response_factory import ResponseFactory
@@ -14,6 +15,8 @@ import sys
 
 
 class ProductVariantViewSet(ViewSet):
+    permission_classes = [AllowAny]
+
     def get_queryset(self, product_id=None):
         qs = ProductVariant.objects.all()
         if product_id:

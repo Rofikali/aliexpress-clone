@@ -12,6 +12,7 @@ The DRF backend is a modular monolith. Django is the delivery and persistence fr
 
 - [Module design and dependency rules](module-design.md)
 - [API, events, and extraction strategy](contracts-and-evolution.md)
+- [Production configuration and runtime operations](operations.md)
 - [Existing backend notes and their status](source-notes.md)
 
 ## Working Rule

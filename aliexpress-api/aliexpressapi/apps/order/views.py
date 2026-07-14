@@ -169,7 +169,7 @@
 
 
 from rest_framework.viewsets import ViewSet
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 
@@ -181,7 +181,7 @@ from components.paginations.base_pagination import BaseCursorPagination
 
 
 class OrderViewSet(ViewSet):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     pagination_class = BaseCursorPagination
 
     def __init__(self, **kwargs):

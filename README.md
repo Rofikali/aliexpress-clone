@@ -47,6 +47,7 @@ Read the architecture guides:
 
 - [System architecture roadmap](docs/architecture-roadmap.md)
 - [Backend architecture guide](aliexpress-api/docs/README.md)
+- [Backend operations guide](aliexpress-api/docs/operations.md)
 - [Frontend architecture guide](aliexpress-nuxt4/docs/README.md)
 
 ## Repository Layout
@@ -87,6 +88,8 @@ uv run manage.py runserver 127.0.0.1:8000
 Useful endpoints:
 
 - API root: `http://127.0.0.1:8000/api/v1/`
+- Liveness: `http://127.0.0.1:8000/healthz/`
+- Readiness: `http://127.0.0.1:8000/readyz/`
 - OpenAPI schema: `http://127.0.0.1:8000/api/schema/`
 - Swagger UI: `http://127.0.0.1:8000/api/schema/swagger-ui/`
 - Django admin: `http://127.0.0.1:8000/admin/`
@@ -107,7 +110,7 @@ The Nuxt runtime configuration currently targets `http://localhost:8000/api/v1`.
 
 ## Environment Configuration
 
-Keep secrets in `aliexpress-api/aliexpressapi/.env`; never commit them. At minimum, configure a development secret and JWT signing key. Production additionally requires a PostgreSQL database configuration.
+Copy `aliexpress-api/aliexpressapi/.env.example` to `aliexpress-api/aliexpressapi/.env` and replace its placeholder values. Keep secrets out of source control. Production additionally requires PostgreSQL and explicitly configured hosts/origins.
 
 ```dotenv
 DEBUG=true
