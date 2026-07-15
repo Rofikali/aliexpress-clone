@@ -74,12 +74,16 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework.decorators import action
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
+from pydantic import ValidationError
 
+from apps.carts.contracts import AddCartItemCommand
+from apps.carts.errors import CartConflictError
 from apps.carts.services.cart_service import CartService
 from apps.carts.repositories.cart_repository import CartRepository
 from apps.carts.serializers.cart import CartSerializer
 from components.responses.response_factory import ResponseFactory
 from apps.carts.utils.session import get_or_create_cart_session_id
+from components.validation.pydantic import format_pydantic_errors
 
 
 class CartViewSet(ViewSet):
@@ -120,20 +124,31 @@ class CartViewSet(ViewSet):
     )
     @action(detail=False, methods=["post"])
     def add_item(self, request):
-        if "product_variant_id" not in request.data:
+        try:
+            command = AddCartItemCommand.model_validate(request.data)
+        except ValidationError as error:
             return ResponseFactory.error(
-                message="product_variant_id is required",
+                message="Request validation failed",
+                errors=format_pydantic_errors(error),
                 status=status.HTTP_400_BAD_REQUEST,
                 request=request,
             )
 
         cart = self.get_cart(request)
 
-        self.service.add_item(
-            cart=cart,
-            variant_id=request.data["product_variant_id"],
-            quantity=int(request.data.get("quantity", 1)),
-        )
+        try:
+            self.service.add_item(
+                cart=cart,
+                variant_id=command.product_variant_id,
+                quantity=command.quantity,
+            )
+        except CartConflictError as error:
+            return ResponseFactory.error(
+                message=str(error),
+                errors=[{"code": error.code, "message": str(error)}],
+                status=error.status_code,
+                request=request,
+            )
 
         serializer = CartSerializer(cart, context={"request": request})
         return ResponseFactory.success_resource(

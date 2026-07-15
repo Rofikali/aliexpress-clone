@@ -64,6 +64,10 @@ pnpm build
 
 The GitHub Actions workflow in `.github/workflows/quality.yml` runs these backend and frontend checks on pull requests and pushes to `main`.
 
+## Current Backend Coverage
+
+`aliexpress-api/aliexpressapi/tests/integration/test_auth_and_permissions.py` covers registration and verification-gated login, public-versus-protected route access, authenticated cart add/increment validation, and transactional checkout. Cart and checkout commands use Pydantic to reject malformed UUIDs, invalid quantities, unexpected fields, and missing idempotency keys before they reach application services. Checkout coverage verifies current-price snapshots, inventory reservation, retry replay, stock conflicts, and buyer-scoped idempotency. Expand this suite alongside each endpoint; it is a starting safety net, not complete marketplace coverage.
+
 ## Next Tooling Additions
 
 Add browser tests for the critical journey suite, OpenAPI-to-TypeScript contract validation, coverage reporting, dependency/security scanning, and performance tests as the associated features mature.

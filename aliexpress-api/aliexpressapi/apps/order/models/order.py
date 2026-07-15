@@ -94,8 +94,16 @@ class Order(models.Model):
         max_length=20, choices=Status.choices, default=Status.PENDING
     )
 
-    idempotency_key = models.UUIDField(unique=True)
+    idempotency_key = models.UUIDField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "idempotency_key"],
+                name="order_user_idempotency_key_unique",
+            )
+        ]
 
     def __str__(self):
         return f"Order({self.id})"

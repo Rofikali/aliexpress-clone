@@ -74,6 +74,13 @@ class Cart(models.Model):
             models.Index(fields=["user", "is_active"]),
             models.Index(fields=["session_id", "is_active"]),
         ]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user"],
+                condition=models.Q(user__isnull=False, is_active=True),
+                name="carts_one_active_cart_per_user",
+            )
+        ]
 
     def __str__(self):
         owner = self.user_id or self.session_id

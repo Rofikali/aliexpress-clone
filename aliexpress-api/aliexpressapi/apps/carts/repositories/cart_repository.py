@@ -132,6 +132,7 @@ from django.shortcuts import get_object_or_404
 
 from apps.carts.models.cart import Cart
 from apps.carts.models.cartItem import CartItem
+from apps.carts.errors import CartConflictError
 from apps.products.models.product_variant import ProductVariant
 
 
@@ -161,11 +162,18 @@ class CartRepository:
             if cart:
                 return cart
 
-            return Cart.objects.create(
-                user=user,
-                session_id=None,
-                is_active=True,
-            )
+            try:
+                with transaction.atomic():
+                    return Cart.objects.create(
+                        user=user,
+                        session_id=None,
+                        is_active=True,
+                    )
+            except IntegrityError:
+                return Cart.objects.select_for_update().get(
+                    user=user,
+                    is_active=True,
+                )
 
         if session_id:
             cart = (
@@ -198,15 +206,19 @@ class CartRepository:
             is_active=True,
         )
 
+    def get_mutable_cart(self, *, cart):
+        locked_cart = Cart.objects.select_for_update().get(id=cart.id)
+        if not locked_cart.is_active or locked_cart.is_locked:
+            raise CartConflictError("Cart is no longer available for updates")
+        return locked_cart
+
     @transaction.atomic
     def add_item(
         self, *, cart: Cart, variant: ProductVariant, quantity: int
     ) -> CartItem:
+        cart = self.get_mutable_cart(cart=cart)
         if quantity <= 0:
             raise ValueError("Quantity must be greater than zero")
-
-        if cart.is_locked:
-            raise PermissionError("Cart is locked for checkout")
 
         item, created = CartItem.objects.select_for_update().get_or_create(
             cart=cart,
@@ -226,11 +238,9 @@ class CartRepository:
 
     @transaction.atomic
     def update_item(self, *, cart: Cart, item_id: str, quantity: int) -> CartItem:
+        cart = self.get_mutable_cart(cart=cart)
         if quantity <= 0:
             raise ValueError("Quantity must be greater than zero")
-
-        if cart.is_locked:
-            raise PermissionError("Cart is locked for checkout")
 
         item = CartItem.objects.select_for_update().get(id=item_id, cart=cart)
         item.quantity = quantity
@@ -240,7 +250,6 @@ class CartRepository:
 
     @transaction.atomic
     def remove_item(self, *, cart: Cart, item_id: str) -> None:
-        if cart.is_locked:
-            raise PermissionError("Cart is locked for checkout")
+        cart = self.get_mutable_cart(cart=cart)
 
         CartItem.objects.select_for_update().get(id=item_id, cart=cart).delete()

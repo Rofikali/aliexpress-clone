@@ -138,7 +138,7 @@
 
 from rest_framework.response import Response
 from uuid import uuid4
-from datetime import datetime
+from datetime import UTC, datetime
 import time
 
 
@@ -190,7 +190,7 @@ class ResponseFactory:
             "message": message,
             "request": {
                 "id": str(uuid4()),
-                "timestamp": datetime.utcnow().isoformat() + "Z",
+                "timestamp": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
                 "latency_ms": round((time.time() - start_time) * 1000, 2),
                 "region": "Nepal-01",
                 "cache": cache if cache else "MISS",
