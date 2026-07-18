@@ -63,7 +63,9 @@ This is an order-creation and inventory-reservation boundary only. It does not c
 
 Successful checkout now persists an `order.created` event in the same database transaction as the order, inventory reservation, and cart deactivation. The event payload is typed, is unique per order/event type, and begins in the `PENDING` state. A rejected checkout or an idempotent replay does not create another event.
 
-The outbox is deliberately **persistence only** at this stage. No dispatcher, broker, payment-provider call, or webhook consumer is enabled. Before enabling external effects, add a worker that claims due events using database row locks, increments attempts, applies bounded exponential backoff, records terminal failures, and marks events `PUBLISHED` only after the downstream acknowledgement. Alert on pending-event age and failed-event count, then build reconciliation for any order without its expected event.
+The outbox dispatcher now claims due events with a processing lease, increments attempts, applies bounded exponential backoff, reclaims expired leases, and records terminal failures. It invokes a publisher only after the claim transaction commits and marks an event `PUBLISHED` only after that publisher returns successfully.
+
+No broker-specific publisher is configured yet. Deploy a dedicated worker that injects an adapter implementing `OutboxPublisher` from `apps.outbox.dispatcher`; the adapter must publish the event ID and support the target broker's acknowledgement semantics. Delivery is at-least-once: downstream consumers must deduplicate by event ID and be safe when receiving the same event again. Alert on pending-event age, processing-lease age, retry count, and failed-event count; reconcile orders that do not have their expected published event.
 
 Apply the included order and cart migrations before deployment:
 
@@ -73,7 +75,7 @@ uv run manage.py migrate --settings=configs.settings.prod
 
 ## Next Hardening Work
 
-1. Implement an outbox dispatcher with a real broker, retry policy, dead-letter operations, and reconciliation.
+1. Implement a broker-specific `OutboxPublisher`, worker process, dead-letter operations, and reconciliation dashboard.
 2. Add shipping-address and payment-intent domains with Pydantic commands and contract tests.
 3. Implement signed webhook verification and compensation paths for payment failures, expiry, cancellation, and refunds.
 4. Add structured request IDs, JSON logging, metrics, alerts, PostgreSQL concurrency tests, and browser end-to-end checkout coverage to CI.

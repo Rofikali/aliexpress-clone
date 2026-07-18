@@ -24,6 +24,7 @@ class OutboxEvent(models.Model):
     )
     attempts = models.PositiveIntegerField(default=0)
     available_at = models.DateTimeField(default=timezone.now, db_index=True)
+    processing_started_at = models.DateTimeField(null=True, blank=True)
     published_at = models.DateTimeField(null=True, blank=True)
     last_error = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
