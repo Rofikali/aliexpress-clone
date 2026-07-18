@@ -15,6 +15,7 @@ from apps.products.models.product import Product
 from apps.products.models.product_variant import ProductVariant
 from apps.order.models.order import Order
 from apps.order.models.order_item import OrderItem
+from apps.outbox.models import OutboxEvent
 
 
 User = get_user_model()
@@ -243,6 +244,17 @@ def test_checkout_reserves_inventory_and_snapshots_current_variant_price():
     assert variant.stock == 8
     assert not cart.is_active
     assert cart.is_locked
+    event = OutboxEvent.objects.get(
+        aggregate_type="order",
+        aggregate_id=order.id,
+        event_type="order.created",
+    )
+    assert event.status == OutboxEvent.Status.PENDING
+    assert event.payload == {
+        "order_id": str(order.id),
+        "user_id": str(buyer.id),
+        "total_price": "250.00",
+    }
 
 
 @pytest.mark.django_db
@@ -274,6 +286,7 @@ def test_checkout_replay_returns_original_order_without_second_stock_reservation
     assert replay_response.status_code == 200
     assert replay_response.json()["data"] == first_response.json()["data"]
     assert Order.objects.filter(user=buyer, idempotency_key=key).count() == 1
+    assert OutboxEvent.objects.filter(event_type="order.created").count() == 1
     variant.refresh_from_db()
     assert variant.stock == 8
 
@@ -304,6 +317,7 @@ def test_checkout_rejects_insufficient_inventory_without_mutating_cart_or_stock(
     assert response.status_code == 409
     assert response.json()["errors"][0]["code"] == "CHECKOUT_CONFLICT"
     assert Order.objects.count() == 0
+    assert OutboxEvent.objects.count() == 0
     variant.refresh_from_db()
     cart.refresh_from_db()
     assert variant.stock == 1

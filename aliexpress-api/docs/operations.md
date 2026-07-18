@@ -57,7 +57,13 @@ The current checkout endpoint requires an `Idempotency-Key` UUID header. Within 
 - Deactivates and locks the completed cart, while enforcing one active cart per authenticated buyer.
 - Scopes idempotency keys to the buyer, so separate buyers may safely use the same key.
 
-This is an order-creation and inventory-reservation boundary only. It does not charge a payment method, persist shipping details, publish an event, or implement compensation for cancelled/expired orders. Do not connect a payment provider until a transactional outbox and webhook verification flow are implemented.
+This is an order-creation and inventory-reservation boundary only. It does not charge a payment method, persist shipping details, publish an event externally, or implement compensation for cancelled/expired orders. Do not connect a payment provider until an outbox dispatcher and webhook verification flow are implemented.
+
+## Transactional Outbox
+
+Successful checkout now persists an `order.created` event in the same database transaction as the order, inventory reservation, and cart deactivation. The event payload is typed, is unique per order/event type, and begins in the `PENDING` state. A rejected checkout or an idempotent replay does not create another event.
+
+The outbox is deliberately **persistence only** at this stage. No dispatcher, broker, payment-provider call, or webhook consumer is enabled. Before enabling external effects, add a worker that claims due events using database row locks, increments attempts, applies bounded exponential backoff, records terminal failures, and marks events `PUBLISHED` only after the downstream acknowledgement. Alert on pending-event age and failed-event count, then build reconciliation for any order without its expected event.
 
 Apply the included order and cart migrations before deployment:
 
@@ -67,7 +73,7 @@ uv run manage.py migrate --settings=configs.settings.prod
 
 ## Next Hardening Work
 
-1. Add shipping-address and payment-intent domains with Pydantic commands and contract tests.
-2. Implement a transactional outbox, signed webhook verification, and compensation paths for payment failures, expiry, cancellation, and refunds.
-3. Add structured request IDs, JSON logging, metrics, and alerting around checkout, inventory, and webhooks.
-4. Add dependency/security scanning, concurrent checkout tests against PostgreSQL, and browser end-to-end checkout coverage to CI.
+1. Implement an outbox dispatcher with a real broker, retry policy, dead-letter operations, and reconciliation.
+2. Add shipping-address and payment-intent domains with Pydantic commands and contract tests.
+3. Implement signed webhook verification and compensation paths for payment failures, expiry, cancellation, and refunds.
+4. Add structured request IDs, JSON logging, metrics, alerts, PostgreSQL concurrency tests, and browser end-to-end checkout coverage to CI.

@@ -1,11 +1,13 @@
 from apps.carts.context.unit_of_work import UnitOfWork
 from apps.checkout.errors import EmptyCartError
 from apps.checkout.repositories.checkout_repository import CheckoutRepository
+from apps.outbox.services import OutboxService
 
 
 class CheckoutService:
-    def __init__(self, repo: CheckoutRepository):
+    def __init__(self, repo: CheckoutRepository, outbox: OutboxService):
         self.repo = repo
+        self.outbox = outbox
 
     def checkout(self, *, user, idempotency_key):
         existing_order = self.repo.get_order_by_idempotency_key(
@@ -46,6 +48,7 @@ class CheckoutService:
             )
 
             if created:
+                self.outbox.record_order_created(order=order)
                 self.repo.deactivate_cart(cart)
 
         return order, created

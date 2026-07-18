@@ -12,6 +12,8 @@ from apps.checkout.contracts import CheckoutCommand
 from apps.checkout.errors import CheckoutError
 from apps.checkout.services.checkout_service import CheckoutService
 from apps.checkout.repositories.checkout_repository import CheckoutRepository
+from apps.outbox.repositories import OutboxRepository
+from apps.outbox.services import OutboxService
 from components.responses.response_factory import ResponseFactory
 from components.validation.pydantic import format_pydantic_errors
 
@@ -21,7 +23,10 @@ class CheckoutViewSet(ViewSet):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.service = CheckoutService(CheckoutRepository())
+        self.service = CheckoutService(
+            CheckoutRepository(),
+            OutboxService(OutboxRepository()),
+        )
 
     @extend_schema(
         parameters=[
