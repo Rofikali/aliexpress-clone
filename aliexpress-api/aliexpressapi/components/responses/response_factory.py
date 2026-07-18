@@ -189,7 +189,7 @@ class ResponseFactory:
             "code": code,
             "message": message,
             "request": {
-                "id": str(uuid4()),
+                "id": getattr(request, "request_id", str(uuid4())),
                 "timestamp": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
                 "latency_ms": round((time.time() - start_time) * 1000, 2),
                 "region": "Nepal-01",

@@ -24,6 +24,16 @@ def env_csv(name: str, default: tuple[str, ...] = ()) -> list[str]:
     return [item.strip() for item in value.split(",") if item.strip()]
 
 
+def env_int(name: str, default: int) -> int:
+    value = os.getenv(name)
+    if value is None:
+        return default
+    try:
+        return int(value)
+    except ValueError as error:
+        raise ImproperlyConfigured(f"{name} must be an integer") from error
+
+
 def require_env(name: str) -> str:
     value = os.getenv(name)
     if not value:
@@ -89,6 +99,13 @@ TEMPLATES = [
 ]
 
 ENFORCE_KYC = env_bool("ENFORCE_KYC")
+LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
+RABBITMQ_URL = os.getenv("RABBITMQ_URL", "")
+RABBITMQ_EXCHANGE = os.getenv("RABBITMQ_EXCHANGE", "marketplace.events")
+OUTBOX_MAX_ATTEMPTS = env_int("OUTBOX_MAX_ATTEMPTS", 5)
+OUTBOX_RETRY_BASE_SECONDS = env_int("OUTBOX_RETRY_BASE_SECONDS", 30)
+OUTBOX_LEASE_SECONDS = env_int("OUTBOX_LEASE_SECONDS", 300)
+METRICS_BEARER_TOKEN = os.getenv("METRICS_BEARER_TOKEN", "")
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
@@ -157,3 +174,33 @@ SPECTACULAR_SETTINGS = {
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = "DENY"
 SECURE_REFERRER_POLICY = "same-origin"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "json": {
+            "()": "components.observability.logging.JsonFormatter",
+        }
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "json",
+        }
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": LOG_LEVEL,
+    },
+    "loggers": {
+        "django.server": {
+            "handlers": ["console"],
+            "level": LOG_LEVEL,
+            "propagate": False,
+        },
+        "pika": {
+            "level": "WARNING",
+        },
+    },
+}

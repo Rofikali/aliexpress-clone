@@ -9,6 +9,7 @@ Architecture is useful only when it changes everyday engineering behavior. This 
 3. Apply the [security baseline](security-baseline.md) to all code and configuration changes.
 4. Use [reliability and operations](reliability-and-operations.md) for customer-impacting paths.
 5. Meet the [delivery quality gates](delivery-quality-gates.md) before merge or release.
+6. Follow [observability](observability.md) when adding HTTP, worker, or integration behavior.
 
 ## Principle
 

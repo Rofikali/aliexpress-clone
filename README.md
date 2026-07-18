@@ -70,6 +70,7 @@ Read the architecture guides:
 - [uv](https://docs.astral.sh/uv/)
 - Node.js LTS and pnpm
 - PostgreSQL only when using production settings
+- Docker Desktop for the local RabbitMQ and Prometheus stack
 
 ## Local Development
 
@@ -83,6 +84,13 @@ uv sync
 $env:DJANGO_SETTINGS_MODULE = "configs.settings.dev"
 uv run manage.py migrate
 uv run manage.py runserver 127.0.0.1:8000
+```
+
+Optional local broker and metrics stack:
+
+```powershell
+docker compose -f docker-compose.observability.yml up -d
+uv run manage.py dispatch_outbox --once
 ```
 
 Useful endpoints:

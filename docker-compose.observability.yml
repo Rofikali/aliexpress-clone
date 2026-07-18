@@ -1,0 +1,25 @@
+services:
+  rabbitmq:
+    image: rabbitmq:4-management
+    environment:
+      RABBITMQ_DEFAULT_USER: aliexpress
+      RABBITMQ_DEFAULT_PASS: change-me
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - ./infra/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./infra/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./infra/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+
+volumes:
+  rabbitmq_data:

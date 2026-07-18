@@ -35,6 +35,31 @@ uv run pytest
 uv run manage.py check --settings=configs.settings.dev
 ```
 
+## Local RabbitMQ and Metrics
+
+Start the local broker and Prometheus stack from the repository root:
+
+```powershell
+docker compose -f docker-compose.observability.yml up -d
+```
+
+RabbitMQ exposes AMQP on `localhost:5672` and its management UI on `http://localhost:15672`. Prometheus is available at `http://localhost:9090` and scrapes the local API's `/metrics/` endpoint. The local compose file creates the durable `marketplace.events` topic exchange and a development queue bound to `#`.
+
+Run the API separately, then dispatch one outbox batch or run the worker continuously:
+
+```powershell
+uv run manage.py dispatch_outbox --once
+uv run manage.py dispatch_outbox --batch-size 100 --poll-seconds 5
+```
+
+The worker requires `RABBITMQ_URL`, `RABBITMQ_EXCHANGE`, `OUTBOX_MAX_ATTEMPTS`, `OUTBOX_RETRY_BASE_SECONDS`, and `OUTBOX_LEASE_SECONDS`. Keep it as a separate process from the web API so broker failures do not exhaust HTTP workers.
+
+## Logging and Metrics
+
+HTTP logs are JSON on standard output and contain `request_id`, `trace_id`, event name, method, path, status, and duration. The API echoes `X-Request-ID` on each response; clients should include it in support reports.
+
+`/metrics/` exports Prometheus request latency/count and outbox-status metrics. Production requires `Authorization: Bearer <METRICS_BEARER_TOKEN>` and network-level restrictions to the monitoring collector. Do not expose this endpoint publicly.
+
 ## Verified Integration Boundaries
 
 The current integration suite verifies these server-side behaviors:
@@ -63,9 +88,9 @@ This is an order-creation and inventory-reservation boundary only. It does not c
 
 Successful checkout now persists an `order.created` event in the same database transaction as the order, inventory reservation, and cart deactivation. The event payload is typed, is unique per order/event type, and begins in the `PENDING` state. A rejected checkout or an idempotent replay does not create another event.
 
-The outbox dispatcher now claims due events with a processing lease, increments attempts, applies bounded exponential backoff, reclaims expired leases, and records terminal failures. It invokes a publisher only after the claim transaction commits and marks an event `PUBLISHED` only after that publisher returns successfully.
+The outbox dispatcher now claims due events with a processing lease, increments attempts, applies bounded exponential backoff, reclaims expired leases, and records terminal failures. It invokes a publisher only after the claim transaction commits and marks an event `PUBLISHED` only after that publisher returns successfully. The RabbitMQ publisher uses a durable topic exchange, persistent messages, mandatory routing, and publisher confirms.
 
-No broker-specific publisher is configured yet. Deploy a dedicated worker that injects an adapter implementing `OutboxPublisher` from `apps.outbox.dispatcher`; the adapter must publish the event ID and support the target broker's acknowledgement semantics. Delivery is at-least-once: downstream consumers must deduplicate by event ID and be safe when receiving the same event again. Alert on pending-event age, processing-lease age, retry count, and failed-event count; reconcile orders that do not have their expected published event.
+Deploy `dispatch_outbox` as a dedicated worker with a RabbitMQ URL configured through environment variables. Delivery is at-least-once: downstream consumers must deduplicate by event ID and be safe when receiving the same event again. Alert on pending-event age, processing-lease age, retry count, failed-event count, queue depth, and consumer lag; reconcile orders that do not have their expected published event.
 
 Apply the included order and cart migrations before deployment:
 
@@ -75,7 +100,7 @@ uv run manage.py migrate --settings=configs.settings.prod
 
 ## Next Hardening Work
 
-1. Implement a broker-specific `OutboxPublisher`, worker process, dead-letter operations, and reconciliation dashboard.
+1. Add RabbitMQ consumer modules, dead-letter queues, replay tooling, and a reconciliation dashboard.
 2. Add shipping-address and payment-intent domains with Pydantic commands and contract tests.
 3. Implement signed webhook verification and compensation paths for payment failures, expiry, cancellation, and refunds.
-4. Add structured request IDs, JSON logging, metrics, alerts, PostgreSQL concurrency tests, and browser end-to-end checkout coverage to CI.
+4. Add alert rules, PostgreSQL concurrency tests, distributed tracing exports, and browser end-to-end checkout coverage to CI.

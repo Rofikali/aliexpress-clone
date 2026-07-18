@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from components.health import liveness, readiness
+from components.observability.views import metrics
 
 # drf Spectacular
 from drf_spectacular.views import (
@@ -33,6 +34,7 @@ from drf_spectacular.views import (
 urlpatterns = [
     path("healthz/", liveness, name="healthz"),
     path("readyz/", readiness, name="readyz"),
+    path("metrics/", metrics, name="metrics"),
     path("admin/", admin.site.urls),
     path("_nested_admin/", include("nested_admin.urls")),
     path("api/v1/", include("apps.home.urls")),
