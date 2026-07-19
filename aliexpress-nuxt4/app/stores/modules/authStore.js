@@ -185,7 +185,6 @@ export const useAuthStore = defineStore("auth", () => {
 
     async function login(payload) {
         loading.value = true
-        console.log('loading true authStore ', loading.value);
         errors.value = null
         try {
             const res = await AuthService.login(payload)
@@ -198,7 +197,6 @@ export const useAuthStore = defineStore("auth", () => {
             return res
         } finally {
             loading.value = false
-            console.log('loading falsee authStore ', loading.value);
         }
     }
 

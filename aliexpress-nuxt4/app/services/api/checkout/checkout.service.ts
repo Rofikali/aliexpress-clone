@@ -1,4 +1,5 @@
 import { useNuxtApp } from "#app"
+import { createIdempotencyKey } from "~/shared/api/identifiers"
 import { normalizeResponse, handleApiError } from "~/utils/api/base"
 
 /**
@@ -30,11 +31,13 @@ const ENDPOINT = "/checkout/"
  * - Returns created order
  * - Normalized response always
  */
-export async function createCheckout() {
+export async function createCheckout(idempotencyKey = createIdempotencyKey()) {
     const { $api } = useNuxtApp()
 
     try {
-        const res = await $api.post(ENDPOINT)
+        const res = await $api.post(ENDPOINT, undefined, {
+            headers: { "Idempotency-Key": idempotencyKey },
+        })
 
         return normalizeResponse<CheckoutResponse>(res)
     } catch (error) {

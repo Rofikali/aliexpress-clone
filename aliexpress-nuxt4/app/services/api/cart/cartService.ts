@@ -16,7 +16,7 @@ export async function fetchCart() {
     const url = ENDPOINT
     try {
         const res = await $api.get(url)
-        return normalizeResponse(res.data)
+        return normalizeResponse(res)
     } catch (err) {
         return handleApiError(err)
     }
@@ -27,7 +27,7 @@ export async function addItemToCart(payload: AddToCartPayload) {
     const url = ENDPOINT + "add_item/"
     try {
         const res = await $api.post(url, payload)
-        return normalizeResponse(res.data)
+        return normalizeResponse(res)
     } catch (err) {
         return handleApiError(err)
     }

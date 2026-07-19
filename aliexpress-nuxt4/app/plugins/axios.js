@@ -1,6 +1,7 @@
 // ~/plugins/core/axios.js
 import axios from "axios"
 import { useAuthStore } from "~/stores/modules/authStore"
+import { createRequestId } from "~/shared/api/identifiers"
 
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig()
@@ -29,6 +30,8 @@ export default defineNuxtPlugin(() => {
 
   api.interceptors.request.use((req) => {
     const auth = useAuthStore()
+    req.headers = req.headers || {}
+    req.headers["X-Request-ID"] = createRequestId()
     if (auth.tokens?.access) {
       req.headers.Authorization = `Bearer ${auth.tokens.access}`
     }
@@ -59,7 +62,11 @@ export default defineNuxtPlugin(() => {
         try {
           const res = await axios.post(
             `${config.public.baseApi}/refresh/`,
-            { refresh: auth.tokens.refresh }
+            { refresh: auth.tokens.refresh },
+            {
+              withCredentials: true,
+              headers: { "X-Request-ID": createRequestId() },
+            }
           )
 
           const newAccess = res.data.data.access
