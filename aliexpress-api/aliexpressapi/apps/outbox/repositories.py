@@ -1,4 +1,7 @@
 from django.db import transaction
+from django.utils import timezone
+
+from apps.outbox.errors import OutboxReplayError
 from apps.outbox.models import OutboxEvent
 
 
@@ -85,3 +88,31 @@ class OutboxRepository:
                 ]
             )
             return event.status
+
+    def requeue_failed(self, *, event_id, reason):
+        with transaction.atomic():
+            event = OutboxEvent.objects.select_for_update().filter(id=event_id).first()
+            if event is None:
+                raise OutboxReplayError("Outbox event does not exist")
+            if event.status != OutboxEvent.Status.FAILED:
+                raise OutboxReplayError("Only failed outbox events can be replayed")
+
+            event.status = OutboxEvent.Status.PENDING
+            event.attempts = 0
+            event.available_at = timezone.now()
+            event.processing_started_at = None
+            event.manual_replay_count += 1
+            event.last_replayed_at = timezone.now()
+            event.last_replay_reason = reason
+            event.save(
+                update_fields=[
+                    "status",
+                    "attempts",
+                    "available_at",
+                    "processing_started_at",
+                    "manual_replay_count",
+                    "last_replayed_at",
+                    "last_replay_reason",
+                ]
+            )
+            return event

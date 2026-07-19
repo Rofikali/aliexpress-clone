@@ -14,7 +14,7 @@ In production, `/metrics/` requires `Authorization: Bearer <METRICS_BEARER_TOKEN
 
 ## Outbox Delivery
 
-The outbox worker claims events with a lease, then RabbitMQ publishes persistent, publisher-confirmed AMQP messages to the `marketplace.events` topic exchange. The message ID is the outbox event ID. Delivery is at-least-once, so every consumer must deduplicate by that ID.
+The outbox worker claims events with a lease, then RabbitMQ publishes persistent, publisher-confirmed AMQP messages to the `marketplace.events` topic exchange. The message ID is the outbox event ID. Delivery is at-least-once, so every consumer must deduplicate by that ID. Consumer queues must use a dead-letter exchange and have a documented replay process.
 
 Monitor pending-event age, processing-lease age, retry count, terminal failures, RabbitMQ queue depth, unacknowledged messages, and consumer lag. Page only when there is an owner and a defined action.
 
@@ -24,6 +24,14 @@ Monitor pending-event age, processing-lease age, retry count, terminal failures,
 2. `outbox_events{status="FAILED"}` is non-zero.
 3. Pending or processing events exceed the worker lease/SLO window.
 4. RabbitMQ queue depth grows while consumer throughput is zero.
+
+## Manual Replay
+
+Only after remediating the cause, requeue one terminal outbox event with `replay_outbox --event-id <uuid> --reason "..."`. The command preserves a replay audit record and resets the event's retry budget. Never use it as a bulk retry mechanism or as a substitute for consumer idempotency.
+
+## Projection Reconciliation
+
+The order-notification consumer persists one notification per `order.created` event ID. Run `reconcile_order_notifications --limit 100` to identify published order events without that projection. Investigate queue routing, consumer logs, and the dead-letter queue before replaying. A reconciliation result is a customer-impacting signal, not a prompt to bulk-retry blindly.
 
 ## Trace Evolution
 

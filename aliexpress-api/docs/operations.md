@@ -43,7 +43,7 @@ Start the local broker and Prometheus stack from the repository root:
 docker compose -f docker-compose.observability.yml up -d
 ```
 
-RabbitMQ exposes AMQP on `localhost:5672` and its management UI on `http://localhost:15672`. Prometheus is available at `http://localhost:9090` and scrapes the local API's `/metrics/` endpoint. The local compose file creates the durable `marketplace.events` topic exchange and a development queue bound to `#`.
+RabbitMQ exposes AMQP on `localhost:5672` and its management UI on `http://localhost:15672`. Prometheus is available at `http://localhost:9090` and scrapes the local API's `/metrics/` endpoint. The local compose file creates the durable `marketplace.events` topic exchange, a development queue bound to `#`, and a dead-letter exchange/queue for rejected consumer messages.
 
 Run the API separately, then dispatch one outbox batch or run the worker continuously:
 
@@ -53,6 +53,24 @@ uv run manage.py dispatch_outbox --batch-size 100 --poll-seconds 5
 ```
 
 The worker requires `RABBITMQ_URL`, `RABBITMQ_EXCHANGE`, `OUTBOX_MAX_ATTEMPTS`, `OUTBOX_RETRY_BASE_SECONDS`, and `OUTBOX_LEASE_SECONDS`. Keep it as a separate process from the web API so broker failures do not exhaust HTTP workers.
+
+## Notification Consumer
+
+The `order.created` queue feeds an idempotent buyer-notification projection. Run it as a separate process after the outbox dispatcher:
+
+```powershell
+uv run manage.py consume_order_notifications
+```
+
+The consumer validates the event contract, writes one notification per event ID, acknowledges only after the database transaction commits, and sends malformed or permanently invalid messages to the dead-letter queue. Transient database failures are requeued. Duplicate delivery is expected and safe.
+
+Check for published order events that have not produced a notification projection:
+
+```powershell
+uv run manage.py reconcile_order_notifications --limit 100
+```
+
+Treat reconciliation output as an incident signal: inspect the event, queue depth, consumer logs, and dead-letter queue before replaying the consumer message.
 
 ## Logging and Metrics
 
@@ -92,6 +110,16 @@ The outbox dispatcher now claims due events with a processing lease, increments 
 
 Deploy `dispatch_outbox` as a dedicated worker with a RabbitMQ URL configured through environment variables. Delivery is at-least-once: downstream consumers must deduplicate by event ID and be safe when receiving the same event again. Alert on pending-event age, processing-lease age, retry count, failed-event count, queue depth, and consumer lag; reconcile orders that do not have their expected published event.
 
+## Failed Event Recovery
+
+Failed outbox records are visible in Django admin and remain immutable there. Do not bulk-retry them. First identify and remediate the broker, routing, consumer, or payload failure; then requeue one event with an auditable reason:
+
+```powershell
+uv run manage.py replay_outbox --event-id <event-uuid> --reason "RabbitMQ routing restored"
+```
+
+The command only accepts events in `FAILED` state, resets its delivery attempt budget, and records the manual replay count, timestamp, and reason. Monitor its subsequent worker log and outbox metric before requeueing another event. RabbitMQ consumer failures belong in the dead-letter queue; inspect and remediate those messages before replaying them through a consumer-specific tool.
+
 Apply the included order and cart migrations before deployment:
 
 ```powershell
@@ -100,7 +128,7 @@ uv run manage.py migrate --settings=configs.settings.prod
 
 ## Next Hardening Work
 
-1. Add RabbitMQ consumer modules, dead-letter queues, replay tooling, and a reconciliation dashboard.
-2. Add shipping-address and payment-intent domains with Pydantic commands and contract tests.
-3. Implement signed webhook verification and compensation paths for payment failures, expiry, cancellation, and refunds.
-4. Add alert rules, PostgreSQL concurrency tests, distributed tracing exports, and browser end-to-end checkout coverage to CI.
+1. Add payment-intent and shipping-address domains with Pydantic commands and contract tests.
+2. Implement signed webhook verification and compensation paths for payment failures, expiry, cancellation, and refunds.
+3. Add alert rules, PostgreSQL concurrency tests, distributed tracing exports, and browser end-to-end checkout coverage to CI.
+4. Add additional domain consumers only when they own a clear projection or side effect.
