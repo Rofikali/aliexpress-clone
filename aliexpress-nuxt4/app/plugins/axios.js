@@ -1,6 +1,5 @@
 // ~/plugins/core/axios.js
 import axios from "axios"
-import { useAuthStore } from "~/stores/modules/authStore"
 import { createRequestId } from "~/shared/api/identifiers"
 
 export default defineNuxtPlugin(() => {
@@ -19,74 +18,13 @@ export default defineNuxtPlugin(() => {
   })
 
 
-  // === Interceptors ===
-  let isRefreshing = false
-  let failedQueue = []
-
-  const processQueue = (error, token = null) => {
-    failedQueue.forEach((p) => (error ? p.reject(error) : p.resolve(token)))
-    failedQueue = []
-  }
-
   api.interceptors.request.use((req) => {
-    const auth = useAuthStore()
     req.headers = req.headers || {}
     req.headers["X-Request-ID"] = createRequestId()
-    if (auth.tokens?.access) {
-      req.headers.Authorization = `Bearer ${auth.tokens.access}`
-    }
     return req
   })
 
-  api.interceptors.response.use(
-    (res) => res.data, // unwrap response
-    async (error) => {
-      const auth = useAuthStore()
-      const originalRequest = error.config
-
-      if (error.response?.status === 401 && !originalRequest._retry) {
-        if (isRefreshing) {
-          return new Promise((resolve, reject) => {
-            failedQueue.push({ resolve, reject })
-          })
-            .then((token) => {
-              originalRequest.headers.Authorization = `Bearer ${token}`
-              return api(originalRequest)
-            })
-            .catch((err) => Promise.reject(err))
-        }
-
-        originalRequest._retry = true
-        isRefreshing = true
-
-        try {
-          const res = await axios.post(
-            `${config.public.baseApi}/refresh/`,
-            { refresh: auth.tokens.refresh },
-            {
-              withCredentials: true,
-              headers: { "X-Request-ID": createRequestId() },
-            }
-          )
-
-          const newAccess = res.data.data.access
-          auth.setAccessToken(newAccess)
-
-          processQueue(null, newAccess)
-          originalRequest.headers.Authorization = `Bearer ${newAccess}`
-          return api(originalRequest)
-        } catch (err) {
-          processQueue(err, null)
-          auth.logout()
-          return Promise.reject(err)
-        } finally {
-          isRefreshing = false
-        }
-      }
-
-      return Promise.reject(error)
-    }
-  )
+  api.interceptors.response.use((res) => res.data)
 
   // make available globally
   return {

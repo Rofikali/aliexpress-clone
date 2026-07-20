@@ -162,20 +162,21 @@ import { AuthService } from "~/services/api/auth"
 
 export const useAuthStore = defineStore("auth", () => {
     const user = ref(null)
-    const tokens = ref(null)
     const loading = ref(false)
-    const errors = ref(null)
+    const error = ref(null)
+    const isHydrated = ref(false)
+
+    const isAuthenticated = computed(() => Boolean(user.value))
 
     async function register(payload) {
         loading.value = true
-        errors.value = null
+        error.value = null
         try {
             const res = await AuthService.register(payload)
             if (res.success) {
-                tokens.value = res.data.tokens
-                user.value = res.data.profile
+                user.value = res.data?.profile || null
             } else {
-                errors.value = res.errors
+                error.value = res.message
             }
             return res
         } finally {
@@ -185,31 +186,53 @@ export const useAuthStore = defineStore("auth", () => {
 
     async function login(payload) {
         loading.value = true
-        errors.value = null
+        error.value = null
         try {
             const res = await AuthService.login(payload)
             if (res.success) {
-                tokens.value = res.data.tokens
-                user.value = res.data.profile
+                user.value = res.data?.profile || null
             } else {
-                errors.value = res.errors
+                error.value = res.message
             }
             return res
         } finally {
             loading.value = false
+            isHydrated.value = true
         }
     }
 
-    function logout() {
+    async function checkAuth() {
+        loading.value = true
+        error.value = null
+        try {
+            const res = await AuthService.profile()
+            user.value = res.success ? res.data : null
+            return user.value
+        } finally {
+            loading.value = false
+            isHydrated.value = true
+        }
+    }
+
+    async function logout() {
+        await AuthService.logout()
         user.value = null
-        tokens.value = null
     }
 
-    function setAccessToken(token) {
-        if (tokens.value) {
-            tokens.value.access = token
-        }
+    async function loginUser(email, password) {
+        return login({ email, password })
     }
 
-    return { user, tokens, loading, errors, register, login, logout, setAccessToken }
+    return {
+        user,
+        loading,
+        error,
+        isHydrated,
+        isAuthenticated,
+        register,
+        login,
+        loginUser,
+        checkAuth,
+        logout,
+    }
 })

@@ -71,8 +71,7 @@ import { normalizeResponse, handleApiError } from "~/utils/api/base"
 export const AuthService = {
     async register(payload) {
         try {
-            const { $api } = useNuxtApp()
-            const res = await $api.post("/register/", payload)
+            const res = await $fetch("/api/auth/register", { method: "POST", body: payload })
             return normalizeResponse(res)
         } catch (err) {
             return handleApiError(err)
@@ -81,8 +80,7 @@ export const AuthService = {
 
     async login(payload) {
         try {
-            const { $api } = useNuxtApp()
-            const res = await $api.post("/login/", payload)
+            const res = await $fetch("/api/auth/login", { method: "POST", body: payload })
             return normalizeResponse(res)
         } catch (err) {
             return handleApiError(err)
@@ -91,8 +89,16 @@ export const AuthService = {
 
     async profile() {
         try {
-            const { $api } = useNuxtApp()
-            const res = await $api.get("/profile/")
+            const res = await $fetch("/api/auth/session")
+            return normalizeResponse(res)
+        } catch (err) {
+            return handleApiError(err)
+        }
+    },
+
+    async logout() {
+        try {
+            const res = await $fetch("/api/auth/logout", { method: "POST" })
             return normalizeResponse(res)
         } catch (err) {
             return handleApiError(err)
