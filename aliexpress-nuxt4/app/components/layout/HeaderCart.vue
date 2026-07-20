@@ -8,10 +8,16 @@
 </template>
 
 <script setup lang="ts">
-import { useCartStore } from "~/stores/modules/cart/useCartStore"
+import { useCartStore } from "~/stores/modules/cart/cartStore"
 
-const cart = useCartStore()
-const { totalItems } = storeToRefs(cart)
+const cartStore = useCartStore()
+const { cart } = storeToRefs(cartStore)
+const totalItems = computed(() => {
+  const items = cart.value?.items
+  if (!Array.isArray(items)) return 0
+
+  return items.reduce((total, item) => total + (Number(item.quantity) || 0), 0)
+})
 </script>
 
 <style scoped>

@@ -1,4 +1,4 @@
-import { useCartStore } from "~/stores/modules/cart/useCartStore"
+import { useCartStore } from "~/stores/modules/cart/cartStore"
 import { useRouter } from "vue-router"
 
 export function useBuyNow() {

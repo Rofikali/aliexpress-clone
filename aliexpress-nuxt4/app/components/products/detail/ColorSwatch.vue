@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { resolveColor, hexToApproxName } from "~/utils/colors"
+import { resolveColor, hexToApproxName } from "~/utils/colors/colors"
 
-const props = defineProps({
-  label: String,
-  value: String,
-  selected: Boolean,
-  disabled: Boolean
+const props = withDefaults(defineProps<{
+  label?: string
+  value?: string
+  selected?: boolean
+  disabled?: boolean
+}>(), {
+  value: "",
+  selected: false,
+  disabled: false,
 })
 
 const emit = defineEmits(["select"])

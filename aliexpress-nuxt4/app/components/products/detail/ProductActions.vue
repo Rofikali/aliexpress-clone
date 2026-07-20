@@ -43,10 +43,11 @@ async function handleAddToCart() {
 async function handleBuyNow() {
   if (!props.selectedVariant) return
 
-  await buyNow({
+  await addToCart({
     product_variant_id: props.selectedVariant.id,
     quantity: 1
   })
+  await buyNow()
 }
 </script>
 

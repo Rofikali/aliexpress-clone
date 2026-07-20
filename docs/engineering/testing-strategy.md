@@ -58,6 +58,7 @@ uv run pytest
 
 # Frontend: run from aliexpress-nuxt4
 pnpm install
+pnpm typecheck
 pnpm test:run
 pnpm build
 ```

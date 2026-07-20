@@ -42,5 +42,6 @@ jobs:
           cache: pnpm
           cache-dependency-path: aliexpress-nuxt4/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
       - run: pnpm test:run
       - run: pnpm build

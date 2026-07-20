@@ -12,7 +12,7 @@ export const useAddressStore = defineStore("address", () => {
         loading.value = true
         try {
             const res = await fetchAddresses()
-            if (!res.success) throw new Error(res.message)
+            if (!res.success) throw new Error(res.message || "Unable to load addresses")
             addresses.value = res.data || []
         } catch (e: any) {
             error.value = e.message
@@ -23,7 +23,7 @@ export const useAddressStore = defineStore("address", () => {
 
     async function addAddress(payload: any) {
         const res = await createAddress(payload)
-        if (!res.success) throw new Error(res.message)
+        if (!res.success) throw new Error(res.message || "Unable to add address")
         addresses.value.push(res.data)
         selectedAddress.value = res.data
     }

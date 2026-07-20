@@ -6,8 +6,9 @@ The Nuxt application is a domain-oriented client of the DRF API. It owns present
 
 - [Frontend module and data rules](module-design.md)
 - [API contract and reliability rules](api-integration.md)
+- [Frontend runtime, release, and security operations](operations.md)
 - [Existing frontend notes and their status](source-notes.md)
 
 ## Current Integration
 
-The configured API base is `/api/v1` via Nuxt runtime configuration. Replace the hard-coded development value with environment-driven runtime configuration before production deployment.
+`NUXT_PUBLIC_BASE_API` configures the API base through Nuxt runtime configuration. See `.env.example` for the local value and `operations.md` for deployment rules.
