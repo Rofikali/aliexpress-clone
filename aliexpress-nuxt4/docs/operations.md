@@ -9,10 +9,11 @@ The Nuxt storefront is the presentation and client-orchestration boundary for th
 Copy `.env.example` to `.env` for local development.
 
 ```dotenv
-NUXT_PUBLIC_BASE_API=http://localhost:8000/api/v1
+NUXT_API_INTERNAL_BASE=http://localhost:8000/api/v1
+NUXT_SESSION_COOKIE_SECURE=false
 ```
 
-`NUXT_PUBLIC_BASE_API` is intentionally public because browsers use it. Never put credentials, private keys, broker URLs, or Django secrets in a `NUXT_PUBLIC_*` variable. The configured API must allow the storefront origin through its production CORS configuration.
+`NUXT_API_INTERNAL_BASE` is server-only. Nuxt proxies browser API requests through `/api/backend`, so the DRF origin, bearer tokens, and refresh token are never exposed to browser JavaScript. Set `NUXT_SESSION_COOKIE_SECURE=true` in production HTTPS deployments. Never put credentials, private keys, broker URLs, or Django secrets in a `NUXT_PUBLIC_*` variable.
 
 ## Run and Verify
 
@@ -31,20 +32,22 @@ The production build emits a Node server in `.output`. Deploy that output with t
 
 ## API Reliability Contract
 
-- The Axios plugin adds an `X-Request-ID` to every API request. Preserve this value in frontend error reports and use it to correlate the request with DRF structured logs.
+- The Axios plugin adds an `X-Request-ID` to every API request. The Nuxt proxy forwards it to DRF; preserve it in frontend error reports to correlate with DRF structured logs.
 - Checkout creates and sends a UUID `Idempotency-Key`. A retry of the same business action must reuse its key; a newly initiated checkout gets a new key.
 - Services normalize API envelopes before stores or components consume them. New services must use `normalizeResponse` and `handleApiError` from `app/utils/api/base.ts` rather than parsing Axios errors ad hoc.
 - Automatic retries are appropriate only for safe, idempotent reads. Do not retry checkout, payment, or state-changing writes without an explicit idempotency design.
 
 ## Security Boundary
 
-Security headers are set for Nuxt routes in `nuxt.config.ts`. The browser must still enforce HTTPS, a restrictive API CORS allow-list, and a production Content Security Policy at the ingress or application layer.
+Security headers are set for Nuxt routes in `nuxt.config.ts`. The browser must still enforce HTTPS and a production Content Security Policy at the ingress or application layer.
 
-The current authentication client calls the API directly. Before handling real customer sessions, introduce a Nuxt backend-for-frontend session boundary that stores refresh credentials in `Secure`, `HttpOnly`, `SameSite` cookies and proxies authenticated API requests. Do not persist long-lived bearer or refresh tokens in browser storage.
+The Nuxt backend-for-frontend stores access and refresh credentials in `HttpOnly`, `SameSite=Lax` cookies and injects the access token only on server-to-DRF requests. It refreshes an expired access token once, clears an invalid session, and never returns token fields from login, registration, or session responses. Do not persist long-lived bearer or refresh tokens in browser storage.
+
+The BFF endpoints are `/api/auth/login`, `/api/auth/register`, `/api/auth/session`, `/api/auth/logout`, and `/api/backend/**`. Keep Nuxt and the browser on the same public origin. The private DRF origin should not accept arbitrary public browser traffic in production.
 
 ## Release Checklist
 
-1. Set the production `NUXT_PUBLIC_BASE_API` to the versioned API origin.
+1. Set `NUXT_API_INTERNAL_BASE` to the private versioned DRF API origin and `NUXT_SESSION_COOKIE_SECURE=true`.
 2. Run `pnpm typecheck`, `pnpm test:run`, and `pnpm build` against the locked dependencies.
 3. Validate sign-in, cart, checkout, and failed-request correlation using an `X-Request-ID`.
 4. Confirm the API CORS allow-list, TLS termination, CSP, error reporting, and alert routing.
@@ -55,4 +58,4 @@ The current authentication client calls the API directly. Before handling real c
 - Browser end-to-end tests for sign-in, cart, and checkout are not implemented yet.
 - OpenAPI-generated TypeScript clients and contract-drift checks are not implemented yet.
 - Client error telemetry and real-user performance monitoring are not connected yet.
-- The direct-browser authentication model must be replaced by the BFF/cookie model before a public production launch.
+- CSRF controls and origin enforcement should be added before accepting cross-site browser integrations.

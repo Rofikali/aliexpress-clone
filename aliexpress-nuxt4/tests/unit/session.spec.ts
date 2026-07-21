@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { extractTokens, removeTokens } from '../../server/utils/session'
+import { extractTokens, removeTokens } from '../../server/utils/session-payload'
 
 describe('BFF session payload handling', () => {
   it('extracts a valid token pair from the upstream envelope', () => {

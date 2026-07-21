@@ -7,4 +7,9 @@
 //     init()
 // })
 
-export default defineNuxtPlugin(() => {})
+import { useAuthStore } from '~/stores/modules/authStore'
+
+export default defineNuxtPlugin(async () => {
+    const auth = useAuthStore()
+    await auth.checkAuth()
+})
