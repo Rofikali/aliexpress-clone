@@ -55,7 +55,7 @@ The BFF endpoints are `/api/auth/login`, `/api/auth/register`, `/api/auth/sessio
 
 ## Current Gaps
 
-- Browser end-to-end tests for sign-in, cart, and checkout are not implemented yet.
+- The sign-in BFF journey is covered by Playwright; cart, checkout, and refresh browser journeys still need coverage.
 - OpenAPI-generated TypeScript clients and contract-drift checks are not implemented yet.
 - Client error telemetry and real-user performance monitoring are not connected yet.
 - CSRF controls and origin enforcement should be added before accepting cross-site browser integrations.

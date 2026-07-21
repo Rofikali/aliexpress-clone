@@ -60,6 +60,8 @@ uv run pytest
 pnpm install
 pnpm typecheck
 pnpm test:run
+pnpm exec playwright install chromium
+pnpm test:e2e
 pnpm build
 ```
 
@@ -69,6 +71,10 @@ The GitHub Actions workflow in `.github/workflows/quality.yml` runs these backen
 
 `aliexpress-api/aliexpressapi/tests/integration/test_auth_and_permissions.py` covers registration and verification-gated login, public-versus-protected route access, authenticated cart add/increment validation, and transactional checkout. Cart and checkout commands use Pydantic to reject malformed UUIDs, invalid quantities, unexpected fields, and missing idempotency keys before they reach application services. Checkout coverage verifies current-price snapshots, inventory reservation, retry replay, stock conflicts, buyer-scoped idempotency, and atomic `order.created` outbox persistence. `tests/integration/test_outbox_dispatcher.py` verifies successful publish state changes, bounded retries, and expired-lease recovery. Expand this suite alongside each endpoint; it is a starting safety net, not complete marketplace coverage.
 
+## Current Frontend Browser Coverage
+
+`aliexpress-nuxt4/tests/e2e/auth-login.spec.ts` verifies the browser login journey at the Nuxt BFF boundary. It verifies successful BFF authentication does not render token values and that rejected credentials surface a safe user-facing error. The browser test mocks only the same-origin BFF endpoints; DRF authentication behavior remains covered by backend integration tests.
+
 ## Next Tooling Additions
 
-Add browser tests for the critical journey suite, OpenAPI-to-TypeScript contract validation, coverage reporting, dependency/security scanning, and performance tests as the associated features mature.
+Add browser tests for cart, checkout, session refresh, and order history; OpenAPI-to-TypeScript contract validation; coverage reporting; dependency/security scanning; and performance tests as the associated features mature.
